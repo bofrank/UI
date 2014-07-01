@@ -1,0 +1,128 @@
+<!doctype html>
+<html ng-app="countryApp">
+  <head>
+    <meta charset="utf-8">
+    <title>Angular.js Example</title>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.1/angular.min.js"></script>
+    <script>
+      var countryApp = angular.module('countryApp', []);
+      countryApp.controller('CountryCtrl', function ($scope){
+        
+        $scope.numbers = [
+          {
+              "number" : "20600000001",
+              "topics" : [
+              {
+                  "topic" : "housing",
+                  "status" : "active"
+              },
+              {
+                  "topic" : "furniture",
+                  "status" : "available"
+              },
+              {
+                  "topic" : "Game of Thrones",
+                  "status" : "available"
+              }
+              ],
+              "mood" : "\"I'm looking for a gaming desk\""
+          },
+          {
+                  "number" : "20600000002",
+                  "topics" : [
+                  {
+                      "topic" : "roomate",
+                      "status" : "available"
+                  },
+                  {
+                      "topic" : "Mariners",
+                      "status" : "waiting"
+                  },
+                  {
+                      "topic" : "Guild Wars",
+                      "status" : "available"
+                  }
+                  ],
+                  "mood" : "\"Go Mariners!\""
+          },
+          {
+                  "number" : "20600000003",
+                  "topics" : [
+                  {
+                      "topic" : "Dark Souls 2",
+                      "status" : "active"
+                  }
+                  ],
+                  "mood" : "\"Dark Souls 2 improved!\""
+          },
+          {
+                  "number" : "20600000004",
+                  "topics" : [
+                  {
+                      "topic" : "MBA",
+                      "status" : "available"
+                  },
+                  {
+                      "topic" : "informations",
+                      "status" : "available"
+                  },
+                  {
+                      "topic" : "Business Management",
+                      "status" : "available"
+                  }
+                  ],
+                  "mood" : "\"Looking for Summer intership\""  
+          },
+          {
+                  "number" : "20600000005",
+                  "topics" : [
+                  {
+                      "topic" : "COC",
+                      "status" : "active"
+                  },
+                  {
+                      "topic" : "running",
+                      "status" : "waiting"
+                  }
+                  ],
+                  "mood" : "\":)\""
+          },
+          {
+                  "number" : "20600000006",
+                  "topics" : [
+                  {
+                      "topic" : "UCLA",
+                      "status" : "active"
+                  },
+                  {
+                      "topic" : "X-Men",
+                      "status" : "available"
+                  }
+                  ],
+                  "mood" : "\"I'm looking for a gaming desk\""
+          }
+
+      ];
+        
+      });
+    </script>
+  </head>
+  <body ng-controller="CountryCtrl">
+    <ul>
+      <li ng-repeat="whatever in numbers track by $index">
+
+        {{whatever.number}}
+
+        <ul data-ng-show="whatever">
+            <li ng-repeat="topics in whatever.topics track by $index">
+                {{topics.topic}} - {{topics.status}}
+            </li>
+        </ul>
+
+        {{whatever.mood}}
+        <div>-----------------------------------</div>
+ 
+      </li>
+    </ul>
+  </body>
+</html>
