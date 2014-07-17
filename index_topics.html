@@ -1,0 +1,287 @@
+<!doctype html>
+<html ng-app="countryApp">
+  <head>
+    <meta charset="utf-8">
+    <title>TopicB</title>
+    <link href="css/global.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200' rel='stylesheet' type='text/css'>
+    <!--<link href="//ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.css" rel="stylesheet" type='text/css'/>-->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.1/angular.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/touchSwipe.js"></script>
+    <script>
+
+      console.log("hello");
+    
+      var countryApp = angular.module('countryApp', []);
+      countryApp.controller('CountryCtrl', function ($scope){
+        
+$scope.test = function($myEvent){
+ //console.log($myEvent);  
+ alert($myEvent);   
+}
+
+
+        $scope.numbers = [
+    {
+        "number" : "20600000001",
+        "topics" : [
+        {
+            "topic" : "housing",
+            "status" : "active"
+        },
+        {
+            "topic" : "furniture",
+            "status" : "available"
+        },
+        {
+            "topic" : "Game of Thrones",
+            "status" : "available"
+        }
+        ],
+        "mood" : "\"I'm looking for a gaming desk\""
+    },
+    {
+            "number" : "20600000002",
+            "topics" : [
+            {
+                "topic" : "roomate",
+                "status" : "available"
+            },
+            {
+                "topic" : "Mariners",
+                "status" : "waiting"
+            },
+            {
+                "topic" : "Guild Wars",
+                "status" : "available"
+            }
+            ],
+            "mood" : "\"Go Mariners!\""
+    },
+    {
+            "number" : "20600000003",
+            "topics" : [
+            {
+                "topic" : "Dark Souls 2",
+                "status" : "active"
+            }
+            ],
+            "mood" : "\"Dark Souls 2 improved!\""
+    },
+    {
+            "number" : "20600000004",
+            "topics" : [
+            {
+                "topic" : "MBA",
+                "status" : "available"
+            },
+            {
+                "topic" : "informations",
+                "status" : "available"
+            },
+            {
+                "topic" : "Business Management",
+                "status" : "available"
+            }
+            ],
+            "mood" : "\"Looking for Summer intership\""  
+    },
+    {
+            "number" : "20600000005",
+            "topics" : [
+            {
+                "topic" : "COC",
+                "status" : "active"
+            },
+            {
+                "topic" : "running",
+                "status" : "waiting"
+            }
+            ],
+            "mood" : "\":)\""
+    },
+    {
+            "number" : "20600000006",
+            "topics" : [
+            {
+                "topic" : "UCLA",
+                "status" : "active"
+            },
+            {
+                "topic" : "X-Men",
+                "status" : "available"
+            }
+            ],
+            "mood" : "\"I'm looking for a gaming desk\""
+    }
+
+];
+        
+      });
+    </script>
+    <script>
+$(function(){
+  // Bind the swipeHandler callback function to the swipe event on div.box
+  $( "div.box" ).on( "swipe", swipeHandler );
+ 
+  // Callback function references the event target and adds the 'swipe' class to it
+  function swipeHandler( event ){
+    //$( event.target ).addClass( "swipe" );
+    alert("swiping");
+    $.event.special.swipe.start
+  }
+});
+</script>
+<script id='code_1'>
+        var IMG_WIDTH = 480;
+        var currentImg = 0;
+        var maxImages = 3;
+        var speed = 500;
+
+        var imgs;
+
+        var swipeOptions = {
+            triggerOnTouchEnd: true,
+            swipeStatus: swipeStatus,
+            allowPageScroll: "vertical",
+            threshold: 75
+        };
+
+        $(function () {
+            imgs = $("#imgs");
+            imgs.swipe(swipeOptions);
+        });
+
+
+        /**
+         * Catch each phase of the swipe.
+         * move : we drag the div
+         * cancel : we animate back to where we were
+         * end : we animate to the next image
+         */
+        function swipeStatus(event, phase, direction, distance) {
+            //If we are moving before swipe, and we are going L or R in X mode, or U or D in Y mode then drag.
+            if (phase == "move" && (direction == "left" || direction == "right")) {
+                var duration = 0;
+
+                if (direction == "left") {
+                    scrollImages((IMG_WIDTH * currentImg) + distance, duration);
+                } else if (direction == "right") {
+                    scrollImages((IMG_WIDTH * currentImg) - distance, duration);
+                }
+
+            } else if (phase == "cancel") {
+                scrollImages(IMG_WIDTH * currentImg, speed);
+            } else if (phase == "end") {
+                if (direction == "right") {
+                    previousImage();
+                } else if (direction == "left") {
+                    nextImage();
+                }
+            }
+        }
+
+        function previousImage() {
+            currentImg = Math.max(currentImg - 1, 0);
+            scrollImages(IMG_WIDTH * currentImg, speed);
+        }
+
+        function nextImage() {
+            currentImg = Math.min(currentImg + 1, maxImages - 1);
+            scrollImages(IMG_WIDTH * currentImg, speed);
+        }
+
+        /**
+         * Manually update the position of the imgs on drag
+         */
+        function scrollImages(distance, duration) {
+            imgs.css("transition-duration", (duration / 1000).toFixed(1) + "s");
+
+            //inverse the number we set in the css
+            var value = (distance < 0 ? "" : "-") + Math.abs(distance).toString();
+            imgs.css("transform", "translate(" + value + "px,0)");
+        }
+    </script>
+<style>
+        #content {
+            height: 800px;
+            width: 500px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid black;
+        }
+
+        #imgs {
+            float: left;
+            display: inline;
+            padding: 0;
+            margin: 0;
+            width: 1510px;
+
+            transition-property: transform;
+            transition-duration: 0.5s;
+            transition-timing-function: ease-out;
+
+            /*apply a transform to kick in the hardware acceleration.  Without this, the first
+            time we add the transform you get odd rendering of the divs (half missing) */
+            transform: translate(0, 0);
+        }
+
+        #imgs img {
+            padding: 0;
+            margin: 0;
+            width: 480px;
+            height: 800px;
+
+            /*apply a transform to kick in the hardware acceleration.  Without this, the first
+            time we add the transform you get odd rendering of the divs (half missing) */
+            transform: translate(0, 0);
+        }
+    </style>
+  </head>
+  <body ng-controller="CountryCtrl" ng-init="myVar='test'">
+
+    <div class="container">
+
+
+
+<div style="clear:both;"></div>
+
+      <ul id="content">
+        <li id="imgs" ng-repeat="whatever in numbers track by $index" class="row">
+
+          <div class="number">
+            {{whatever.number}}
+          </div>
+          <div class="mood">
+            {{whatever.mood}}
+          </div>
+          <div style="clear:both;"></div>
+
+          <ul data-ng-show="whatever">
+              <li ng-repeat="topics in whatever.topics track by $index" class="column" ng-class="{'waiting':'{{topics.status}}' == 'waiting', 'active':'{{topics.status}}' == 'active', 'available':'{{topics.status}}' == 'available'}">
+                  {{topics.topic}}
+              </li>
+          </ul>
+   
+        </li>
+      </ul>
+
+
+
+
+
+    </div>
+
+
+
+
+  </body>
+
+
+
+
+</html>

@@ -1,0 +1,11 @@
+[{"number":"20600000001","topic":"housing","status":"active","topic":"furniture","status":"available","topic":"GameofThrones","status":"available","mood":"\"I'mlookingforagamingdesks\""},
+
+{"number":"20600000002","topic":"roomate","status":"available","topic":"Mariners","status":"waiting","topic":"GuildWars","status":"available","mood":"\"GoMariners!\""},
+
+{"number":"20600000003","topic":"DarkSouls2","status":"active","mood":"\"DarkSouls2improved!\""},
+
+{"number":"20600000004","topic":"MBA","status":"available","topic":"informations","status":"available","topic":"BusinessManagement","status":"available","mood":"\"LookingforSummerintership\""},
+
+{"number":"20600000005","topic":"COC","status":"active","topic":"running","status":"waiting","mood":"\":)\""},
+
+{"number":"20600000006","topic":"UCLA","status":"active","topic":"X-Men","status":"available","mood":"\"I'mlookingforagamingdesk\""}];

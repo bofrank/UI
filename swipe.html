@@ -1,0 +1,92 @@
+<html>
+<head>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="css/idangerous.swiper.css">
+  <script defer src="js/idangerous.swiper.js"></script>
+  <script type="text/javascript">
+/*======
+Use document ready or window load events
+For example:
+With jQuery: $(function() { ...code here... })
+Or window.onload = function() { ...code here ...}
+Or document.addEventListener('DOMContentLoaded', function(){ ...code here... }, false)
+=======*/
+
+window.onload = function() {
+  var mySwiper = new Swiper('.swiper-container',{
+    //Your options here:
+    mode:'horizontal',
+    loop: true
+    //etc..
+  });  
+}
+
+/*
+Or with jQuery/Zepto
+*/
+$(function(){
+  var mySwiper = $('.swiper-container').swiper({
+    //Your options here:
+    mode:'horizontal',
+    loop: true
+    //etc..
+  });
+})
+
+$( document ).ready(function() {
+var mySwiper = new Swiper('.swiper-container', { 
+  speed:750, 
+  mode:'vertical'
+})
+});
+</script>
+  </head>
+
+<body>
+<div class="swiper-container" style="border:1px solid #000000;">
+  <div class="swiper-wrapper" style="border:1px solid #000000;">
+      <!--First Slide-->
+      <div class="swiper-slide" style="border:1px solid #000000;"> 
+        <!-- Any HTML content of the first slide goes here -->
+        blah 1
+      </div>
+      
+      <!--Second Slide-->
+      <div class="swiper-slide" style="border:1px solid #000000;">
+        <!-- Any HTML content of the second slide goes here -->
+        blah 2
+      </div>
+      
+      <!--Third Slide-->
+      <div class="swiper-slide" style="border:1px solid #000000;"> 
+        <!-- Any HTML content of the third slide goes here -->
+        blah 3
+      </div>
+      <!--Etc..-->
+  </div>
+</div>
+
+<div class="swiper-container" style="border:1px solid #000000;">
+  <div class="swiper-wrapper" style="border:1px solid #000000;">
+      <!--First Slide-->
+      <div class="swiper-slide" style="border:1px solid #000000;"> 
+        <!-- Any HTML content of the first slide goes here -->
+        blah 1
+      </div>
+      
+      <!--Second Slide-->
+      <div class="swiper-slide" style="border:1px solid #000000;">
+        <!-- Any HTML content of the second slide goes here -->
+        blah 2
+      </div>
+      
+      <!--Third Slide-->
+      <div class="swiper-slide" style="border:1px solid #000000;"> 
+        <!-- Any HTML content of the third slide goes here -->
+        blah 3
+      </div>
+      <!--Etc..-->
+  </div>
+</div>
+</body>
+</html>
