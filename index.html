@@ -44,12 +44,16 @@
 
         console.log("hello");
     
-        var countryApp = angular.module('countryApp', []);
+        var countryApp = angular.module('countryApp', [], function($locationProvider) {
+      $locationProvider.html5Mode(true);
+    });
 
 
 
 
-        countryApp.controller('CountryCtrl', function ($scope){
+
+
+        countryApp.controller('CountryCtrl', function ($scope,$location){
 
         $scope.numbers = [
     {
@@ -240,27 +244,60 @@ $scope.scrollRight=function(topicRow){
     $scope.numbers[topicRow].topics.unshift(temp);
 
 }
+
+
+    //$scope.target = $location.search()['topic'];
+
+//$scope.routeParams = {topic:'look'}
+
+//console.log("$scope.routeParams"+$scope.routeParams.topic);
+
+
+//$scope.myTopic = 'look';
+
+//$scope.both = sharedProperties.getProperty() + $scope.myTopic;
+console.log("$location.search()['topic'];= "+$location.search()['topic']);
+console.log("$scope.myTopic= "+$scope.myTopic);
+$scope.myTopic = $location.search()['topic'];
+
+});
+
+
+countryApp.controller('QueryCntl', function ($scope,$location,sharedProperties){
+    console.log("$location.search()['topic'];= "+$location.search()['topic']);
+    $scope.target = $location.search()['topic'];
+    $scope.myTopic = $scope.target;
+
+    $scope.both = sharedProperties.setProperty() + $scope.myTopic;
+
+  
+
+});
+
+countryApp.service('sharedProperties', function () {
+        var property = 'First';
+
+        return {
+            getProperty: function () {
+                return property;
+            },
+            setProperty: function(value) {
+                property = value;
+            }
+        };
+    });
+
+function Ctrl2($scope, sharedProperties) {
+    $scope.prop2 = "Second";
+    $scope.both = sharedProperties.getProperty() + $scope.prop2;
+}
+
 /*
-$scope.filter("myFilter", function(){
-    return function(input, searchText){
-         var returnArray = [];
-         var searchTextSplit = searchText.toLowerCase().split(' ');
-        for(var x = 0; x < input.length; x++){
-             var count = 0;
-            for(var y = 0; y < searchTextSplit.length; y++){
-                if(input[x].toLowerCase().indexOf(searchTextSplit[y]) !== -1){
-                    count++;
-                }
-            }
-            if(count == searchTextSplit.length){
-                 returnArray.push(input[x]);   
-            }
-        }
-        return returnArray;
-    }
-});
-*/
-});
+    function QueryCntl($scope, $location) {
+      $scope.target = $location.search()['topic'];
+      //$scope.myTopic = $location.search()['topic'];
+    }*/
+
 </script>
 <script>
     $(".row_topic").each(function(){
@@ -381,6 +418,7 @@ $scope.filter("myFilter", function(){
 
   <body ng-controller="CountryCtrl" ng-init="myVar='test'">
 
+
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
@@ -466,7 +504,7 @@ $scope.filter("myFilter", function(){
 <div id="contentTopics" class="topics" style="height:69px;overflow:hidden;">
 
     <ul id="content">
-        <li id="imgs" ng-repeat="whatever in numbers track by $index" class="row">
+        <li id="imgs" ng-repeat="whatever in numbers|filter:myTopic track by $index" class="row">
 
             <div class="number">
                 {{whatever.number}} <span class="mood">{{whatever.mood}}</span>
@@ -585,6 +623,9 @@ $scope.filter("myFilter", function(){
                 <h3>
                     This section will show how to put TopicB on a site.
                 </h3>
+                <div ng-controller="QueryCntl">
+    Target: {{target}}<br/>
+</div>
             
             </div>
 
