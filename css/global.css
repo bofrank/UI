@@ -12,6 +12,20 @@ ul{
 	height:400px;
 	margin:0px auto;
 }
+.topicContainer{
+    text-align:center;cursor:pointer;
+    
+}
+.contentTopicsClose{
+    height:69px;
+    overflow:hidden;
+    -webkit-transition: width .5s, height .5s, -webkit-transform .5s;
+    transition: width .5s, height .5s, transform .5s;
+}
+.contentTopicsOpen{
+    height:400px;
+    overflow:hidden;
+}
 
 .row{
 	width:100%;
@@ -35,10 +49,13 @@ ul{
 .column{
 	display:inline;
 	padding:0px 10px;
-	font-weight:200;
+	font-weight:400;
 	border:1px solid #cccccc;
 	margin:1px;
     height:25px;
+}
+.column a:hover{
+    text-decoration:none;
 }
 .leftArrow{
     text-align:left;float:left;background:#ffffff;width:25px;height:25px;
@@ -61,12 +78,18 @@ ul{
 	background:#1693BF;
 	color:#ffffff;
 }
-
+.active a{
+    color:#ffffff;
+    text-decoration:none;
+}
 .waiting{
 	background:#C8CE02;
 	color:#ffffff;
 }
-
+.waiting a{
+    color:#ffffff;
+    text-decoration:none;
+}
 .available{
 	background:#ffffff;
 	color:#000000;

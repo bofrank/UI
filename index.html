@@ -36,6 +36,7 @@
     <script src="js/designr.js"></script>
     <script src="js/jquery.watermark.js"></script>
     <script src="js/common.js"></script>
+    <script src="js/jquery.scrollto.js"></script>
     <link href="css/global.css" rel="stylesheet">
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/idangerous.swiper.css">
@@ -57,7 +58,7 @@
 
         $scope.numbers = [
     {
-        "number" : "20600000001",
+        "number" : "2060000001",
         "topics" : [
         {
             "topic" : "housing",
@@ -72,10 +73,10 @@
             "status" : "available"
         }
         ],
-        "mood" : "\"I'm looking for a gaming desk\""
+        "mood" : "\"Looking for a gaming desk\""
     },
     {
-            "number" : "20600000002",
+            "number" : "2060000002",
             "topics" : [
             {
                 "topic" : "roomate",
@@ -125,7 +126,7 @@
             "mood" : "\"Go Mariners!\""
     },
     {
-            "number" : "20600000003",
+            "number" : "2060000003",
             "topics" : [
             {
                 "topic" : "Dark Souls 2",
@@ -135,7 +136,7 @@
             "mood" : "\"Dark Souls 2 improved!\""
     },
     {
-            "number" : "20600000004",
+            "number" : "2060000004",
             "topics" : [
             {
                 "topic" : "MBA",
@@ -150,10 +151,10 @@
                 "status" : "available"
             }
             ],
-            "mood" : "\"Looking for Summer intership\""  
+            "mood" : "\"Looking for intership\""  
     },
     {
-            "number" : "20600000005",
+            "number" : "2060000005",
             "topics" : [
             {
                 "topic" : "COC",
@@ -167,7 +168,7 @@
             "mood" : "\":)\""
     },
     {
-            "number" : "20600000006",
+            "number" : "2060000006",
             "topics" : [
             {
                 "topic" : "UCLA",
@@ -178,7 +179,7 @@
                 "status" : "available"
             }
             ],
-            "mood" : "\"I'm looking for a gaming desk\""
+            "mood" : "\"Looking for tickets\""
     }
 
 ];
@@ -246,7 +247,7 @@ $scope.scrollRight=function(topicRow){
 }
 
 
-    //$scope.target = $location.search()['topic'];
+//$scope.target = $location.search()['topic'];
 
 //$scope.routeParams = {topic:'look'}
 
@@ -256,15 +257,24 @@ $scope.scrollRight=function(topicRow){
 //$scope.myTopic = 'look';
 
 //$scope.both = sharedProperties.getProperty() + $scope.myTopic;
-console.log("$location.search()['topic'];= "+$location.search()['topic']);
-console.log("$scope.myTopic= "+$scope.myTopic);
+//console.log("$location.search()['topic'];= "+$location.search()['topic']);
+//console.log("$scope.myTopic= "+$scope.myTopic);
 $scope.myTopic = $location.search()['topic'];
+
+$scope.widget = {inputValue: 'whatever'};
+
+$scope.filterTopic=function($mySearchWord){
+//alert("hello");
+console.log("$mySearchWord="+$mySearchWord);
+    $scope.myTopic = $mySearchWord;
+}
+
 
 });
 
 
 countryApp.controller('QueryCntl', function ($scope,$location,sharedProperties){
-    console.log("$location.search()['topic'];= "+$location.search()['topic']);
+    //console.log("$location.search()['topic'];= "+$location.search()['topic']);
     $scope.target = $location.search()['topic'];
     $scope.myTopic = $scope.target;
 
@@ -399,7 +409,7 @@ function Ctrl2($scope, sharedProperties) {
         $("#pad").toggle();
         //$('#phonepad').scrollTop(100);
     }
-
+/*
     function openTopics(){
         if($("#contentTopics").css("height")=="69px"){
             $("#contentTopics").css("height","400px").css("overflow","visible");
@@ -407,6 +417,19 @@ function Ctrl2($scope, sharedProperties) {
             $("#labelClose").css("display","block");
         }else{
             $("#contentTopics").css("height","69px").css("overflow","hidden");
+            $("#labelOpen").css("display","block");
+            $("#labelClose").css("display","none");
+        }
+    }
+*/
+    function openTopics(){
+        //$("#contentTopics").removeClass("contentTopicsClose");
+        if($("#contentTopics").css("height")=="69px"){
+            $("#contentTopics").addClass("contentTopicsOpen");
+            $("#labelOpen").css("display","none");
+            $("#labelClose").css("display","block");
+        }else{
+            $("#contentTopics").removeClass("contentTopicsOpen");
             $("#labelOpen").css("display","block");
             $("#labelClose").css("display","none");
         }
@@ -438,7 +461,8 @@ function Ctrl2($scope, sharedProperties) {
             <li><a class="scrollto" href="#categories">Categories</a></li>
             <li><a class="scrollto" href="#communicator">Communicator</a></li>
             <li><a class="scrollto" href="#HowToUse">How To Use</a></li>
-            <i style="color:#e6881e;float:left;margin:15px 0 0 10px;" class="fa fa-search"  ></i><li class="" style="color:#666666;margin-left:5px;"><input id="input_search" class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset" type="text" style="color:#666666;margin-top:7px;"></li>
+            <li class="" style="color:#666666;"><form ng-submit="filterTopic(inputValue)"><input id="input_search" ng-model="inputValue" class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset" type="text" style="color:#666666;margin-top:7px;margin-left:5px;"></form></li><i style="color:#e6881e;float:left;margin:15px 0 0 10px;cursor:pointer;" class="fa fa-search" ng-click="filterTopic(inputValue)"></i>
+            
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -501,7 +525,7 @@ function Ctrl2($scope, sharedProperties) {
 </div>
 <div style="clear:both;"></div>
 
-<div id="contentTopics" class="topics" style="height:69px;overflow:hidden;">
+<div id="contentTopics" class="topics contentTopicsClose">
 
     <ul id="content">
         <li id="imgs" ng-repeat="whatever in numbers|filter:myTopic track by $index" class="row">
@@ -513,7 +537,9 @@ function Ctrl2($scope, sharedProperties) {
 
             <ul data-ng-show="whatever" class="row_topic" id="num{{whatever.number}}">
                 <li ng-repeat="topics in whatever.topics|limitTo:10 track by $index" class="column" ng-class="{'waiting':'{{topics.status}}' == 'waiting', 'active':'{{topics.status}}' == 'active', 'available':'{{topics.status}}' == 'available'}">
-                  {{topics.topic}}
+                        <a style="cursor:pointer;" class="scrollto" href="#chat">
+                            {{topics.topic}}
+                        </a>
                 </li>
             </ul>
 
@@ -531,7 +557,7 @@ function Ctrl2($scope, sharedProperties) {
 
 </div>
 <!-- $(this).parent().parent('.row_topic').css('margin-left','0px') -->
-<div style="text-align:center;cursor:pointer;" onclick="openTopics()">
+<div style="text-align:center;cursor:pointer;" onclick="openTopics()" >
   <h2 id="labelOpen"><i class="fa fa-chevron-circle-down" style="color:#e6881e"></i> more topics <i class="fa fa-chevron-circle-down" style="color:#e6881e"></i></h2>
   <h2 id="labelClose" style="display:none;"><i class="fa fa-chevron-circle-up" style="color:#e6881e"></i> less topics <i class="fa fa-chevron-circle-up" style="color:#e6881e"></i></h2>
 </div>
@@ -551,21 +577,39 @@ function Ctrl2($scope, sharedProperties) {
 
     </section> 
 -->
+
+    <section id="chat" style="background:#ffffff;padding:50px;margin-top:100px;">
+
+        <div class="container">
+
+            <div  >
+                <h2 class="scrollimation fade-left">Chat</h2>
+
+                <h3>
+                    This section will show the chat.
+                </h3>
+            
+            </div>
+
+        </div><!--End container -->
+
+    </section>
+<!--
     <section id="ad" class="navbar-fixed-bottom" style="background:#ffffff;max-height:100px;">
 
         <div class="container">
 
             <img src="images/ad.jpg" style="width:100%;" />
 
-        </div><!--End container -->
+        </div>
 
     </section>  
-
+-->
     <section id="categories" style="background:#ffffff;padding:50px;margin-top:100px;">
 
-        <div class="container">
+        <div class="container" class="scrollimation fade-left">
 
-            <div class="scrollimation fade-left" >
+            <div >
                 <h2>Categories</h2>
 
                 <h3>
