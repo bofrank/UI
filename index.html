@@ -43,22 +43,15 @@
     <script defer src="js/idangerous.swiper.js"></script>
     <script>
 
-        console.log("hello");
-    
         var countryApp = angular.module('countryApp', [], function($locationProvider) {
-      $locationProvider.html5Mode(true);
-    });
-
-
-
-
-
+          $locationProvider.html5Mode(true);
+        });
 
         countryApp.controller('CountryCtrl', function ($scope,$location){
 
-        $scope.numbers = [
-    {
-        "number" : "2060000002",
+            $scope.numbers = [
+            {
+                "number" : "2060000002",
             "topics" : [
             {
                 "topic" : "roomate",
@@ -106,27 +99,26 @@
             }
             ],
             "mood" : "\"Go Mariners!\""
-    },
-    {
-        "number" : "2060000001",
-        "topics" : [
-        {
-            "topic" : "World Advertising Congress",
-            "status" : "active"
         },
         {
-            "topic" : "Digital Strategies",
-            "status" : "available"
+            "number" : "2060000001",
+            "topics" : [
+            {
+                "topic" : "World Advertising Congress",
+                "status" : "active"
+            },
+            {
+                "topic" : "Digital Strategies",
+                "status" : "available"
+            },
+            {
+                "topic" : "Multi-Channel Experience",
+                "status" : "available"
+            }
+            ],
+            "mood" : "\"Looking for Great Ideas\""       
         },
         {
-            "topic" : "Multi-Channel Experience",
-            "status" : "available"
-        }
-        ],
-        "mood" : "\"Looking for Great Ideas\""
-            
-    },
-    {
             "number" : "2060000003",
             "topics" : [
             {
@@ -135,8 +127,8 @@
             }
             ],
             "mood" : "\"Dark Souls 2 improved!\""
-    },
-    {
+        },
+        {
             "number" : "2060000004",
             "topics" : [
             {
@@ -153,8 +145,8 @@
             }
             ],
             "mood" : "\"Looking for intership\""  
-    },
-    {
+        },
+        {
             "number" : "2060000005",
             "topics" : [
             {
@@ -167,8 +159,8 @@
             }
             ],
             "mood" : "\":)\""
-    },
-    {
+        },
+        {
             "number" : "2060000006",
             "topics" : [
             {
@@ -181,71 +173,71 @@
             }
             ],
             "mood" : "\"Looking for tickets\""
-    }
+        }
 
-];
+    ];
 
 //$scope.hotlist = [{"label":"Ichiro"},{"label":"Seattle"},{"label":"available column"},{"label":"Hisashi Iwakuma"}];
 
-$scope.hotlist = [{"label":"Ichiro"},{"label":"Seattle"},{"label":"available column"},{"label":"Hisashi Iwakuma"},{"label":"Bobble Head"},{"label":"Jiman Choi"},{"label":"Infielders"},{"label":"Top 20 Prospects"},{"label":"Bobble Head"},{"label":"vs Athletics"},{"label":"Cano"},{"label":"Jones"},{"label":"Montero"},{"label":"Seager"},{"label":"Saunders"},{"label":"Bloomquist"}];
+        $scope.hotlist = [{"label":"Ichiro"},{"label":"Seattle"},{"label":"available column"},{"label":"Hisashi Iwakuma"},{"label":"Bobble Head"},{"label":"Jiman Choi"},{"label":"Infielders"},{"label":"Top 20 Prospects"},{"label":"Bobble Head"},{"label":"vs Athletics"},{"label":"Cano"},{"label":"Jones"},{"label":"Montero"},{"label":"Seager"},{"label":"Saunders"},{"label":"Bloomquist"}];
 
 //$scope.hotlist = [{"label":"Ichiro"},{"label":"Seattle"},{"label":"available column"},{"label":"Hisashi Iwakuma"},{"label":"Bobble Head"},{"label":"Jiman Choi"},{"label":"Infielders"},{"label":"Top 20 Prospects"},{"label":"Bobble Head"},{"label":"vs Athletics"},{"label":"Cano"},{"label":"Jones"},{"label":"Montero"},{"label":"Seager"},{"label":"Saunders"},{"label":"Bloomquist"},{"label":"Chavez"},{"label":"Gillepsie"},{"label":"Ackley"},{"label":"Morrison"},{"label":"Buck"},{"label":"Zunino"},{"label":"Smoak"},{"label":"Miller"},{"label":"Almonte"},{"label":"Romero"},{"label":"Franklin"},{"label":"Elias"},{"label":"Hernandez"},{"label":"Iwakuma"},{"label":"Maurer"},{"label":"Ramirez"},{"label":"Sucre"},{"label":"Young"},{"label":"Beimel"}];
 
-$scope.topic_distance=0;
-$scope.scrollImages= function(distance, duration) {
-    $scope.$apply();
-    if($scope.topic_distance>200){
-        //console.log("shifting");
-        $scope.topicShift();
         $scope.topic_distance=0;
-    }else if($scope.topic_distance<1){
-        $("#imgs2").css("transition-duration", 0 + "s");
-        //inverse the number we set in the css
-        var value = (distance < 0 ? "" : "-") + Math.abs(distance).toString();
-        $("#imgs2").css("transform", "translate(" + value + "px,0)");
-        $scope.topic_distance++;
-    }else{
-        $("#imgs2").css("transition-duration", (duration / 1000).toFixed(1) + "s");
-        //inverse the number we set in the css
-        var value = (distance < 0 ? "" : "-") + Math.abs(distance).toString();
-        $("#imgs2").css("transform", "translate(" + value + "px,0)");
-        $scope.topic_distance++;
-    }
-}
-
-setInterval(function(){$scope.scrollImages($scope.topic_distance, 25)},5);
-
-$scope.topicShift = function($myEvent){  
-    var temp = $scope.hotlist.shift();
-    $scope.hotlist.push(temp);
-}
-
-$scope.topicAdd = function($myEvent){  
-    //add functionailty for adding topics to the list
-}
-
-$scope.arrayObjectIndexOf=function(arr, obj){
-    for(var i = 0; i < arr.length; i++){
-        if(angular.equals(arr[i], obj)){
-            return i;
+        $scope.scrollImages= function(distance, duration) {
+            $scope.$apply();
+            if($scope.topic_distance>200){
+                //console.log("shifting");
+                $scope.topicShift();
+                $scope.topic_distance=0;
+            }else if($scope.topic_distance<1){
+                $("#imgs2").css("transition-duration", 0 + "s");
+                //inverse the number we set in the css
+                var value = (distance < 0 ? "" : "-") + Math.abs(distance).toString();
+                $("#imgs2").css("transform", "translate(" + value + "px,0)");
+                $scope.topic_distance++;
+            }else{
+                $("#imgs2").css("transition-duration", (duration / 1000).toFixed(1) + "s");
+                //inverse the number we set in the css
+                var value = (distance < 0 ? "" : "-") + Math.abs(distance).toString();
+                $("#imgs2").css("transform", "translate(" + value + "px,0)");
+                $scope.topic_distance++;
+            }
         }
-    };
-    return -1;
-}
 
-$scope.scrollLeft=function(topicRow){
+        setInterval(function(){$scope.scrollImages($scope.topic_distance, 25)},5);
 
-    var temp = $scope.numbers[topicRow].topics.shift();
-    $scope.numbers[topicRow].topics.push(temp);
+        $scope.topicShift = function($myEvent){  
+            var temp = $scope.hotlist.shift();
+            $scope.hotlist.push(temp);
+        }
 
-}
+        $scope.topicAdd = function($myEvent){  
+            //add functionailty for adding topics to the list
+        }
 
-$scope.scrollRight=function(topicRow){
+        $scope.arrayObjectIndexOf=function(arr, obj){
+            for(var i = 0; i < arr.length; i++){
+                if(angular.equals(arr[i], obj)){
+                    return i;
+                }
+            };
+            return -1;
+        }
 
-    var temp = $scope.numbers[topicRow].topics.pop();
-    $scope.numbers[topicRow].topics.unshift(temp);
+        $scope.scrollLeft=function(topicRow){
 
-}
+            var temp = $scope.numbers[topicRow].topics.shift();
+            $scope.numbers[topicRow].topics.push(temp);
+
+        }
+
+        $scope.scrollRight=function(topicRow){
+
+            var temp = $scope.numbers[topicRow].topics.pop();
+            $scope.numbers[topicRow].topics.unshift(temp);
+
+        }
 
 
 //$scope.target = $location.search()['topic'];
@@ -260,32 +252,27 @@ $scope.scrollRight=function(topicRow){
 //$scope.both = sharedProperties.getProperty() + $scope.myTopic;
 //console.log("$location.search()['topic'];= "+$location.search()['topic']);
 //console.log("$scope.myTopic= "+$scope.myTopic);
-$scope.myTopic = $location.search()['topic'];
+        $scope.myTopic = $location.search()['topic'];
 
-$scope.widget = {inputValue: 'whatever'};
+        $scope.widget = {inputValue: 'whatever'};
 
-$scope.filterTopic=function($mySearchWord){
-//alert("hello");
-console.log("$mySearchWord="+$mySearchWord);
-    $scope.myTopic = $mySearchWord;
-}
-
-
-});
+        $scope.filterTopic=function($mySearchWord){
+        //alert("hello");
+        console.log("$mySearchWord="+$mySearchWord);
+            $scope.myTopic = $mySearchWord;
+        }
 
 
-countryApp.controller('QueryCntl', function ($scope,$location,sharedProperties){
-    //console.log("$location.search()['topic'];= "+$location.search()['topic']);
-    $scope.target = $location.search()['topic'];
-    $scope.myTopic = $scope.target;
+    });
 
-    $scope.both = sharedProperties.setProperty() + $scope.myTopic;
+    countryApp.controller('QueryCntl', function ($scope,$location,sharedProperties){
+        //console.log("$location.search()['topic'];= "+$location.search()['topic']);
+        $scope.target = $location.search()['topic'];
+        $scope.myTopic = $scope.target;
+        $scope.both = sharedProperties.setProperty() + $scope.myTopic;
+    });
 
-  
-
-});
-
-countryApp.service('sharedProperties', function () {
+    countryApp.service('sharedProperties', function () {
         var property = 'First';
 
         return {
@@ -298,10 +285,10 @@ countryApp.service('sharedProperties', function () {
         };
     });
 
-function Ctrl2($scope, sharedProperties) {
-    $scope.prop2 = "Second";
-    $scope.both = sharedProperties.getProperty() + $scope.prop2;
-}
+    function Ctrl2($scope, sharedProperties) {
+        $scope.prop2 = "Second";
+        $scope.both = sharedProperties.getProperty() + $scope.prop2;
+    }
 
 /*
     function QueryCntl($scope, $location) {
@@ -403,6 +390,33 @@ function Ctrl2($scope, sharedProperties) {
         $('#topic3').watermark('Enter Another Topic');
         $("#chatBox").attr("src", "http://www.bofrank.com/chat/index.php#end");
 
+        setTimeout(function(){searchMe()}, 3000);
+
+
+        //$(".gsc-control-cse").css("display","none");
+
+
+        function searchMe(){
+
+            $("#gsc-i-id1").val("phad thai");
+            $(".gsc-search-button").trigger( "click" );
+
+            setTimeout(function(){refine()}, 3000);
+
+        }
+
+        function refine(){
+            $(".gsc-cursor-box").css("display","none");
+            $(".gsc-search-box,#resInfo-0,.gsc-above-wrapper-area-container,.gcsc-branding,.gsc-above-wrapper-area,.gs-image,.gsc-thumbnail-inside,.gsc-url-top").css("display","none");
+
+        var $results=[];
+            $(".gs-snippet").each(function(index){
+            $results.push($(this).text().replace(/"/g, ''));
+        });
+
+        console.log($results[1]);
+
+        }
 
     });
 
@@ -436,11 +450,21 @@ function Ctrl2($scope, sharedProperties) {
         }
     }
 
+    (function() {
+        var cx = '014075365742795005565:u_j5gof9ikc';
+        var gcse = document.createElement('script');
+        gcse.type = 'text/javascript';
+        gcse.async = true;
+        gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+            '//www.google.com/cse/cse.js?cx=' + cx;
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(gcse, s);
+      })();
 
 </script>
 </head>
 
-  <body ng-controller="CountryCtrl" ng-init="myVar='test'">
+<body ng-controller="CountryCtrl" ng-init="myVar='test'">
 
 
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -501,67 +525,67 @@ function Ctrl2($scope, sharedProperties) {
     </div>
 
 
-<!-- hot topics -->
-<div  id="hottopics">
-    <ul><!-- $('#hottopics').scope().numbers; -->
-        <li class="row" style="transition-duration: 0.5s; transform: translate(0px, 0px);background:#1693bf;border-top:solid 1px #666666;border-bottom:solid 1px #666666;margin:0px 0px 10px 0px;padding-left:10px;">
+    <!-- hot topics -->
+    <div  id="hottopics">
+        <ul><!-- $('#hottopics').scope().numbers; -->
+            <li class="row" style="transition-duration: 0.5s; transform: translate(0px, 0px);background:#1693bf;border-top:solid 1px #666666;border-bottom:solid 1px #666666;margin:0px 0px 10px 0px;padding-left:10px;">
 
-          <div class="number" style="color:#F9F2E7;margin-top:-2px;">
-            <i class="fa fa-fire" style="color:#F9F2E7"></i> HotTopics
-          </div>
-          <div style="clear:both;"></div>
-
-          <ul class="row_hot" id="imgs2" style="background:none;">
-            <li ng-repeat="hotitem in hotlist|limitTo:10">
-
-              <div class="number" style="width:200px;border:1px solid #000000;background:#ffffff;padding:2px 5px;">
-                {{hotitem.label}}
+              <div class="number" style="color:#F9F2E7;margin-top:-2px;">
+                <i class="fa fa-fire" style="color:#F9F2E7"></i> HotTopics
               </div>
-       
-            </li>
-          </ul>
+              <div style="clear:both;"></div>
 
-        </li>
-    </ul>
-</div>
-<div style="clear:both;"></div>
+              <ul class="row_hot" id="imgs2" style="background:none;">
+                <li ng-repeat="hotitem in hotlist|limitTo:10">
 
-<div id="contentTopics" class="topics contentTopicsClose">
-
-    <ul id="content">
-        <li id="imgs" ng-repeat="whatever in numbers|filter:myTopic track by $index" class="row">
-
-            <div class="number">
-                {{whatever.number}} <span class="mood">{{whatever.mood}}</span>
-            </div>
-            <div style="clear:both;"></div>
-
-            <ul data-ng-show="whatever" class="row_topic" id="num{{whatever.number}}">
-                <li ng-repeat="topics in whatever.topics|limitTo:10 track by $index" class="column" ng-class="{'waiting':'{{topics.status}}' == 'waiting', 'active':'{{topics.status}}' == 'active', 'available':'{{topics.status}}' == 'available'}">
-                        <a style="cursor:pointer;" class="scrollto" href="#chat">
-                            {{topics.topic}}
-                        </a>
+                  <div class="number" style="width:200px;border:1px solid #000000;background:#ffffff;padding:2px 5px;">
+                    {{hotitem.label}}
+                  </div>
+           
                 </li>
-            </ul>
+              </ul>
 
-            <div class="leftArrow">
-                <img src="images/arrow_left.png" style="position:relative;top:-62px;cursor:pointer;width:25px;height:29px;
-}" ng-click="scrollRight($index)" />
-            </div>
-            <div class="rightArrow">
-                <img src="images/arrow_right.png" style="position:relative;top:-62px;cursor:pointer;width:25px;height:29px;" ng-click="scrollLeft($index)" />
-            </div>
-            <div style="clear:both;"></div>
+            </li>
+        </ul>
+    </div>
+    <div style="clear:both;"></div>
 
-        </li>
-    </ul>
+    <div id="contentTopics" class="topics contentTopicsClose">
 
-</div>
-<!-- $(this).parent().parent('.row_topic').css('margin-left','0px') -->
-<div style="text-align:center;cursor:pointer;" onclick="openTopics()" >
-  <h2 id="labelOpen"><i class="fa fa-chevron-circle-down" style="color:#e6881e"></i> more topics <i class="fa fa-chevron-circle-down" style="color:#e6881e"></i></h2>
-  <h2 id="labelClose" style="display:none;"><i class="fa fa-chevron-circle-up" style="color:#e6881e"></i> less topics <i class="fa fa-chevron-circle-up" style="color:#e6881e"></i></h2>
-</div>
+        <ul id="content">
+            <li id="imgs" ng-repeat="whatever in numbers|filter:myTopic track by $index" class="row">
+
+                <div class="number">
+                    {{whatever.number}} <span class="mood">{{whatever.mood}}</span>
+                </div>
+                <div style="clear:both;"></div>
+
+                <ul data-ng-show="whatever" class="row_topic" id="num{{whatever.number}}">
+                    <li ng-repeat="topics in whatever.topics|limitTo:10 track by $index" class="column" ng-class="{'waiting':'{{topics.status}}' == 'waiting', 'active':'{{topics.status}}' == 'active', 'available':'{{topics.status}}' == 'available'}">
+                            <a style="cursor:pointer;" class="scrollto" href="#chat">
+                                {{topics.topic}}
+                            </a>
+                    </li>
+                </ul>
+
+                <div class="leftArrow">
+                    <img src="images/arrow_left.png" style="position:relative;top:-62px;cursor:pointer;width:25px;height:29px;
+    }" ng-click="scrollRight($index)" />
+                </div>
+                <div class="rightArrow">
+                    <img src="images/arrow_right.png" style="position:relative;top:-62px;cursor:pointer;width:25px;height:29px;" ng-click="scrollLeft($index)" />
+                </div>
+                <div style="clear:both;"></div>
+
+            </li>
+        </ul>
+
+    </div>
+    <!-- $(this).parent().parent('.row_topic').css('margin-left','0px') -->
+    <div style="text-align:center;cursor:pointer;" onclick="openTopics()" >
+      <h2 id="labelOpen"><i class="fa fa-chevron-circle-down" style="color:#e6881e"></i> more topics <i class="fa fa-chevron-circle-down" style="color:#e6881e"></i></h2>
+      <h2 id="labelClose" style="display:none;"><i class="fa fa-chevron-circle-up" style="color:#e6881e"></i> less topics <i class="fa fa-chevron-circle-up" style="color:#e6881e"></i></h2>
+    </div>
 <!--
     <section id="phonepad" style="background:#ffffff;margin:10px auto;text-align:center;">
 
@@ -579,14 +603,32 @@ function Ctrl2($scope, sharedProperties) {
     </section> 
 -->
 
+    <section id="searchResults" style="background:#ffffff;padding:50px;margin-top:100px;">
+
+        <div class="container">
+
+            <div>
+                <h2 class="scrollimation fade-left">Search Results</h2>
+
+                <div>
+                    <gcse:search></gcse:search>
+                </div>
+            
+            </div>
+
+        </div><!--End container -->
+
+    </section>
+
+
     <section id="chat" style="background:#ffffff;padding:50px;margin-top:100px;">
 
         <div class="container">
 
-            <div  >
+            <div>
                 <h2 class="scrollimation fade-left">Chat</h2>
 
-                <div  >
+                <div>
                     <iframe id="chatBox" src="" width="100%" height="300" style="height:300px;"></iframe>
                 </div>
             
@@ -669,8 +711,8 @@ function Ctrl2($scope, sharedProperties) {
                     This section will show how to put TopicB on a site.
                 </h3>
                 <div ng-controller="QueryCntl">
-    Target: {{target}}<br/>
-</div>
+                    Target: {{target}}<br/>
+                </div>
             
             </div>
 
