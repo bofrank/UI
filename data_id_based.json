@@ -1,0 +1,109 @@
+[
+    {
+        "connection" : "20600000001",
+        "topics" : [
+        {
+            "topic" : "hamburger",
+            "status" : "active",
+            "category" : "food"
+        },
+        {
+            "topic" : "mariners",
+            "status" : "available",
+            "category" : "sports"
+        },
+        {
+            "topic" : "Game of Thrones",
+            "status" : "available",
+            "category" : "game"
+        }
+        ],
+        "mood" : "\"I'm looking for the best food\""
+    },
+    {
+        "connection" : "20600000002",
+        "topics" : [
+        {
+            "topic" : "roomate",
+            "status" : "available",
+            "category" : "housing"
+        },
+        {
+            "topic" : "Mariners",
+            "status" : "waiting",
+            "category" : "sports"
+        },
+        {
+            "topic" : "Guild Wars",
+            "status" : "available",
+            "category" : "game"
+        }
+        ],
+        "mood" : "\"Go Mariners!\""
+    },
+    {
+        "connection" : "20600000003",
+        "topics" : [
+        {
+            "topic" : "Dark Souls 2",
+            "status" : "active",
+            "category" : "game"
+        }
+        ],
+        "mood" : "\"Dark Souls 2 improved!\""
+    },
+    {
+        "connection" : "20600000004",
+        "topics" : [
+        {
+            "topic" : "MBA",
+            "status" : "available",
+            "category" : "education"
+        },
+        {
+            "topic" : "salary",
+            "status" : "available",
+            "category" : "career"
+        },
+        {
+            "topic" : "Business Management",
+            "status" : "available",
+            "category" : "career"
+        }
+        ],
+        "mood" : "\"Looking for Summer intership\""  
+    },
+    {
+        "connection" : "20600000005",
+        "topics" : [
+        {
+            "topic" : "COC",
+            "status" : "active",
+            "category" : "game"
+        },
+        {
+            "topic" : "running",
+            "status" : "waiting",
+            "category" : "sports"
+        }
+        ],
+        "mood" : "\":)\""
+    },
+    {
+        "connection" : "20600000006",
+        "topics" : [
+        {
+            "topic" : "UCLA",
+            "status" : "active",
+            "category" : "education"
+        },
+        {
+            "topic" : "X-Men",
+            "status" : "available",
+            "category" : "film"
+        }
+        ],
+        "mood" : "\"I'm looking for a gaming desk\""
+    }
+
+];
