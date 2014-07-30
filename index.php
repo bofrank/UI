@@ -50,129 +50,145 @@
         topicApp.controller('topicCtrl', function ($scope,$location){
 
             $scope.numbers = [
-            {
-                "number" : "2060000002",
+        {
+            "number" : "2060000002",
             "topics" : [
             {
-                "topic" : "roomate",
-                "status" : "available"
+                "topic" : "hamburger",
+                "status" : "available",
+                "category" : "food"
             },
             {
                 "topic" : "Mariners",
-                "status" : "waiting"
+                "status" : "waiting",
+                "category" : "sports"
             },
             {
                 "topic" : "Ichiro",
-                "status" : "available"
+                "status" : "available",
+                "category" : "sports"
             },
             {
                 "topic" : "Seattle",
-                "status" : "available"
+                "status" : "available",
+                "category" : "travel"
             },
             {
                 "topic" : "Food Trucks",
-                "status" : "available"
+                "status" : "available",
+                "category" : "food"
             },
             {
                 "topic" : "Profitability",
-                "status" : "available"
+                "status" : "available",
+                "category" : "business"
             },
             {
                 "topic" : "Exit Strategy",
-                "status" : "available"
+                "status" : "available",
+                "category" : "business"
             },
             {
                 "topic" : "Start Ups",
-                "status" : "available"
+                "status" : "available",
+                "category" : "business"
             },
             {
                 "topic" : "Bootstrapping",
-                "status" : "available"
+                "status" : "available",
+                "category" : "business"
             },
             {
                 "topic" : "Runway",
-                "status" : "available"
+                "status" : "available",
+                "category" : "business"
             },
             {
                 "topic" : "VC",
-                "status" : "available"
+                "status" : "available",
+                "category" : "business"
             }
-            ],
-            "mood" : "\"Go Mariners!\""
+            ]
         },
         {
             "number" : "2060000001",
             "topics" : [
             {
                 "topic" : "World Advertising Congress",
-                "status" : "active"
+                "status" : "active",
+                "category" : "advertising"
             },
             {
                 "topic" : "Digital Strategies",
-                "status" : "available"
+                "status" : "available",
+                "category" : "technology"
             },
             {
                 "topic" : "Multi-Channel Experience",
-                "status" : "available"
+                "status" : "available",
+                "category" : "technology"
             }
-            ],
-            "mood" : "\"Looking for Great Ideas\""       
+            ]   
         },
         {
             "number" : "2060000003",
             "topics" : [
             {
                 "topic" : "Dark Souls 2",
-                "status" : "active"
+                "status" : "active",
+                "category" : "game"
             }
-            ],
-            "mood" : "\"Dark Souls 2 improved!\""
+            ]
         },
         {
             "number" : "2060000004",
             "topics" : [
             {
                 "topic" : "MBA",
-                "status" : "available"
+                "status" : "available",
+                "category" : "education"
             },
             {
                 "topic" : "informations",
-                "status" : "available"
+                "status" : "available",
+                "category" : "technology"
             },
             {
                 "topic" : "Business Management",
-                "status" : "available"
+                "status" : "available",
+                "category" : "education"
             }
-            ],
-            "mood" : "\"Looking for intership\""  
+            ]
         },
         {
             "number" : "2060000005",
             "topics" : [
             {
                 "topic" : "COC",
-                "status" : "active"
+                "status" : "active",
+                "category" : "game"
             },
             {
                 "topic" : "running",
-                "status" : "waiting"
+                "status" : "waiting",
+                "category" : "sports"
             }
-            ],
-            "mood" : "\":)\""
+            ]
         },
         {
             "number" : "2060000006",
             "topics" : [
             {
                 "topic" : "UCLA",
-                "status" : "active"
+                "status" : "active",
+                "category" : "education"
             },
             {
                 "topic" : "X-Men",
-                "status" : "available"
+                "status" : "available",
+                "category" : "game"
             }
-            ],
-            "mood" : "\"Looking for tickets\""
+            ]
         }
 
     ];
@@ -180,8 +196,6 @@
 //$scope.hotlist = [{"label":"Ichiro"},{"label":"Seattle"},{"label":"available column"},{"label":"Hisashi Iwakuma"}];
 
         $scope.hotlist = [{"label":"Ichiro"},{"label":"Seattle"},{"label":"available column"},{"label":"Hisashi Iwakuma"},{"label":"Bobble Head"},{"label":"Jiman Choi"},{"label":"Infielders"},{"label":"Top 20 Prospects"},{"label":"Bobble Head"},{"label":"vs Athletics"},{"label":"Cano"},{"label":"Jones"},{"label":"Montero"},{"label":"Seager"},{"label":"Saunders"},{"label":"Bloomquist"}];
-
-//$scope.hotlist = [{"label":"Ichiro"},{"label":"Seattle"},{"label":"available column"},{"label":"Hisashi Iwakuma"},{"label":"Bobble Head"},{"label":"Jiman Choi"},{"label":"Infielders"},{"label":"Top 20 Prospects"},{"label":"Bobble Head"},{"label":"vs Athletics"},{"label":"Cano"},{"label":"Jones"},{"label":"Montero"},{"label":"Seager"},{"label":"Saunders"},{"label":"Bloomquist"},{"label":"Chavez"},{"label":"Gillepsie"},{"label":"Ackley"},{"label":"Morrison"},{"label":"Buck"},{"label":"Zunino"},{"label":"Smoak"},{"label":"Miller"},{"label":"Almonte"},{"label":"Romero"},{"label":"Franklin"},{"label":"Elias"},{"label":"Hernandez"},{"label":"Iwakuma"},{"label":"Maurer"},{"label":"Ramirez"},{"label":"Sucre"},{"label":"Young"},{"label":"Beimel"}];
 
         $scope.topic_distance=0;
         $scope.scrollImages= function(distance, duration) {
@@ -235,10 +249,22 @@
         $scope.scrollRight=function(topicRow){
 
             var temp = $scope.numbers[topicRow].topics.pop();
+            console.log("temp="+temp);
             $scope.numbers[topicRow].topics.unshift(temp);
 
         }
 
+       
+/*
+        $scope.createTopic=function($newTopic){
+
+            console.log("new topic="+$newTopic);
+
+            //alert("hello");
+            //$scope.numbers[0].topics.push($newTopic);
+
+        }
+*/
 
 //$scope.target = $location.search()['topic'];
 
@@ -263,6 +289,37 @@
         }
 
 
+    });
+/*
+    topicApp.controller('TopicSubmitController',
+        $scope.submitMyForm=function(){
+            console.log("data="+data);
+       
+            var data=$scope.fields;  
+ 
+            $http.post('submitTopics.php', data);
+        }
+    });
+*/
+
+    topicApp.controller('TopicSubmitController', function ($scope,$http) {
+
+        console.log("TopicSubmitController called version 1");
+/*
+        $scope.myTopics = {
+          topic1:'default',
+          topic2:'default',
+          topic3:'default'
+        };
+*/
+        //console.log("$scope.topic1="+$scope.myTopics["topic1"]);
+
+        $scope.submitForm = function() {
+            console.log("posting data....");
+            $http.post('submitTopics.php', JSON.stringify($scope.myTopics)).success(function(){
+                console.log("success");
+            });
+        };
     });
 
     topicApp.controller('QueryCntl', function ($scope,$location,sharedProperties){
@@ -464,7 +521,6 @@
 
 <body ng-controller="topicCtrl" ng-init="myVar='test'" style="">
 
-
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
@@ -476,7 +532,7 @@
           </button>
             <div class="logo-container">
             <!--<div style="text-align:center;margin-left:-65px;width:100%;">-->
-                <a class="navbar-brand scrollto" href="#home"><img src="images/logo_website.jpg" alt="TopicB" /></a>
+                <a class="navbar-brand scrollto" href="#home"><img src="images/logo_website.jpg" alt="TopicB" />version 0.6</a>
             </div>
         </div>
         <div class="collapse navbar-collapse navbar-right">
@@ -498,24 +554,30 @@
 
       <div class="starter-template">
         <div style="text-align:center;margin:0px auto;width:100%;">
-
-            <form class="form-inline" >
-
-                <div class="form-group">
-                    <input id="topic1" type="text" class="form-control" style="width:250px;margin-right:10px;background:none;" />
-                </div>
-                <div class="form-group">
-                    <input id="topic2" type="text" class="form-control" style="width:250px;margin-right:10px;background:none;" />
-                </div>
-                <div class="form-group">
-                    <input id="topic3" type="text" class="form-control" style="width:250px;margin-right:10px;background:none;" />
-                </div>
-                <div class="form-group">
-                    <img src="images/go_search.jpg" style="cursor:pointer;" />
-                </div>
-
+<!--
+<form ng-submit="submit()" ng-controller="TopicSubmitController">
+  Enter text and hit enter:
+  <input type="text" ng-model="text" name="text" />
+  <input type="submit" id="submit" value="Submit" />
+  <pre>list={{list}}</pre>
+</form>
+-->
+            <form class="form-inline" ng-submit="submitForm(myTopics)" ng-controller="TopicSubmitController">
+                <!--<div class="form-group">-->
+                    <input type="text" data-ng-model="myTopics.topic1" name="form.topic1" class="form-control" style="width:250px;margin-right:10px;background:none;" />
+                <!--</div>
+                <div class="form-group">-->
+                    <input type="text" data-ng-model="myTopics.topic2" name="form.topic2" class="form-control" style="width:250px;margin-right:10px;background:none;" />
+                <!--</div>
+                <div class="form-group">-->
+                    <input type="text" data-ng-model="myTopics.topic3" name="form.topic3" class="form-control" style="width:250px;margin-right:10px;background:none;" />
+                <!--</div>
+                <div class="form-group">-->
+                  <input type="submit" id="submit" value="" style="background:url(images/go_search.jpg) no-repeat;border:none;width:44px;height:29px;" ng-click="submit" />
+                <!--</div>-->
             </form>
 
+my topics = {{ myTopics }}
 
         </div>
 
@@ -557,7 +619,7 @@
             <li id="imgs" ng-repeat="whatever in numbers|filter:myTopic track by $index" class="row">
 
                 <div class="number">
-                    {{whatever.number}} <span class="mood">{{whatever.mood}}</span>
+                    {{whatever.number}}
                 </div>
                 <div style="clear:both;"></div>
 
@@ -642,11 +704,11 @@
 
     </section>
 
-    <section id="ad" class="navbar-fixed-bottom" style="background:#ffffff;max-height:100px;">
+    <section id="ad" class="navbar-fixed-bottom" style="background:#000;max-height:60px;margin:0px;padding:0px;text-align:center;">
 
         <div class="container">
 
-            <img src="images/ad.jpg" style="width:100%;" />
+            <img src="images/ad.jpg" style="max-width:468px;max-height:60px;" />
 
         </div>
 
