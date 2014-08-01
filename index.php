@@ -304,7 +304,7 @@
 
     topicApp.controller('TopicSubmitController', function ($scope,$http) {
 
-        console.log("TopicSubmitController called version 1");
+        //console.log("TopicSubmitController called version 1");
 /*
         $scope.myTopics = {
           topic1:'default',
@@ -314,12 +314,25 @@
 */
         //console.log("$scope.topic1="+$scope.myTopics["topic1"]);
 
+        //get user ip for connection
+
+        //console.log(angular.element("#myIP").html());
+        
+
+
         $scope.submitForm = function() {
             console.log("posting data....");
+            $scope.myTopics.myID = "206-000-000"+(Math.floor(Math.random() * 10));
             $http.post('submitTopics.php', JSON.stringify($scope.myTopics)).success(function(){
                 console.log("success");
+                angular.element(".starter-template").html("<span style='color:#fff;'>Thanks! Your topics have been created below.</span>");
             });
         };
+
+        
+
+
+
     });
 
     topicApp.controller('QueryCntl', function ($scope,$location,sharedProperties){
@@ -447,6 +460,9 @@
         $('#topic3').watermark('Enter Another Topic');
         $("#chatBox").attr("src", "http://www.bofrank.com/chat/index.php#end");
 
+        //var tempID = "206-000-000"+(Math.floor(Math.random() * 10));
+        //$('#myIDinput').attr("value","tempID");
+
         setTimeout(function(){searchMe()}, 3000);
 
 
@@ -478,7 +494,12 @@
 
         }
 
+        
+        
+
     });
+
+        
 
     function openPad(){
         $("#pad").toggle();
@@ -516,7 +537,10 @@
         s.parentNode.insertBefore(gcse, s);
       })();
 
+
+
 </script>
+
 </head>
 
 <body ng-controller="topicCtrl" ng-init="myVar='test'" style="">
@@ -532,7 +556,7 @@
           </button>
             <div class="logo-container">
             <!--<div style="text-align:center;margin-left:-65px;width:100%;">-->
-                <a class="navbar-brand scrollto" href="#home"><img src="images/logo_website.jpg" alt="TopicB" />version 0.6</a>
+                <a class="navbar-brand scrollto" href="#home"><img src="images/logo_website.jpg" alt="TopicB" />version 0.9</a>
             </div>
         </div>
         <div class="collapse navbar-collapse navbar-right">
@@ -554,30 +578,27 @@
 
       <div class="starter-template">
         <div style="text-align:center;margin:0px auto;width:100%;">
-<!--
-<form ng-submit="submit()" ng-controller="TopicSubmitController">
-  Enter text and hit enter:
-  <input type="text" ng-model="text" name="text" />
-  <input type="submit" id="submit" value="Submit" />
-  <pre>list={{list}}</pre>
-</form>
--->
-            <form class="form-inline" ng-submit="submitForm(myTopics)" ng-controller="TopicSubmitController">
-                <!--<div class="form-group">-->
-                    <input type="text" data-ng-model="myTopics.topic1" name="form.topic1" class="form-control" style="width:250px;margin-right:10px;background:none;" />
-                <!--</div>
-                <div class="form-group">-->
-                    <input type="text" data-ng-model="myTopics.topic2" name="form.topic2" class="form-control" style="width:250px;margin-right:10px;background:none;" />
-                <!--</div>
-                <div class="form-group">-->
-                    <input type="text" data-ng-model="myTopics.topic3" name="form.topic3" class="form-control" style="width:250px;margin-right:10px;background:none;" />
-                <!--</div>
-                <div class="form-group">-->
-                  <input type="submit" id="submit" value="" style="background:url(images/go_search.jpg) no-repeat;border:none;width:44px;height:29px;" ng-click="submit" />
-                <!--</div>-->
-            </form>
 
-my topics = {{ myTopics }}
+            <form class="form-inline" ng-submit="submitForm(myTopics)" ng-controller="TopicSubmitController">
+                <div class="form-group">
+                    <input id="topic1" type="text" data-ng-model="myTopics.topic1" name="form.topic1" class="form-control" style="width:250px;margin-right:10px;background:none;" />
+                </div>
+                <div class="form-group">
+                    <input id="topic2" type="text" data-ng-model="myTopics.topic2" name="form.topic2" class="form-control" style="width:250px;margin-right:10px;background:none;" />
+                </div>
+                <div class="form-group">
+                    <input id="topic3" type="text" data-ng-model="myTopics.topic3" name="form.topic3" class="form-control" style="width:250px;margin-right:10px;background:none;" />
+                </div>
+                <!--
+                <div class="form-group">
+                    <input id="myID" type="text" value="myTopics.myID" data-ng-model="myTopics.myID" name="form.myID" class="form-control" style="width:250px;margin-right:10px;background:none;" />
+                </div>
+            -->
+                <div class="form-group">
+                  <input type="submit" id="submit" value="" style="background:url(images/go_search.jpg) no-repeat;border:none;width:44px;height:29px;" ng-click="submit" />
+                </div>
+                
+            </form>
 
         </div>
 
