@@ -282,17 +282,35 @@
         $scope.createRow = function(myID){
             console.log("id = "+myID);
             var tempID={"number" : "My ID "+myID,"topics" : 
-            [{
-                "topic" : "UCLA",
-                "status" : "active",
-                "category" : "education"
-            },{
-                "topic" : "X-Men",
-                "status" : "available",
-                "category" : "game"
-            }]};
+            []};
             //$scope.numbers.push(tempID);
             $scope.numbers[0]=tempID;
+
+            if($scope.myTopics.topic1){
+                $scope.tempTopic1={
+                    "topic" : $scope.myTopics.topic1,
+                    "status" : "active",
+                    "category" : "education"
+                }
+                $scope.numbers[0]["topics"].push($scope.tempTopic1);
+            }
+            if($scope.myTopics.topic2){
+                $scope.tempTopic2={
+                    "topic" : $scope.myTopics.topic2,
+                    "status" : "active",
+                    "category" : "education"
+                }
+                $scope.numbers[0]["topics"].push($scope.tempTopic2);
+            }
+            if($scope.myTopics.topic3){
+                $scope.tempTopic3={
+                    "topic" : $scope.myTopics.topic3,
+                    "status" : "active",
+                    "category" : "education"
+                }
+                $scope.numbers[0]["topics"].push($scope.tempTopic3);
+            }
+
             $scope.$apply();
             //scope.myTopics.myID;
         }
