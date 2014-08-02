@@ -254,30 +254,6 @@
 
         }
 
-       
-/*
-        $scope.createTopic=function($newTopic){
-
-            console.log("new topic="+$newTopic);
-
-            //alert("hello");
-            //$scope.numbers[0].topics.push($newTopic);
-
-        }
-*/
-
-//$scope.target = $location.search()['topic'];
-
-//$scope.routeParams = {topic:'look'}
-
-//console.log("$scope.routeParams"+$scope.routeParams.topic);
-
-
-//$scope.myTopic = 'look';
-
-//$scope.both = sharedProperties.getProperty() + $scope.myTopic;
-//console.log("$location.search()['topic'];= "+$location.search()['topic']);
-//console.log("$scope.myTopic= "+$scope.myTopic);
         $scope.myTopic = $location.search()['topic'];
 
         $scope.widget = {inputValue: 'whatever'};
@@ -290,35 +266,8 @@
 
 
     });
-/*
-    topicApp.controller('TopicSubmitController',
-        $scope.submitMyForm=function(){
-            console.log("data="+data);
-       
-            var data=$scope.fields;  
- 
-            $http.post('submitTopics.php', data);
-        }
-    });
-*/
 
     topicApp.controller('TopicSubmitController', function ($scope,$http) {
-
-        //console.log("TopicSubmitController called version 1");
-/*
-        $scope.myTopics = {
-          topic1:'default',
-          topic2:'default',
-          topic3:'default'
-        };
-*/
-        //console.log("$scope.topic1="+$scope.myTopics["topic1"]);
-
-        //get user ip for connection
-
-        //console.log(angular.element("#myIP").html());
-        
-
 
         $scope.submitForm = function() {
             console.log("posting data....");
@@ -326,12 +275,27 @@
             $http.post('submitTopics.php', JSON.stringify($scope.myTopics)).success(function(){
                 console.log("success");
                 angular.element(".starter-template").html("<span style='color:#fff;'>Thanks! Your topics have been created below.</span>");
+                $scope.createRow($scope.myTopics.myID);
             });
         };
 
-        
-
-
+        $scope.createRow = function(myID){
+            console.log("id = "+myID);
+            var tempID={"number" : "My ID "+myID,"topics" : 
+            [{
+                "topic" : "UCLA",
+                "status" : "active",
+                "category" : "education"
+            },{
+                "topic" : "X-Men",
+                "status" : "available",
+                "category" : "game"
+            }]};
+            //$scope.numbers.push(tempID);
+            $scope.numbers[0]=tempID;
+            $scope.$apply();
+            //scope.myTopics.myID;
+        }
 
     });
 
@@ -646,9 +610,9 @@
 
                 <ul data-ng-show="whatever" class="row_topic" id="num{{whatever.number}}">
                     <li ng-repeat="topics in whatever.topics|limitTo:10 track by $index" class="column" ng-class="{'waiting':'{{topics.status}}' == 'waiting', 'active':'{{topics.status}}' == 'active', 'available':'{{topics.status}}' == 'available'}">
-                            <a style="cursor:pointer;height:34px;text-align:center;font-size:20px;line-height:16px;" class="scrollto ui-link btn btn-primary btn-s" href="#chat">
-                                {{topics.topic}}
-                            </a>
+                        <a style="cursor:pointer;height:34px;text-align:center;font-size:20px;line-height:16px;" class="scrollto ui-link btn btn-primary btn-s" href="#chat">
+                            {{topics.topic}}
+                        </a>
                     </li>
                 </ul>
 
