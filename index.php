@@ -343,6 +343,18 @@ $scope.loadData();
         $scope.both = sharedProperties.setProperty() + $scope.myTopic;
     });
 
+topicApp.controller('ScrollController', ['$scope', '$location', '$anchorScroll',
+    function ($scope, $location, $anchorScroll) {
+      $scope.gotoBottom = function() {
+        // set the location.hash to the id of
+        // the element you wish to scroll to.
+        $location.hash('chat');
+
+        // call $anchorScroll()
+        $anchorScroll();
+      };
+    }]);
+
     topicApp.service('sharedProperties', function () {
         var property = 'First';
 
@@ -646,21 +658,22 @@ $scope.loadData();
                 <div style="clear:both;"></div>
 
                 <ul data-ng-show="whatever" class="row_topic" id="num{{whatever.topic}}">
-                    <li ng-repeat="whatever2 in numbers|filter:whatever.connection" class="column">
-                        <a style="cursor:pointer;height:34px;text-align:center;font-size:20px;line-height:16px;" class="scrollto ui-link btn btn-primary btn-s" href="#chat">
+                    <li ng-repeat="whatever2 in numbers|filter:whatever.connection" class="column" ng-controller="ScrollController">
+                        <a style="cursor:pointer;height:34px;text-align:center;font-size:20px;line-height:16px;" class="scrollto ui-link btn btn-primary btn-s" ng-click="gotoBottom()">
                             {{whatever2.topic}}
                         </a>
                     </li>
                 </ul>
-
+<!--
                 <div class="leftArrow">
                     <i class="fa fa-arrow-left" style="position:relative;top:-62px;cursor:pointer;color:#32a5e7;font-size:37px;" ng-click="scrollRight($index)"></i>
                 </div>
                 <div class="rightArrow">
                     <i class="fa fa-arrow-right" style="position:relative;top:-62px;cursor:pointer;color:#32a5e7;font-size:37px;padding-left:5px;background:#d9edee;" ng-click="scrollLeft($index)"></i>
+                -->
                     <!--
                     <img src="images/arrow_right.png" style="position:relative;top:-62px;cursor:pointer;width:25px;height:29px;" ng-click="scrollLeft($index)" />-->
-                </div>
+                <!--</div>-->
                 <div style="clear:both;"></div>
 
             </li>
