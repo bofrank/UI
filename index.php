@@ -19,9 +19,12 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200' rel='stylesheet' type='text/css'>
+    <!--<script src="js/jquery-1.11.1.js"></script>-->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.js"></script>
+    <!--<script src="js/angular.js"></script>-->
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.1/angular.min.js"></script>
+    <script src="js/ui-utils-0.1.1/ui-utils.js"></script>
     <script src="js/app.js"></script>
     <link href="css/bootstrap.css" rel="stylesheet">
     <script src="js/bootstrap.min.js"></script>
@@ -43,12 +46,23 @@
     <script defer src="js/idangerous.swiper.js"></script>
     <script>
 
-        var topicApp = angular.module('topicApp', [], function($locationProvider) {
+        var topicApp = angular.module('topicApp', ['ui.utils'], function($locationProvider) {
           $locationProvider.html5Mode(true);
         });
 
-        topicApp.controller('topicCtrl', function ($scope,$location){
+        topicApp.controller('topicCtrl', function ($scope,$http,$location){
 
+
+$http({method: 'GET', url: 'getTopics.php'}).success(function(data) {
+    $scope.numbers = data;
+  });
+
+
+//$scope.numbers = [{"0":"206-000-0008","connection":"206-000-0008","1":"dandelion","topic":"dandelion"},{"0":"206-000-0008","connection":"206-000-0008","1":"burdock","topic":"burdock"},{"0":"206-000-0008","connection":"206-000-0008","1":"cinnamon","topic":"cinnamon"},{"0":"206-000-0003","connection":"206-000-0003","1":"jasmine","topic":"jasmine"},{"0":"206-000-0003","connection":"206-000-0003","1":"mint","topic":"mint"},{"0":"206-000-0003","connection":"206-000-0003","1":"earlgray","topic":"earlgray"}];
+
+//$scope.numbers = "topic in myArray|unique:'connection'";
+//alert($scope.numbers);
+/*
             $scope.numbers = [
         {
             "number" : "2060000002",
@@ -192,7 +206,7 @@
         }
 
     ];
-    
+    */
 //$scope.hotlist = [{"label":"Ichiro"},{"label":"Seattle"},{"label":"available column"},{"label":"Hisashi Iwakuma"}];
 
         $scope.hotlist = [{"label":"Ichiro"},{"label":"Seattle"},{"label":"available column"},{"label":"Hisashi Iwakuma"},{"label":"Bobble Head"},{"label":"Jiman Choi"},{"label":"Infielders"},{"label":"Top 20 Prospects"},{"label":"Bobble Head"},{"label":"vs Athletics"},{"label":"Cano"},{"label":"Jones"},{"label":"Montero"},{"label":"Seager"},{"label":"Saunders"},{"label":"Bloomquist"}];
@@ -275,7 +289,11 @@
             $http.post('submitTopics.php', JSON.stringify($scope.myTopics)).success(function(){
                 console.log("success");
                 angular.element(".starter-template").html("<span style='color:#fff;'>Thanks! Your topics have been created below.</span>");
-                $scope.createRow($scope.myTopics.myID);
+                //$scope.createRow($scope.myTopics.myID);
+                $http({method: 'GET', url: 'getTopics.php'}).success(function(data) {
+    $scope.numbers = data;
+    
+  });
             });
         };
 
@@ -501,7 +519,7 @@
     }
 */
     function openTopics(){
-        if($("#contentTopics").css("height")=="69px"){
+        if($("#contentTopics").css("height")=="205px"){
             $("#contentTopics").addClass("contentTopicsOpen");
         }else{
             $("#contentTopics").removeClass("contentTopicsOpen");
@@ -538,7 +556,7 @@
           </button>
             <div class="logo-container">
             <!--<div style="text-align:center;margin-left:-65px;width:100%;">-->
-                <a class="navbar-brand scrollto" href="#home"><img src="images/logo_website.jpg" alt="TopicB" />version 0.9</a>
+                <a class="navbar-brand scrollto" href="#home"><img src="images/logo_website.jpg" alt="TopicB" /></a>
             </div>
         </div>
         <div class="collapse navbar-collapse navbar-right">
@@ -549,7 +567,7 @@
             <li><a class="scrollto" href="#categories">Categories</a></li>
             <li><a class="scrollto" href="#communicator">Communicator</a></li>
             <li><a class="scrollto" href="#HowToUse">How To Use</a></li>
-            <li class="" style="color:#666666;margin-top:15px;"><form ng-submit="filterTopic(inputValue)"><input id="input_search" ng-model="inputValue" class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset" type="text" style="color:#666666;margin-top:7px;margin-left:5px;"></form></li><i style="color:#e6881e;float:left;margin:20px 0 0 10px;cursor:pointer;font-size:26px;" class="fa fa-search" ng-click="filterTopic(inputValue)"></i>
+            <li id="nav-search" class="" style="color:#666666;margin-top:15px;"><form ng-submit="filterTopic(inputValue)"><input id="input_search" ng-model="inputValue" class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset" type="text" style="color:#666666;margin-top:7px;margin-left:5px;"></form></li><i id="nav-search-icon" style="color:#e6881e;float:left;margin:20px 0 0 10px;cursor:pointer;font-size:26px;" class="fa fa-search" ng-click="filterTopic(inputValue)"></i>
             
           </ul>
         </div><!--/.nav-collapse -->
@@ -592,7 +610,7 @@
     <!-- hot topics -->
     <div  id="hottopics">
         <ul><!-- $('#hottopics').scope().numbers; -->
-            <li class="row" style="transition-duration: 0.5s; transform: translate(0px, 0px);background: linear-gradient(180deg, #67396a, #b05382);border-top:solid 1px #fff;border-bottom:solid 1px #fff;margin:0px 0px 10px 0px;padding-left:10px;">
+            <li class="row" style="transition-duration: 0.5s; transform: translate(0px, 0px);background: linear-gradient(180deg, #5a5c66, #cc0c38);border-top:solid 1px #fff;border-bottom:solid 1px #fff;margin:0px 0px 10px 0px;padding-left:10px;">
 
               <div class="number" style="color:#F9F2E7;margin-top:-2px;">
                 <i class="fa fa-fire" style="color:#F9F2E7"></i> HotTopics
@@ -618,18 +636,18 @@
 
     <div id="contentTopics" class="topics contentTopicsClose">
 
-        <ul id="content">
-            <li id="imgs" ng-repeat="whatever in numbers|filter:myTopic track by $index" class="row">
+        <ul id="content" ng-model="numbers">
+            <li id="imgs" ng-repeat="whatever in numbers|unique:'connection'" class="row">
 
                 <div class="number">
-                    {{whatever.number}}
+                    <span onclick="confirm('TopicB Call?')">{{whatever.connection}}</span>
                 </div>
                 <div style="clear:both;"></div>
 
-                <ul data-ng-show="whatever" class="row_topic" id="num{{whatever.number}}">
-                    <li ng-repeat="topics in whatever.topics|limitTo:10 track by $index" class="column" ng-class="{'waiting':'{{topics.status}}' == 'waiting', 'active':'{{topics.status}}' == 'active', 'available':'{{topics.status}}' == 'available'}">
+                <ul data-ng-show="whatever" class="row_topic" id="num{{whatever.topic}}">
+                    <li ng-repeat="whatever2 in numbers|filter:whatever.connection" class="column">
                         <a style="cursor:pointer;height:34px;text-align:center;font-size:20px;line-height:16px;" class="scrollto ui-link btn btn-primary btn-s" href="#chat">
-                            {{topics.topic}}
+                            {{whatever2.topic}}
                         </a>
                     </li>
                 </ul>
@@ -653,12 +671,12 @@
       <div id="labelOpen" style="border-bottom:solid 5px #d9edee;margin-top:2px;background:#d9edee;width:100%;height:0px;"></div>
       <img src="images/tab.png" style="margin-top:-14px;" />
     </div>
-<!--
-    <section id="phonepad" style="background:#ffffff;margin:10px auto;text-align:center;">
+
+    <section id="phonepad" style="background:none;margin:10px auto;text-align:center;">
 
         <div class="container" onclick="openPad()" style="text-align:center;">
 
-            <div style="background:url(images/bg_button.jpg) repeat-x;cursor:pointer;"><h1 style="color:#ffffff;">Connect to a Number</h1></div>
+            <a style="cursor:pointer;height:34px;text-align:center;font-size:20px;line-height:16px;width:100%;" class="scrollto ui-link btn btn-primary btn-s" href="#chat">Connect to a Number</a>
 
         </div>
         <div id="pad" class="container" style="display:none;">
@@ -668,7 +686,7 @@
         </div>
 
     </section> 
--->
+
 
     <section id="chat" style="background:none;margin-top:0px;">
 
@@ -684,14 +702,14 @@
 
                     <div class="search-result-box">
                         <div class="search_ID">
-                            ID: 206-223-8529  
+                            <span onclick="confirm('TopicB Call?')">ID: 206-223-8529</span> 
                         </div>
                         <div id="search_result_1" class="search-result-text">
                         </div>
                     </div>
                     <div class="search-result-box">
                         <div class="search_ID">
-                            ID: 206-223-8529  
+                            <span onclick="confirm('TopicB Call?')">ID: 206-223-8529</span> 
                         </div>
                         <div id="search_result_2" class="search-result-text">
                         </div>

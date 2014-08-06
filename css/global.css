@@ -12,7 +12,7 @@ ul{
 }
 
 section{
-    background:#ffffff;padding:50px;margin-top:100px;
+    background:#ffffff;margin-top:10px;
 }
 
 .topics{
@@ -25,7 +25,7 @@ section{
     
 }
 .contentTopicsClose{
-    height:69px;
+    height:205px;
     overflow:hidden;
     -webkit-transition: width .5s, height .5s, -webkit-transform .5s;
     transition: width .5s, height .5s, transform .5s;
@@ -194,5 +194,12 @@ section{
 #chatBox{
     border:none;
     height:300px;
-}
-
+}/*
+@media (min-width: 992px) {
+  #nav-search {
+    display:none;
+  }
+  #nav-search-icon {
+    display:none;
+  }
+}*/
