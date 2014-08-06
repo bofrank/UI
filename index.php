@@ -50,13 +50,16 @@
           $locationProvider.html5Mode(true);
         });
 
+
         topicApp.controller('topicCtrl', function ($scope,$http,$location){
 
-
+$scope.loadData = function () {
 $http({method: 'GET', url: 'getTopics.php'}).success(function(data) {
     $scope.numbers = data;
   });
+};
 
+$scope.loadData();
 
 //$scope.numbers = [{"0":"206-000-0008","connection":"206-000-0008","1":"dandelion","topic":"dandelion"},{"0":"206-000-0008","connection":"206-000-0008","1":"burdock","topic":"burdock"},{"0":"206-000-0008","connection":"206-000-0008","1":"cinnamon","topic":"cinnamon"},{"0":"206-000-0003","connection":"206-000-0003","1":"jasmine","topic":"jasmine"},{"0":"206-000-0003","connection":"206-000-0003","1":"mint","topic":"mint"},{"0":"206-000-0003","connection":"206-000-0003","1":"earlgray","topic":"earlgray"}];
 
@@ -281,20 +284,18 @@ $http({method: 'GET', url: 'getTopics.php'}).success(function(data) {
 
     });
 
-    topicApp.controller('TopicSubmitController', function ($scope,$http) {
+    topicApp.controller('TopicSubmitController', function ($scope,$http,$timeout) {
 
         $scope.submitForm = function() {
+            
             console.log("posting data....");
             $scope.myTopics.myID = "206-000-000"+(Math.floor(Math.random() * 10));
             $http.post('submitTopics.php', JSON.stringify($scope.myTopics)).success(function(){
                 console.log("success");
                 angular.element(".starter-template").html("<span style='color:#fff;'>Thanks! Your topics have been created below.</span>");
-                //$scope.createRow($scope.myTopics.myID);
-                $http({method: 'GET', url: 'getTopics.php'}).success(function(data) {
-    $scope.numbers = data;
-    
-  });
+                $scope.loadData();
             });
+
         };
 
         $scope.createRow = function(myID){
@@ -663,6 +664,7 @@ $http({method: 'GET', url: 'getTopics.php'}).success(function(data) {
                 <div style="clear:both;"></div>
 
             </li>
+            <!--<button ng-click="loadData()">Refresh</button>-->
         </ul>
 
     </div>
