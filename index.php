@@ -297,7 +297,7 @@ $scope.loadData();
             });
 
         };
-
+/*
         $scope.createRow = function(myID){
             console.log("id = "+myID);
             var tempID={"number" : "My ID "+myID,"topics" : 
@@ -332,7 +332,7 @@ $scope.loadData();
 
             $scope.$apply();
             //scope.myTopics.myID;
-        }
+        }*/
 
     });
 
@@ -343,16 +343,56 @@ $scope.loadData();
         $scope.both = sharedProperties.setProperty() + $scope.myTopic;
     });
 
-topicApp.controller('ScrollController', ['$scope', '$location', '$anchorScroll',
-    function ($scope, $location, $anchorScroll) {
-      $scope.gotoBottom = function() {
+    topicApp.controller('ScrollController', ['$scope', '$location', '$anchorScroll','$timeout',
+    function ($scope, $location, $anchorScroll, $timeout) {
+      $scope.chatStart = function(myChat) {
         // set the location.hash to the id of
         // the element you wish to scroll to.
+        angular.element("#search_result_1").text("loading search results...");
+        angular.element("#search_result_2").text("loading search results...");
         $location.hash('chat');
 
         // call $anchorScroll()
         $anchorScroll();
-      };
+        console.log("start chat for "+myChat);
+        
+        angular.element("#gsc-i-id1").val(myChat);
+        angular.element(".gsc-search-button").trigger( "click" );
+        
+        console.log("search for "+myChat);
+
+        $timeout(function() {
+            angular.element(".gsc-cursor-box").css("display","none");
+            angular.element(".gsc-search-box,#resInfo-0,.gsc-above-wrapper-area-container,.gcsc-branding,.gsc-above-wrapper-area,.gs-image,.gsc-thumbnail-inside,.gsc-url-top").css("display","none");
+
+            console.log("hiding gs stuff");
+
+            $scope.results=[];
+            console.log("constructed array");
+
+            angular.element(".gs-snippet").each(function(index){
+                $scope.results.push($(this).text().replace(/"/g, ''));
+            });
+            console.log("pushed results");
+
+            $timeout(function() {
+                console.log('update with timeout fired');
+                angular.element("#search_result_1").text($scope.results[0]);
+                angular.element("#search_result_2").text($scope.results[1]);
+                console.log("displayed results");
+            }, 5000);
+
+
+        }, 5000);
+
+        
+
+        //$scope.$apply();
+
+        //console.log("scope apply");
+
+      }
+
     }]);
 
     topicApp.service('sharedProperties', function () {
@@ -476,15 +516,15 @@ topicApp.controller('ScrollController', ['$scope', '$location', '$anchorScroll',
         //var tempID = "206-000-000"+(Math.floor(Math.random() * 10));
         //$('#myIDinput').attr("value","tempID");
 
-        setTimeout(function(){searchMe()}, 3000);
+        setTimeout(function(){searchMe("phad thai")}, 3000);
 
 
         //$(".gsc-control-cse").css("display","none");
 
 
-        function searchMe(){
+        function searchMe(keyword){
 
-            $("#gsc-i-id1").val("phad thai");
+            $("#gsc-i-id1").val(keyword);
             $(".gsc-search-button").trigger( "click" );
 
             setTimeout(function(){refine()}, 3000);
@@ -495,10 +535,10 @@ topicApp.controller('ScrollController', ['$scope', '$location', '$anchorScroll',
             $(".gsc-cursor-box").css("display","none");
             $(".gsc-search-box,#resInfo-0,.gsc-above-wrapper-area-container,.gcsc-branding,.gsc-above-wrapper-area,.gs-image,.gsc-thumbnail-inside,.gsc-url-top").css("display","none");
 
-        var $results=[];
-            $(".gs-snippet").each(function(index){
-            $results.push($(this).text().replace(/"/g, ''));
-        });
+            var $results=[];
+                $(".gs-snippet").each(function(index){
+                $results.push($(this).text().replace(/"/g, ''));
+            });
 
             $("#search_result_1").text($results[0]);
             $("#search_result_2").text($results[1]);
@@ -531,6 +571,7 @@ topicApp.controller('ScrollController', ['$scope', '$location', '$anchorScroll',
         }
     }
 */
+/*
     function openTopics(){
         if($("#contentTopics").css("height")=="205px"){
             $("#contentTopics").addClass("contentTopicsOpen");
@@ -538,7 +579,7 @@ topicApp.controller('ScrollController', ['$scope', '$location', '$anchorScroll',
             $("#contentTopics").removeClass("contentTopicsOpen");
         }
     }
-
+*/
     (function() {
         var cx = '014075365742795005565:u_j5gof9ikc';
         var gcse = document.createElement('script');
@@ -637,8 +678,8 @@ topicApp.controller('ScrollController', ['$scope', '$location', '$anchorScroll',
                 <li ng-repeat="hotitem in hotlist|limitTo:10">
 
                   <div class="number" style="width:200px;display:inline;">
-                     <a style="cursor:pointer;height:34px;text-align:center;font-size:20px;line-height:16px;" class="scrollto ui-link btn btn-primary btn-s" href="#chat">
-                    {{hotitem.label}}
+                    <a style="cursor:pointer;height:34px;text-align:center;font-size:20px;line-height:16px;" class="scrollto ui-link btn btn-primary btn-s" href="#chat">
+                        {{hotitem.label}}
                     </a>
                   </div>
            
@@ -650,7 +691,7 @@ topicApp.controller('ScrollController', ['$scope', '$location', '$anchorScroll',
     </div>
     <div style="clear:both;"></div>
 
-    <div id="contentTopics" class="topics contentTopicsClose">
+    <div id="contentTopics" class="topics">
 
         <ul id="content" ng-model="numbers">
             <li id="imgs" ng-repeat="whatever in numbers|unique:'connection'" class="row">
@@ -662,7 +703,7 @@ topicApp.controller('ScrollController', ['$scope', '$location', '$anchorScroll',
 
                 <ul data-ng-show="whatever" class="row_topic" id="num{{whatever.topic}}">
                     <li ng-repeat="whatever2 in numbers|filter:whatever.connection" class="column" ng-controller="ScrollController">
-                        <a style="cursor:pointer;height:34px;text-align:center;font-size:20px;line-height:16px;" class="scrollto ui-link btn btn-primary btn-s" ng-click="gotoBottom()">
+                        <a style="cursor:pointer;height:34px;text-align:center;font-size:20px;line-height:16px;" class="scrollto ui-link btn btn-primary btn-s" ng-click="chatStart(whatever2.topic)">
                             {{whatever2.topic}}
                         </a>
                     </li>
@@ -685,11 +726,12 @@ topicApp.controller('ScrollController', ['$scope', '$location', '$anchorScroll',
 
     </div>
     <!-- $(this).parent().parent('.row_topic').css('margin-left','0px') -->
+    <!--
     <div style="text-align:center;cursor:pointer;" onclick="openTopics()" >
       <div id="labelOpen" style="border-bottom:solid 5px #d9edee;margin-top:2px;background:#d9edee;width:100%;height:0px;"></div>
       <img src="images/tab.png" style="margin-top:-14px;" />
     </div>
-
+-->
     <section id="phonepad" style="background:none;margin:10px auto;text-align:center;">
 
         <div class="container" onclick="openPad()" style="text-align:center;">
@@ -706,7 +748,7 @@ topicApp.controller('ScrollController', ['$scope', '$location', '$anchorScroll',
     </section> 
 
 
-    <section id="chat" style="background:none;margin-top:0px;">
+    <section id="chat" style="background:none;margin-top:0px;" ng-controller="ScrollController">
 
         <div class="container">
 
