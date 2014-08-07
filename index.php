@@ -51,7 +51,7 @@
         });
 
 
-        topicApp.controller('topicCtrl', function ($scope,$http,$location){
+        topicApp.controller('topicCtrl', function ($scope,$http,$location,$anchorScroll,$timeout){
 
 $scope.loadData = function () {
 $http({method: 'GET', url: 'getTopics.php'}).success(function(data) {
@@ -276,9 +276,47 @@ $scope.loadData();
         $scope.widget = {inputValue: 'whatever'};
 
         $scope.filterTopic=function($mySearchWord){
-        //alert("hello");
-        console.log("$mySearchWord="+$mySearchWord);
+            //alert("hello");
+            console.log("$mySearchWord="+$mySearchWord);
             $scope.myTopic = $mySearchWord;
+            
+            angular.element("#search_result_1").text("loading search results...");
+            angular.element("#search_result_2").text("loading search results...");
+            $location.hash('hottopics');
+
+            // call $anchorScroll()
+            $anchorScroll();
+            console.log("start chat for "+$mySearchWord);
+            
+            angular.element("#gsc-i-id1").val($mySearchWord);
+            angular.element(".gsc-search-button").trigger( "click" );
+            
+            console.log("search for "+$mySearchWord);
+
+            $timeout(function() {
+                angular.element(".gsc-cursor-box").css("display","none");
+                angular.element(".gsc-search-box,#resInfo-0,.gsc-above-wrapper-area-container,.gcsc-branding,.gsc-above-wrapper-area,.gs-image,.gsc-thumbnail-inside,.gsc-url-top").css("display","none");
+
+                console.log("hiding gs stuff");
+
+                $scope.results=[];
+                console.log("constructed array");
+
+                angular.element(".gs-snippet").each(function(index){
+                    $scope.results.push($(this).text().replace(/"/g, ''));
+                });
+                console.log("pushed results");
+
+                $timeout(function() {
+                    console.log('update with timeout fired');
+                    angular.element("#search_result_1").text($scope.results[0]);
+                    angular.element("#search_result_2").text($scope.results[1]);
+                    console.log("displayed results");
+                }, 5000);
+
+
+            }, 5000);
+
         }
 
 
@@ -344,13 +382,13 @@ $scope.loadData();
     });
 
     topicApp.controller('ScrollController', ['$scope', '$location', '$anchorScroll','$timeout',
-    function ($scope, $location, $anchorScroll, $timeout) {
-      $scope.chatStart = function(myChat) {
-        // set the location.hash to the id of
-        // the element you wish to scroll to.
-        angular.element("#search_result_1").text("loading search results...");
-        angular.element("#search_result_2").text("loading search results...");
-        $location.hash('chat');
+        function ($scope, $location, $anchorScroll, $timeout) {
+            $scope.chatStart = function(myChat) {
+            // set the location.hash to the id of
+            // the element you wish to scroll to.
+            angular.element("#search_result_1").text("loading search results...");
+            angular.element("#search_result_2").text("loading search results...");
+            $location.hash('chat');
 
         // call $anchorScroll()
         $anchorScroll();
@@ -694,7 +732,7 @@ $scope.loadData();
     <div id="contentTopics" class="topics">
 
         <ul id="content" ng-model="numbers">
-            <li id="imgs" ng-repeat="whatever in numbers|unique:'connection'" class="row">
+            <li id="imgs" ng-repeat="whatever in numbers|filter:myTopic|unique:'connection'" class="row">
 
                 <div class="number">
                     <span onclick="confirm('TopicB Call?')">{{whatever.connection}}</span>
