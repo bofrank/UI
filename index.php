@@ -574,9 +574,12 @@ topicApp.controller('ScrollController', ['$scope', '$location', '$anchorScroll',
         </div>
         <div class="collapse navbar-collapse navbar-right">
           <ul class="nav navbar-nav">
-            <li><a class="scrollto" href="#phonepad" id="nav_connect">Connect</a></li>
+            <li><a class="scrollto" href="#phonepad" id="nav_connect">Talk</a></li>
+            <!--
             <li><a class="scrollto" href="#content">Your Topics</a></li>
             <li><a class="scrollto" href="#hottopics">Hot Topics</a></li>
+-->
+            <li><a class="scrollto" href="#hottopics">Topics</a></li>
             <li><a class="scrollto" href="#categories">Categories</a></li>
             <li><a class="scrollto" href="#communicator">Communicator</a></li>
             <li><a class="scrollto" href="#HowToUse">How To Use</a></li>

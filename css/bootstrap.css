@@ -3238,7 +3238,10 @@ tbody.collapse.in {
   .navbar-right .dropdown-menu-left {
     left: 0;
     right: auto;
-  }
+  }/*
+  .navbar-right{
+    margin-right: -50px;
+  }*/
 }
 .btn-group,
 .btn-group-vertical {
@@ -3965,6 +3968,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   }
   .navbar-right {
     float: right !important;
+    /*margin-right: -50px;*/
   }
 }
 .navbar-form {
@@ -4077,7 +4081,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     margin-right: 15px;
   }
   .navbar-text.navbar-right:last-child {
-    margin-right: 0;
+    margin-right: 0px;
   }
 }
 .navbar-default {

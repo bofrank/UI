@@ -194,12 +194,12 @@ section{
 #chatBox{
     border:none;
     height:300px;
-}/*
-@media (min-width: 992px) {
+}
+@media (max-width: 1200px) {
   #nav-search {
     display:none;
   }
   #nav-search-icon {
     display:none;
   }
-}*/
+}
