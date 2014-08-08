@@ -56,10 +56,20 @@
 $scope.loadData = function () {
 $http({method: 'GET', url: 'getTopics.php'}).success(function(data) {
     $scope.numbers = data;
+    $scope.loadDataHotList();
   });
 };
 
 $scope.loadData();
+
+$scope.loadDataHotList = function () {
+$http({method: 'GET', url: 'getTopics.php'}).success(function(data) {
+    $scope.hotlist = data;
+  });
+};
+
+
+
 
 //$scope.numbers = [{"0":"206-000-0008","connection":"206-000-0008","1":"dandelion","topic":"dandelion"},{"0":"206-000-0008","connection":"206-000-0008","1":"burdock","topic":"burdock"},{"0":"206-000-0008","connection":"206-000-0008","1":"cinnamon","topic":"cinnamon"},{"0":"206-000-0003","connection":"206-000-0003","1":"jasmine","topic":"jasmine"},{"0":"206-000-0003","connection":"206-000-0003","1":"mint","topic":"mint"},{"0":"206-000-0003","connection":"206-000-0003","1":"earlgray","topic":"earlgray"}];
 
@@ -212,7 +222,9 @@ $scope.loadData();
     */
 //$scope.hotlist = [{"label":"Ichiro"},{"label":"Seattle"},{"label":"available column"},{"label":"Hisashi Iwakuma"}];
 
-        $scope.hotlist = [{"label":"Ichiro"},{"label":"Seattle"},{"label":"available column"},{"label":"Hisashi Iwakuma"},{"label":"Bobble Head"},{"label":"Jiman Choi"},{"label":"Infielders"},{"label":"Top 20 Prospects"},{"label":"Bobble Head"},{"label":"vs Athletics"},{"label":"Cano"},{"label":"Jones"},{"label":"Montero"},{"label":"Seager"},{"label":"Saunders"},{"label":"Bloomquist"}];
+//$scope.hotlist = $scope.numbers;
+
+        //$scope.hotlist = [{"topic":"Ichiro"},{"topic":"Seattle"},{"topic":"available column"},{"topic":"Hisashi Iwakuma"},{"topic":"Bobble Head"},{"topic":"Jiman Choi"},{"topic":"Infielders"},{"topic":"Top 20 Prospects"},{"topic":"Bobble Head"},{"topic":"vs Athletics"}];
 
         $scope.topic_distance=0;
         $scope.scrollImages= function(distance, duration) {
@@ -312,10 +324,10 @@ $scope.loadData();
                     angular.element("#search_result_1").text($scope.results[0]);
                     angular.element("#search_result_2").text($scope.results[1]);
                     console.log("displayed results");
-                }, 5000);
+                }, 2000);
 
 
-            }, 5000);
+            }, 2000);
 
         }
 
@@ -388,7 +400,7 @@ $scope.loadData();
             // the element you wish to scroll to.
             angular.element("#search_result_1").text("loading search results...");
             angular.element("#search_result_2").text("loading search results...");
-            $location.hash('chat');
+            $location.hash('hottopics');
 
         // call $anchorScroll()
         $anchorScroll();
@@ -418,10 +430,10 @@ $scope.loadData();
                 angular.element("#search_result_1").text($scope.results[0]);
                 angular.element("#search_result_2").text($scope.results[1]);
                 console.log("displayed results");
-            }, 5000);
+            }, 2000);
 
 
-        }, 5000);
+        }, 2000);
 
         
 
@@ -703,7 +715,7 @@ $scope.loadData();
 
 
     <!-- hot topics -->
-    <div  id="hottopics">
+    <div id="hottopics">
         <ul><!-- $('#hottopics').scope().numbers; -->
             <li class="row" style="transition-duration: 0.5s; transform: translate(0px, 0px);background: linear-gradient(180deg, #5a5c66, #cc0c38);border-top:solid 1px #fff;border-bottom:solid 1px #fff;margin:0px 0px 10px 0px;padding-left:10px;">
 
@@ -717,7 +729,7 @@ $scope.loadData();
 
                   <div class="number" style="width:200px;display:inline;">
                     <a style="cursor:pointer;height:34px;text-align:center;font-size:20px;line-height:16px;" class="scrollto ui-link btn btn-primary btn-s" href="#chat">
-                        {{hotitem.label}}
+                        {{hotitem.topic}}
                     </a>
                   </div>
            
@@ -813,7 +825,7 @@ $scope.loadData();
                         </div>
                     </div>
 
-                    <iframe id="chatBox" src="" style="height:400px;width:100%;"></iframe>
+                    <iframe id="chatBox" src="" style="height:400px;width:100%;overflow:hidden;" onload="this.contentWindow.document.documentElement.scrollTop=100" scrolling="no"></iframe>
 
                 </div>
             
