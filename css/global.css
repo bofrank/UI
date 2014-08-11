@@ -31,26 +31,15 @@ section{
     transition: width .5s, height .5s, transform .5s;
 }
 .contentTopicsOpen{
-    height:409px;
-    overflow:hidden;
+    height:409px;overflow:hidden;
 }
 
 .row{
-	width:100%;
-	height:66px;
-	background:#d9edee;
-	font-size:20px;
-	font-family:"Titillium Web",sans-serif;
-	font-weight:400;
-	color:#000000;
-	overflow:hidden;
-	margin:0px 10px 10px 25px;
+	width:100%;height:66px;background:#d9edee;font-size:20px;font-family:"Titillium Web",sans-serif;font-weight:400;color:#000000;overflow:hidden;margin:0px 10px 10px 25px;
 }
 
 .row_hot{
-	width:2100px;
-	height:66px;
-	background:#F9F2E7;
+	width:2100px;height:66px;background:#F9F2E7;
 }
 
 .column{
@@ -72,9 +61,7 @@ section{
 }
 
 .number{
-	float:left;
-	width:100%;
-	color:#666666;
+	float:left;width:100%;color:#666666;
 }
 
 .mood{
@@ -114,19 +101,11 @@ section{
 
 #content {
     /*height: 409px;*/
-    width: 100%;
-    overflow: hidden;
-    position: relative;
-    margin-top:1px;
+    width: 100%;overflow: hidden;position: relative;margin-top:1px;
 }
 
 #imgs {
-    float: left;
-    display: inline;
-    padding: 0;
-    margin: 0;
-    width: 100%;
-    margin-top:2px;
+    float: left;display: inline;padding: 0;margin: 0;width: 100%;margin-top:2px;
 
     transition-property: transform;
     transition-duration: 0.5s;
@@ -138,10 +117,7 @@ section{
 }
 
 #imgs img {
-    padding: 0;
-    margin: 0;
-    width: 180px;
-    height: 400px;
+    padding: 0;margin: 0;width: 180px;height: 400px;
 
     /*apply a transform to kick in the hardware acceleration.  Without this, the first
     time we add the transform you get odd rendering of the divs (half missing) */
@@ -149,10 +125,7 @@ section{
 }
 
 .row_topic{
-	width:1200px;
-    overflow:auto;
-    height:60px;
-    margin-left:35px;
+	width:1200px;overflow:auto;height:60px;margin-left:35px;
 }
 
 .animate-enter,
@@ -177,24 +150,80 @@ section{
 .animate-leave.animate-leave-active{
     left: -100%;
 }
+.search-box{
+    color:#666666;margin-top:15px;
+}
+.search-input{
+    color:#666666;margin-top:7px;margin-left:5px;
+}
+#nav-search-icon{
+    color:#e6881e;float:left;margin:20px 0 0 10px;cursor:pointer;font-size:26px;
+}
 .search-result-box{
-    background-color: rgba(255,255,255,0.3);
-    border-radius:5px;
-    margin-top:10px;
-    padding:10px;
+    background-color: rgba(255,255,255,0.3);border-radius:5px;margin-top:10px;padding:10px;
 }
 .search-result-text{
-    color:#fff;
-    font-weight: bold;
+    color:#fff;font-weight: bold;
 }
 .search_ID{
-    color:#fff;
-    font-size:16px;
+    color:#fff;font-size:16px;
 }
 #chatBox{
-    border:none;
-    height:300px;
+    border:none;height:300px;
 }
+.topic-input-container{
+    text-align:center;margin:0px auto;width:100%;
+}
+.topic-input{
+    width:250px;margin-right:10px;background:none;
+}
+.topic-submit{
+    background:url(../images/go_search.jpg) no-repeat;border:none;width:44px;height:29px;
+}
+
+.hottopic-row{
+    transition-duration: 0.5s; transform: translate(0px, 0px);background: linear-gradient(180deg, #5a5c66, #cc0c38);border-top:solid 1px #fff;border-bottom:solid 1px #fff;margin:0px 0px 10px 0px;padding-left:10px;
+}
+.hottopic-row-title{
+    color:#F9F2E7;margin-top:-2px;
+}
+.hottopic-container{
+    width:200px;display:inline;
+}
+.hottopic-button{
+    cursor:pointer;height:34px;text-align:center;font-size:20px;line-height:16px;
+}
+.topic-button{
+    cursor:pointer;height:34px;text-align:center;font-size:20px;line-height:16px;
+}
+.section-chat{
+    background:none;margin-top:0px;
+}
+#chatBox{
+    height:400px;width:100%;overflow:hidden;
+}
+.section-ad{
+    background:#000;max-height:60px;margin:0px;padding:0px;text-align:center;
+}
+.ad-img{
+    max-width:468px;max-height:60px;
+}
+.section-categories{
+    background:#ffffff;padding:50px;margin-top:100px;
+}
+.category-container{
+    display:inline;margin:10px;
+}
+.category-button{
+    cursor:pointer;height:34px;text-align:center;font-size:20px;line-height:16px;
+}
+.section-about{
+    background:#ffffff;padding:50px;margin-top:100px;height:400px;
+}
+.section-getcode{
+    background:#ffffff;padding:50px;margin-top:100px;height:400px;
+}
+
 @media (max-width: 1200px) {
   #nav-search {
     display:none;
@@ -208,7 +237,7 @@ section{
   #categories{
     display:none;
   }
-  #HowToUse{
+  #about{
     display:none;
   }
   #getCode{
