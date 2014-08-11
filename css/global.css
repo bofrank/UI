@@ -202,9 +202,22 @@ section{
   #nav-search-icon {
     display:none;
   }
+  #ad{
+    display:none;
+  }
+  #categories{
+    display:none;
+  }
+  #HowToUse{
+    display:none;
+  }
+  #getCode{
+    display:none;
+  }
 }
 @media (min-width: 768px) {
     #phonepad{
         display:none;
     }
+    
 }

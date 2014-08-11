@@ -566,7 +566,7 @@ $http({method: 'GET', url: 'getTopics.php'}).success(function(data) {
         //var tempID = "206-000-000"+(Math.floor(Math.random() * 10));
         //$('#myIDinput').attr("value","tempID");
 
-        setTimeout(function(){searchMe("phad thai")}, 3000);
+        //setTimeout(function(){searchMe("phad thai")}, 3000);
 
 
         //$(".gsc-control-cse").css("display","none");
@@ -660,7 +660,7 @@ $http({method: 'GET', url: 'getTopics.php'}).success(function(data) {
           </button>
             <div class="logo-container">
             <!--<div style="text-align:center;margin-left:-65px;width:100%;">-->
-                <a class="navbar-brand scrollto" href="#home"><img src="images/logo_website.jpg" alt="TopicB" /></a>
+                <a class="navbar-brand scrollto" href="#home"><img src="images/logo.gif" alt="TopicB" /></a>
             </div>
         </div>
         <div class="collapse navbar-collapse navbar-right">
@@ -673,7 +673,7 @@ $http({method: 'GET', url: 'getTopics.php'}).success(function(data) {
             <li><a class="scrollto" href="#hottopics">Topics</a></li>
             <li><a class="scrollto" href="#categories">Categories</a></li>
             <li><a class="scrollto" href="#communicator">Communicator</a></li>
-            <li><a class="scrollto" href="#HowToUse">How To Use</a></li>
+            <li><a class="scrollto" href="#HowToUse">About</a></li>
             <li id="nav-search" class="" style="color:#666666;margin-top:15px;"><form ng-submit="filterTopic(inputValue)"><input id="input_search" ng-model="inputValue" class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset" type="text" style="color:#666666;margin-top:7px;margin-left:5px;"></form></li><i id="nav-search-icon" style="color:#e6881e;float:left;margin:20px 0 0 10px;cursor:pointer;font-size:26px;" class="fa fa-search" ng-click="filterTopic(inputValue)"></i>
             
           </ul>
@@ -727,8 +727,8 @@ $http({method: 'GET', url: 'getTopics.php'}).success(function(data) {
               <ul class="row_hot" id="imgs2" style="background:none;">
                 <li ng-repeat="hotitem in hotlist|limitTo:10">
 
-                  <div class="number" style="width:200px;display:inline;">
-                    <a style="cursor:pointer;height:34px;text-align:center;font-size:20px;line-height:16px;" class="scrollto ui-link btn btn-primary btn-s" href="#chat">
+                  <div class="number" style="width:200px;display:inline;" ng-controller="ScrollController">
+                    <a style="cursor:pointer;height:34px;text-align:center;font-size:20px;line-height:16px;" class="scrollto ui-link btn btn-primary btn-s" ng-click="chatStart(hotitem.topic)">
                         {{hotitem.topic}}
                     </a>
                   </div>
@@ -782,6 +782,7 @@ $http({method: 'GET', url: 'getTopics.php'}).success(function(data) {
       <img src="images/tab.png" style="margin-top:-14px;" />
     </div>
 -->
+<!--
     <section id="phonepad" style="background:none;margin:10px auto;text-align:center;">
 
         <div class="container" onclick="openPad()" style="text-align:center;">
@@ -797,7 +798,7 @@ $http({method: 'GET', url: 'getTopics.php'}).success(function(data) {
 
     </section> 
 
-
+-->
     <section id="chat" style="background:none;margin-top:0px;" ng-controller="ScrollController">
 
         <div class="container">
@@ -812,14 +813,14 @@ $http({method: 'GET', url: 'getTopics.php'}).success(function(data) {
 
                     <div class="search-result-box">
                         <div class="search_ID">
-                            <span onclick="confirm('TopicB Call?')">ID: 206-223-8529</span> 
+                            <span onclick="confirm('TopicB Call?')">ID: 206-329-1503</span> 
                         </div>
                         <div id="search_result_1" class="search-result-text">
                         </div>
                     </div>
                     <div class="search-result-box">
                         <div class="search_ID">
-                            <span onclick="confirm('TopicB Call?')">ID: 206-223-8529</span> 
+                            <span onclick="confirm('TopicB Call?')">ID: 206-329-1503</span> 
                         </div>
                         <div id="search_result_2" class="search-result-text">
                         </div>
@@ -845,6 +846,7 @@ $http({method: 'GET', url: 'getTopics.php'}).success(function(data) {
 
     </section>  
 
+
     <section id="categories" style="background:#ffffff;padding:50px;margin-top:100px;">
 
         <div class="container" class="scrollimation fade-left">
@@ -853,15 +855,62 @@ $http({method: 'GET', url: 'getTopics.php'}).success(function(data) {
                 <h2>Categories</h2>
 
                 <h3>
-                    This section will list all of the categories.
+                    <div style="display:inline;margin:10px;" ng-controller="ScrollController">
+                        <a style="cursor:pointer;height:34px;text-align:center;font-size:20px;line-height:16px;" class="scrollto ui-link btn btn-primary btn-s" ng-click="chatStart('food')">
+                            food
+                        </a>
+                    </div>
+                    <div style="display:inline;margin:10px;" ng-controller="ScrollController">
+                        <a style="cursor:pointer;height:34px;text-align:center;font-size:20px;line-height:16px;" class="scrollto ui-link btn btn-primary btn-s" ng-click="chatStart('sports')">
+                            sports
+                        </a>
+                    </div>
+                    <div style="display:inline;margin:10px;" ng-controller="ScrollController">
+                        <a style="cursor:pointer;height:34px;text-align:center;font-size:20px;line-height:16px;" class="scrollto ui-link btn btn-primary btn-s" ng-click="chatStart('news')">
+                            news
+                        </a>
+                    </div>
+                    <div style="display:inline;margin:10px;" ng-controller="ScrollController">
+                        <a style="cursor:pointer;height:34px;text-align:center;font-size:20px;line-height:16px;" class="scrollto ui-link btn btn-primary btn-s" ng-click="chatStart('weather')">
+                            weather
+                        </a>
+                    </div>
+                    <div style="display:inline;margin:10px;" ng-controller="ScrollController">
+                        <a style="cursor:pointer;height:34px;text-align:center;font-size:20px;line-height:16px;" class="scrollto ui-link btn btn-primary btn-s" ng-click="chatStart('cars')">
+                            cars
+                        </a>
+                    </div>
+                    <div style="display:inline;margin:10px;" ng-controller="ScrollController">
+                        <a style="cursor:pointer;height:34px;text-align:center;font-size:20px;line-height:16px;" class="scrollto ui-link btn btn-primary btn-s" ng-click="chatStart('law')">
+                            law
+                        </a>
+                    </div>
+                    <div style="display:inline;margin:10px;" ng-controller="ScrollController">
+                        <a style="cursor:pointer;height:34px;text-align:center;font-size:20px;line-height:16px;" class="scrollto ui-link btn btn-primary btn-s" ng-click="chatStart('travel')">
+                            travel
+                        </a>
+                    </div>
+                    <div style="display:inline;margin:10px;" ng-controller="ScrollController">
+                        <a style="cursor:pointer;height:34px;text-align:center;font-size:20px;line-height:16px;" class="scrollto ui-link btn btn-primary btn-s" ng-click="chatStart('pets')">
+                            pets
+                        </a>
+                    </div>
+                    <div style="display:inline;margin:10px;" ng-controller="ScrollController">
+                        <a style="cursor:pointer;height:34px;text-align:center;font-size:20px;line-height:16px;" class="scrollto ui-link btn btn-primary btn-s" ng-click="chatStart('friends')">
+                            friends
+                        </a>
+                    </div>
+
+
                 </h3>
             
             </div>
 
-        </div><!--End container -->
+        </div>
 
     </section>
 
+<!--
     <section id="communicator" style="background:#ffffff;padding:50px;margin-top:100px;height:400px;">
 
         <div class="container">
@@ -875,26 +924,32 @@ $http({method: 'GET', url: 'getTopics.php'}).success(function(data) {
             
             </div>
 
-        </div><!--End container -->
+        </div>
 
     </section>
+-->
 
     <section id="HowToUse" style="background:#ffffff;padding:50px;margin-top:100px;height:400px;">
 
         <div class="container">
 
             <div class="scrollimation fade-left" >
-                <h2>How To Use</h2>
+                <h2>About</h2>
 
                 <h3>
-                    This section will explain how to use TopicB in connecting with people on a particular subject that you would like to discuss.
+                    TopicB helps people create conversations on topics through voice and chat.
                 </h3>
+
+                <p>
+                    Enter a topic above that you would like to talk about or choose from the available topics listed. You can immediately chat with someone right now on the topic that you have chosen!
+                </p>
             
             </div>
 
-        </div><!--End container -->
+        </div>
 
     </section>
+
 
 
     <section id="getCode" style="background:#ffffff;padding:50px;margin-top:100px;height:400px;">
@@ -905,15 +960,17 @@ $http({method: 'GET', url: 'getTopics.php'}).success(function(data) {
                 <h2>Put TopicB on Your Site</h2>
 
                 <h3>
-                    This section will show how to put TopicB on a site.
+                    Copy the code below and paste into your website.
                 </h3>
-                <div ng-controller="QueryCntl">
-                    Target: {{target}}<br/>
+                <div>
+                    <pre><code>
+                        &lt;iframe width=&quot;320&quot; height=&quot;540&quot; src=&quot;http://bit.ly/1s4Epnm&quot;&gt;&lt;/iframe&gt;
+                    </code></pre>
                 </div>
             
             </div>
 
-        </div><!--End container -->
+        </div>
 
     </section>
 
