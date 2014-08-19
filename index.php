@@ -46,7 +46,6 @@ header('Expires: 0');
     <script src="js/designr.js"></script>
     <script src="js/jquery.watermark.js"></script>
     <script src="js/common.js"></script>
-    <script src="js/jquery.scrollto.js"></script>
     <link href="css/global.css" rel="stylesheet">
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/idangerous.swiper.css">
@@ -249,7 +248,7 @@ header('Expires: 0');
                 }
             }
 
-            setInterval(function(){$scope.scrollImages($scope.topic_distance, 25)},5);
+            setInterval(function(){$scope.scrollImages($scope.topic_distance, 25)},5);           
 
             $scope.topicShift = function($myEvent){  
                 var temp = $scope.hotlist.shift();
@@ -293,8 +292,8 @@ header('Expires: 0');
                 console.log("$mySearchWord="+$mySearchWord);
                 $scope.myTopic = $mySearchWord;
                 
-                angular.element("#search_result_1").text("loading search results...");
-                angular.element("#search_result_2").text("loading search results...");
+                angular.element("#search_result_1,#search_result_2").parent().show();
+                angular.element("#search_result_1,#search_result_2").text("loading search results...");
                 $location.hash('hottopics');
 
                 // call $anchorScroll()
@@ -359,8 +358,8 @@ header('Expires: 0');
                 $scope.chatStart = function(myChat) {
                     // set the location.hash to the id of
                     // the element you wish to scroll to.
-                    angular.element("#search_result_1").text("loading search results...");
-                    angular.element("#search_result_2").text("loading search results...");
+                    angular.element("#search_result_1,#search_result_2").parent().show();
+                    angular.element("#search_result_1,#search_result_2").text("loading search results...");
                     $location.hash('hottopics');
 
                     $anchorScroll();
@@ -584,7 +583,7 @@ header('Expires: 0');
             <li id="navTalk"><a class="scrollto" href="#phonepad" id="nav_connect">Talk</a></li>
             <li id="navTopics"><a class="scrollto" href="#hottopics">Topics</a></li>
             <li id="navCategories"><a class="scrollto" href="#categories">Categories</a></li>
-            <li id="navCommunicator"><a class="scrollto" href="#communicator">Communicator</a></li>
+            <!--<li id="navCommunicator"><a class="scrollto" href="#communicator">Communicator</a></li>-->
             <li id="navAbout"><a class="scrollto" href="#about">About</a></li>
             <li id="navCode"><a class="scrollto" href="#getCode">Put This on Your Site</a></li>
             <li id="nav-search" class="search-box"><form ng-submit="filterTopic(inputValue)"><input id="input_search" ng-model="inputValue" class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset search-input" type="text"></form></li><i id="nav-search-icon" class="fa fa-search" ng-click="filterTopic(inputValue)"></i>
@@ -596,20 +595,20 @@ header('Expires: 0');
     <div class="container" id="home">
 <br>
 
-version .195
+version .196
 
       <div class="starter-template">
         <div class="topic-input-container">
 
             <form class="form-inline" ng-submit="submitForm(myTopics)" ng-controller="TopicSubmitController">
                 <div class="form-group">
-                    <input id="topic1" type="text" data-ng-model="myTopics.topic1" name="form.topic1" class="form-control topic-input" />
+                    <input id="topic1" type="text" data-ng-model="myTopics.topic1" name="form.topic1" class="form-control topic-input" maxlength="16" />
                 </div>
                 <div class="form-group">
-                    <input id="topic2" type="text" data-ng-model="myTopics.topic2" name="form.topic2" class="form-control topic-input" />
+                    <input id="topic2" type="text" data-ng-model="myTopics.topic2" name="form.topic2" class="form-control topic-input" maxlength="16" />
                 </div>
                 <div class="form-group">
-                    <input id="topic3" type="text" data-ng-model="myTopics.topic3" name="form.topic3" class="form-control topic-input" />
+                    <input id="topic3" type="text" data-ng-model="myTopics.topic3" name="form.topic3" class="form-control topic-input" maxlength="16" />
                 </div>
                 <div class="form-group">
                   <input type="submit" id="submit" value="" class="topic-submit" ng-click="submit" />
@@ -704,16 +703,16 @@ version .195
                     </div>
 
                     <div class="search-result-box">
-                        <div class="search_ID">
+                        <!--<div class="search_ID">
                             <span>Loading Search Results ...</span> 
-                        </div>
+                        </div>-->
                         <div id="search_result_1" class="search-result-text">
                         </div>
                     </div>
                     <div class="search-result-box">
-                        <div class="search_ID">
+                        <!--<div class="search_ID">
                             <span>Loading Search Results ...</span> 
-                        </div>
+                        </div>-->
                         <div id="search_result_2" class="search-result-text">
                         </div>
                     </div>
@@ -833,7 +832,7 @@ version .195
                 </h3>
 
                 <p>
-                    <a class="navbar-brand scrollto" href="#home">Enter a topic above</a> that you would like to talk about or choose from the available topics listed. You can immediately chat with someone right now on the topic that you have chosen!
+                    <a class="scrollto" href="#home">Enter a topic above</a> that you would like to talk about or choose from the available topics listed. You can immediately chat with someone right now on the topic that you have chosen!
                 </p>
             
             </div>

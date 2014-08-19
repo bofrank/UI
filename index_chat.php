@@ -9,13 +9,29 @@
 
 				function makeid()
 				{
+					/*
 				    var hex1 = "";
 				    var hex2 = "";
+				    var hex3 = "";
+				    var hex4 = "";
+				    var hex5 = "";
+				    var hex6 = "";
 				    var possible = "abcdef";
 				  
 				    hex1 = possible.charAt(Math.floor(Math.random() * possible.length));
 				    hex2 = possible.charAt(Math.floor(Math.random() * possible.length));
-				    text=hex1+hex2+hex1+hex2+hex1+hex2;
+				    hex3 = possible.charAt(Math.floor(Math.random() * possible.length));
+				    hex4 = possible.charAt(Math.floor(Math.random() * possible.length));
+				    hex5 = possible.charAt(Math.floor(Math.random() * possible.length));
+				    hex6 = possible.charAt(Math.floor(Math.random() * possible.length));
+				    text=hex1+hex2+hex3+hex4+hex5+hex6;
+				    */
+
+				    var ray = Math.floor(Math.random() * 255);
+				    var gun = Math.floor(Math.random() * 255);
+				    var blaster = Math.floor(Math.random() * 255);
+
+				    text="rgba("+ray+","+gun+","+blaster+",0.3)";
 
 				    $("#color").val(text);
 				}
@@ -27,6 +43,7 @@
 
 					$.post("ajaxPost.php",$("#userArea").serialize(),function(data){
 						$("#messages").append("<div>" + data + "</div>");
+						$('#myMessage').val('');
 					});
 					return false;
 				});
@@ -34,7 +51,7 @@
 				setInterval(function() {
       			$("#messages").load("ajaxLoad.php");
       			$('#wrapper').scrollTop($('#wrapper').height()+300);
-				}, 3000);
+				}, 10000);
 
 				$('#myMessage').watermark('Start Typing...');
 
@@ -85,12 +102,12 @@
 	<body>
 
 		<!-- wrapper for scrolling -->
-		<div id="wrapper" style="height:400px;overflow:auto;">
+		<div id="wrapper" style="height:400px;overflow:auto;margin-left:-8px;">
 			<!-- display -->
-			<div id="messages"></div>
+			<div id="messages" style="margin-right:10px;margin-top:17px;"></div>
 
 			<!-- post -->
-			<form id="userArea" class="form-inline" style="margin-top:10px;">
+			<form id="userArea" class="form-inline" style="margin-top:10px;margin-right:10px;">
 
 				<label style="color:#fff;">Your Message:</label>
 				<input type="text" maxlength="255" name="messages" class="form-control" id="myMessage"  />

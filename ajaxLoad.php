@@ -19,7 +19,7 @@
 
 include "config.php"; 
 
-$DB->Query("SELECT * FROM messages ORDER BY id DESC LIMIT 5") or die (mysql_error());
+$DB->Query("SELECT * FROM messages ORDER BY id DESC LIMIT 10") or die (mysql_error());
 
 $data = $DB->Get();
 
@@ -31,7 +31,7 @@ foreach($data as $key => $value)
 	echo "<div style='background:#".$value['color']."'>".$value['message'].
 	"<a class='delete' href='#' rel='".$value['id']."'>Delete</a></div>";
 */
-echo "<div class='search-result-box'>".
+echo "<div class='search-result-box' style='background-color:".$value['color'].";'>".
     "<div class='search_ID'>ID: ".
         $value['color'].
     "</div>".
