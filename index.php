@@ -1,3 +1,7 @@
+<!--
+1. test width on hot topic
+2.
+-->
 <?php
 header('Cache-Control: no-cache, no-store, must-revalidate'); // HTTP 1.1.
 header('Pragma: no-cache'); // HTTP 1.0.
@@ -27,6 +31,7 @@ header('Expires: 0');
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.1/angular.min.js"></script>
+    <!--<script src="js/angular.js"></script>-->
     <script src="js/ui-utils-0.1.1/ui-utils.js"></script>
     <script src="js/app.js"></script>
     <link href="css/bootstrap.css" rel="stylesheet">
@@ -72,6 +77,8 @@ header('Expires: 0');
 
 //existing format
 //$scope.numbers = [{"0":"206-000-0008","connection":"206-000-0008","1":"dandelion","topic":"dandelion"},{"0":"206-000-0008","connection":"206-000-0008","1":"burdock","topic":"burdock"},{"0":"206-000-0008","connection":"206-000-0008","1":"cinnamon","topic":"cinnamon"},{"0":"206-000-0003","connection":"206-000-0003","1":"jasmine","topic":"jasmine"},{"0":"206-000-0003","connection":"206-000-0003","1":"mint","topic":"mint"},{"0":"206-000-0003","connection":"206-000-0003","1":"earlgray","topic":"earlgray"}];
+
+//$scope.hotlist = $scope.numbers;
 
 //prefered format
 /*
@@ -333,7 +340,7 @@ header('Expires: 0');
                 $scope.myTopics.myID = "206-000-000"+(Math.floor(Math.random() * 10));
                 $http.post('submitTopics.php', JSON.stringify($scope.myTopics)).success(function(){
                     console.log("success");
-                    angular.element(".starter-template").html("<span style='color:#fff;'>Thanks! Your topics have been created below.</span>");
+                    angular.element(".starter-template").html("<span class='message-create'>Thanks! Your topics have been created below.</span>");
                     $scope.loadData();
                 });
 
@@ -501,7 +508,7 @@ header('Expires: 0');
             $('#topic1').watermark('Enter Your Topic (required)');
             $('#topic2').watermark('Enter Another Topic');
             $('#topic3').watermark('Enter Another Topic');
-            $("#chatBox").attr("src", "http://www.bofrank.com/chat/index.php#end");
+            $("#chatBox").attr("src", "index_chat.php#end");
 
             //var tempID = "206-000-000"+(Math.floor(Math.random() * 10));
             //$('#myIDinput').attr("value","tempID");
@@ -574,19 +581,22 @@ header('Expires: 0');
         </div>
         <div class="collapse navbar-collapse navbar-right">
           <ul class="nav navbar-nav">
-            <li><a class="scrollto" href="#phonepad" id="nav_connect">Talk</a></li>
-            <li><a class="scrollto" href="#hottopics">Topics</a></li>
-            <li><a class="scrollto" href="#categories">Categories</a></li>
-            <li><a class="scrollto" href="#communicator">Communicator</a></li>
-            <li><a class="scrollto" href="#about">About</a></li>
+            <li id="navTalk"><a class="scrollto" href="#phonepad" id="nav_connect">Talk</a></li>
+            <li id="navTopics"><a class="scrollto" href="#hottopics">Topics</a></li>
+            <li id="navCategories"><a class="scrollto" href="#categories">Categories</a></li>
+            <li id="navCommunicator"><a class="scrollto" href="#communicator">Communicator</a></li>
+            <li id="navAbout"><a class="scrollto" href="#about">About</a></li>
+            <li id="navCode"><a class="scrollto" href="#getCode">Put This on Your Site</a></li>
             <li id="nav-search" class="search-box"><form ng-submit="filterTopic(inputValue)"><input id="input_search" ng-model="inputValue" class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset search-input" type="text"></form></li><i id="nav-search-icon" class="fa fa-search" ng-click="filterTopic(inputValue)"></i>
-            
           </ul>
         </div><!--/.nav-collapse -->
       </div>
     </div>
 
     <div class="container" id="home">
+<br>
+
+version .195
 
       <div class="starter-template">
         <div class="topic-input-container">
@@ -736,7 +746,7 @@ header('Expires: 0');
             <div >
                 <h2>Categories</h2>
 
-                <h3>
+                <h3 class="categories-container">
                     <div class="category-container" ng-controller="ScrollController">
                         <a class="scrollto ui-link btn btn-primary btn-s category-button" ng-click="chatStart('food')">
                             food
@@ -823,7 +833,7 @@ header('Expires: 0');
                 </h3>
 
                 <p>
-                    Enter a topic above that you would like to talk about or choose from the available topics listed. You can immediately chat with someone right now on the topic that you have chosen!
+                    <a class="navbar-brand scrollto" href="#home">Enter a topic above</a> that you would like to talk about or choose from the available topics listed. You can immediately chat with someone right now on the topic that you have chosen!
                 </p>
             
             </div>
@@ -846,7 +856,7 @@ header('Expires: 0');
                 </h3>
                 <div>
                     <pre><code>
-                        &lt;iframe width=&quot;320&quot; height=&quot;540&quot; src=&quot;http://bit.ly/1s4Epnm&quot;&gt;&lt;/iframe&gt;
+                        &lt;iframe width=&quot;320&quot; height=&quot;540&quot; src=&quot;http://default-environment-ufabpzscgt.elasticbeanstalk.com&quot; style=&quot;width:320px;height:540px;border:none;&quot;&gt;&lt;/iframe&gt;
                     </code></pre>
                 </div>
             
@@ -855,6 +865,17 @@ header('Expires: 0');
         </div>
 
     </section>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-53853189-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
 
   </body>
 </html>
