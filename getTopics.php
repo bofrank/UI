@@ -2,69 +2,92 @@
 
 include "config.php"; 
 
-/* this returns everything */
-
-/*
-$DB->Query("SELECT * FROM topicb.topics");
-$result = json_encode($DB->get());
-print_r($result);
-*/
-
-/* this selects the topics */
-/*
-$DB->Query("SELECT topic FROM topicb.topics");
-$result = json_encode($DB->get());
-print_r($result);
-*/
+/* working version */
 
 $DB->Query("SELECT connection,topic FROM topicb.topics");
 $result = json_encode($DB->get());
 echo $result;
 
-/*
-//$arr = array('a' => 1, 'b' => 2, 'c' => 3, 'd' => 4, 'e' => 5);
 
-//$arr = Array ( [0] => earlgray [topic] => earlgray [1] => 206-000-0003 [connection] => 206-000-0003 [2] => [category] => [3] => [state] =>);
-
-//$arr = Array('0' => 'earlgray', 'topic' => 'earlgray', '1' => '206-000-0003', 'connection' => '206-000-0003');
-
-//$result = strval($arr);
-
-//Array ( [0] => earlgray [topic] => earlgray [1] => 206-000-0003 [connection] => 206-000-0003 [2] => [category] => [3] => [state] => ) 
-
-//$result = json_encode($arr);
-
-
-//$db->query('SELECT * FROM someplace');
-
-//$result = $DB->get('topicb.topics');
-/*
-if ($result = mysqli_query($DB, "SELECT * FROM topicb.topics")) {
-    printf("Select returned %d rows.\n", mysqli_num_rows($result));
-
-
-}
+/* 
+	currently returns the following example data which is displayed here: bit.ly/1s4Epnm 
 */
 
-//echo "<br><br>--------------------------------------------------------<br><br><table>";
+/*
 
-//echo $result;
+[
+	{"0":"206-000-0005","connection":"206-000-0005","1":"Seattle","topic":"Seattle"},
+	{"0":"206-000-0005","connection":"206-000-0005","1":"LA","topic":"LA"},
+	{"0":"206-000-0005","connection":"206-000-0005","1":"SF","topic":"SF"},
+	{"0":"206-000-0004","connection":"206-000-0004","1":"Mariners","topic":"Mariners"},
+	{"0":"206-000-0004","connection":"206-000-0004","1":"Seahawks","topic":"Seahawks"},
+	{"0":"206-000-0004","connection":"206-000-0004","1":"Sounders","topic":"Sounders"},
+	{"0":"206-000-0001","connection":"206-000-0001","1":"give me a second","topic":"give me a second"},
+	{"0":"206-000-0004","connection":"206-000-0004","1":"trumpet","topic":"trumpet"},
+	{"0":"206-000-0006","connection":"206-000-0006","1":"0123456789012345","topic":"0123456789012345"}
+]
+
+*/
+
+
+/* would like the data to be in the following format */
 
 /*
-$i=0;
 
-foreach($result as $topic=>$connection) {
-   echo "$topic : $connection <br>";
-}
+[
+  {
+    "connection" : "2060000002",
+    "topics" : [
+    {
+        "topic" : "hamburger",
+        "state" : "available",
+        "category" : "food"
+    },
+    {
+        "topic" : "Mariners",
+        "state" : "waiting",
+        "category" : "sports"
+    },
+    {
+        "topic" : "Ichiro",
+        "state" : "available",
+        "category" : "sports"
+    }
+    ]
+  },
+  {
+    "connection" : "2060000001",
+    "topics" : [
+    {
+        "topic" : "World Advertising Congress",
+        "state" : "active",
+        "category" : "advertising"
+    },
+    {
+        "topic" : "Digital Strategies",
+        "state" : "available",
+        "category" : "technology"
+    },
+    {
+        "topic" : "Multi-Channel Experience",
+        "state" : "available",
+        "category" : "technology"
+    }
+    ] 
+  },
+  {
+    "connection" : "2060000003",
+    "topics" : [
+    {
+        "topic" : "Dark Souls 2",
+        "state" : "active",
+        "category" : "game"
+    }
+    ]
+  }
+];
+
 */
-/*
-while ($row=mysql_fetch_row($result)){
-	$result_topic=$row[0];
-	$result_connection=$row[1];
-	echo "<tr><td>$result_topic</td><td>$result_connection</td></tr>"; 
-}
-echo "</table>";
-*/
-//echo "result = ".$result;
+
 
 ?>
