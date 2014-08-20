@@ -9,6 +9,10 @@ $result = json_encode($DB->get());
 echo $result;
 
 
+/*
+ db screenshot: https://github.com/bofrank/UI/blob/master/images/db.png
+*/
+
 /* 
 	currently returns the following example data which is displayed here: bit.ly/1s4Epnm 
 */
