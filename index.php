@@ -31,6 +31,7 @@ header('Expires: 0');
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.1/angular.min.js"></script>
+    <!--<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular-animate.min.js"></script>-->
     <!--<script src="js/angular.js"></script>-->
     <script src="js/ui-utils-0.1.1/ui-utils.js"></script>
     <script src="js/app.js"></script>
@@ -46,13 +47,15 @@ header('Expires: 0');
     <script src="js/designr.js"></script>
     <script src="js/jquery.watermark.js"></script>
     <script src="js/common.js"></script>
+    <script src="js/jquery.timer.js"></script>
     <link href="css/global.css" rel="stylesheet">
+    <!--<link href="css/animate.css" rel="stylesheet">-->
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/idangerous.swiper.css">
     <script defer src="js/idangerous.swiper.js"></script>
     <script>
 
-        var topicApp = angular.module('topicApp', ['ui.utils'], function($locationProvider) {
+        var topicApp = angular.module('topicApp',['ui.utils'], function($locationProvider) {
           $locationProvider.html5Mode(true);
         });
 
@@ -227,30 +230,46 @@ header('Expires: 0');
     */
 
             $scope.topic_distance=0;
-            $scope.scrollImages= function(distance, duration) {
-                $scope.$apply();
-                if($scope.topic_distance>200){
-                    //console.log("shifting");
-                    $scope.topicShift();
-                    $scope.topic_distance=0;
-                }else if($scope.topic_distance<1){
-                    $("#imgs2").css("transition-duration", 0 + "s");
-                    //inverse the number we set in the css
-                    var value = (distance < 0 ? "" : "-") + Math.abs(distance).toString();
-                    $("#imgs2").css("transform", "translate(" + value + "px,0)");
-                    $scope.topic_distance++;
-                }else{
-                    $("#imgs2").css("transition-duration", (duration / 1000).toFixed(1) + "s");
-                    //inverse the number we set in the css
-                    var value = (distance < 0 ? "" : "-") + Math.abs(distance).toString();
-                    $("#imgs2").css("transform", "translate(" + value + "px,0)");
-                    $scope.topic_distance++;
-                }
+
+
+            $scope.scrollImages = function() {
+                $("#imgs2").css("transition-duration", "2s");
+                $("#imgs2").css("transform", "translate(-200px,0)");
+                //$("#imgs2").
+                $("#imgs2").one('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd', 
+                    function() {
+                        $scope.topicShift();
+                        console.log("shifted");
+                        $("#imgs2").css("transition-duration", "0s");
+                        $("#imgs2").css("transform", "translate(0px,0)");
+                        console.log("re-positioned");
+                        $scope.$apply();
+                    }
+                );
+
+                console.log("positioned");
+                
             }
 
-            setInterval(function(){$scope.scrollImages($scope.topic_distance, 25)},5);           
+            $scope.timerHotTopic = $.timer(function() {
+                console.log("timer called");
+                $scope.scrollImages();
+            });
+            $scope.timerHotTopic.set({time:5000,autostart:true});
+            console.log("timer set");
+
+            
+
+            $scope.resumeHotTopics = function(){  
+                console.log("stopping");
+                $scope.topic_distance=0;
+                $scope.timerHotTopic.play();
+            }
+
+                    
 
             $scope.topicShift = function($myEvent){  
+                console.log("shifting");
                 var temp = $scope.hotlist.shift();
                 $scope.hotlist.push(temp);
             }
@@ -492,6 +511,7 @@ header('Expires: 0');
         /**
          * Manually update the position of the imgs on drag
          */
+         /*
         function scrollImages(distance, duration) {
             imgs.css("transition-duration", (duration / 1000).toFixed(1) + "s");
 
@@ -499,7 +519,7 @@ header('Expires: 0');
             var value = (distance < 0 ? "" : "-") + Math.abs(distance).toString();
             imgs.css("transform", "translate(" + value + "px,0)");
         }
-
+*/
         $( document ).ready(function() {
             //setInterval(function(){nextImage()},2000);
             $(".ui-loader ").css("display","none");
@@ -508,7 +528,7 @@ header('Expires: 0');
             $('#topic2').watermark('Enter Another Topic');
             $('#topic3').watermark('Enter Another Topic');
             $("#chatBox").attr("src", "index_chat.php#end");
-
+            
             //var tempID = "206-000-000"+(Math.floor(Math.random() * 10));
             //$('#myIDinput').attr("value","tempID");
 
@@ -595,7 +615,7 @@ header('Expires: 0');
     <div class="container" id="home">
 <br>
 
-version .196
+version .198
 
       <div class="starter-template">
         <div class="topic-input-container">
