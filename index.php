@@ -1,7 +1,3 @@
-<!--
-1. test width on hot topic
-2.
--->
 <?php
 header('Cache-Control: no-cache, no-store, must-revalidate'); // HTTP 1.1.
 header('Pragma: no-cache'); // HTTP 1.0.
@@ -230,12 +226,20 @@ header('Expires: 0');
     */
 
             $scope.topic_distance=0;
+            $scope.tempWidth=0;
 
 
             $scope.scrollImages = function() {
-                $("#imgs2").css("transition-duration", "2s");
-                $("#imgs2").css("transform", "translate(-200px,0)");
+                $scope.tempWidth = parseInt($("#imgs2 li div a").first().css("width"),10);
+                console.log("temp width = "+$scope.tempWidth);
+                $scope.topicWidth = $scope.tempWidth+10;
+                console.log("topic width = "+$scope.topicWidth);
+
+                $("#imgs2").css("transition-duration", "1s");
+                //$("#imgs2").css("transform", "translate(-200px,0)");
+                $("#imgs2").css("transform", "translate(-"+$scope.topicWidth+"px,0)");
                 //$("#imgs2").
+                console.log("positioned");
                 $("#imgs2").one('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd', 
                     function() {
                         $scope.topicShift();
@@ -247,15 +251,15 @@ header('Expires: 0');
                     }
                 );
 
-                console.log("positioned");
+                console.log("done");
                 
             }
 
             $scope.timerHotTopic = $.timer(function() {
-                console.log("timer called");
+                //console.log("timer called");
                 $scope.scrollImages();
             });
-            $scope.timerHotTopic.set({time:5000,autostart:true});
+            $scope.timerHotTopic.set({time:3000,autostart:true});
             console.log("timer set");
 
             
@@ -565,7 +569,16 @@ header('Expires: 0');
 
         
         function openPad(){
-            $("#pad").toggle();
+            $("#buttonOpenPad").hide();
+            $("#pad").show();
+            $("#buttonOpenChat").show();
+            $("#chatContainer").hide();
+        }
+        function openChat(){
+            $("#buttonOpenPad").show();
+            $("#pad").hide();
+            $("#buttonOpenChat").hide();
+            $("#chatContainer").show();
         }
 
         (function() {
@@ -693,26 +706,87 @@ version .198
         </ul>
 
     </div>
-<!--
-    <section id="phonepad" style="background:none;margin:10px auto;text-align:center;">
 
-        <div class="container" onclick="openPad()" style="text-align:center;">
 
-            <a style="cursor:pointer;height:34px;text-align:center;font-size:20px;line-height:16px;width:100%;" class="scrollto ui-link btn btn-primary btn-s" href="#chat">Connect to a Number</a>
+    <section id="callchat" style="background:none;margin:10px auto;text-align:center;">
+
+        <div id="buttonOpenPad" class="container" onclick="openPad()" style="text-align:center;width:50%;height:200px;float:left;margin-top:20px;">
+
+            <a class="scrollto ui-link btn btn-primary btn-s btn-connect" href="javascript:void()" style="height:200px;">TopicB Phone <img src="images/phone.png" /></a>
 
         </div>
         <div id="pad" class="container" style="display:none;">
 
-            <img src="images/phone.jpg" style="width:100%;" />
+           <input id="" type="text" name="" class="form-control topic-input" style="margin-top:10px;" maxlength="32" />
+
+        <a class="btn btn-primary btn-s btn-pad">
+            1
+        </a>
+        <a class="btn btn-primary btn-s btn-pad">
+            2
+        </a>
+        <a class="btn btn-primary btn-s btn-pad">
+            3
+        </a>
+        <br />
+        <a class="btn btn-primary btn-s btn-pad">
+            4
+        </a>
+        <a class="btn btn-primary btn-s btn-pad">
+            5
+        </a>
+        <a class="btn btn-primary btn-s btn-pad">
+            6
+        </a>
+        <br />
+        <a class="btn btn-primary btn-s btn-pad">
+            7
+        </a>
+        <a class="btn btn-primary btn-s btn-pad">
+            8
+        </a>
+        <a class="btn btn-primary btn-s btn-pad">
+            9
+        </a>
+        <br />
+        <a class="btn btn-primary btn-s btn-pad" style="font-size:54px;line-height:34px;">
+            *
+        </a>
+        <a class="btn btn-primary btn-s btn-pad">
+            0
+        </a>
+        <a class="btn btn-primary btn-s btn-pad" style="font-size:24px;line-height:12px;">
+            #
+        </a>
+        <br />
+        <a class="btn btn-primary btn-s btn-pad btn-go">
+            GO!
+        </a>
+        <a class="btn btn-primary btn-s btn-pad">
+            &#9003;
+        </a>
+        <a class="btn btn-primary btn-s btn-pad btn-stop">
+            STOP
+        </a>
+
 
         </div>
 
+<div id="buttonOpenChat" class="container" onclick="openChat()" style="text-align:center;float:left;height:200px;display:block;width:50%;margin-top:20px;">
+
+            <a class="scrollto ui-link btn btn-primary btn-s btn-connect" href="javascript:void()" style="height:200px;">Chat <img src="images/chat.png" /></a>
+
+        </div>
+
+
+<div style="clear:both;"></div>
+
     </section> 
 
--->
-    <section id="chat" class="section-chat" ng-controller="ScrollController">
 
-        <div class="container">
+    <section id="chat" class="section-chat" ng-controller="ScrollController">
+        
+        <div id="chatContainer" class="container" style="display:none;">
 
             <div>
 
@@ -771,6 +845,7 @@ version .198
                             food
                         </a>
                     </div>
+                    <!--
                     <div class="category-container" ng-controller="ScrollController">
                         <a class="scrollto ui-link btn btn-primary btn-s category-button" ng-click="chatStart('sports')">
                             sports
@@ -811,7 +886,7 @@ version .198
                             friends
                         </a>
                     </div>
-
+-->
 
                 </h3>
             

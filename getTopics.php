@@ -4,7 +4,7 @@ include "config.php";
 
 /* working version */
 
-$DB->Query("SELECT connection,topic FROM topicb.topics");
+$DB->Query("SELECT tapid,topic FROM topicb.topics");
 $result = json_encode($DB->get());
 echo $result;
 
