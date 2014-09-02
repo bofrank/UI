@@ -20,17 +20,11 @@ $resultJSON = json_encode($result);
 
 $dataFormated = array();
 
-for($i=0;$i<count($result);$i+=3){
+for($i=0;$i<count($result);$i++){
 
-    $dataFormated[$i]['tapid'] = $result[$i]['tapid'];
-    $dataFormated[$i]['topics']=array();
-
-    for($j=$i;$j<$i+3;$j++){            
-        $dataFormated[$i]['topics'][$j]['topic'] = $result[$j]['topic'];
-        $dataFormated[$i]['topics'][$j]['category'] = $result[$j]['category'];
-    }
-
-    $dataFormated[$i]['state'] = $result[$i]['state'];
+           
+        $dataFormated[$i]['topic'] = $result[$i]['topic'];
+    
 
 
 }

@@ -15,13 +15,13 @@ $topic3 = $obj->{topic3};
 $myConnection = $obj->{myID};
 
 if($topic1){
-	$DB->Query("INSERT INTO topics(topic,connection) VALUES('$topic1','$myConnection')");
+	$DB->Query("INSERT INTO topics(topic,tapid) VALUES('$topic1','$myConnection')");
 }
 if($topic2){
-	$DB->Query("INSERT INTO topics(topic,connection) VALUES('$topic2','$myConnection')");
+	$DB->Query("INSERT INTO topics(topic,tapid) VALUES('$topic2','$myConnection')");
 }
 if($topic3){
-	$DB->Query("INSERT INTO topics(topic,connection) VALUES('$topic3','$myConnection')");
+	$DB->Query("INSERT INTO topics(topic,tapid) VALUES('$topic3','$myConnection')");
 }
 
 echo "posted $topic1";

@@ -2,7 +2,7 @@
 
 include "config.php"; 
 
-$id = $_GET['tapid'];
+$tapid = $_GET['tapid'];
 
 $DB->Query("DELETE FROM topics WHERE tapid = '$tapid'");
 

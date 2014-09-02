@@ -68,13 +68,13 @@ header('Expires: 0');
             $scope.loadData();
 
             $scope.loadDataHotList = function () {
-            $http({method: 'GET', url: 'getTopics.php'}).success(function(data) {
+            $http({method: 'GET', url: 'getHotTopics.php'}).success(function(data) {
                 $scope.hotlist = data;
               });
             };
 
 //existing format
-//$scope.numbers = [{"0":"206-000-0008","connection":"206-000-0008","1":"dandelion","topic":"dandelion"},{"0":"206-000-0008","connection":"206-000-0008","1":"burdock","topic":"burdock"},{"0":"206-000-0008","connection":"206-000-0008","1":"cinnamon","topic":"cinnamon"},{"0":"206-000-0003","connection":"206-000-0003","1":"jasmine","topic":"jasmine"},{"0":"206-000-0003","connection":"206-000-0003","1":"mint","topic":"mint"},{"0":"206-000-0003","connection":"206-000-0003","1":"earlgray","topic":"earlgray"}];
+//$scope.numbers = [{"0":"206-000-0008","tapid":"206-000-0008","1":"dandelion","topic":"dandelion"},{"0":"206-000-0008","tapid":"206-000-0008","1":"burdock","topic":"burdock"},{"0":"206-000-0008","tapid":"206-000-0008","1":"cinnamon","topic":"cinnamon"},{"0":"206-000-0003","tapid":"206-000-0003","1":"jasmine","topic":"jasmine"},{"0":"206-000-0003","tapid":"206-000-0003","1":"mint","topic":"mint"},{"0":"206-000-0003","tapid":"206-000-0003","1":"earlgray","topic":"earlgray"}];
 
 //$scope.hotlist = $scope.numbers;
 
@@ -82,7 +82,7 @@ header('Expires: 0');
 /*
             $scope.numbers = [
         {
-            "number" : "2060000002",
+            "tapid" : "2060000002",
             "topics" : [
             {
                 "topic" : "hamburger",
@@ -142,7 +142,7 @@ header('Expires: 0');
             ]
         },
         {
-            "number" : "2060000001",
+            "tapid" : "2060000001",
             "topics" : [
             {
                 "topic" : "World Advertising Congress",
@@ -162,7 +162,7 @@ header('Expires: 0');
             ]   
         },
         {
-            "number" : "2060000003",
+            "tapid" : "2060000003",
             "topics" : [
             {
                 "topic" : "Dark Souls 2",
@@ -172,7 +172,7 @@ header('Expires: 0');
             ]
         },
         {
-            "number" : "2060000004",
+            "tapid" : "2060000004",
             "topics" : [
             {
                 "topic" : "MBA",
@@ -192,7 +192,7 @@ header('Expires: 0');
             ]
         },
         {
-            "number" : "2060000005",
+            "tapid" : "2060000005",
             "topics" : [
             {
                 "topic" : "COC",
@@ -207,7 +207,7 @@ header('Expires: 0');
             ]
         },
         {
-            "number" : "2060000006",
+            "tapid" : "2060000006",
             "topics" : [
             {
                 "topic" : "UCLA",
@@ -223,8 +223,10 @@ header('Expires: 0');
         }
 
     ];
-    */
-
+    $scope.hotlist = [
+        {"topic" : "hamburger"},{"topic" : "hotdog"},{"topic" : "taco"}
+    ];
+*/
             $scope.topic_distance=0;
             $scope.tempWidth=0;
 
@@ -573,12 +575,14 @@ header('Expires: 0');
             $("#pad").show();
             $("#buttonOpenChat").show();
             $("#chatContainer").hide();
+            $("#buttonOpenChat").css("float","none");
         }
         function openChat(){
             $("#buttonOpenPad").show();
             $("#pad").hide();
             $("#buttonOpenChat").hide();
             $("#chatContainer").show();
+            $("#buttonOpenPad").css("float","none");
         }
 
         (function() {
@@ -628,7 +632,7 @@ header('Expires: 0');
     <div class="container" id="home">
 <br>
 
-version .198
+version .200
 
       <div class="starter-template">
         <div class="topic-input-container">
@@ -655,8 +659,9 @@ version .198
     </div>
 
     <!-- hot topics -->
+    <!--
     <div id="hottopics">
-        <ul>
+        <ul ng-model="numbers">
             <li class="row hottopic-row">
 
               <div class="number hottopic-row-title">
@@ -664,12 +669,12 @@ version .198
               </div>
               <div style="clear:both;"></div>
 
-              <ul class="row_hot" id="imgs2" style="background:none;">
-                <li ng-repeat="hotitem in hotlist|limitTo:10">
+              <ul class="row_hot" id="imgs2" style="background:none;" data-ng-show="whatever" >
+                <li ng-repeat="topics in whatever.topics|limitTo:10 track by $index">
 
-                  <div class="number hottopic-container" ng-controller="ScrollController">
-                    <a class="scrollto ui-link btn btn-primary btn-s hottopic-button" ng-click="chatStart(hotitem.topic)">
-                        {{hotitem.topic}}
+                  <div class="number hottopic-container" ng-controller="ScrollController" >
+                    <a class="scrollto ui-link btn btn-primary btn-s hottopic-button" ng-click="chatStart(topics.topic)">
+                        {{topics.topic}}
                     </a>
                   </div>
            
@@ -679,25 +684,54 @@ version .198
             </li>
         </ul>
     </div>
-    <div style="clear:both;"></div>
+-->
 
+<div>
+    <ul id="hottopics" ><!-- $('#hottopics').scope().numbers; -->
+        <li class="row hottopic-row">
+
+          <div class="number hottopic-row-title">
+                <i class="fa fa-fire"></i> HotTopics
+              </div>
+          <div style="clear:both;"></div>
+
+          <ul class="row_hot" id="imgs2" style="background:none;">
+            <li ng-repeat="whatever2 in hotlist|limitTo:10 track by $index">
+
+              <div class="number hottopic-container" ng-controller="ScrollController" >
+                <a class="scrollto ui-link btn btn-primary btn-s hottopic-button" ng-click="chatStart(whatever2.topic)">
+                {{whatever2.topic}}
+            </a>
+              </div>
+       
+            </li>
+        </ul>
+          </ul>
+
+        </li>
+    </ul>
+</div>
+
+    <div style="clear:both;"></div>
+<!--
     <div id="contentTopics" class="topics">
 
         <ul id="content" ng-model="numbers">
-            <li id="imgs" ng-repeat="whatever in numbers|filter:myTopic|unique:'connection'" class="row">
+            <li id="imgs" ng-repeat="whatever in numbers|filter:myTopic|unique:'tapid'" class="row">
 
                 <div class="number">
-                    <span onclick="confirm('TopicB Call?')">{{whatever.connection}}</span>
+                    <span onclick="confirm('TopicB Call?')">{{whatever.tapid}}</span>
                 </div>
                 <div style="clear:both;"></div>
 
                 <ul data-ng-show="whatever" class="row_topic" id="num{{whatever.topic}}">
-                    <li ng-repeat="whatever2 in numbers|filter:whatever.connection" class="column" ng-controller="ScrollController">
-                        <a class="scrollto ui-link btn btn-primary btn-s topic-button" ng-click="chatStart(whatever2.topic)">
+                    <li ng-repeat="whatever2 in numbers|filter:whatever.tapid" class="column" ng-controller="ScrollController">
+                        <a class="scrollto ui-link btn btn-primary btn-s topic-button" ng-click="chatStart(whatever2.topic)" onclick="confirm('Chat with "+{{whatever.tapid}}+" about"+ {{whatever2.topic}}+"?')">
                             {{whatever2.topic}}
                         </a>
                     </li>
                 </ul>
+
 
                 <div style="clear:both;"></div>
 
@@ -706,15 +740,49 @@ version .198
         </ul>
 
     </div>
+-->
 
+<div id="contentTopics" class="topics">
+
+    <ul id="content" ng-model="numbers">
+        <li id="imgs" ng-repeat="whatever in numbers track by $index" class="row">
+
+            <div class="number">
+                {{whatever.tapid}}
+            </div>
+            <div style="clear:both;"></div>
+
+            <ul data-ng-show="whatever" class="row_topic" id="">
+                <li ng-repeat="topics in whatever.topics track by $index" ng-controller="ScrollController" class="column">
+                  <a class="scrollto ui-link btn btn-primary btn-s topic-button">
+                    {{topics.topic}}
+                  </a>
+                </li>
+
+            </ul>
+
+        </li>
+    </ul>
+
+</div>
 
     <section id="callchat" style="background:none;margin:10px auto;text-align:center;">
 
-        <div id="buttonOpenPad" class="container" onclick="openPad()" style="text-align:center;width:50%;height:200px;float:left;margin-top:20px;">
+        <div style="width:100%;">
+            <div id="buttonOpenPad" class="container" onclick="openPad()" style="text-align:center;width:50%;height:200px;float:left;margin-top:20px;">
 
-            <a class="scrollto ui-link btn btn-primary btn-s btn-connect" href="javascript:void()" style="height:200px;">TopicB Phone <img src="images/phone.png" /></a>
+                <a class="scrollto ui-link btn btn-primary btn-s btn-connect" href="#pad">TopicB Phone<br><img src="images/phone.png" /></a>
 
+            </div>
+            <div id="buttonOpenChat" class="container" onclick="openChat()" style="text-align:center;float:left;height:200px;display:block;width:50%;margin-top:20px;">
+
+                <a class="scrollto ui-link btn btn-primary btn-s btn-connect" href="#chat">Chat<br><img src="images/chat.png" /></a>
+
+            </div>
         </div>
+
+        <div style="clear:both;"></div>
+
         <div id="pad" class="container" style="display:none;">
 
            <input id="" type="text" name="" class="form-control topic-input" style="margin-top:10px;" maxlength="32" />
@@ -772,11 +840,7 @@ version .198
 
         </div>
 
-<div id="buttonOpenChat" class="container" onclick="openChat()" style="text-align:center;float:left;height:200px;display:block;width:50%;margin-top:20px;">
 
-            <a class="scrollto ui-link btn btn-primary btn-s btn-connect" href="javascript:void()" style="height:200px;">Chat <img src="images/chat.png" /></a>
-
-        </div>
 
 
 <div style="clear:both;"></div>
