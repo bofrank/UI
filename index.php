@@ -29,6 +29,7 @@ header('Expires: 0');
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.1/angular.min.js"></script>
     <!--<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular-animate.min.js"></script>-->
     <!--<script src="js/angular.js"></script>-->
+    <script src="js/swfobject.js"></script>
     <script src="js/ui-utils-0.1.1/ui-utils.js"></script>
     <script src="js/app.js"></script>
     <link href="css/bootstrap.css" rel="stylesheet">
@@ -73,13 +74,11 @@ header('Expires: 0');
               });
             };
 
-//existing format
-//$scope.numbers = [{"0":"206-000-0008","tapid":"206-000-0008","1":"dandelion","topic":"dandelion"},{"0":"206-000-0008","tapid":"206-000-0008","1":"burdock","topic":"burdock"},{"0":"206-000-0008","tapid":"206-000-0008","1":"cinnamon","topic":"cinnamon"},{"0":"206-000-0003","tapid":"206-000-0003","1":"jasmine","topic":"jasmine"},{"0":"206-000-0003","tapid":"206-000-0003","1":"mint","topic":"mint"},{"0":"206-000-0003","tapid":"206-000-0003","1":"earlgray","topic":"earlgray"}];
+$scope.hotlist = $scope.numbers;
 
-//$scope.hotlist = $scope.numbers;
-
-//prefered format
 /*
+//prefered format
+
             $scope.numbers = [
         {
             "tapid" : "2060000002",
@@ -580,6 +579,8 @@ header('Expires: 0');
                 // For Safari
                 return 'Any string';
             };
+            
+            
                         
         });
 
@@ -609,7 +610,60 @@ header('Expires: 0');
             var s = document.getElementsByTagName('script')[0];
             s.parentNode.insertBefore(gcse, s);
           })();
-
+          
+          /*
+          //handle swf file for communicator
+            var flashvars = {
+            };
+            var params = {
+                menu: "false",
+                scale: "noScale",
+                allowFullscreen: "true",
+                allowScriptAccess: "always",
+                bgcolor: "",
+                wmode: "direct" // can cause issues with FP settings & webcam
+            };
+            var attributes = {
+                id:"FlashPhone5"
+            };
+            swfobject.embedSWF(
+                "FlashPhone5.swf", 
+                "altContent", "100%", "100%", "10.0.0", 
+                "expressInstall.swf", 
+                flashvars, params, attributes);
+                */
+            //handle rest of communicator begin
+            /*php
+            $cookie = 1;
+            
+            $socket = socket_create( AF_INET, SOCK_STREAM, SOL_TCP );
+            socket_connect( $socket, "127.0.0.1", 8010 );
+            
+            socket_write( $socket, "command=create_tap_id&cookie=$cookie" );
+            
+            $buf = socket_read( $socket, 2048 );
+            #echo $buf;
+            
+            parse_str($buf, $array);
+            
+            socket_close( $socket );
+            
+            echo "strTapId = '".$array['tapid']."';\n";
+            echo "strPassWord = '".$array['password']."';\n";
+            ?>*/
+            /*
+                    function red5phone_getConfig()
+                    {
+                        var callee = '';
+                    
+                        return {
+                            callee: callee,
+                            tapid: strTapId,
+                            password: strPassWord
+                        };
+                    }
+            //handle rest of communicator end
+*/
     </script>
 
 </head>
@@ -646,7 +700,7 @@ header('Expires: 0');
     <div class="container" id="home">
 <br>
 
-version .200
+version .201
 
       <div class="starter-template">
         <div class="topic-input-container">
@@ -783,14 +837,14 @@ version .200
     <section id="callchat" style="background:none;margin:10px auto;text-align:center;">
 
         <div style="width:100%;">
-            <div id="buttonOpenPad" class="container" onclick="openPad()" style="text-align:center;width:50%;height:200px;float:left;margin-top:20px;">
+            <div id="buttonOpenPad" class="container" onClick="openPad()" style="text-align:center;width:50%;height:200px;float:left;margin-top:20px;">
 
-                <a class="scrollto ui-link btn btn-primary btn-s btn-connect" href="#pad">TopicB Phone<br><img src="images/phone.png" /></a>
+                <a class="ui-link btn btn-primary btn-s btn-connect" href="#pad">TopicB Phone<br><img src="images/phone.png" /></a>
 
             </div>
-            <div id="buttonOpenChat" class="container" onclick="openChat()" style="text-align:center;float:left;height:200px;display:block;width:50%;margin-top:20px;">
+            <div id="buttonOpenChat" class="container" onClick="openChat()" style="text-align:center;float:left;height:200px;display:block;width:50%;margin-top:20px;">
 
-                <a class="scrollto ui-link btn btn-primary btn-s btn-connect" href="#chat">Chat<br><img src="images/chat.png" /></a>
+                <a class="ui-link btn btn-primary btn-s btn-connect" href="#chat">Chat<br><img src="images/chat.png" /></a>
 
             </div>
         </div>
@@ -798,6 +852,12 @@ version .200
         <div style="clear:both;"></div>
 
         <div id="pad" class="container" style="display:none;">
+        <!--
+        <iframe id="callBox" width="250" height="475" src="http://54.187.211.169/flashphone/5.php" scrolling="no" style="border:none;"></iframe>
+        -->
+       <!-- 
+        <object data="FlashPhone5.swf" id="FlashPhone5" type="application/x-shockwave-flash" height="500" width="300"><param value="false" name="menu"><param value="noScale" name="scale"><param value="true" name="allowFullscreen"><param value="always" name="allowScriptAccess"><param value="" name="bgcolor"><param value="direct" name="wmode"></object>
+        -->
 
            <input id="" type="text" name="" class="form-control topic-input" style="margin-top:10px;" maxlength="32" />
 
