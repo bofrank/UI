@@ -1,10 +1,15 @@
 <?php
 
-include "config.php"; 
+include("mysqli.class.php"); 
+include("data.php");
 
-//use this if post is JSON
-//$json = $_POST['myTopics'];
+$config = array();
+$config['host'] = $hostname;
+$config['user'] = $username;
+$config['pass'] = $password;
+$config['table'] = 'topicb';
 
+$DB = new DB($config);
 
 $json = file_get_contents('php://input');
 //$json = '{"topic1":"apple"}';

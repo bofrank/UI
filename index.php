@@ -29,7 +29,7 @@ header('Expires: 0');
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.1/angular.min.js"></script>
     <!--<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular-animate.min.js"></script>-->
     <!--<script src="js/angular.js"></script>-->
-    <script src="js/swfobject.js"></script>
+    <!--<script src="js/swfobject.js"></script>-->
     <script src="js/ui-utils-0.1.1/ui-utils.js"></script>
     <script src="js/app.js"></script>
     <link href="css/bootstrap.css" rel="stylesheet">
@@ -565,7 +565,7 @@ $scope.hotlist = $scope.numbers;
                 $("#search_result_2").text($results[1]);
 
             }
-
+/*
             // delete tapid on closing browser
             window.onbeforeunload = function (e) {
                 var e = e || window.event;
@@ -579,25 +579,25 @@ $scope.hotlist = $scope.numbers;
                 // For Safari
                 return 'Any string';
             };
-            
+            */
             
                         
         });
 
         
         function openPad(){
-            $("#buttonOpenPad").hide();
+            //$("#buttonOpenPad").hide();
             $("#pad").show();
-            $("#buttonOpenChat").show();
+            //$("#buttonOpenChat").show();
             $("#chatContainer").hide();
-            $("#buttonOpenChat").css("float","none");
+            //$("#buttonOpenChat").css("float","none");
         }
         function openChat(){
-            $("#buttonOpenPad").show();
+            //$("#buttonOpenPad").show();
             $("#pad").hide();
-            $("#buttonOpenChat").hide();
+            //$("#buttonOpenChat").hide();
             $("#chatContainer").show();
-            $("#buttonOpenPad").css("float","none");
+            //$("#buttonOpenPad").css("float","none");
         }
 
         (function() {
@@ -700,7 +700,7 @@ $scope.hotlist = $scope.numbers;
     <div class="container" id="home">
 <br>
 
-version .201
+version .202
 
       <div class="starter-template">
         <div class="topic-input-container">
@@ -716,7 +716,7 @@ version .201
                     <input id="topic3" type="text" data-ng-model="myTopics.topic3" name="form.topic3" class="form-control topic-input" maxlength="16" />
                 </div>
                 <div class="form-group">
-                  <input type="submit" id="submit" value="" class="topic-submit" ng-click="submit" />
+                  <input type="submit" id="submit" value="GO" class="btn btn-primary btn-s btn-submit" ng-click="submit" />
                 </div>
             </form>
 
@@ -837,14 +837,14 @@ version .201
     <section id="callchat" style="background:none;margin:10px auto;text-align:center;">
 
         <div style="width:100%;">
-            <div id="buttonOpenPad" class="container" onClick="openPad()" style="text-align:center;width:50%;height:200px;float:left;margin-top:20px;">
+            <div id="buttonOpenPad" class="container" onClick="openPad()" style="text-align:center;width:50%;height:50px;float:left;margin-top:20px;">
 
-                <a class="ui-link btn btn-primary btn-s btn-connect" href="#pad">TopicB Phone<br><img src="images/phone.png" /></a>
+                <a class="ui-link btn btn-primary btn-s btn-connect" href="#pad">TopicB Phone<!--<br><img src="images/phone.png" />--></a>
 
             </div>
-            <div id="buttonOpenChat" class="container" onClick="openChat()" style="text-align:center;float:left;height:200px;display:block;width:50%;margin-top:20px;">
+            <div id="buttonOpenChat" class="container" onClick="openChat()" style="text-align:center;float:left;height:50px;display:block;width:50%;margin-top:20px;">
 
-                <a class="ui-link btn btn-primary btn-s btn-connect" href="#chat">Chat<br><img src="images/chat.png" /></a>
+                <a class="ui-link btn btn-primary btn-s btn-connect" href="#chat">Chat<!--<br><img src="images/chat.png" />--></a>
 
             </div>
         </div>

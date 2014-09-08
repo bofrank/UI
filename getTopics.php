@@ -1,10 +1,7 @@
 <?php
 
 include("mysqli.class.php"); 
-
-$username = "root";
-$password = "hamburg3r!";
-$hostname = "127.0.0.1"; 
+include("data.php");
 
 $config = array();
 $config['host'] = $hostname;
