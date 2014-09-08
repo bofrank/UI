@@ -1,11 +1,18 @@
 <?php
 
-include "config.php"; 
+include("mysqli.class.php"); 
 
-/* working version */
-/* Select the four columns that are needed in the JSON object,
-and order by tapid so when we iterate over all the rows, results with the same tapid are grouped together
-*/
+$username = "root";
+$password = "hamburg3r!";
+$hostname = "127.0.0.1"; 
+
+$config = array();
+$config['host'] = $hostname;
+$config['user'] = $username;
+$config['pass'] = $password;
+$config['table'] = 'topicb';
+
+$DB = new DB($config);
 
 $DB->Query("SELECT * FROM topicb.topics");
 
