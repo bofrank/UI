@@ -408,17 +408,19 @@ $scope.hotlist = $scope.numbers;
 
             $scope.submitForm = function() {
                 
-                console.log("getting tapid....");
+                //console.log("getting tapid....");
                 $scope.myTopics.myID = "206-000-000"+(Math.floor(Math.random() * 10));
                 //createtapid.php
-                console.log("posting data....");
+                //console.log("posting data....");
                 $http.post('submitTopics.php', JSON.stringify($scope.myTopics)).success(function(){
-                    console.log("success");
+                    //console.log("success");
                     angular.element(".starter-template").html("<span class='message-create'>Thanks! Your topics have been created below.</span>");
                     $scope.loadData();
                     $scope.getTapid();
-                    //set src of flash phone with cookie
-                    //angular.element("#callbox").
+                    angular.element("#topic1button").html($scope.myTopics.topic1);
+                    angular.element("#topic2button").html($scope.myTopics.topic2);
+                    angular.element("#topic3button").html($scope.myTopics.topic3);
+
                 });
 
             };
@@ -686,7 +688,7 @@ $scope.hotlist = $scope.numbers;
     <div class="container" id="home">
 <br>
 
-version .202 my TapID = {{myTapId}}
+version .210 my TapID = {{myTapId}}
 <br>
 my password = {{myPassword}}
 <br>
@@ -731,8 +733,8 @@ my password = {{myPassword}}
 
               <div class="number hottopic-container" ng-controller="ScrollController" >
                 <a class="scrollto ui-link btn btn-primary btn-s hottopic-button" ng-click="chatStart(whatever2.topic)">
-                {{whatever2.topic}}
-            </a>
+                    {{whatever2.topic}}
+                </a>
               </div>
        
             </li>
@@ -745,8 +747,8 @@ my password = {{myPassword}}
 
     <div style="clear:both;"></div>
 
-<!--
-    <div class="topics">
+
+    <div class="topics" ng-controller="TopicSubmitController">
 
     <ul>
         <li id="imgs" class="row">
@@ -754,22 +756,23 @@ my password = {{myPassword}}
             <div class="number">
                 My ID: {{myTapId}}
             </div>
+
             <div style="clear:both;"></div>
 
-            <ul class="row_topic" id="">
+            <ul class="row_topic" ng-model="myTopics">
                 <li class="column">
-                  <a class="btn btn-primary btn-s topic-button">
-                    {{myTopics.topic1}}
+                  <a class="btn btn-primary btn-s topic-button" id="topic1button">
+                    this is topic 1
                   </a>
                 </li>
                 <li class="column">
-                  <a class="btn btn-primary btn-s topic-button">
-                    {{myTopics.topic2}}
+                  <a class="btn btn-primary btn-s topic-button" id="topic2button">
+                    this is topic 2
                   </a>
                 </li>
                 <li class="column">
-                  <a class="btn btn-primary btn-s topic-button">
-                    {{myTopics.topic3}}
+                  <a class="btn btn-primary btn-s topic-button" id="topic3button">
+                    this is topic 3
                   </a>
                 </li>
             </ul>
@@ -778,7 +781,8 @@ my password = {{myPassword}}
     </ul>
 
 </div>
--->
+
+<div style="clear:both;"></div>
 
 <div id="contentTopics" class="topics">
 
