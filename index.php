@@ -74,10 +74,59 @@ header('Expires: 0');
               });
             };
 
+            $scope.getTapid = function () {
+            $http({method: 'GET', url: 'flashphone/createtapid.php'}).success(function(data) {
+                    var sURLVariables = data.split('&');
+                    for (var k = 0; k < sURLVariables.length; k++) 
+                    {
+                        var sParameterName = sURLVariables[k].split('=');
+                        if (sParameterName[0] == "tapid") 
+                        {
+                            $scope.myTapId=sParameterName[1];
+                        }
+                        if (sParameterName[0] == "password") 
+                        {
+                            $scope.myPassword=sParameterName[1];
+                        } 
+                    }
+                    angular.element("#callBox").attr("src","flashphone/index.php?c="+$scope.myPassword);
+                });
+            };
+
+            $scope.releaseTapid = function (myCookie) {
+            $http({method: 'GET', url: 'flashphone/destroytapid.php?c='+myCookie}).success(function(data){
+                    console.log('tapid destroyed, return is '+data);
+                });
+            };
+
+            $scope.checkCookie = function(){
+                 console.log("cookie = " + $scope.myPassword);
+            }
+
+            window.onbeforeunload = function (e) {
+                console.log("cookie = " + $scope.myPassword);
+                var e = e || window.event;
+
+                // For IE and Firefox prior to version 4
+                if (e) {
+                    //console.log("cookie = " + $scope.myPassword);
+                    //if($scope.myPassword){
+                      //  console.log("destroying tapid");
+                        $scope.releaseTapid($scope.myPassword);
+                        e.returnValue = 'Any string';
+                    //}
+                }
+
+                // For Safari
+                return 'Any string';
+            };
+
+            
+
 $scope.hotlist = $scope.numbers;
 
 /*
-//prefered format
+//use for local testing
 
             $scope.numbers = [
         {
@@ -232,27 +281,27 @@ $scope.hotlist = $scope.numbers;
 
             $scope.scrollImages = function() {
                 $scope.tempWidth = parseInt($("#imgs2 li div a").first().css("width"),10);
-                console.log("temp width = "+$scope.tempWidth);
+                //console.log("temp width = "+$scope.tempWidth);
                 $scope.topicWidth = $scope.tempWidth+10;
-                console.log("topic width = "+$scope.topicWidth);
+                //console.log("topic width = "+$scope.topicWidth);
 
                 $("#imgs2").css("transition-duration", "1s");
                 //$("#imgs2").css("transform", "translate(-200px,0)");
                 $("#imgs2").css("transform", "translate(-"+$scope.topicWidth+"px,0)");
                 //$("#imgs2").
-                console.log("positioned");
+                //console.log("positioned");
                 $("#imgs2").one('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd', 
                     function() {
                         $scope.topicShift();
-                        console.log("shifted");
+                        //console.log("shifted");
                         $("#imgs2").css("transition-duration", "0s");
                         $("#imgs2").css("transform", "translate(0px,0)");
-                        console.log("re-positioned");
+                        //console.log("re-positioned");
                         $scope.$apply();
                     }
                 );
 
-                console.log("done");
+                //console.log("done");
                 
             }
 
@@ -261,12 +310,12 @@ $scope.hotlist = $scope.numbers;
                 $scope.scrollImages();
             });
             $scope.timerHotTopic.set({time:3000,autostart:true});
-            console.log("timer set");
+            //console.log("timer set");
 
             
 
             $scope.resumeHotTopics = function(){  
-                console.log("stopping");
+                //onsole.log("stopping");
                 $scope.topic_distance=0;
                 $scope.timerHotTopic.play();
             }
@@ -274,7 +323,7 @@ $scope.hotlist = $scope.numbers;
                     
 
             $scope.topicShift = function($myEvent){  
-                console.log("shifting");
+                //console.log("shifting");
                 var temp = $scope.hotlist.shift();
                 $scope.hotlist.push(temp);
             }
@@ -359,12 +408,17 @@ $scope.hotlist = $scope.numbers;
 
             $scope.submitForm = function() {
                 
-                console.log("posting data....");
+                console.log("getting tapid....");
                 $scope.myTopics.myID = "206-000-000"+(Math.floor(Math.random() * 10));
+                //createtapid.php
+                console.log("posting data....");
                 $http.post('submitTopics.php', JSON.stringify($scope.myTopics)).success(function(){
                     console.log("success");
                     angular.element(".starter-template").html("<span class='message-create'>Thanks! Your topics have been created below.</span>");
                     $scope.loadData();
+                    $scope.getTapid();
+                    //set src of flash phone with cookie
+                    //angular.element("#callbox").
                 });
 
             };
@@ -532,7 +586,7 @@ $scope.hotlist = $scope.numbers;
             $('#topic1').watermark('Enter Your Topic (required)');
             $('#topic2').watermark('Enter Another Topic');
             $('#topic3').watermark('Enter Another Topic');
-            $("#chatBox").attr("src", "index_chat.php#end");
+            //$("#chatBox").attr("src", "index_chat.php#end");
             
             //var tempID = "206-000-000"+(Math.floor(Math.random() * 10));
             //$('#myIDinput').attr("value","tempID");
@@ -565,26 +619,11 @@ $scope.hotlist = $scope.numbers;
                 $("#search_result_2").text($results[1]);
 
             }
-/*
-            // delete tapid on closing browser
-            window.onbeforeunload = function (e) {
-                var e = e || window.event;
-
-                // For IE and Firefox prior to version 4
-                if (e) {
-
-                    e.returnValue = 'Any string';
-                }
-
-                // For Safari
-                return 'Any string';
-            };
-            */
-            
                         
         });
 
         
+
         function openPad(){
             //$("#buttonOpenPad").hide();
             $("#pad").show();
@@ -611,64 +650,11 @@ $scope.hotlist = $scope.numbers;
             s.parentNode.insertBefore(gcse, s);
           })();
           
-          /*
-          //handle swf file for communicator
-            var flashvars = {
-            };
-            var params = {
-                menu: "false",
-                scale: "noScale",
-                allowFullscreen: "true",
-                allowScriptAccess: "always",
-                bgcolor: "",
-                wmode: "direct" // can cause issues with FP settings & webcam
-            };
-            var attributes = {
-                id:"FlashPhone5"
-            };
-            swfobject.embedSWF(
-                "FlashPhone5.swf", 
-                "altContent", "100%", "100%", "10.0.0", 
-                "expressInstall.swf", 
-                flashvars, params, attributes);
-                */
-            //handle rest of communicator begin
-            /*php
-            $cookie = 1;
-            
-            $socket = socket_create( AF_INET, SOCK_STREAM, SOL_TCP );
-            socket_connect( $socket, "127.0.0.1", 8010 );
-            
-            socket_write( $socket, "command=create_tap_id&cookie=$cookie" );
-            
-            $buf = socket_read( $socket, 2048 );
-            #echo $buf;
-            
-            parse_str($buf, $array);
-            
-            socket_close( $socket );
-            
-            echo "strTapId = '".$array['tapid']."';\n";
-            echo "strPassWord = '".$array['password']."';\n";
-            ?>*/
-            /*
-                    function red5phone_getConfig()
-                    {
-                        var callee = '';
-                    
-                        return {
-                            callee: callee,
-                            tapid: strTapId,
-                            password: strPassWord
-                        };
-                    }
-            //handle rest of communicator end
-*/
     </script>
 
 </head>
 
-<body ng-controller="topicCtrl" ng-init="myVar='test'">
+<body ng-controller="topicCtrl">
 
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
@@ -700,7 +686,12 @@ $scope.hotlist = $scope.numbers;
     <div class="container" id="home">
 <br>
 
-version .202
+version .202 my TapID = {{myTapId}}
+<br>
+my password = {{myPassword}}
+<br>
+
+<input type="button" ng-click="releaseTapid('{{myPassword}}');" value="destroy tapid" />
 
       <div class="starter-template">
         <div class="topic-input-container">
@@ -725,34 +716,6 @@ version .202
       </div>
 
     </div>
-
-    <!-- hot topics -->
-    <!--
-    <div id="hottopics">
-        <ul ng-model="numbers">
-            <li class="row hottopic-row">
-
-              <div class="number hottopic-row-title">
-                <i class="fa fa-fire"></i> HotTopics
-              </div>
-              <div style="clear:both;"></div>
-
-              <ul class="row_hot" id="imgs2" style="background:none;" data-ng-show="whatever" >
-                <li ng-repeat="topics in whatever.topics|limitTo:10 track by $index">
-
-                  <div class="number hottopic-container" ng-controller="ScrollController" >
-                    <a class="scrollto ui-link btn btn-primary btn-s hottopic-button" ng-click="chatStart(topics.topic)">
-                        {{topics.topic}}
-                    </a>
-                  </div>
-           
-                </li>
-              </ul>
-
-            </li>
-        </ul>
-    </div>
--->
 
 <div>
     <ul id="hottopics" ><!-- $('#hottopics').scope().numbers; -->
@@ -781,33 +744,40 @@ version .202
 </div>
 
     <div style="clear:both;"></div>
+
 <!--
-    <div id="contentTopics" class="topics">
+    <div class="topics">
 
-        <ul id="content" ng-model="numbers">
-            <li id="imgs" ng-repeat="whatever in numbers|filter:myTopic|unique:'tapid'" class="row">
+    <ul>
+        <li id="imgs" class="row">
 
-                <div class="number">
-                    <span onclick="confirm('TopicB Call?')">{{whatever.tapid}}</span>
-                </div>
-                <div style="clear:both;"></div>
+            <div class="number">
+                My ID: {{myTapId}}
+            </div>
+            <div style="clear:both;"></div>
 
-                <ul data-ng-show="whatever" class="row_topic" id="num{{whatever.topic}}">
-                    <li ng-repeat="whatever2 in numbers|filter:whatever.tapid" class="column" ng-controller="ScrollController">
-                        <a class="scrollto ui-link btn btn-primary btn-s topic-button" ng-click="chatStart(whatever2.topic)" onclick="confirm('Chat with "+{{whatever.tapid}}+" about"+ {{whatever2.topic}}+"?')">
-                            {{whatever2.topic}}
-                        </a>
-                    </li>
-                </ul>
+            <ul class="row_topic" id="">
+                <li class="column">
+                  <a class="btn btn-primary btn-s topic-button">
+                    {{myTopics.topic1}}
+                  </a>
+                </li>
+                <li class="column">
+                  <a class="btn btn-primary btn-s topic-button">
+                    {{myTopics.topic2}}
+                  </a>
+                </li>
+                <li class="column">
+                  <a class="btn btn-primary btn-s topic-button">
+                    {{myTopics.topic3}}
+                  </a>
+                </li>
+            </ul>
 
+        </li>
+    </ul>
 
-                <div style="clear:both;"></div>
-
-            </li>
-
-        </ul>
-
-    </div>
+</div>
 -->
 
 <div id="contentTopics" class="topics">
@@ -816,7 +786,7 @@ version .202
         <li id="imgs" ng-repeat="whatever in numbers track by $index" class="row">
 
             <div class="number">
-                {{whatever.tapid}}
+                {{whatever.tapid}} 
             </div>
             <div style="clear:both;"></div>
 
@@ -851,70 +821,11 @@ version .202
 
         <div style="clear:both;"></div>
 
-        <div id="pad" class="container" style="display:none;">
-        <!--
-        <iframe id="callBox" width="250" height="475" src="http://54.187.211.169/flashphone/5.php" scrolling="no" style="border:none;"></iframe>
-        -->
-       <!-- 
-        <object data="FlashPhone5.swf" id="FlashPhone5" type="application/x-shockwave-flash" height="500" width="300"><param value="false" name="menu"><param value="noScale" name="scale"><param value="true" name="allowFullscreen"><param value="always" name="allowScriptAccess"><param value="" name="bgcolor"><param value="direct" name="wmode"></object>
-        -->
-
-           <input id="" type="text" name="" class="form-control topic-input" style="margin-top:10px;" maxlength="32" />
-
-        <a class="btn btn-primary btn-s btn-pad">
-            1
-        </a>
-        <a class="btn btn-primary btn-s btn-pad">
-            2
-        </a>
-        <a class="btn btn-primary btn-s btn-pad">
-            3
-        </a>
-        <br />
-        <a class="btn btn-primary btn-s btn-pad">
-            4
-        </a>
-        <a class="btn btn-primary btn-s btn-pad">
-            5
-        </a>
-        <a class="btn btn-primary btn-s btn-pad">
-            6
-        </a>
-        <br />
-        <a class="btn btn-primary btn-s btn-pad">
-            7
-        </a>
-        <a class="btn btn-primary btn-s btn-pad">
-            8
-        </a>
-        <a class="btn btn-primary btn-s btn-pad">
-            9
-        </a>
-        <br />
-        <a class="btn btn-primary btn-s btn-pad" style="font-size:54px;line-height:34px;">
-            *
-        </a>
-        <a class="btn btn-primary btn-s btn-pad">
-            0
-        </a>
-        <a class="btn btn-primary btn-s btn-pad" style="font-size:24px;line-height:12px;">
-            #
-        </a>
-        <br />
-        <a class="btn btn-primary btn-s btn-pad btn-go">
-            GO!
-        </a>
-        <a class="btn btn-primary btn-s btn-pad">
-            &#9003;
-        </a>
-        <a class="btn btn-primary btn-s btn-pad btn-stop">
-            STOP
-        </a>
-
+        <div id="pad" class="container" style="display:none;margin-top:10px;">
+        
+            <iframe id="callBox" width="250" height="475" src="" scrolling="no" style="border:none;"></iframe>    
 
         </div>
-
-
 
 
 <div style="clear:both;"></div>
@@ -1097,8 +1008,6 @@ version .202
         </div>
 
     </section>
-
-    <iframe width="320" height="540" src="http://http://54.68.58.129" style="width:320px;height:540px;border:none;"></iframe>
 
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

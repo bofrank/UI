@@ -1,8 +1,3 @@
-<html>
-<head>
-</head>
-<body>
-
 <?php
 
 if( isset($_GET["c"]) )
@@ -24,6 +19,3 @@ echo $buf;
 
 socket_close( $socket );
 ?>
-
-</body>
-</html>
