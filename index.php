@@ -406,7 +406,7 @@ $scope.hotlist = $scope.numbers;
                     }
                     angular.element("#callBox").attr("src","flashphone/index.php?c="+$scope.myPassword);
                     angular.element("#myIdDisplay").html("My ID: "+$scope.myTapId);
-                    angular.element("#myTopicsDisplay").css("display","block");
+                    angular.element("#myTopicsDisplay").attr("style","display:block;");
                     $scope.submitForm();
                 });
             };
@@ -596,7 +596,7 @@ $scope.hotlist = $scope.numbers;
             $('#topic1').watermark('Enter Your Topic (required)');
             $('#topic2').watermark('Enter Another Topic');
             $('#topic3').watermark('Enter Another Topic');
-            //$("#chatBox").attr("src", "index_chat.php#end");
+            $("#chatBox").attr("src", "index_chat.php#end");
             
             //var tempID = "206-000-000"+(Math.floor(Math.random() * 10));
             //$('#myIDinput').attr("value","tempID");
@@ -805,7 +805,7 @@ my password = {{myPassword}}
 
             <ul data-ng-show="whatever" class="row_topic" id="">
                 <li ng-repeat="topics in whatever.topics track by $index" ng-controller="ScrollController" class="column">
-                  <a class="scrollto ui-link btn btn-primary btn-s topic-button">
+                  <a class="scrollto ui-link btn btn-primary btn-s topic-button" onclick="openChat();"> 
                     {{topics.topic}}
                   </a>
                 </li>
