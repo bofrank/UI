@@ -405,6 +405,8 @@ $scope.hotlist = $scope.numbers;
                         } 
                     }
                     angular.element("#callBox").attr("src","flashphone/index.php?c="+$scope.myPassword);
+                    angular.element("#myIdDisplay").html("My ID: "+$scope.myTapId);
+                    angular.element("#myTopicsDisplay").css("display","block");
                     $scope.submitForm();
                 });
             };
@@ -693,14 +695,15 @@ $scope.hotlist = $scope.numbers;
 
     <div class="container" id="home">
 <br>
-
+<!--
 version .210 my TapID = {{myTapId}}
 <br>
 my password = {{myPassword}}
 <br>
-
+-->
+<!--
 <input type="button" ng-click="releaseTapid('{{myPassword}}');" value="destroy tapid" />
-
+-->
       <div class="starter-template">
         <div class="topic-input-container">
 
@@ -754,13 +757,13 @@ my password = {{myPassword}}
     <div style="clear:both;"></div>
 
 
-    <div class="topics" ng-controller="TopicSubmitController">
+    <div class="topics" ng-controller="TopicSubmitController" style="display:none;" id="myTopicsDisplay">
 
     <ul>
         <li id="imgs" class="row">
 
-            <div class="number">
-                My ID: {{myTapId}}
+            <div class="number" id="myIdDisplay">
+                My ID: 
             </div>
 
             <div style="clear:both;"></div>
@@ -795,8 +798,8 @@ my password = {{myPassword}}
     <ul id="content" ng-model="numbers">
         <li id="imgs" ng-repeat="whatever in numbers track by $index" class="row">
 
-            <div class="number">
-                {{whatever.tapid}} 
+            <div class="number" onclick="openPad();" style="cursor:pointer;">
+                {{whatever.tapid}}
             </div>
             <div style="clear:both;"></div>
 
