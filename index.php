@@ -832,19 +832,14 @@ my password = {{myPassword}}
             </div>
         </div>
 
-        <div style="clear:both;"></div>
+    </section> 
 
-        <div id="pad" class="container" style="display:none;margin-top:10px;">
-        
+    <section id="pad" style="background:none;margin:10px auto;text-align:center;display:none;margin-top:10px;">
+        <div  class="container">
             <iframe id="callBox" width="250" height="475" src="" scrolling="no" style="border:none;"></iframe>    
 
         </div>
-
-
-<div style="clear:both;"></div>
-
     </section> 
-
 
     <section id="chat" class="section-chat" ng-controller="ScrollController">
         
