@@ -74,24 +74,7 @@ header('Expires: 0');
               });
             };
 
-            $scope.getTapid = function () {
-            $http({method: 'GET', url: 'flashphone/createtapid.php'}).success(function(data) {
-                    var sURLVariables = data.split('&');
-                    for (var k = 0; k < sURLVariables.length; k++) 
-                    {
-                        var sParameterName = sURLVariables[k].split('=');
-                        if (sParameterName[0] == "tapid") 
-                        {
-                            $scope.myTapId=sParameterName[1];
-                        }
-                        if (sParameterName[0] == "password") 
-                        {
-                            $scope.myPassword=sParameterName[1];
-                        } 
-                    }
-                    angular.element("#callBox").attr("src","flashphone/index.php?c="+$scope.myPassword);
-                });
-            };
+            
 
             $scope.releaseTapid = function (myCookie) {
             $http({method: 'GET', url: 'flashphone/destroytapid.php?c='+myCookie}).success(function(data){
@@ -406,17 +389,40 @@ $scope.hotlist = $scope.numbers;
 
         topicApp.controller('TopicSubmitController', function ($scope,$http,$timeout) {
 
+            $scope.getTapid = function () {
+                $http({method: 'GET', url: 'flashphone/createtapid.php'}).success(function(data) {
+                    var sURLVariables = data.split('&');
+                    for (var k = 0; k < sURLVariables.length; k++) 
+                    {
+                        var sParameterName = sURLVariables[k].split('=');
+                        if (sParameterName[0] == "tapid") 
+                        {
+                            $scope.myTapId=sParameterName[1];
+                        }
+                        if (sParameterName[0] == "password") 
+                        {
+                            $scope.myPassword=sParameterName[1];
+                        } 
+                    }
+                    angular.element("#callBox").attr("src","flashphone/index.php?c="+$scope.myPassword);
+                    $scope.submitForm();
+                });
+            };
+
+
             $scope.submitForm = function() {
                 
                 //console.log("getting tapid....");
-                $scope.myTopics.myID = "206-000-000"+(Math.floor(Math.random() * 10));
+                //$scope.myTopics.myID = "206-000-000"+(Math.floor(Math.random() * 10));
+                //$scope.myTopics.myID = $scope.getTapid();
+                $scope.myTopics.myID = $scope.myTapId;
                 //createtapid.php
                 //console.log("posting data....");
                 $http.post('submitTopics.php', JSON.stringify($scope.myTopics)).success(function(){
                     //console.log("success");
                     angular.element(".starter-template").html("<span class='message-create'>Thanks! Your topics have been created below.</span>");
                     $scope.loadData();
-                    $scope.getTapid();
+                    
                     angular.element("#topic1button").html($scope.myTopics.topic1);
                     angular.element("#topic2button").html($scope.myTopics.topic2);
                     angular.element("#topic3button").html($scope.myTopics.topic3);
@@ -698,7 +704,7 @@ my password = {{myPassword}}
       <div class="starter-template">
         <div class="topic-input-container">
 
-            <form class="form-inline" ng-submit="submitForm(myTopics)" ng-controller="TopicSubmitController">
+            <form class="form-inline" ng-submit="getTapid(myTopics)" ng-controller="TopicSubmitController">
                 <div class="form-group">
                     <input id="topic1" type="text" data-ng-model="myTopics.topic1" name="form.topic1" class="form-control topic-input" maxlength="16" />
                 </div>
