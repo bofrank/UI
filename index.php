@@ -74,6 +74,7 @@ header('Expires: 0');
             $scope.loadDataHotList = function () {
             $http({method: 'GET', url: 'getHotTopics.php'}).success(function(data) {
                 $scope.hotlist = data;
+                numberFormat();
               });
             };
 
@@ -436,7 +437,11 @@ $scope.hotlist = $scope.numbers;
                     angular.element("#topic2button").html($scope.myTopics.topic2);
                     angular.element("#topic3button").html($scope.myTopics.topic3);
 
-                    angular.element("#myIdDisplay").html("My ID: "+$scope.myTopics.myID);
+                    $scope.myIdDisplay = $scope.myTopics.myID;
+                    $scope.myIdDisplay2 = $scope.myIdDisplay.slice(0, 3) + "-" + $scope.myIdDisplay.slice(3);
+                    $scope.myIdDisplay3 = $scope.myIdDisplay2.slice(0, 7) + "-" + $scope.myIdDisplay2.slice(7);
+                    angular.element("#myIdDisplay").html("My ID: "+$scope.myIdDisplay3);
+
                     angular.element("#myTopicsDisplay").attr("style","display:block;");
 
                 });
@@ -608,6 +613,7 @@ $scope.hotlist = $scope.numbers;
             $('#topic3').watermark('Enter Another Topic');
             $("#chatBox").attr("src", "index_chat.php#end");
             
+            
             //var tempID = "206-000-000"+(Math.floor(Math.random() * 10));
             //$('#myIDinput').attr("value","tempID");
 
@@ -640,6 +646,8 @@ $scope.hotlist = $scope.numbers;
 
             }
 
+
+
             //setTapID();
                         
         });
@@ -661,6 +669,11 @@ $scope.hotlist = $scope.numbers;
             //$("#buttonOpenChat").hide();
             $("#chatContainer").show();
             //$("#buttonOpenPad").css("float","none");
+        }
+        function numberFormat(){
+            $('.number').text(function(i, text) {
+                return text.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
+            });
         }
 
         (function() {
@@ -821,7 +834,7 @@ my password = {{myPassword}}
     <ul id="hottopics" >
         <li class="row hottopic-row">
 
-          <div class="number hottopic-row-title">
+          <div class="hottopic-row-title">
                 <i class="fa fa-fire"></i> HotTopics
               </div>
           <div style="clear:both;"></div>
@@ -829,7 +842,7 @@ my password = {{myPassword}}
           <ul class="row_hot" id="imgs2" style="background:none;">
             <li ng-repeat="whatever2 in hotlist|limitTo:10 track by $index">
 
-              <div class="number hottopic-container" ng-controller="ScrollController" >
+              <div class="hottopic-container" ng-controller="ScrollController" >
                 <a class="scrollto ui-link btn btn-primary btn-s hottopic-button" ng-click="chatStart(whatever2.topic)">
                     {{whatever2.topic}}
                 </a>
@@ -894,7 +907,7 @@ my password = {{myPassword}}
 
             <ul data-ng-show="whatever" class="row_topic" id="">
                 <li ng-repeat="topics in whatever.topics track by $index" ng-controller="ScrollController" class="column">
-                  <a class="scrollto ui-link btn btn-primary btn-s topic-button" onclick="openChat();"> 
+                  <a class="scrollto ui-link btn btn-primary btn-s topic-button" onclick="openChat();">
                     {{topics.topic}}
                   </a>
                 </li>
