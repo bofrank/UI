@@ -78,7 +78,7 @@ header('Expires: 0');
             };
 
             
-
+/*
             $scope.releaseTapid = function (myCookie) {
             $http({method: 'GET', url: 'flashphone/destroytapid.php?c='+myCookie}).success(function(data){
                     console.log('tapid destroyed, return is '+data);
@@ -88,6 +88,7 @@ header('Expires: 0');
             $scope.checkCookie = function(){
                  console.log("cookie = " + $scope.myPassword);
             }
+            */
 /*
             window.onbeforeunload = function (e) {
                 console.log("cookie = " + $scope.myPassword);
@@ -391,7 +392,7 @@ $scope.hotlist = $scope.numbers;
         });
 
         topicApp.controller('TopicSubmitController', function ($scope,$http,$timeout) {
-
+/*
             $scope.getTapid = function () {
                 $http({method: 'GET', url: 'flashphone/createtapid.php'}).success(function(data) {
                     var sURLVariables = data.split('&');
@@ -413,16 +414,19 @@ $scope.hotlist = $scope.numbers;
                     $scope.submitForm();
                 });
             };
+*/
+/*
+            $scope.getTapid = function () {
+                $scope.myTopics.myID = setTapID();
+                console.log("my id = "+$scope.myTopics.myID);
+            };
+*/
 
-
-            $scope.submitForm = function() {
+            $scope.submitForm = function(){
                 
-                //console.log("getting tapid....");
-                //$scope.myTopics.myID = "206-000-000"+(Math.floor(Math.random() * 10));
-                //$scope.myTopics.myID = $scope.getTapid();
-                $scope.myTopics.myID = $scope.myTapId;
-                //createtapid.php
-                //console.log("posting data....");
+                $scope.myTopics.myID = setTapID();
+                console.log("my id = "+$scope.myTopics.myID);
+
                 $http.post('submitTopics.php', JSON.stringify($scope.myTopics)).success(function(){
                     //console.log("success");
                     angular.element(".starter-template").html("<span class='message-create'>Thanks! Your topics have been created below.</span>");
@@ -431,6 +435,9 @@ $scope.hotlist = $scope.numbers;
                     angular.element("#topic1button").html($scope.myTopics.topic1);
                     angular.element("#topic2button").html($scope.myTopics.topic2);
                     angular.element("#topic3button").html($scope.myTopics.topic3);
+
+                    angular.element("#myIdDisplay").html("My ID: "+$scope.myTopics.myID);
+                    angular.element("#myTopicsDisplay").attr("style","display:block;");
 
                 });
 
@@ -632,6 +639,8 @@ $scope.hotlist = $scope.numbers;
                 $("#search_result_2").text($results[1]);
 
             }
+
+            //setTapID();
                         
         });
 
@@ -639,6 +648,7 @@ $scope.hotlist = $scope.numbers;
 
         function openPad(){
             //$("#buttonOpenPad").hide();
+            $("#pad").css("display","block");
             $("#pad").css("height","400px");
             //$("#buttonOpenChat").show();
             $("#chatContainer").hide();
@@ -647,6 +657,7 @@ $scope.hotlist = $scope.numbers;
         function openChat(){
             //$("#buttonOpenPad").show();
             $("#pad").css("height","0px");
+            //$("#pad").css("height","400px");
             //$("#buttonOpenChat").hide();
             $("#chatContainer").show();
             //$("#buttonOpenPad").css("float","none");
@@ -719,6 +730,10 @@ echo "strPassWord = '".$array['password']."';\n";
                 password: strPassWord
             };
         }
+
+        function setTapID(){
+            return red5phone_getConfig().tapid;
+        }
         
     </script>
 </head>
@@ -765,7 +780,7 @@ my password = {{myPassword}}
       <div class="starter-template">
         <div class="topic-input-container">
 
-            <form class="form-inline" ng-submit="getTapid(myTopics)" ng-controller="TopicSubmitController">
+            <form class="form-inline" ng-submit="submitForm(myTopics)" ng-controller="TopicSubmitController">
                 <div class="form-group">
                     <input id="topic1" type="text" data-ng-model="myTopics.topic1" name="form.topic1" class="form-control topic-input" maxlength="16" />
                 </div>
@@ -780,6 +795,22 @@ my password = {{myPassword}}
                 </div>
             </form>
 
+<!--
+            <form class="form-inline" action="javascript:getTapid($('#topic1').val(),$('#topic2').val(),$('#topic3').val());">
+                <div class="form-group">
+                    <input id="topic1" type="text" name="form.topic1" class="form-control topic-input" maxlength="16" />
+                </div>
+                <div class="form-group">
+                    <input id="topic2" type="text" name="form.topic2" class="form-control topic-input" maxlength="16" />
+                </div>
+                <div class="form-group">
+                    <input id="topic3" type="text" name="form.topic3" class="form-control topic-input" maxlength="16" />
+                </div>
+                <div class="form-group">
+                  <input type="submit" id="submit" value="GO" class="btn btn-primary btn-s btn-submit" />
+                </div>
+            </form>
+-->
         </div>
 
       </div>
@@ -893,7 +924,7 @@ my password = {{myPassword}}
 
     </section> 
 
-    <section id="pad" style="margin:10px auto;text-align:center;margin-top:10px;width:250px;height:0px;">
+    <section id="pad" style="margin:10px auto;text-align:center;margin-top:10px;width:246px;height:400px;display:none;">
         <div id="altContent">
             <a href="http://www.adobe.com/go/getflashplayer">Get Adobe Flash player</a>
         </div>  
