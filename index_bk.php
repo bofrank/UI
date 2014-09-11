@@ -48,11 +48,9 @@ header('Expires: 0');
     <script src="js/jquery.timer.js"></script>
     <link href="css/global.css" rel="stylesheet">
     <!--<link href="css/animate.css" rel="stylesheet">-->
-    
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/idangerous.swiper.css">
     <script defer src="js/idangerous.swiper.js"></script>
-    
     <script>
 
         var topicApp = angular.module('topicApp',['ui.utils'], function($locationProvider) {
@@ -639,14 +637,14 @@ $scope.hotlist = $scope.numbers;
 
         function openPad(){
             //$("#buttonOpenPad").hide();
-            $("#pad").css("height","400px");
+            $("#pad").show();
             //$("#buttonOpenChat").show();
             $("#chatContainer").hide();
             //$("#buttonOpenChat").css("float","none");
         }
         function openChat(){
             //$("#buttonOpenPad").show();
-            $("#pad").css("height","0px");
+            $("#pad").hide();
             //$("#buttonOpenChat").hide();
             $("#chatContainer").show();
             //$("#buttonOpenPad").css("float","none");
@@ -664,63 +662,9 @@ $scope.hotlist = $scope.numbers;
           })();
           
     </script>
-<script>
-        var flashvars = {
-        };
-        var params = {
-            menu: "false",
-            scale: "noScale",
-            allowFullscreen: "true",
-            allowScriptAccess: "always",
-            bgcolor: "",
-            wmode: "direct" // can cause issues with FP settings & webcam
-        };
-        var attributes = {
-            id:"FlashPhone5"
-        };
-        swfobject.embedSWF(
-            "FlashPhone5.swf", 
-            "altContent", "100%", "100%", "10.0.0", 
-            "expressInstall.swf", 
-            flashvars, params, attributes);
-    </script>
 
-<script type="text/javascript">
 
-        var strTapId, strPassWord;
-        
-<?php
 
-$cookie = 2;
-
-$socket = socket_create( AF_INET, SOCK_STREAM, SOL_TCP );
-socket_connect( $socket, "172.31.27.57", 8010 );
-
-socket_write( $socket, "command=create_tap_id&cookie=$cookie" );
-
-$buf = socket_read( $socket, 2048 );
-#echo $buf;
-
-parse_str($buf, $array);
-
-socket_close( $socket );
-
-echo "strTapId = '".$array['tapid']."';\n";
-echo "strPassWord = '".$array['password']."';\n";
-?>
-
-        function red5phone_getConfig()
-        {
-            var callee = '';
-        
-            return {
-                callee: callee,
-                tapid: strTapId,
-                password: strPassWord
-            };
-        }
-        
-    </script>
 </head>
 
 <body ng-controller="topicCtrl" style="height:100%;">
@@ -743,12 +687,12 @@ echo "strPassWord = '".$array['password']."';\n";
             <li id="navTalk"><a class="scrollto" href="#phonepad" id="nav_connect">Talk</a></li>
             <li id="navTopics"><a class="scrollto" href="#hottopics">Topics</a></li>
             <li id="navCategories"><a class="scrollto" href="#categories">Categories</a></li>
-            
+            <!--<li id="navCommunicator"><a class="scrollto" href="#communicator">Communicator</a></li>-->
             <li id="navAbout"><a class="scrollto" href="#about">About</a></li>
             <li id="navCode"><a class="scrollto" href="#getCode">Put This on Your Site</a></li>
             <li id="nav-search" class="search-box"><form ng-submit="filterTopic(inputValue)"><input id="input_search" ng-model="inputValue" class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset search-input" type="text"></form></li><i id="nav-search-icon" class="fa fa-search" ng-click="filterTopic(inputValue)"></i>
           </ul>
-        </div>
+        </div><!--/.nav-collapse -->
       </div>
     </div>
 
@@ -787,7 +731,7 @@ my password = {{myPassword}}
     </div>
 
 <div>
-    <ul id="hottopics" >
+    <ul id="hottopics" ><!-- $('#hottopics').scope().numbers; -->
         <li class="row hottopic-row">
 
           <div class="number hottopic-row-title">
@@ -880,23 +824,92 @@ my password = {{myPassword}}
         <div style="width:100%;">
             <div id="buttonOpenPad" class="container" onClick="openPad()" style="text-align:center;width:50%;height:50px;float:left;margin-top:20px;">
 
-                <a class="ui-link btn btn-primary btn-s btn-connect">TopicB Phone</a>
+                <a class="ui-link btn btn-primary btn-s btn-connect">TopicB Phone<!--<br><img src="images/phone.png" />--></a>
 
             </div>
             <div id="buttonOpenChat" class="container" onClick="openChat()" style="text-align:center;float:left;height:50px;display:block;width:50%;margin-top:20px;">
 
-                <a class="ui-link btn btn-primary btn-s btn-connect">Chat</a>
+                <a class="ui-link btn btn-primary btn-s btn-connect" href="#chat">Chat<!--<br><img src="images/chat.png" />--></a>
 
             </div>
-            <div style="clear:both;"></div>
         </div>
 
     </section> 
 
-    <section id="pad" style="margin:10px auto;text-align:center;margin-top:10px;width:250px;height:0px;">
-        <div id="altContent">
-            <a href="http://www.adobe.com/go/getflashplayer">Get Adobe Flash player</a>
-        </div>  
+    <section id="pad" style="margin:10px auto;text-align:center;margin-top:10px;border:solid 1px #000;height:400px;">
+        <div  class="container">
+            <!--
+            <iframe id="callBox" width="250" height="475" src="" scrolling="no" style="border:none;"></iframe>  
+            -->
+            
+    <script>
+        var flashvars = {
+        };
+        var params = {
+            menu: "false",
+            scale: "noScale",
+            allowFullscreen: "true",
+            allowScriptAccess: "always",
+            bgcolor: "",
+            wmode: "direct" // can cause issues with FP settings & webcam
+        };
+        var attributes = {
+            id:"FlashPhone5"
+        };
+        swfobject.embedSWF(
+            "FlashPhone5.swf", 
+            "altContent", "100%", "100%", "10.0.0", 
+            "expressInstall.swf", 
+            flashvars, params, attributes);
+    </script>
+    <style>
+        html, body { height:100%; }
+    </style>
+    <script type="text/javascript">
+
+        var strTapId, strPassWord;
+        
+<?php
+
+$cookie = 2;
+
+$socket = socket_create( AF_INET, SOCK_STREAM, SOL_TCP );
+socket_connect( $socket, "172.31.27.57", 8010 );
+
+socket_write( $socket, "command=create_tap_id&cookie=$cookie" );
+
+$buf = socket_read( $socket, 2048 );
+#echo $buf;
+
+parse_str($buf, $array);
+
+socket_close( $socket );
+
+echo "strTapId = '".$array['tapid']."';\n";
+echo "strPassWord = '".$array['password']."';\n";
+?>
+
+        function red5phone_getConfig()
+        {
+            var callee = '';
+        
+            return {
+                callee: callee,
+                tapid: strTapId,
+                password: strPassWord
+            };
+        }
+        
+    </script>
+
+
+this is the flash phone section
+            <div id="altContent">
+                <h1>FlashPhone5</h1>
+                <a href="http://www.adobe.com/go/getflashplayer">Get Adobe Flash player</a>
+            </div>  
+
+        </div>
     </section> 
 
     <section id="chat" class="section-chat" ng-controller="ScrollController">
@@ -912,12 +925,16 @@ my password = {{myPassword}}
                     </div>
 
                     <div class="search-result-box">
-                        
+                        <!--<div class="search_ID">
+                            <span>Loading Search Results ...</span> 
+                        </div>-->
                         <div id="search_result_1" class="search-result-text">
                         </div>
                     </div>
                     <div class="search-result-box">
-                        
+                        <!--<div class="search_ID">
+                            <span>Loading Search Results ...</span> 
+                        </div>-->
                         <div id="search_result_2" class="search-result-text">
                         </div>
                     </div>
