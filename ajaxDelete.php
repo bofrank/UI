@@ -1,6 +1,6 @@
 <?php
 
-include "config.php"; 
+include "configChat.php"; 
 
 $id = $_POST['id'];
 

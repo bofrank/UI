@@ -1,6 +1,6 @@
 <?php
 
-include "config.php"; 
+include "configChat.php"; 
 
 $message = $_POST["messages"];
 $color = $_POST["color"];

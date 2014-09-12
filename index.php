@@ -461,6 +461,7 @@ $scope.hotlist = $scope.numbers;
                 $scope.chatStart = function(myChat) {
                     // set the location.hash to the id of
                     // the element you wish to scroll to.
+                    openChat();
                     angular.element("#search_result_1,#search_result_2").parent().show();
                     angular.element("#search_result_1,#search_result_2").text("loading search results...");
                     $location.hash('hottopics');
@@ -645,35 +646,40 @@ $scope.hotlist = $scope.numbers;
                 $("#search_result_2").text($results[1]);
 
             }
-
-
-
-            //setTapID();
                         
         });
 
-        
-
         function openPad(){
-            //$("#buttonOpenPad").hide();
-            $("#pad").css("display","block");
+            //$("#pad").css("display","block");
             $("#pad").css("height","400px");
-            //$("#buttonOpenChat").show();
-            $("#chatContainer").hide();
-            //$("#buttonOpenChat").css("float","none");
+            //$("#pad").toggleClass("openPhone");
+        }
+        function togglePad(){
+            if($("#pad").css("height")=="0px"){
+                $("#pad").css("height","400px");
+            }else{
+                $("#pad").css("height","0px");
+            }
         }
         function openChat(){
-            //$("#buttonOpenPad").show();
-            $("#pad").css("height","0px");
-            //$("#pad").css("height","400px");
-            //$("#buttonOpenChat").hide();
             $("#chatContainer").show();
-            //$("#buttonOpenPad").css("float","none");
         }
         function numberFormat(){
             $('.number').text(function(i, text) {
                 return text.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
             });
+        }
+        function confirmCall(){
+            var r=confirm("Do you want to call about these topics?");
+            if (r == true) {
+                openPad();
+            }
+        }
+        function confirmChat(chosenTopic){
+            var q=confirm("Do you want to chat about "+chosenTopic+"?");
+            if (q == true) {
+                openChat();
+            }
         }
 
         (function() {
@@ -688,7 +694,7 @@ $scope.hotlist = $scope.numbers;
           })();
           
     </script>
-<script>
+    <script>
         var flashvars = {
         };
         var params = {
@@ -715,22 +721,23 @@ $scope.hotlist = $scope.numbers;
         
 <?php
 
-$cookie = 2;
+    $cookie = 2;
 
-$socket = socket_create( AF_INET, SOCK_STREAM, SOL_TCP );
-socket_connect( $socket, "172.31.27.57", 8010 );
+    $socket = socket_create( AF_INET, SOCK_STREAM, SOL_TCP );
+    socket_connect( $socket, "172.31.27.57", 8010 );
 
-socket_write( $socket, "command=create_tap_id&cookie=$cookie" );
+    socket_write( $socket, "command=create_tap_id&cookie=$cookie" );
 
-$buf = socket_read( $socket, 2048 );
-#echo $buf;
+    $buf = socket_read( $socket, 2048 );
+    #echo $buf;
 
-parse_str($buf, $array);
+    parse_str($buf, $array);
 
-socket_close( $socket );
+    socket_close( $socket );
 
-echo "strTapId = '".$array['tapid']."';\n";
-echo "strPassWord = '".$array['password']."';\n";
+    echo "strTapId = '".$array['tapid']."';\n";
+    echo "strPassWord = '".$array['password']."';\n";
+
 ?>
 
         function red5phone_getConfig()
@@ -830,34 +837,33 @@ my password = {{myPassword}}
 
     </div>
 
-<div>
-    <ul id="hottopics" >
-        <li class="row hottopic-row">
+    <div>
+        <ul id="hottopics" >
+            <li class="row hottopic-row">
 
-          <div class="hottopic-row-title">
-                <i class="fa fa-fire"></i> HotTopics
-              </div>
-          <div style="clear:both;"></div>
+              <div class="hottopic-row-title">
+                    <i class="fa fa-fire"></i> HotTopics
+                  </div>
+              <div style="clear:both;"></div>
 
-          <ul class="row_hot" id="imgs2" style="background:none;">
-            <li ng-repeat="whatever2 in hotlist|limitTo:10 track by $index">
+              <ul class="row_hot" id="imgs2" style="background:none;">
+                <li ng-repeat="whatever2 in hotlist|limitTo:10 track by $index">
 
-              <div class="hottopic-container" ng-controller="ScrollController" >
-                <a class="scrollto ui-link btn btn-primary btn-s hottopic-button" ng-click="chatStart(whatever2.topic)">
-                    {{whatever2.topic}}
-                </a>
-              </div>
-       
+                  <div class="hottopic-container" ng-controller="ScrollController" >
+                    <a class="scrollto ui-link btn btn-primary btn-s hottopic-button" ng-click="chatStart(whatever2.topic)">
+                        {{whatever2.topic}}
+                    </a>
+                  </div>
+           
+                </li>
+
+              </ul>
+
             </li>
         </ul>
-          </ul>
-
-        </li>
-    </ul>
-</div>
+    </div>
 
     <div style="clear:both;"></div>
-
 
     <div class="topics" ng-controller="TopicSubmitController" style="display:none;" id="myTopicsDisplay">
 
@@ -900,18 +906,17 @@ my password = {{myPassword}}
     <ul id="content" ng-model="numbers">
         <li id="imgs" ng-repeat="whatever in numbers track by $index" class="row">
 
-            <div class="number" onclick="openPad();" style="cursor:pointer;">
+            <div class="number" onclick="confirmCall();">
                 {{whatever.tapid}}
             </div>
             <div style="clear:both;"></div>
 
             <ul data-ng-show="whatever" class="row_topic" id="">
                 <li ng-repeat="topics in whatever.topics track by $index" ng-controller="ScrollController" class="column">
-                  <a class="scrollto ui-link btn btn-primary btn-s topic-button" onclick="openChat();">
+                  <a class="scrollto ui-link btn btn-primary btn-s topic-button" onclick="confirmChat($(this).text());">
                     {{topics.topic}}
                   </a>
                 </li>
-
             </ul>
 
         </li>
@@ -922,7 +927,7 @@ my password = {{myPassword}}
     <section id="callchat" style="background:none;margin:10px auto;text-align:center;">
 
         <div style="width:100%;">
-            <div id="buttonOpenPad" class="container" onClick="openPad()" style="text-align:center;width:50%;height:50px;float:left;margin-top:20px;">
+            <div id="buttonOpenPad" class="container" onClick="togglePad();" style="text-align:center;width:50%;height:50px;float:left;margin-top:20px;">
 
                 <a class="ui-link btn btn-primary btn-s btn-connect">TopicB Phone</a>
 
@@ -937,7 +942,7 @@ my password = {{myPassword}}
 
     </section> 
 
-    <section id="pad" style="margin:10px auto;text-align:center;margin-top:10px;width:246px;height:400px;display:none;">
+    <section id="pad" style="margin:10px auto;text-align:center;margin-top:10px;width:246px;height:0px;">
         <div id="altContent">
             <a href="http://www.adobe.com/go/getflashplayer">Get Adobe Flash player</a>
         </div>  
@@ -965,9 +970,9 @@ my password = {{myPassword}}
                         <div id="search_result_2" class="search-result-text">
                         </div>
                     </div>
-<!--
+
                     <iframe id="chatBox" src="" onload="this.contentWindow.document.documentElement.scrollTop=100" scrolling="no"></iframe>
--->
+
                 </div>
             
             </div>

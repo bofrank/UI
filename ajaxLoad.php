@@ -17,13 +17,13 @@
 
 <?php
 
-include "config.php"; 
+include "configChat.php"; 
 
-$DB->Query("SELECT * FROM messages ORDER BY id DESC LIMIT 10") or die (mysql_error());
+$DB->Query("SELECT * FROM messages ORDER BY id") or die (mysql_error());
 
 $data = $DB->Get();
 
-$data = array_reverse($data);
+//$data = array_reverse($data);
 
 foreach($data as $key => $value)
 {
