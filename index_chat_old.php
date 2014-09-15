@@ -9,57 +9,36 @@
 
 				function makeid()
 				{
-					/*
-				    var hex1 = "";
-				    var hex2 = "";
-				    var hex3 = "";
-				    var hex4 = "";
-				    var hex5 = "";
-				    var hex6 = "";
-				    var possible = "abcdef";
-				  
-				    hex1 = possible.charAt(Math.floor(Math.random() * possible.length));
-				    hex2 = possible.charAt(Math.floor(Math.random() * possible.length));
-				    hex3 = possible.charAt(Math.floor(Math.random() * possible.length));
-				    hex4 = possible.charAt(Math.floor(Math.random() * possible.length));
-				    hex5 = possible.charAt(Math.floor(Math.random() * possible.length));
-				    hex6 = possible.charAt(Math.floor(Math.random() * possible.length));
-				    text=hex1+hex2+hex3+hex4+hex5+hex6;
-				    */
 
 				    var ray = Math.floor(Math.random() * 255);
 				    var gun = Math.floor(Math.random() * 255);
 				    var blaster = Math.floor(Math.random() * 255);
 
-				    text="rgba("+ray+","+gun+","+blaster+",0.3)";
+				    myChatID="rgba("+ray+","+gun+","+blaster+",0.3)";
 
-				    $("#color").val(text);
+				    $("#color").val(myChatID);
 				}
 				var userid = makeid();
 
-				$("#messages").load("ajaxLoad.php");
+				$("#messages").load("ajaxLoad.php?myChatID="+myChatID);
 
 				$("#userArea").submit(function(){
 
 					$.post("ajaxPost.php",$("#userArea").serialize(),function(data){
-						$("#messages").append("<div>" + data + "</div>");
+						$("#messages").append("<div class='search-result-box' style='background-color:rgba(227,255,241,0.5);margin-left:20px;'><div class='search-result-text'>" + data + "</div>");
 						$('#myMessage').val('');
 					});
 					return false;
 				});
 
 				setInterval(function() {
-      			$("#messages").load("ajaxLoad.php");
-      			$('#wrapper').scrollTop($('#wrapper').height()+300);
-				}, 10000);
+      			$("#messages").load("ajaxLoad.php?myChatID="+myChatID);
+      			$('#wrapper').scrollTop($('#wrapper').height()+500);
+				}, 8000);
 
 				$('#myMessage').watermark('Start Typing...');
 
-				
-
 			});
-
-
 
 		</script>
 		<style>
@@ -76,7 +55,6 @@
 			}
 			.search-result-text{
 			    color:#fff;
-			    font-weight: bold;
 			}
 			.search_ID{
 			    color:#fff;
@@ -95,7 +73,28 @@
 		    line-height: 1.42857;
 		    padding: 8px 12px;
 		    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
-		    width: 100%;
+		    width: 74%;
+		    float:left;
+			}
+			.btn-send {
+		    background-image: linear-gradient(#fff, #d9edee);
+		    color: #666666;
+		    font-size: 16px;
+		    height: 38px;
+		    line-height: 20px;
+		    text-align: center;
+		    width: 24%;
+		    min-width:60px;
+		    border: 1px solid transparent;
+		    border-radius: 4px;
+		    cursor: pointer;
+		    display: inline-block;
+		    margin-bottom: 0;
+		    padding: 8px 12px;
+		    text-align: center;
+		    vertical-align: middle;
+		    white-space: nowrap;
+		    float:right;
 			}
 		</style>
 	</head>
@@ -109,12 +108,12 @@
 			<!-- post -->
 			<form id="userArea" class="form-inline" style="margin-top:10px;margin-right:10px;">
 
-				<label style="color:#fff;">Your Message:</label>
-				<input type="text" maxlength="255" name="messages" class="form-control" id="myMessage"  />
+				<label style="color:#fff;"></label>
+				<input type="text" maxlength="255" name="messages" class="form-control" id="myMessage" />
 				<input type="hidden" maxlength="255" name="color" id="color" />
 
 				<label></label>
-				<input type="submit" value="" style="background:url(images/send.jpg) no-repeat;width:85px;height:55px;border:none;cursor:pointer;margin-top:10px;" />
+				<input type="submit" class="btn-send" value="SEND" />
 
 			</form>
 			<a name='end'></a>

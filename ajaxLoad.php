@@ -19,6 +19,11 @@
 
 include "configChat.php"; 
 
+if( isset($_GET["myChatID"]) )
+{
+	$myChatID = $_GET["myChatID"];
+}
+
 $DB->Query("SELECT * FROM messages ORDER BY id") or die (mysql_error());
 
 $data = $DB->Get();
@@ -31,15 +36,19 @@ foreach($data as $key => $value)
 	echo "<div style='background:#".$value['color']."'>".$value['message'].
 	"<a class='delete' href='#' rel='".$value['id']."'>Delete</a></div>";
 */
-echo "<div class='search-result-box' style='background-color:".$value['color'].";'>".
-    "<div class='search_ID'>ID: ".
-        $value['color'].
-    "</div>".
-    "<div class='search-result-text'>".
-        $value['message'].
-    "</div>".
-    "</div>";
-
+if($value['color']==$myChatID){
+		echo "<div class='search-result-box' style='background-color:rgba(227,255,241,0.5);margin-left:20px;'>".
+	    "<div class='search-result-text'>".
+	        $value['message'].
+	    "</div>".
+	    "</div>";
+	}else{
+		echo "<div class='search-result-box' style='background-color:rgba(227,255,241,0.2);margin-right:20px;'>".
+	    "<div class='search-result-text'>".
+	        $value['message'].
+	    "</div>".
+	    "</div>";
+	}
 }
 
 ?>

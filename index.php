@@ -612,7 +612,7 @@ $scope.hotlist = $scope.numbers;
             $('#topic1').watermark('Enter Your Topic (required)');
             $('#topic2').watermark('Enter Another Topic');
             $('#topic3').watermark('Enter Another Topic');
-            $("#chatBox").attr("src", "index_chat.php#end");
+            //$("#chatBox").attr("src", "index_chat.php#end");
             
             
             //var tempID = "206-000-000"+(Math.floor(Math.random() * 10));
@@ -721,7 +721,8 @@ $scope.hotlist = $scope.numbers;
         
 <?php
 
-    $cookie = 2;
+    //$cookie = 1;
+    //$cookie =red5phone_getConfig();
 
     $socket = socket_create( AF_INET, SOCK_STREAM, SOL_TCP );
     socket_connect( $socket, "172.31.27.57", 8010 );
@@ -831,7 +832,7 @@ my password = {{myPassword}}
                 </div>
             </form>
 -->
-        </div>
+
 
       </div>
 
