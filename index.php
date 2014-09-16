@@ -79,9 +79,11 @@ header('Expires: 0');
             };
 
             
-/*
-            $scope.releaseTapid = function (myCookie) {
-            $http({method: 'GET', url: 'flashphone/destroytapid.php?c='+myCookie}).success(function(data){
+
+            $scope.releaseTapid = function () {
+                $scope.tempMyID = angular.element('#phoneBox')[0].contentWindow.red5phone_getConfig().tapid;
+                    console.log('tempmyid = '+$scope.tempMyID);
+                $http({method: 'GET', url: 'flashphone/destroytapid.php?t='+$scope.tempMyID}).success(function(data){
                     console.log('tapid destroyed, return is '+data);
                 });
             };
@@ -89,10 +91,10 @@ header('Expires: 0');
             $scope.checkCookie = function(){
                  console.log("cookie = " + $scope.myPassword);
             }
-            */
-/*
+            
+
             window.onbeforeunload = function (e) {
-                console.log("cookie = " + $scope.myPassword);
+                console.log("tapid = " + $scope.myTapId);
                 var e = e || window.event;
 
                 // For IE and Firefox prior to version 4
@@ -100,7 +102,7 @@ header('Expires: 0');
                     //console.log("cookie = " + $scope.myPassword);
                     //if($scope.myPassword){
                       //  console.log("destroying tapid");
-                        $scope.releaseTapid($scope.myPassword);
+                        $scope.releaseTapid($scope.myTapId);
                         e.returnValue = 'Any string';
                     //}
                 }
@@ -108,7 +110,7 @@ header('Expires: 0');
                 // For Safari
                 return 'Any string';
             };
-*/
+
             
 
 $scope.hotlist = $scope.numbers;
@@ -393,6 +395,57 @@ $scope.hotlist = $scope.numbers;
         });
 
         topicApp.controller('TopicSubmitController', function ($scope,$http,$timeout) {
+
+            $scope.callCreateTapid = function(){
+                
+                //$scope.myTopics.myID = setTapID();
+
+                $http({method: 'GET', url: 'flashphone/createtapid.php'}).success(function(data) {
+                    var sURLVariables = data.split('&');
+                    for (var k = 0; k < sURLVariables.length; k++) 
+                    {
+                        var sParameterName = sURLVariables[k].split('=');
+                        if (sParameterName[0] == "tapid") 
+                        {
+                            $scope.myTapId=sParameterName[1];
+                        }
+                        if (sParameterName[0] == "password") 
+                        {
+                            $scope.myPassword=sParameterName[1];
+                        } 
+                    }
+                    angular.element("#phoneBox").attr("src","flashphone/index.php?c="+$scope.myPassword);
+                    angular.element("#myIdDisplay").html("My ID: "+$scope.myTapId+" My Password:"+$scope.myPassword);
+                    angular.element("#myTopicsDisplay").attr("style","display:block;");
+                    //angular.element("#phoneBox").uploadDone=function(){
+                      $scope.submitForm();
+                    //}
+                    
+                });
+
+                //console.log("my id = "+$scope.myTapId);
+            };
+/*
+                $http.post('submitTopics.php', JSON.stringify($scope.myTopics)).success(function(){
+                    //console.log("success");
+                    angular.element(".starter-template").html("<span class='message-create'>Thanks! Your topics have been created below.</span>");
+                    $scope.loadData();
+                    
+                    angular.element("#topic1button").html($scope.myTopics.topic1);
+                    angular.element("#topic2button").html($scope.myTopics.topic2);
+                    angular.element("#topic3button").html($scope.myTopics.topic3);
+
+                    $scope.myIdDisplay = $scope.myTopics.myID;
+                    $scope.myIdDisplay2 = $scope.myIdDisplay.slice(0, 3) + "-" + $scope.myIdDisplay.slice(3);
+                    $scope.myIdDisplay3 = $scope.myIdDisplay2.slice(0, 7) + "-" + $scope.myIdDisplay2.slice(7);
+                    angular.element("#myIdDisplay").html("My ID: "+$scope.myIdDisplay3);
+
+                    angular.element("#myTopicsDisplay").attr("style","display:block;");
+
+                });
+
+            };
+*/
 /*
             $scope.getTapid = function () {
                 $http({method: 'GET', url: 'flashphone/createtapid.php'}).success(function(data) {
@@ -425,7 +478,9 @@ $scope.hotlist = $scope.numbers;
 
             $scope.submitForm = function(){
                 
-                $scope.myTopics.myID = setTapID();
+                //$scope.myTopics.myID = setTapID();
+                $scope.myTopics.myID = $scope.myTapId;
+                //$scope.myTopics.myID = $('#phoneBox')[0].contentWindow.red5phone_getConfig().tapid;
                 console.log("my id = "+$scope.myTopics.myID);
 
                 $http.post('submitTopics.php', JSON.stringify($scope.myTopics)).success(function(){
@@ -444,9 +499,14 @@ $scope.hotlist = $scope.numbers;
 
                     angular.element("#myTopicsDisplay").attr("style","display:block;");
 
+                    angular.element("#myTapidDisplay").html("my tapid is "+$scope.myTapId);
+
+                    angular.element("#myPasswordDisplay").html("my cookie is "+$scope.myPassword);
+
                 });
 
             };
+
 
         });
 
@@ -694,69 +754,9 @@ $scope.hotlist = $scope.numbers;
           })();
           
     </script>
-    <script>
-        var flashvars = {
-        };
-        var params = {
-            menu: "false",
-            scale: "noScale",
-            allowFullscreen: "true",
-            allowScriptAccess: "always",
-            bgcolor: "",
-            wmode: "direct" // can cause issues with FP settings & webcam
-        };
-        var attributes = {
-            id:"FlashPhone5"
-        };
-        swfobject.embedSWF(
-            "FlashPhone5.swf", 
-            "altContent", "100%", "100%", "10.0.0", 
-            "expressInstall.swf", 
-            flashvars, params, attributes);
-    </script>
 
-<script type="text/javascript">
 
-        var strTapId, strPassWord;
-        
-<?php
 
-    //$cookie = 1;
-    //$cookie =red5phone_getConfig();
-
-    $socket = socket_create( AF_INET, SOCK_STREAM, SOL_TCP );
-    socket_connect( $socket, "172.31.27.57", 8010 );
-
-    socket_write( $socket, "command=create_tap_id&cookie=$cookie" );
-
-    $buf = socket_read( $socket, 2048 );
-    #echo $buf;
-
-    parse_str($buf, $array);
-
-    socket_close( $socket );
-
-    echo "strTapId = '".$array['tapid']."';\n";
-    echo "strPassWord = '".$array['password']."';\n";
-
-?>
-
-        function red5phone_getConfig()
-        {
-            var callee = '';
-        
-            return {
-                callee: callee,
-                tapid: strTapId,
-                password: strPassWord
-            };
-        }
-
-        function setTapID(){
-            return red5phone_getConfig().tapid;
-        }
-        
-    </script>
 </head>
 
 <body ng-controller="topicCtrl" style="height:100%;">
@@ -789,19 +789,19 @@ $scope.hotlist = $scope.numbers;
     </div>
 
     <!--<div class="container" id="home">-->
-<!--
-version .210 my TapID = {{myTapId}}
 <br>
-my password = {{myPassword}}
 <br>
--->
+<div id="myTapidDisplay"></div>
+<div id="myPasswordDisplay"></div>
+<br>
+
 <!--
 <input type="button" ng-click="releaseTapid('{{myPassword}}');" value="destroy tapid" />
 -->
       <div class="starter-template">
         <div class="topic-input-container">
 
-            <form class="form-inline" ng-submit="submitForm(myTopics)" ng-controller="TopicSubmitController">
+            <form class="form-inline" ng-submit="callCreateTapid(myTopics)" ng-controller="TopicSubmitController">
                 <div class="form-group">
                     <input id="topic1" type="text" data-ng-model="myTopics.topic1" name="form.topic1" class="form-control topic-input" maxlength="16" />
                 </div>
@@ -944,9 +944,14 @@ my password = {{myPassword}}
     </section> 
 
     <section id="pad" style="margin:10px auto;text-align:center;margin-top:10px;width:246px;height:0px;">
+        <!--
         <div id="altContent">
             <a href="http://www.adobe.com/go/getflashplayer">Get Adobe Flash player</a>
         </div>  
+    -->
+    
+        <iframe id="phoneBox" src="" scrolling="no" width="246" height="400" border="0" style="width:246px;height:400px;border:none;"></iframe>
+
     </section> 
 
     <section id="chat" class="section-chat" ng-controller="ScrollController">

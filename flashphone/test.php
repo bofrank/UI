@@ -36,6 +36,7 @@
 		
 <?php
 
+
 if( isset($_GET["c"]) )
 {
 	$cookie = $_GET["c"];
