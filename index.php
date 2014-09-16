@@ -392,6 +392,17 @@ $scope.hotlist = $scope.numbers;
                 }, 2000);
 
             }
+
+            $scope.filterTapId = function(whatever){
+                //return (whatever.tapid == $scope.myTapId);
+
+                //console.log("my tap id = "+angular.element("#myTapidDisplay").html());
+                var tempMyID = angular.element("#myTapidDisplay").html();
+                //console.log("my tap id = "+tempMyID);
+                return (whatever.tapid != tempMyID);
+                //return (whatever.tapid == '8987770009');
+            }
+
         });
 
         topicApp.controller('TopicSubmitController', function ($scope,$http,$timeout) {
@@ -399,6 +410,8 @@ $scope.hotlist = $scope.numbers;
             $scope.callCreateTapid = function(){
                 
                 //$scope.myTopics.myID = setTapID();
+                //536875a4_541777fa_15f28
+                //XXXXXXXX_XXXXXXXX_XXXXX
 
                 $http({method: 'GET', url: 'flashphone/createtapid.php'}).success(function(data) {
                     var sURLVariables = data.split('&');
@@ -416,14 +429,56 @@ $scope.hotlist = $scope.numbers;
                     }
                     angular.element("#phoneBox").attr("src","flashphone/index.php?c="+$scope.myPassword);
                     angular.element("#myIdDisplay").html("My ID: "+$scope.myTapId+" My Password:"+$scope.myPassword);
+                    togglePad();
                     angular.element("#myTopicsDisplay").attr("style","display:block;");
-                    //angular.element("#phoneBox").uploadDone=function(){
+                    angular.element("#phoneBox").load(function(){
                       $scope.submitForm();
-                    //}
+                    });
                     
                 });
 
                 //console.log("my id = "+$scope.myTapId);
+            };
+
+
+
+            $scope.submitForm = function(){
+
+
+                
+                console.log("my id before submitting form = "+$scope.myTapId);
+                //$scope.myTopics.myID = setTapID();
+                $scope.myTopics.myID = angular.element('#phoneBox')[0].contentWindow.red5phone_getConfig().tapid;
+                //$scope.myTopics.myID = $('#phoneBox')[0].contentWindow.red5phone_getConfig().tapid;
+                console.log("my id when submitting form = "+$scope.myTopics.myID);
+
+                $http.post('submitTopics.php', JSON.stringify($scope.myTopics)).success(function(){
+                    //console.log("success");
+                    angular.element(".starter-template").html("<span class='message-create'>Thanks! Your topics have been created below.</span>");
+                    $scope.loadData();
+                    
+                    angular.element("#topic1button").html($scope.myTopics.topic1);
+                    angular.element("#topic2button").html($scope.myTopics.topic2);
+                    angular.element("#topic3button").html($scope.myTopics.topic3);
+
+                    $scope.myIdDisplay = $scope.myTopics.myID;
+                    $scope.myIdDisplay2 = $scope.myIdDisplay.slice(0, 3) + "-" + $scope.myIdDisplay.slice(3);
+                    $scope.myIdDisplay3 = $scope.myIdDisplay2.slice(0, 7) + "-" + $scope.myIdDisplay2.slice(7);
+                    angular.element("#myIdDisplay").html("My ID: "+$scope.myIdDisplay3);
+
+                    angular.element("#myTopicsDisplay").attr("style","display:block;");
+
+                    angular.element("#myTapidDisplay").html($scope.myTopics.myID);
+
+                    angular.element("#myPasswordDisplay").html("my cookie is "+$scope.myPassword);
+/*
+                    console.log("myTapId = "+$scope.myTopics.myID);
+                    console.log("numbers = "+$scope.numbers);
+                    console.log("index = "+$scope.numbers.indexOf($scope.myTopics.myID));
+                    */
+
+                });
+
             };
 /*
                 $http.post('submitTopics.php', JSON.stringify($scope.myTopics)).success(function(){
@@ -476,36 +531,7 @@ $scope.hotlist = $scope.numbers;
             };
 */
 
-            $scope.submitForm = function(){
-                
-                //$scope.myTopics.myID = setTapID();
-                $scope.myTopics.myID = $scope.myTapId;
-                //$scope.myTopics.myID = $('#phoneBox')[0].contentWindow.red5phone_getConfig().tapid;
-                console.log("my id = "+$scope.myTopics.myID);
 
-                $http.post('submitTopics.php', JSON.stringify($scope.myTopics)).success(function(){
-                    //console.log("success");
-                    angular.element(".starter-template").html("<span class='message-create'>Thanks! Your topics have been created below.</span>");
-                    $scope.loadData();
-                    
-                    angular.element("#topic1button").html($scope.myTopics.topic1);
-                    angular.element("#topic2button").html($scope.myTopics.topic2);
-                    angular.element("#topic3button").html($scope.myTopics.topic3);
-
-                    $scope.myIdDisplay = $scope.myTopics.myID;
-                    $scope.myIdDisplay2 = $scope.myIdDisplay.slice(0, 3) + "-" + $scope.myIdDisplay.slice(3);
-                    $scope.myIdDisplay3 = $scope.myIdDisplay2.slice(0, 7) + "-" + $scope.myIdDisplay2.slice(7);
-                    angular.element("#myIdDisplay").html("My ID: "+$scope.myIdDisplay3);
-
-                    angular.element("#myTopicsDisplay").attr("style","display:block;");
-
-                    angular.element("#myTapidDisplay").html("my tapid is "+$scope.myTapId);
-
-                    angular.element("#myPasswordDisplay").html("my cookie is "+$scope.myPassword);
-
-                });
-
-            };
 
 
         });
@@ -905,8 +931,8 @@ $scope.hotlist = $scope.numbers;
 <div id="contentTopics" class="topics">
 
     <ul id="content" ng-model="numbers">
-        <li id="imgs" ng-repeat="whatever in numbers track by $index" class="row">
-
+        <!--<li id="imgs" ng-repeat="whatever in numbers|filter:'8987770009' track by $index" class="row">-->
+        <li id="imgs" ng-repeat="whatever in numbers|filter:filterTapId track by $index" class="row">
             <div class="number" onclick="confirmCall();">
                 {{whatever.tapid}}
             </div>
