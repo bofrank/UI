@@ -34,7 +34,7 @@ $user_colour = array_rand($colours);
 <script language="javascript" type="text/javascript">  
 $(document).ready(function(){
 	//create a new WebSocket object.
-	var wsUri = "ws://127.0.0.1:8090/server_chat.php"; 	
+	var wsUri = "ws://172.31.28.169:8090/server_chat.php"; 	
 	websocket = new WebSocket(wsUri); 
 	
 	websocket.onopen = function(ev) { // connection is open 

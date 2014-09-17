@@ -29,8 +29,6 @@ header('Expires: 0');
     <script src="//ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.1/angular.min.js"></script>
     <!--<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular-animate.min.js"></script>-->
-    <!--<script src="js/angular.js"></script>-->
-    
     <script src="js/ui-utils-0.1.1/ui-utils.js"></script>
     <script src="js/app.js"></script>
     <link href="css/bootstrap.css" rel="stylesheet">
@@ -78,11 +76,9 @@ header('Expires: 0');
               });
             };
 
-            
-
             $scope.releaseTapid = function () {
                 $scope.tempMyID = angular.element('#phoneBox')[0].contentWindow.red5phone_getConfig().tapid;
-                    console.log('tempmyid = '+$scope.tempMyID);
+                console.log('tempmyid = '+$scope.tempMyID);
                 $http({method: 'GET', url: 'flashphone/destroytapid.php?t='+$scope.tempMyID}).success(function(data){
                     console.log('tapid destroyed, return is '+data);
                 });
@@ -111,206 +107,36 @@ header('Expires: 0');
                 return 'Any string';
             };
 
-            
-
-$scope.hotlist = $scope.numbers;
-
-/*
-//use for local testing
-
-            $scope.numbers = [
-        {
-            "tapid" : "2060000002",
-            "topics" : [
-            {
-                "topic" : "hamburger",
-                "status" : "available",
-                "category" : "food"
-            },
-            {
-                "topic" : "Mariners",
-                "status" : "waiting",
-                "category" : "sports"
-            },
-            {
-                "topic" : "Ichiro",
-                "status" : "available",
-                "category" : "sports"
-            },
-            {
-                "topic" : "Seattle",
-                "status" : "available",
-                "category" : "travel"
-            },
-            {
-                "topic" : "Food Trucks",
-                "status" : "available",
-                "category" : "food"
-            },
-            {
-                "topic" : "Profitability",
-                "status" : "available",
-                "category" : "business"
-            },
-            {
-                "topic" : "Exit Strategy",
-                "status" : "available",
-                "category" : "business"
-            },
-            {
-                "topic" : "Start Ups",
-                "status" : "available",
-                "category" : "business"
-            },
-            {
-                "topic" : "Bootstrapping",
-                "status" : "available",
-                "category" : "business"
-            },
-            {
-                "topic" : "Runway",
-                "status" : "available",
-                "category" : "business"
-            },
-            {
-                "topic" : "VC",
-                "status" : "available",
-                "category" : "business"
-            }
-            ]
-        },
-        {
-            "tapid" : "2060000001",
-            "topics" : [
-            {
-                "topic" : "World Advertising Congress",
-                "status" : "active",
-                "category" : "advertising"
-            },
-            {
-                "topic" : "Digital Strategies",
-                "status" : "available",
-                "category" : "technology"
-            },
-            {
-                "topic" : "Multi-Channel Experience",
-                "status" : "available",
-                "category" : "technology"
-            }
-            ]   
-        },
-        {
-            "tapid" : "2060000003",
-            "topics" : [
-            {
-                "topic" : "Dark Souls 2",
-                "status" : "active",
-                "category" : "game"
-            }
-            ]
-        },
-        {
-            "tapid" : "2060000004",
-            "topics" : [
-            {
-                "topic" : "MBA",
-                "status" : "available",
-                "category" : "education"
-            },
-            {
-                "topic" : "informations",
-                "status" : "available",
-                "category" : "technology"
-            },
-            {
-                "topic" : "Business Management",
-                "status" : "available",
-                "category" : "education"
-            }
-            ]
-        },
-        {
-            "tapid" : "2060000005",
-            "topics" : [
-            {
-                "topic" : "COC",
-                "status" : "active",
-                "category" : "game"
-            },
-            {
-                "topic" : "running",
-                "status" : "waiting",
-                "category" : "sports"
-            }
-            ]
-        },
-        {
-            "tapid" : "2060000006",
-            "topics" : [
-            {
-                "topic" : "UCLA",
-                "status" : "active",
-                "category" : "education"
-            },
-            {
-                "topic" : "X-Men",
-                "status" : "available",
-                "category" : "game"
-            }
-            ]
-        }
-
-    ];
-    $scope.hotlist = [
-        {"topic" : "hamburger"},{"topic" : "hotdog"},{"topic" : "taco"}
-    ];
-*/
+            $scope.hotlist = $scope.numbers;
             $scope.topic_distance=0;
             $scope.tempWidth=0;
 
-
             $scope.scrollImages = function() {
                 $scope.tempWidth = parseInt($("#imgs2 li div a").first().css("width"),10);
-                //console.log("temp width = "+$scope.tempWidth);
                 $scope.topicWidth = $scope.tempWidth+10;
-                //console.log("topic width = "+$scope.topicWidth);
 
                 $("#imgs2").css("transition-duration", "1s");
-                //$("#imgs2").css("transform", "translate(-200px,0)");
                 $("#imgs2").css("transform", "translate(-"+$scope.topicWidth+"px,0)");
-                //$("#imgs2").
-                //console.log("positioned");
                 $("#imgs2").one('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd', 
                     function() {
                         $scope.topicShift();
-                        //console.log("shifted");
                         $("#imgs2").css("transition-duration", "0s");
                         $("#imgs2").css("transform", "translate(0px,0)");
-                        //console.log("re-positioned");
                         $scope.$apply();
                     }
                 );
-
-                //console.log("done");
                 
             }
 
             $scope.timerHotTopic = $.timer(function() {
-                //console.log("timer called");
                 $scope.scrollImages();
             });
             $scope.timerHotTopic.set({time:3000,autostart:true});
-            //console.log("timer set");
-
-            
 
             $scope.resumeHotTopics = function(){  
-                //onsole.log("stopping");
                 $scope.topic_distance=0;
                 $scope.timerHotTopic.play();
             }
-
-                    
 
             $scope.topicShift = function($myEvent){  
                 //console.log("shifting");
@@ -394,13 +220,8 @@ $scope.hotlist = $scope.numbers;
             }
 
             $scope.filterTapId = function(whatever){
-                //return (whatever.tapid == $scope.myTapId);
-
-                //console.log("my tap id = "+angular.element("#myTapidDisplay").html());
                 var tempMyID = angular.element("#myTapidDisplay").html();
-                //console.log("my tap id = "+tempMyID);
                 return (whatever.tapid != tempMyID);
-                //return (whatever.tapid == '8987770009');
             }
 
         });
@@ -409,40 +230,16 @@ $scope.hotlist = $scope.numbers;
 
             $scope.callCreateTapid = function(){
                 
-                //$scope.myTopics.myID = setTapID();
-                //536875a4_541777fa_15f28
-                //XXXXXXXX_XXXXXXXX_XXXXX
-
                 $scope.myCookie = $scope.makeid();
 
-                //$http({method: 'GET', url: 'flashphone/createtapid.php?c='+$scope.myCookie}).success(
-/*
-                    function(data) {
-                    var sURLVariables = data.split('&');
-                    for (var k = 0; k < sURLVariables.length; k++) 
-                    {
-                        var sParameterName = sURLVariables[k].split('=');
-                        if (sParameterName[0] == "tapid") 
-                        {
-                            $scope.myTapId=sParameterName[1];
-                        }
-                        if (sParameterName[0] == "password") 
-                        {
-                            $scope.myPassword=sParameterName[1];
-                        } 
-                    }
-*/
-                    angular.element("#phoneBox").attr("src","flashphone/index.php?c="+$scope.myCookie);
-                    angular.element("#myIdDisplay").html("My ID: "+$scope.myTapId+" My Password:"+$scope.myCookie);
-                    togglePad();
-                    angular.element("#myTopicsDisplay").attr("style","display:block;");
-                    angular.element("#phoneBox").load(function(){
-                      $scope.submitForm();
-                    });
+                angular.element("#phoneBox").attr("src","flashphone/index.php?c="+$scope.myCookie);
+                angular.element("#myIdDisplay").html("My ID: "+$scope.myTapId+" My Password:"+$scope.myCookie);
+                togglePad();
+                angular.element("#myTopicsDisplay").attr("style","display:block;");
+                angular.element("#phoneBox").load(function(){
+                  $scope.submitForm();
+                });
                     
-                //});
-
-                //console.log("my id = "+$scope.myTapId);
             };
 
             $scope.makeid = function()
@@ -458,8 +255,6 @@ $scope.hotlist = $scope.numbers;
 
             $scope.submitForm = function(){
 
-
-                
                 console.log("my id before submitting form = "+$scope.myTapId);
                 //$scope.myTopics.myID = setTapID();
                 $scope.myTopics.myID = angular.element('#phoneBox')[0].contentWindow.red5phone_getConfig().tapid;
@@ -485,68 +280,10 @@ $scope.hotlist = $scope.numbers;
                     angular.element("#myTapidDisplay").html($scope.myTopics.myID);
 
                     angular.element("#myPasswordDisplay").html("my cookie is "+$scope.myCookie);
-/*
-                    console.log("myTapId = "+$scope.myTopics.myID);
-                    console.log("numbers = "+$scope.numbers);
-                    console.log("index = "+$scope.numbers.indexOf($scope.myTopics.myID));
-                    */
 
                 });
 
             };
-/*
-                $http.post('submitTopics.php', JSON.stringify($scope.myTopics)).success(function(){
-                    //console.log("success");
-                    angular.element(".starter-template").html("<span class='message-create'>Thanks! Your topics have been created below.</span>");
-                    $scope.loadData();
-                    
-                    angular.element("#topic1button").html($scope.myTopics.topic1);
-                    angular.element("#topic2button").html($scope.myTopics.topic2);
-                    angular.element("#topic3button").html($scope.myTopics.topic3);
-
-                    $scope.myIdDisplay = $scope.myTopics.myID;
-                    $scope.myIdDisplay2 = $scope.myIdDisplay.slice(0, 3) + "-" + $scope.myIdDisplay.slice(3);
-                    $scope.myIdDisplay3 = $scope.myIdDisplay2.slice(0, 7) + "-" + $scope.myIdDisplay2.slice(7);
-                    angular.element("#myIdDisplay").html("My ID: "+$scope.myIdDisplay3);
-
-                    angular.element("#myTopicsDisplay").attr("style","display:block;");
-
-                });
-
-            };
-*/
-/*
-            $scope.getTapid = function () {
-                $http({method: 'GET', url: 'flashphone/createtapid.php'}).success(function(data) {
-                    var sURLVariables = data.split('&');
-                    for (var k = 0; k < sURLVariables.length; k++) 
-                    {
-                        var sParameterName = sURLVariables[k].split('=');
-                        if (sParameterName[0] == "tapid") 
-                        {
-                            $scope.myTapId=sParameterName[1];
-                        }
-                        if (sParameterName[0] == "password") 
-                        {
-                            $scope.myPassword=sParameterName[1];
-                        } 
-                    }
-                    angular.element("#callBox").attr("src","flashphone/index.php?c="+$scope.myPassword);
-                    angular.element("#myIdDisplay").html("My ID: "+$scope.myTapId);
-                    angular.element("#myTopicsDisplay").attr("style","display:block;");
-                    $scope.submitForm();
-                });
-            };
-*/
-/*
-            $scope.getTapid = function () {
-                $scope.myTopics.myID = setTapID();
-                console.log("my id = "+$scope.myTopics.myID);
-            };
-*/
-
-
-
 
         });
 
@@ -713,16 +450,8 @@ $scope.hotlist = $scope.numbers;
             $('#topic2').watermark('Enter Another Topic');
             $('#topic3').watermark('Enter Another Topic');
             //$("#chatBox").attr("src", "index_chat.php#end");
-            
-            
-            //var tempID = "206-000-000"+(Math.floor(Math.random() * 10));
-            //$('#myIDinput').attr("value","tempID");
-
             //setTimeout(function(){searchMe("phad thai")}, 3000);
-
-
             //$(".gsc-control-cse").css("display","none");
-
 
             function searchMe(keyword){
 
@@ -795,8 +524,6 @@ $scope.hotlist = $scope.numbers;
           
     </script>
 
-
-
 </head>
 
 <body ng-controller="topicCtrl" style="height:100%;">
@@ -855,24 +582,6 @@ $scope.hotlist = $scope.numbers;
                   <input type="submit" id="submit" value="GO" class="btn btn-primary btn-s btn-submit" ng-click="submit" />
                 </div>
             </form>
-
-<!--
-            <form class="form-inline" action="javascript:getTapid($('#topic1').val(),$('#topic2').val(),$('#topic3').val());">
-                <div class="form-group">
-                    <input id="topic1" type="text" name="form.topic1" class="form-control topic-input" maxlength="16" />
-                </div>
-                <div class="form-group">
-                    <input id="topic2" type="text" name="form.topic2" class="form-control topic-input" maxlength="16" />
-                </div>
-                <div class="form-group">
-                    <input id="topic3" type="text" name="form.topic3" class="form-control topic-input" maxlength="16" />
-                </div>
-                <div class="form-group">
-                  <input type="submit" id="submit" value="GO" class="btn btn-primary btn-s btn-submit" />
-                </div>
-            </form>
--->
-
 
       </div>
 
@@ -984,14 +693,7 @@ $scope.hotlist = $scope.numbers;
     </section> 
 
     <section id="pad" style="margin:10px auto;text-align:center;margin-top:10px;width:246px;height:0px;">
-        <!--
-        <div id="altContent">
-            <a href="http://www.adobe.com/go/getflashplayer">Get Adobe Flash player</a>
-        </div>  
-    -->
-    
         <iframe id="phoneBox" src="" scrolling="no" width="246" height="400" border="0" style="width:246px;height:400px;border:none;"></iframe>
-
     </section> 
 
     <section id="chat" class="section-chat" ng-controller="ScrollController">
@@ -1166,16 +868,16 @@ $scope.hotlist = $scope.numbers;
 
     </section>
 
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-53853189-1', 'auto');
-  ga('send', 'pageview');
+      ga('create', 'UA-53853189-1', 'auto');
+      ga('send', 'pageview');
 
-</script>
+    </script>
 
 
   </body>
