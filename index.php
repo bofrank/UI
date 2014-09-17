@@ -413,7 +413,9 @@ $scope.hotlist = $scope.numbers;
                 //536875a4_541777fa_15f28
                 //XXXXXXXX_XXXXXXXX_XXXXX
 
-                $http({method: 'GET', url: 'flashphone/createtapid.php'}).success(function(data) {
+                $scope.myCookie = $scope.makeid();
+
+                $http({method: 'GET', url: 'flashphone/createtapid.php?c='+$scope.myCookie}).success(function(data) {
                     var sURLVariables = data.split('&');
                     for (var k = 0; k < sURLVariables.length; k++) 
                     {
@@ -440,7 +442,16 @@ $scope.hotlist = $scope.numbers;
                 //console.log("my id = "+$scope.myTapId);
             };
 
+            $scope.makeid = function()
+            {
+                var text = "";
+                var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
+                for( var i=0; i < 23; i++ )
+                    text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+                return text;
+            }
 
             $scope.submitForm = function(){
 
