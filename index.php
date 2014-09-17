@@ -89,7 +89,7 @@ header('Expires: 0');
             };
 
             $scope.checkCookie = function(){
-                 console.log("cookie = " + $scope.myPassword);
+                 console.log("cookie = " + $scope.myCookie);
             }
             
 
@@ -415,7 +415,9 @@ $scope.hotlist = $scope.numbers;
 
                 $scope.myCookie = $scope.makeid();
 
-                $http({method: 'GET', url: 'flashphone/createtapid.php?c='+$scope.myCookie}).success(function(data) {
+                //$http({method: 'GET', url: 'flashphone/createtapid.php?c='+$scope.myCookie}).success(
+/*
+                    function(data) {
                     var sURLVariables = data.split('&');
                     for (var k = 0; k < sURLVariables.length; k++) 
                     {
@@ -429,15 +431,16 @@ $scope.hotlist = $scope.numbers;
                             $scope.myPassword=sParameterName[1];
                         } 
                     }
-                    angular.element("#phoneBox").attr("src","flashphone/index.php?c="+$scope.myPassword);
-                    angular.element("#myIdDisplay").html("My ID: "+$scope.myTapId+" My Password:"+$scope.myPassword);
+*/
+                    angular.element("#phoneBox").attr("src","flashphone/index.php?c="+$scope.myCookie);
+                    angular.element("#myIdDisplay").html("My ID: "+$scope.myTapId+" My Password:"+$scope.myCookie);
                     togglePad();
                     angular.element("#myTopicsDisplay").attr("style","display:block;");
                     angular.element("#phoneBox").load(function(){
                       $scope.submitForm();
                     });
                     
-                });
+                //});
 
                 //console.log("my id = "+$scope.myTapId);
             };
@@ -481,7 +484,7 @@ $scope.hotlist = $scope.numbers;
 
                     angular.element("#myTapidDisplay").html($scope.myTopics.myID);
 
-                    angular.element("#myPasswordDisplay").html("my cookie is "+$scope.myPassword);
+                    angular.element("#myPasswordDisplay").html("my cookie is "+$scope.myCookie);
 /*
                     console.log("myTapId = "+$scope.myTopics.myID);
                     console.log("numbers = "+$scope.numbers);
