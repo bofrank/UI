@@ -88,7 +88,6 @@ header('Expires: 0');
                  console.log("cookie = " + $scope.myCookie);
             }
             
-
             window.onbeforeunload = function (e) {
                 console.log("tapid = " + $scope.myTapId);
                 var e = e || window.event;
@@ -449,7 +448,7 @@ header('Expires: 0');
             $('#topic1').watermark('Enter Your Topic (required)');
             $('#topic2').watermark('Enter Another Topic');
             $('#topic3').watermark('Enter Another Topic');
-            //$("#chatBox").attr("src", "index_chat.php#end");
+            $("#chatBox").attr("src", "index_chat.php#end");
             //setTimeout(function(){searchMe("phad thai")}, 3000);
             //$(".gsc-control-cse").css("display","none");
 
