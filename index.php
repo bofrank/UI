@@ -501,7 +501,7 @@ header('Expires: 0');
                 $("#phoneBox").attr("src","flashphone/index.php?c="+newCookie);
             }
         }
-        function confirmChat(chosenTopic){
+        function confirmChat(chosenTapid,chosenTopic){
             var q=confirm("Do you want to chat about "+chosenTopic+"?");
             if (q == true) {
                 $("#callchat").css("display","block");
@@ -511,7 +511,7 @@ header('Expires: 0');
                 }
                 $("#pad").css("height","0px");
                 $("#pad").css("margin-left","-900px");
-                $("#chatBox").attr("src","index_chat.php?tapid="+chosenTopic);
+                $("#chatBox").attr("src","index_chat.php?tapid="+chosenTapid+"&topic="+chosenTopic);
                 openChat();
                 chatActive = "yes";
             }
@@ -662,14 +662,12 @@ header('Expires: 0');
     <ul id="content" ng-model="numbers">
         <!--<li id="imgs" ng-repeat="whatever in numbers|filter:'8987770009' track by $index" class="row">-->
         <li id="imgs" ng-repeat="whatever in numbers|filter:filterTapId track by $index" class="row">
-            <div class="number" onclick="confirmCall();">
-                {{whatever.tapid}}
-            </div>
+            <div class="number" onclick="confirmCall();">{{whatever.tapid}}</div>
             <div style="clear:both;"></div>
 
             <ul data-ng-show="whatever" class="row_topic" id="">
                 <li ng-repeat="topics in whatever.topics|filter:'!blank' track by $index" ng-controller="ScrollController" class="column">
-                  <a class="scrollto ui-link btn btn-primary btn-s topic-button" onclick="confirmChat($(this).text());">
+                  <a class="scrollto ui-link btn btn-primary btn-s topic-button" onclick="confirmChat($(this).parent().parent().parent().children(':first-child').text(),$(this).text())">
                     {{topics.topic}}
                   </a>
                 </li>

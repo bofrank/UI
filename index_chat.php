@@ -27,7 +27,22 @@ body{
 </head>
 <body>	
 <?php 
+
+include("mysqli.class.php"); 
+include("data.php");
+
+$config = array();
+$config['host'] = $hostname;
+$config['user'] = $username;
+$config['pass'] = $password;
+$config['table'] = 'topicb';
+
+$DB = new DB($config);
+
+//$DB->Query("DELETE FROM topics WHERE tapid = '$tapid'");
+
 $tapid = $_GET["tapid"];
+$topic = $_GET["topic"];
 $colours = array('007AFF','FF7000','FF7000','15E25F','CFC700','CFC700','CF1100','CF00BE','F00');
 $user_colour = array_rand($colours);
 ?>
@@ -105,10 +120,10 @@ $(document).ready(function(){
 
 });
 </script>
-
+<?php echo $topic ?>
 <div id="message_box"></div>
 <div style="margin-top:10px;">
-<input type="hidden" name="name" id="name" placeholder="Your Name" maxlength="10" style="width:20%" value="<?php echo $tapid; ?>"  />
+<input type="hidden" name="name" id="name" placeholder="Your Name" maxlength="10" style="width:20%" value="<?php echo $tapid ?>"  />
 <input type="text" name="message" id="message" placeholder="Message" maxlength="80" style="width:60%" class="form-control message-input ng-pristine" />
 <button id="send-btn" class="btn btn-primary btn-s btn-submit" style="width:70px;height:38px;margin-top:-5px">Send</button>
 </div>
