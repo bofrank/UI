@@ -4,11 +4,14 @@
 <meta charset='UTF-8' />
 <!--<link href="css/global.css" rel="stylesheet">-->
 <link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/global.css" rel="stylesheet">
 <style type="text/css">
 <!--
-
+body{
+	background:none;
+}
 .chat_wrapper .message_box {
-	background: #FFFFFF;
+	background: none;
 	height: 150px;
 	overflow: auto;
 	padding: 10px;
@@ -18,13 +21,13 @@
 	padding: 2px 2px 2px 5px;
 }
 .system_msg{color: #BDBDBD;font-style: italic;}
-.user_name{font-weight:bold;}
-.user_message{color: #88B6E0;}
+.user_message{color: #fff;}
 -->
 </style>
 </head>
 <body>	
 <?php 
+$tapid = $_GET["tapid"];
 $colours = array('007AFF','FF7000','FF7000','15E25F','CFC700','CFC700','CF1100','CF00BE','F00');
 $user_colour = array_rand($colours);
 ?>
@@ -84,7 +87,7 @@ $(document).ready(function(){
 
 		if(type == 'usermsg') 
 		{
-			$('#message_box').append("<div><span class=\"user_name\" style=\"color:#"+ucolor+"\">"+uname+"</span> : <span class=\"user_message\">"+umsg+"</span></div>");
+			$('#message_box').append("<div class=\"message-box\"><span class=\"user_name\" style=\"color:#fff\">"+uname+"</span> <span style=\"color:#fff;\">:</span> <span class=\"user_message\">"+umsg+"</span></div>");
 		}
 		if(type == 'system')
 		{
@@ -92,6 +95,7 @@ $(document).ready(function(){
 		}
 		
 		$('#message').val(''); //reset text
+		$(document).scrollTop($(document).height());
 	};
 	
 	websocket.onerror	= function(ev){$('#message_box').append("<div class=\"system_error\">Error Occurred - "+ev.data+"</div>");}; 
@@ -103,10 +107,10 @@ $(document).ready(function(){
 </script>
 
 <div id="message_box"></div>
-<div class="panel">
-<input type="hidden" name="name" id="name" placeholder="Your Name" maxlength="10" style="width:20%" value="test"  />
-<input type="text" name="message" id="message" placeholder="Message" maxlength="80" style="width:60%" />
-<button id="send-btn">Send</button>
+<div>
+<input type="hidden" name="name" id="name" placeholder="Your Name" maxlength="10" style="width:20%" value="<?php echo $tapid; ?>"  />
+<input type="text" name="message" id="message" placeholder="Message" maxlength="80" style="width:60%" class="form-control message-input ng-pristine" />
+<button id="send-btn" class="btn btn-primary btn-s btn-submit" style="width:70px;height:38px;margin-top:-5px">Send</button>
 </div>
 
 

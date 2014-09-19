@@ -21,12 +21,18 @@ $myConnection = $obj->{myID};
 
 if($topic1){
 	$DB->Query("INSERT INTO topics(topic,tapid) VALUES('$topic1','$myConnection')");
+}else{
+	$DB->Query("INSERT INTO topics(topic,tapid) VALUES('blank','$myConnection')");
 }
 if($topic2){
 	$DB->Query("INSERT INTO topics(topic,tapid) VALUES('$topic2','$myConnection')");
+}else{
+	$DB->Query("INSERT INTO topics(topic,tapid) VALUES('blank','$myConnection')");
 }
 if($topic3){
 	$DB->Query("INSERT INTO topics(topic,tapid) VALUES('$topic3','$myConnection')");
+}else{
+	$DB->Query("INSERT INTO topics(topic,tapid) VALUES('blank','$myConnection')");
 }
 
 echo "posted $topic1";

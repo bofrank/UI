@@ -280,6 +280,10 @@ header('Expires: 0');
 
                     angular.element("#myPasswordDisplay").html("my cookie is "+$scope.myCookie);
 
+                    angular.element("#chatBox").attr("src","index_chat.php?tapid="+$scope.myTopics.myID);
+
+
+
                 });
 
             };
@@ -309,6 +313,8 @@ header('Expires: 0');
                     angular.element(".gsc-search-button").trigger( "click" );
                     
                     console.log("search for "+myChat);
+
+                    
 
                     $timeout(function() {
                         angular.element(".gsc-cursor-box").css("display","none");
@@ -448,7 +454,7 @@ header('Expires: 0');
             $('#topic1').watermark('Enter Your Topic (required)');
             $('#topic2').watermark('Enter Another Topic');
             $('#topic3').watermark('Enter Another Topic');
-            $("#chatBox").attr("src", "index_chat.php#end");
+            //$("#chatBox").attr("src", "index_chat.php?tapid="+$("#myTapidDisplay").html());
             //setTimeout(function(){searchMe("phad thai")}, 3000);
             //$(".gsc-control-cse").css("display","none");
 
@@ -661,7 +667,7 @@ header('Expires: 0');
             <div style="clear:both;"></div>
 
             <ul data-ng-show="whatever" class="row_topic" id="">
-                <li ng-repeat="topics in whatever.topics track by $index" ng-controller="ScrollController" class="column">
+                <li ng-repeat="topics in whatever.topics|filter:'!blank' track by $index" ng-controller="ScrollController" class="column">
                   <a class="scrollto ui-link btn btn-primary btn-s topic-button" onclick="confirmChat($(this).text());">
                     {{topics.topic}}
                   </a>
@@ -699,30 +705,26 @@ header('Expires: 0');
         
         <div id="chatContainer" class="container" style="display:none;">
 
-            <div>
+                <div style="display:none;">
+                    <gcse:search></gcse:search>
+                </div>
 
-                <div>
-
-                    <div style="display:none;">
-                        <gcse:search></gcse:search>
+                <div class="search-result-box">
+                    
+                    <div id="search_result_1" class="search-result-text">
                     </div>
-
-                    <div class="search-result-box">
-                        
-                        <div id="search_result_1" class="search-result-text">
-                        </div>
-                    </div>
-                    <div class="search-result-box">
-                        
-                        <div id="search_result_2" class="search-result-text">
-                        </div>
-                    </div>
-
-                    <iframe id="chatBox" src="" onload="this.contentWindow.document.documentElement.scrollTop=100" scrolling="no"></iframe>
 
                 </div>
-            
-            </div>
+                <div class="search-result-box">
+                    
+                    <div id="search_result_2" class="search-result-text">
+                    </div>
+
+                </div>
+
+                <!--<iframe id="chatBox" src="" onload="this.contentWindow.document.documentElement.scrollTop=100" scrolling="no"></iframe>-->
+
+                <iframe id="chatBox" src=""></iframe>
 
         </div>
 
