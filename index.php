@@ -469,8 +469,11 @@ header('Expires: 0');
         function togglePad(){
             if($("#pad").css("height")=="0px"){
                 $("#pad").css("height","400px");
+                $("#pad").css("margin-left","auto");
+                $("#pad").css("margin-right","auto");
             }else{
                 $("#pad").css("height","0px");
+                $("#pad").css("margin-left","-900px");
             }
         }
         function toggleChat(){
@@ -494,6 +497,8 @@ header('Expires: 0');
                 $("#buttonOpenPad").css("display","block");
                 openPad();
                 voiceActive = "yes";
+                var newCookie = $("#TopicSubmitForm").scope().makeid();
+                $("#phoneBox").attr("src","flashphone/index.php?c="+newCookie);
             }
         }
         function confirmChat(chosenTopic){
@@ -504,9 +509,10 @@ header('Expires: 0');
                 if(voiceActive=="no"){
                     $("#buttonOpenPad").css("display","none");
                 }
+                $("#pad").css("height","0px");
+                $("#pad").css("margin-left","-900px");
                 $("#chatBox").attr("src","index_chat.php?tapid="+chosenTopic);
                 openChat();
-                $("#pad").css("height","0px");
                 chatActive = "yes";
             }
         }
@@ -568,7 +574,7 @@ header('Expires: 0');
       <div class="starter-template">
         <div class="topic-input-container">
 
-            <form class="form-inline" ng-submit="callCreateTapid(myTopics)" ng-controller="TopicSubmitController">
+            <form id="TopicSubmitForm" class="form-inline" ng-submit="callCreateTapid(myTopics)" ng-controller="TopicSubmitController">
                 <div class="form-group">
                     <input id="topic1" type="text" data-ng-model="myTopics.topic1" name="form.topic1" class="form-control topic-input" maxlength="16" />
                 </div>

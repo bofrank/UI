@@ -20,7 +20,7 @@ body{
 .chat_wrapper .panel input{
 	padding: 2px 2px 2px 5px;
 }
-.system_msg{color: #BDBDBD;font-style: italic;}
+.system_msg{color: #ddd;font-style: italic;}
 .user_message{color: #fff;}
 -->
 </style>
@@ -107,7 +107,7 @@ $(document).ready(function(){
 </script>
 
 <div id="message_box"></div>
-<div>
+<div style="margin-top:10px;">
 <input type="hidden" name="name" id="name" placeholder="Your Name" maxlength="10" style="width:20%" value="<?php echo $tapid; ?>"  />
 <input type="text" name="message" id="message" placeholder="Message" maxlength="80" style="width:60%" class="form-control message-input ng-pristine" />
 <button id="send-btn" class="btn btn-primary btn-s btn-submit" style="width:70px;height:38px;margin-top:-5px">Send</button>
