@@ -77,33 +77,25 @@ header('Expires: 0');
             };
 
             $scope.releaseTapid = function () {
-                $scope.tempMyID = angular.element('#phoneBox')[0].contentWindow.red5phone_getConfig().tapid;
-                console.log('tempmyid = '+$scope.tempMyID);
+                console.log("tapid in release tapid = " + $scope.tempMyID);
                 $http({method: 'GET', url: 'flashphone/destroytapid.php?t='+$scope.tempMyID}).success(function(data){
-                    console.log('tapid destroyed, return is '+data);
+                    //console.log("destroy tapid called");
                 });
             };
-
-            $scope.checkCookie = function(){
-                 console.log("cookie = " + $scope.myCookie);
-            }
             
             window.onbeforeunload = function (e) {
-                console.log("tapid = " + $scope.myTapId);
+                $scope.tempMyID = angular.element('#phoneBox')[0].contentWindow.red5phone_getConfig().tapid;
+                console.log("tapid = " + $scope.tempMyID);
                 var e = e || window.event;
-
+                
                 // For IE and Firefox prior to version 4
                 if (e) {
-                    //console.log("cookie = " + $scope.myPassword);
-                    //if($scope.myPassword){
-                      //  console.log("destroying tapid");
                         $scope.releaseTapid($scope.myTapId);
-                        e.returnValue = 'Any string';
-                    //}
+                        e.returnValue = "destroying tapid for IE";
                 }
 
                 // For Safari
-                return 'Any string';
+                return "destroying tapid";
             };
 
             $scope.hotlist = $scope.numbers;
@@ -602,7 +594,7 @@ header('Expires: 0');
               <div style="clear:both;"></div>
 
               <ul class="row_hot" id="imgs2" style="background:none;">
-                <li ng-repeat="whatever2 in hotlist|limitTo:10 track by $index">
+                <li ng-repeat="whatever2 in hotlist|filter:'!blank'|limitTo:10 track by $index">
 
                   <div class="hottopic-container" ng-controller="ScrollController" >
                     <a class="scrollto ui-link btn btn-primary btn-s hottopic-button" ng-click="chatStart(whatever2.topic)">
