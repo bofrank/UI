@@ -76,26 +76,10 @@ header('Expires: 0');
               });
             };
 
-            $scope.releaseTapid = function () {
-                console.log("tapid in release tapid = " + $scope.tempMyID);
-                $http({method: 'GET', url: 'flashphone/destroytapid.php?t='+$scope.tempMyID}).success(function(data){
-                    //console.log("destroy tapid called");
-                });
-            };
-            
             window.onbeforeunload = function (e) {
                 $scope.tempMyID = angular.element('#phoneBox')[0].contentWindow.red5phone_getConfig().tapid;
-                console.log("tapid = " + $scope.tempMyID);
-                var e = e || window.event;
-                
-                // For IE and Firefox prior to version 4
-                if (e) {
-                        $scope.releaseTapid($scope.myTapId);
-                        e.returnValue = "destroying tapid for IE";
-                }
-
-                // For Safari
-                return "destroying tapid";
+                $http({method: 'GET', url: 'flashphone/destroytapid.php?t='+$scope.tempMyID})
+                $http({method: 'GET', url: 'removeTopics.php?t='+$scope.tempMyID});
             };
 
             $scope.hotlist = $scope.numbers;
@@ -272,9 +256,9 @@ header('Expires: 0');
 
                     angular.element("#myPasswordDisplay").html("my cookie is "+$scope.myCookie);
 
+                    angular.element("#callchat").attr("style","display:block;").attr("style","background:none;");
+
                     angular.element("#chatBox").attr("src","index_chat.php?tapid="+$scope.myTopics.myID);
-
-
 
                 });
 
@@ -474,7 +458,9 @@ header('Expires: 0');
             }
                         
         });
-
+        
+        var chatActive = "no";
+        var voiceActive = "no";
         function openPad(){
             //$("#pad").css("display","block");
             $("#pad").css("height","400px");
@@ -487,6 +473,9 @@ header('Expires: 0');
                 $("#pad").css("height","0px");
             }
         }
+        function toggleChat(){
+            $("#chatContainer").toggle();
+        }
         function openChat(){
             $("#chatContainer").show();
         }
@@ -498,13 +487,27 @@ header('Expires: 0');
         function confirmCall(){
             var r=confirm("Do you want to call about these topics?");
             if (r == true) {
+                $("#callchat").css("display","block");
+                if(chatActive=="no"){
+                    $("#buttonOpenChat").css("display","none");
+                }
+                $("#buttonOpenPad").css("display","block");
                 openPad();
+                voiceActive = "yes";
             }
         }
         function confirmChat(chosenTopic){
             var q=confirm("Do you want to chat about "+chosenTopic+"?");
             if (q == true) {
+                $("#callchat").css("display","block");
+                $("#buttonOpenChat").css("display","block");
+                if(voiceActive=="no"){
+                    $("#buttonOpenPad").css("display","none");
+                }
+                $("#chatBox").attr("src","index_chat.php?tapid="+chosenTopic);
                 openChat();
+                $("#pad").css("height","0px");
+                chatActive = "yes";
             }
         }
 
@@ -671,7 +674,7 @@ header('Expires: 0');
 
 </div>
 
-    <section id="callchat" style="background:none;margin:10px auto;text-align:center;">
+    <section id="callchat" style="background:none;margin:10px auto;text-align:center;display:none;">
 
         <div style="width:100%;">
             <div id="buttonOpenPad" class="container" onClick="togglePad();" style="text-align:center;width:50%;height:50px;float:left;margin-top:20px;">
@@ -679,7 +682,7 @@ header('Expires: 0');
                 <a class="ui-link btn btn-primary btn-s btn-connect">TopicB Phone</a>
 
             </div>
-            <div id="buttonOpenChat" class="container" onClick="openChat()" style="text-align:center;float:left;height:50px;display:block;width:50%;margin-top:20px;">
+            <div id="buttonOpenChat" class="container" onClick="toggleChat()" style="text-align:center;float:left;height:50px;display:block;width:50%;margin-top:20px;">
 
                 <a class="ui-link btn btn-primary btn-s btn-connect">Chat</a>
 
