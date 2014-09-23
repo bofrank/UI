@@ -260,9 +260,20 @@ header('Expires: 0');
 
                     angular.element("#chatBox").attr("src","index_chat.php?tapid="+$scope.myTopics.myID);
 
+                    setInterval(function(){$scope.checkTopics()},10000);
+
                 });
 
             };
+
+            $scope.checkTopics = function(){
+                $http({method: 'GET', url: 'getMyTopics.php?t='+$scope.myTopics.myID}).success(function(data2) {
+                    $scope.dataMyTopics = data2;
+                    console.log("mytopic1 state="+$scope.dataMyTopics[0].chatstate);
+                    console.log("mytopic2 state="+$scope.dataMyTopics[1].chatstate);
+                    console.log("mytopic3 state="+$scope.dataMyTopics[2].chatstate);
+                });
+            }
 
         });
 
@@ -501,9 +512,12 @@ header('Expires: 0');
                 $("#phoneBox").attr("src","flashphone/index.php?c="+newCookie);
             }
         }
-        function confirmChat(chosenTapid,chosenTopic){
+        function confirmChat(chosenTapid,buttonObj){
+            var chosenTopic = $.trim($(buttonObj).text());
+            console.log("chosenTopic ="+chosenTopic);
             var q=confirm("Do you want to chat about "+chosenTopic+"?");
             if (q == true) {
+                $(buttonObj).css("background-image","linear-gradient(#5a5c66, #cc0c38 60%, #cc0c38)").css("border","solid 1px #5a5c66");
                 $("#callchat").css("display","block");
                 $("#buttonOpenChat").css("display","block");
                 if(voiceActive=="no"){
@@ -667,8 +681,8 @@ header('Expires: 0');
 
             <ul data-ng-show="whatever" class="row_topic" id="">
                 <li ng-repeat="topics in whatever.topics|filter:'!blank' track by $index" ng-controller="ScrollController" class="column">
-                  <a class="scrollto ui-link btn btn-primary btn-s topic-button" onclick="confirmChat($(this).parent().parent().parent().children(':first-child').text(),$(this).text())">
-                    {{topics.topic}}
+                  <a class="scrollto ui-link btn btn-primary btn-s topic-button {{topics.chatstate}}" onclick="confirmChat($(this).parent().parent().parent().children(':first-child').text(),$(this))">
+                    {{topics.topic}} 
                   </a>
                 </li>
             </ul>

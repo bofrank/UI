@@ -39,10 +39,11 @@ $config['table'] = 'topicb';
 
 $DB = new DB($config);
 
-//$DB->Query("DELETE FROM topics WHERE tapid = '$tapid'");
-
 $tapid = $_GET["tapid"];
 $topic = $_GET["topic"];
+
+$DB->Query("UPDATE topicb.topics SET chatstate='chatting' WHERE topic='$topic'");
+
 $colours = array('007AFF','FF7000','FF7000','15E25F','CFC700','CFC700','CF1100','CF00BE','F00');
 $user_colour = array_rand($colours);
 ?>
@@ -50,6 +51,12 @@ $user_colour = array_rand($colours);
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 
 <script language="javascript" type="text/javascript">  
+
+window.onbeforeunload = function (e) {
+    
+    $http({method: 'GET', url: 'removeTopic.php?topic=<?php echo trim($topic);?>'});
+};
+
 $(document).ready(function(){
 	//create a new WebSocket object.
 	var wsUri = "ws://54.68.58.129:8000/server_chat.php"; 	
@@ -116,11 +123,10 @@ $(document).ready(function(){
 	websocket.onerror	= function(ev){$('#message_box').append("<div class=\"system_error\">Error Occurred - "+ev.data+"</div>");}; 
 	websocket.onclose 	= function(ev){$('#message_box').append("<div class=\"system_msg\">Connection Closed</div>");}; 
 
-    
-
 });
 </script>
-<?php echo $topic ?>
+<?php echo $topic; ?>
+
 <div id="message_box"></div>
 <div style="margin-top:10px;">
 <input type="hidden" name="name" id="name" placeholder="Your Name" maxlength="10" style="width:20%" value="<?php echo $tapid ?>"  />

@@ -3,6 +3,8 @@
 include("mysqli.class.php"); 
 include("data.php");
 
+$tapid = $_GET["t"];
+
 $config = array();
 $config['host'] = $hostname;
 $config['user'] = $username;
@@ -11,24 +13,17 @@ $config['table'] = 'topicb';
 
 $DB = new DB($config);
 
-$DB->Query("SELECT * FROM topicb.topics");
+$DB->Query("SELECT * FROM topics WHERE tapid='$tapid'");
 
 $result = $DB->get();
 
+$resultJSON = json_encode($result);
+
 $dataFormated = array();
 
-for($i=0;$i<count($result);$i+=3){
-
-    $dataFormated[$i]['tapid'] = $result[$i]['tapid'];
-    $dataFormated[$i]['topics']=array();
-
-    for($j=$i;$j<$i+3;$j++){            
-        $dataFormated[$i]['topics'][$j]['topic'] = $result[$j]['topic'];
-        $dataFormated[$i]['topics'][$j]['category'] = $result[$j]['category'];
-        $dataFormated[$i]['topics'][$j]['chatstate'] = $result[$j]['chatstate'];
-    }
-
-    //$dataFormated[$i]['chatstate'] = $result[$i]['chatstate'];
+for($i=0;$i<count($result);$i++){
+           
+        $dataFormated[$i]['chatstate'] = $result[$i]['chatstate'];
 
 }
 
