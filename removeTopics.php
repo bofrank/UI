@@ -13,6 +13,8 @@ $DB = new DB($config);
 
 $tapid = $_GET["t"];
 
+echo "tapid=".$tapid;
+
 $DB->Query("DELETE FROM topics WHERE tapid = '$tapid'");
 
 ?>

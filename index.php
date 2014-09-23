@@ -269,9 +269,11 @@ header('Expires: 0');
             $scope.checkTopics = function(){
                 $http({method: 'GET', url: 'getMyTopics.php?t='+$scope.myTopics.myID}).success(function(data2) {
                     $scope.dataMyTopics = data2;
-                    console.log("mytopic1 state="+$scope.dataMyTopics[0].chatstate);
-                    console.log("mytopic2 state="+$scope.dataMyTopics[1].chatstate);
-                    console.log("mytopic3 state="+$scope.dataMyTopics[2].chatstate);
+                    for(var h=1;h<4;h++){
+                        if($scope.dataMyTopics[h-1].chatstate=="chatting"){
+                            $("#topic"+h+"button").addClass("pending");
+                        }
+                    }
                 });
             }
 
