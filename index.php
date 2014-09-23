@@ -68,6 +68,7 @@ header('Expires: 0');
             };
 
             $scope.loadData();
+            setInterval(function(){$scope.loadData();},20000);
 
             $scope.loadDataHotList = function () {
             $http({method: 'GET', url: 'getHotTopics.php'}).success(function(data) {
@@ -258,7 +259,7 @@ header('Expires: 0');
 
                     angular.element("#callchat").attr("style","display:block;").attr("style","background:none;");
 
-                    angular.element("#chatBox").attr("src","index_chat.php?tapid="+$scope.myTopics.myID);
+                    //angular.element("#chatBox").attr("src","index_chat.php?tapid="+$scope.myTopics.myID);
 
                     setInterval(function(){$scope.checkTopics()},10000);
 
@@ -270,9 +271,32 @@ header('Expires: 0');
                 $http({method: 'GET', url: 'getMyTopics.php?t='+$scope.myTopics.myID}).success(function(data2) {
                     $scope.dataMyTopics = data2;
                     for(var h=1;h<4;h++){
-                        if($scope.dataMyTopics[h-1].chatstate=="chatting"){
-                            $("#topic"+h+"button").addClass("pending");
+                        $("#topic"+h+"button").attr("class","btn btn-primary btn-s topic-button ui-link "+$scope.dataMyTopics[h-1].chatstate);
+                        /*
+                        if($scope.dataMyTopics[h-1].chatstate=="pending"){
+
+                            if(h==1){
+                                $scope.chatTopic = $scope.myTopics.topic1;
+                            }else if(h==2){
+                                $scope.chatTopic = $scope.myTopics.topic2;
+                            }else if(h==3){
+                                $scope.chatTopic = $scope.myTopics.topic3;
+                            }
+
+                            //open chat
+                            $("#callchat").css("display","block");
+                            $("#buttonOpenChat").css("display","block");
+                            if(voiceActive=="no"){
+                                $("#buttonOpenPad").css("display","none");
+                            }
+                            $("#pad").css("height","0px");
+                            $("#pad").css("margin-left","-900px");
+                            $("#chatBox").attr("src","index_chat.php?tapid="+$scope.myTopics.myID+"&topic="+$scope.chatTopic);
+                            openChat();
+                            chatActive = "yes";
+                            $http({method: 'GET', url: 'stateUpdate.php?topic='+$scope.chatTopic+'&state=chatting'});
                         }
+                        */
                     }
                 });
             }
@@ -519,7 +543,8 @@ header('Expires: 0');
             console.log("chosenTopic ="+chosenTopic);
             var q=confirm("Do you want to chat about "+chosenTopic+"?");
             if (q == true) {
-                $(buttonObj).css("background-image","linear-gradient(#5a5c66, #cc0c38 60%, #cc0c38)").css("border","solid 1px #5a5c66");
+                //$(buttonObj).css("background-image","linear-gradient(#5a5c66, #cc0c38 60%, #cc0c38)").css("border","solid 1px #5a5c66");
+                $(buttonObj).addClass("pending");
                 $("#callchat").css("display","block");
                 $("#buttonOpenChat").css("display","block");
                 if(voiceActive=="no"){
@@ -650,17 +675,17 @@ header('Expires: 0');
 
             <ul class="row_topic" ng-model="myTopics">
                 <li class="column">
-                  <a class="btn btn-primary btn-s topic-button" id="topic1button">
+                  <a class="btn btn-primary btn-s topic-button" id="topic1button" onclick="confirmChat($(this).parent().parent().parent().children(':first-child').text(),$(this))">
                     this is topic 1
                   </a>
                 </li>
                 <li class="column">
-                  <a class="btn btn-primary btn-s topic-button" id="topic2button">
+                  <a class="btn btn-primary btn-s topic-button" id="topic2button" onclick="confirmChat($(this).parent().parent().parent().children(':first-child').text(),$(this))">
                     this is topic 2
                   </a>
                 </li>
                 <li class="column">
-                  <a class="btn btn-primary btn-s topic-button" id="topic3button">
+                  <a class="btn btn-primary btn-s topic-button" id="topic3button" onclick="confirmChat($(this).parent().parent().parent().children(':first-child').text(),$(this))">
                     this is topic 3
                   </a>
                 </li>
@@ -683,7 +708,7 @@ header('Expires: 0');
 
             <ul data-ng-show="whatever" class="row_topic" id="">
                 <li ng-repeat="topics in whatever.topics|filter:'!blank' track by $index" ng-controller="ScrollController" class="column">
-                  <a class="scrollto ui-link btn btn-primary btn-s topic-button {{topics.chatstate}}" onclick="confirmChat($(this).parent().parent().parent().children(':first-child').text(),$(this))">
+                  <a class="scrollto ui-link btn btn-primary btn-s topic-button {{topics.chatstate}}" onclick="confirmChat('guest',$(this))">
                     {{topics.topic}} 
                   </a>
                 </li>

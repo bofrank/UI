@@ -41,6 +41,7 @@ $DB = new DB($config);
 
 $tapid = $_GET["tapid"];
 $topic = $_GET["topic"];
+$handle = $tapid.":".$topic;
 
 $DB->Query("UPDATE topicb.topics SET chatstate='chatting' WHERE topic='$topic'");
 
@@ -51,11 +52,17 @@ $user_colour = array_rand($colours);
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 
 <script language="javascript" type="text/javascript">  
-
+/*
 window.onbeforeunload = function (e) {
     
-    $http({method: 'GET', url: 'removeTopic.php?topic=<?php echo trim($topic);?>'});
+    //$http({method: 'GET', url: 'removeTopic.php?topic=<?php echo trim($topic);?>'});
+    $.ajax({url:"removeTopic.php?topic=<?php echo trim($topic);?>"});
+
 };
+*/
+$(window).on('beforeunload', function(){
+	$.ajax({url:"removeTopic.php?topic=<?php echo trim($topic);?>"});
+});
 
 $(document).ready(function(){
 	//create a new WebSocket object.
@@ -110,6 +117,12 @@ $(document).ready(function(){
 		if(type == 'usermsg') 
 		{
 			$('#message_box').append("<div class=\"message-box\"><span class=\"user_name\" style=\"color:#fff\">"+uname+"</span> <span style=\"color:#fff;\">:</span> <span class=\"user_message\">"+umsg+"</span></div>");
+			if(umsg==null){
+				parent.$("#topic1button").removeClass("chatting").removeClass("pending");
+				parent.$("#topic2button").removeClass("chatting").removeClass("pending");
+				parent.$("#topic3button").removeClass("chatting").removeClass("pending");
+
+			}
 		}
 		if(type == 'system')
 		{
@@ -125,11 +138,10 @@ $(document).ready(function(){
 
 });
 </script>
-<?php echo $topic; ?>
 
 <div id="message_box"></div>
 <div style="margin-top:10px;">
-<input type="hidden" name="name" id="name" placeholder="Your Name" maxlength="10" style="width:20%" value="<?php echo $tapid ?>"  />
+<input type="hidden" name="name" id="name" placeholder="Your Name" maxlength="10" style="width:20%" value="<?php echo $handle ?>"  />
 <input type="text" name="message" id="message" placeholder="Message" maxlength="80" style="width:60%" class="form-control message-input ng-pristine" />
 <button id="send-btn" class="btn btn-primary btn-s btn-submit" style="width:70px;height:38px;margin-top:-5px">Send</button>
 </div>

@@ -23,7 +23,7 @@ $dataFormated = array();
 
 for($i=0;$i<count($result);$i++){
            
-        $dataFormated[$i]['chatstate'] = $result[$i]['chatstate'];
+    $dataFormated[$i]['chatstate'] = $result[$i]['chatstate'];
 
 }
 
