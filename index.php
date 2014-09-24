@@ -540,6 +540,7 @@ header('Expires: 0');
         }
         function confirmChat(chosenTapid,buttonObj){
             var chosenTopic = $.trim($(buttonObj).text());
+            $("#myChosenTopicDisplay").text(chosenTopic);
             console.log("chosenTopic ="+chosenTopic);
             var q=confirm("Do you want to chat about "+chosenTopic+"?");
             if (q == true) {
@@ -607,6 +608,7 @@ header('Expires: 0');
 <br>
 <div id="myTapidDisplay"></div>
 <div id="myPasswordDisplay"></div>
+<div id="myChosenTopicDisplay"></div>
 <br>
 
 <!--

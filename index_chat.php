@@ -66,6 +66,7 @@ $(window).on('beforeunload', function(){
 
 $(document).ready(function(){
 	//create a new WebSocket object.
+	//alert("chosen topic is "+parent.$("#myChosenTopicDisplay").text());
 	var wsUri = "ws://54.68.58.129:8000/server_chat.php"; 	
 	websocket = new WebSocket(wsUri); 
 	
@@ -114,7 +115,9 @@ $(document).ready(function(){
 		var uname = msg.name; //user name
 		var ucolor = msg.color; //color
 
-		if(type == 'usermsg') 
+		
+
+		if(type == 'usermsg')
 		{
 			$('#message_box').append("<div class=\"message-box\"><span class=\"user_name\" style=\"color:#fff\">"+uname+"</span> <span style=\"color:#fff;\">:</span> <span class=\"user_message\">"+umsg+"</span></div>");
 			if(umsg==null){
@@ -131,6 +134,7 @@ $(document).ready(function(){
 		
 		$('#message').val(''); //reset text
 		$(document).scrollTop($(document).height());
+		$(".user_name:not(:contains('<?php echo trim($topic);?>'))").parent().hide();
 	};
 	
 	websocket.onerror	= function(ev){$('#message_box').append("<div class=\"system_error\">Error Occurred - "+ev.data+"</div>");}; 
