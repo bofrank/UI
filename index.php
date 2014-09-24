@@ -68,7 +68,7 @@ header('Expires: 0');
             };
 
             $scope.loadData();
-            setInterval(function(){$scope.loadData();},20000);
+            setInterval(function(){$scope.loadData();},10000);
 
             $scope.loadDataHotList = function () {
             $http({method: 'GET', url: 'getHotTopics.php'}).success(function(data) {
@@ -76,12 +76,14 @@ header('Expires: 0');
                 numberFormat();
               });
             };
-
+/*
             window.onbeforeunload = function (e) {
                 $scope.tempMyID = angular.element('#phoneBox')[0].contentWindow.red5phone_getConfig().tapid;
-                $http({method: 'GET', url: 'flashphone/destroytapid.php?t='+$scope.tempMyID})
+                $http({method: 'GET', url: 'flashphone/destroytapid.php?t='+$scope.tempMyID});
                 $http({method: 'GET', url: 'removeTopics.php?t='+$scope.tempMyID});
             };
+*/
+            
 
             $scope.hotlist = $scope.numbers;
             $scope.topic_distance=0;
@@ -559,6 +561,12 @@ header('Expires: 0');
             }
         }
 
+        $(window).on('beforeunload', function(){
+            var tempMyID = $("#myTapidDisplay").text();
+            $.ajax({url:"flashphone/destroytapid.php?t="+tempMyID});
+            $.ajax({url:"removeTopics.php?t="+tempMyID});
+        });
+
         (function() {
             var cx = '014075365742795005565:u_j5gof9ikc';
             var gcse = document.createElement('script');
@@ -606,9 +614,11 @@ header('Expires: 0');
     <!--<div class="container" id="home">-->
 <br>
 <br>
-<div id="myTapidDisplay"></div>
-<div id="myPasswordDisplay"></div>
-<div id="myChosenTopicDisplay"></div>
+<div style="visibility: hidden;">
+    <div id="myTapidDisplay"></div>
+    <div id="myPasswordDisplay"></div>
+    <div id="myChosenTopicDisplay"></div>
+</div>
 <br>
 
 <!--

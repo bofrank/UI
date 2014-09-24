@@ -11,7 +11,7 @@ $config['table'] = 'topicb';
 
 $DB = new DB($config);
 
-$DB->Query("SELECT * FROM topicb.topics");
+$DB->Query("SELECT * FROM topicb.topics ORDER BY tapid DESC");
 
 $result = $DB->get();
 
