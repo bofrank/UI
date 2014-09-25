@@ -68,7 +68,7 @@ header('Expires: 0');
             };
 
             $scope.loadData();
-            setInterval(function(){$scope.loadData();},10000);
+            setInterval(function(){$scope.loadData();},20000);
 
             $scope.loadDataHotList = function () {
             $http({method: 'GET', url: 'getHotTopics.php'}).success(function(data) {
@@ -88,6 +88,8 @@ header('Expires: 0');
             $scope.hotlist = $scope.numbers;
             $scope.topic_distance=0;
             $scope.tempWidth=0;
+
+            
 
             $scope.scrollImages = function() {
                 $scope.tempWidth = parseInt($("#imgs2 li div a").first().css("width"),10);
@@ -202,6 +204,43 @@ header('Expires: 0');
                 return (whatever.tapid != tempMyID);
             }
 
+            $scope.submitFormOnRefresh = function(){
+                if(sessionStorage.topic1){
+                    
+                    $scope.myTopics = JSON.stringify({topic1:sessionStorage.topic1,topic2:sessionStorage.topic2,topic3:sessionStorage.topic3,myID:sessionStorage.tapid});
+
+                    $scope.myTopics.myID = sessionStorage.tapid;
+
+                    $http.post('submitTopics.php', $scope.myTopics).success(function(){
+                        //console.log("success");
+                        angular.element(".starter-template").html("<span class='message-create'>Your topics have been recreated below.</span>");
+                        $scope.loadData();
+                        
+                        angular.element("#topic1button").html(sessionStorage.topic1);
+                        angular.element("#topic2button").html(sessionStorage.topic2);
+                        angular.element("#topic3button").html(sessionStorage.topic3);
+
+                        //$scope.myIdDisplay = $scope.myTopics.myID;
+                        $scope.myIdDisplay2 = sessionStorage.tapid.slice(0, 3) + "-" + sessionStorage.tapid.slice(3);
+                        $scope.myIdDisplay3 = $scope.myIdDisplay2.slice(0, 7) + "-" + $scope.myIdDisplay2.slice(7);
+                        angular.element("#myIdDisplay").html("My ID: "+$scope.myIdDisplay3);
+
+                        angular.element("#myTopicsDisplay").attr("style","display:block;");
+
+                        angular.element("#myTapidDisplay").html($scope.myTopics.myID);
+
+                        angular.element("#myPasswordDisplay").html("my cookie is "+sessionStorage.mycookie);
+
+                        angular.element("#callchat").attr("style","display:block;").attr("style","background:none;");
+
+                        //setInterval(function(){$scope.checkTopics()},10000);
+
+                    });
+                }
+            }
+
+            $scope.submitFormOnRefresh();
+
         });
 
         topicApp.controller('TopicSubmitController', function ($scope,$http,$timeout) {
@@ -236,6 +275,8 @@ header('Expires: 0');
                 console.log("my id before submitting form = "+$scope.myTapId);
                 //$scope.myTopics.myID = setTapID();
                 $scope.myTopics.myID = angular.element('#phoneBox')[0].contentWindow.red5phone_getConfig().tapid;
+                sessionStorage.tapid=$scope.myTopics.myID;
+                console.log("session storage tapid = "+sessionStorage.tapid);
                 //$scope.myTopics.myID = $('#phoneBox')[0].contentWindow.red5phone_getConfig().tapid;
                 console.log("my id when submitting form = "+$scope.myTopics.myID);
 
@@ -247,6 +288,9 @@ header('Expires: 0');
                     angular.element("#topic1button").html($scope.myTopics.topic1);
                     angular.element("#topic2button").html($scope.myTopics.topic2);
                     angular.element("#topic3button").html($scope.myTopics.topic3);
+                    sessionStorage.topic1=$scope.myTopics.topic1;
+                    sessionStorage.topic2=$scope.myTopics.topic2;
+                    sessionStorage.topic3=$scope.myTopics.topic3;
 
                     $scope.myIdDisplay = $scope.myTopics.myID;
                     $scope.myIdDisplay2 = $scope.myIdDisplay.slice(0, 3) + "-" + $scope.myIdDisplay.slice(3);
@@ -260,6 +304,8 @@ header('Expires: 0');
                     angular.element("#myPasswordDisplay").html("my cookie is "+$scope.myCookie);
 
                     angular.element("#callchat").attr("style","display:block;").attr("style","background:none;");
+
+                    sessionStorage.mycookie=$scope.myCookie;
 
                     //angular.element("#chatBox").attr("src","index_chat.php?tapid="+$scope.myTopics.myID);
 
@@ -304,6 +350,9 @@ header('Expires: 0');
             }
 
         });
+
+        
+
 
         topicApp.controller('QueryCntl', function ($scope,$location,sharedProperties){
             $scope.target = $location.search()['topic'];
@@ -463,6 +512,10 @@ header('Expires: 0');
         }
 */
         $( document ).ready(function() {
+            $("#myTapidDisplay").text(sessionStorage.tapid);
+            $("#myPasswordDisplay").text(sessionStorage.mycookie);
+            
+           
             //setInterval(function(){nextImage()},2000);
             $(".ui-loader ").css("display","none");
             $('#input_search').watermark('Search');
@@ -561,10 +614,12 @@ header('Expires: 0');
             }
         }
 
+        //runs when browser is refreshed and closed
         $(window).on('beforeunload', function(){
             var tempMyID = $("#myTapidDisplay").text();
             $.ajax({url:"flashphone/destroytapid.php?t="+tempMyID});
             $.ajax({url:"removeTopics.php?t="+tempMyID});
+            return "Are you sure you want to leave?";
         });
 
         (function() {
@@ -614,7 +669,7 @@ header('Expires: 0');
     <!--<div class="container" id="home">-->
 <br>
 <br>
-<div style="visibility: hidden;">
+<div>
     <div id="myTapidDisplay"></div>
     <div id="myPasswordDisplay"></div>
     <div id="myChosenTopicDisplay"></div>
@@ -677,7 +732,7 @@ header('Expires: 0');
     <div class="topics" ng-controller="TopicSubmitController" style="display:none;" id="myTopicsDisplay">
 
     <ul>
-        <li id="imgs" class="row">
+        <li id="imgs" class="row" style="background:#fff;border:2px solid #666;padding-bottom:0px;">
 
             <div class="number" id="myIdDisplay">
                 My ID: 
