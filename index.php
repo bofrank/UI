@@ -63,12 +63,13 @@ header('Expires: 0');
             $scope.loadData = function () {
             $http({method: 'GET', url: 'getTopics.php'}).success(function(data) {
                 $scope.numbers = data;
+                 //$scope.$apply();
                 $scope.loadDataHotList();
               });
             };
 
             $scope.loadData();
-            setInterval(function(){$scope.loadData();},20000);
+            setInterval(function(){$scope.loadData();},5000);
 
             $scope.loadDataHotList = function () {
             $http({method: 'GET', url: 'getHotTopics.php'}).success(function(data) {
@@ -233,7 +234,9 @@ header('Expires: 0');
 
                         angular.element("#callchat").attr("style","display:block;").attr("style","background:none;");
 
+                        $("#phoneBox").attr("src","flashphone/index.php?c="+sessionStorage.mycookie);
                         //setInterval(function(){$scope.checkTopics()},10000);
+                        togglePad();
 
                     });
                 }
@@ -615,12 +618,21 @@ header('Expires: 0');
         }
 
         //runs when browser is refreshed and closed
+        
         $(window).on('beforeunload', function(){
             var tempMyID = $("#myTapidDisplay").text();
-            $.ajax({url:"flashphone/destroytapid.php?t="+tempMyID});
+            //if no local data then destroytapid
+            if(sessionStorage){
+                //do nothing
+            }else{
+                console.log("calling destroy tapid");
+                $.ajax({url:"flashphone/destroytapid.php?t="+tempMyID});
+            }
+            //$.ajax({url:"flashphone/destroytapid.php?t="+tempMyID});
             $.ajax({url:"removeTopics.php?t="+tempMyID});
             return "Are you sure you want to leave?";
         });
+
 
         (function() {
             var cx = '014075365742795005565:u_j5gof9ikc';
@@ -669,12 +681,8 @@ header('Expires: 0');
     <!--<div class="container" id="home">-->
 <br>
 <br>
-<div>
-    <div id="myTapidDisplay"></div>
-    <div id="myPasswordDisplay"></div>
-    <div id="myChosenTopicDisplay"></div>
-</div>
-<br>
+
+<div>version 1.4</div>
 
 <!--
 <input type="button" ng-click="releaseTapid('{{myPassword}}');" value="destroy tapid" />
@@ -975,6 +983,13 @@ header('Expires: 0');
         </div>
 
     </section>
+
+    <div>
+    <div id="myTapidDisplay"></div>
+    <div id="myPasswordDisplay"></div>
+    <div id="myChosenTopicDisplay"></div>
+</div>
+<br>
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
