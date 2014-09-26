@@ -239,9 +239,6 @@ section{
 .search_ID{
     color:#fff;font-size:16px;
 }
-#chatBox{
-    border:none;height:300px;margin-top:10px;
-}
 .topic-input-container{
     text-align:center;margin:0px auto;width:100%;
 }
@@ -274,7 +271,8 @@ section{
     background:none;margin-top:0px;
 }
 #chatBox{
-    height:400px;width:100%;overflow:hidden;width:103%;
+    border:none;margin-top:10px;
+    height:200px;width:100%;overflow:hidden;width:103%;
 }
 .section-ad{
     background:#000;max-height:60px;margin:0px;padding:0px;text-align:center;

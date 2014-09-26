@@ -558,23 +558,27 @@ header('Expires: 0');
         var voiceActive = "no";
         function openPad(){
             //$("#pad").css("display","block");
+            $('#pad').insertBefore('#chat');
             $("#pad").css("height","400px");
             //$("#pad").toggleClass("openPhone");
         }
         function togglePad(){
+            $('#pad').insertBefore('#chat');
             if($("#pad").css("height")=="0px"){
                 $("#pad").css("height","400px");
                 $("#pad").css("margin-left","auto");
                 $("#pad").css("margin-right","auto");
             }else{
-                $("#pad").css("height","0px");
-                $("#pad").css("margin-left","-900px");
+                //$("#pad").css("height","0px");
+                //$("#pad").css("margin-left","-900px");
             }
         }
         function toggleChat(){
-            $("#chatContainer").toggle();
+            $('#chat').insertBefore('#pad');
+            //$("#chatContainer").toggle();
         }
         function openChat(){
+            $('#chat').insertBefore('#pad');
             $("#chatContainer").show();
         }
         function numberFormat(){
@@ -586,9 +590,11 @@ header('Expires: 0');
             var r=confirm("Do you want to call about these topics?");
             if (r == true) {
                 $("#callchat").css("display","block");
+                /*
                 if(chatActive=="no"){
                     $("#buttonOpenChat").css("display","none");
                 }
+                */
                 $("#buttonOpenPad").css("display","block");
                 openPad();
                 voiceActive = "yes";
@@ -606,11 +612,14 @@ header('Expires: 0');
                 $(buttonObj).addClass("pending");
                 $("#callchat").css("display","block");
                 $("#buttonOpenChat").css("display","block");
+                /*
                 if(voiceActive=="no"){
                     $("#buttonOpenPad").css("display","none");
                 }
-                $("#pad").css("height","0px");
-                $("#pad").css("margin-left","-900px");
+                */
+                //$("#pad").css("height","0px");
+                //$("#pad").css("margin-left","-900px");
+
                 $("#chatBox").attr("src","index_chat.php?tapid="+chosenTapid+"&topic="+chosenTopic);
                 openChat();
                 chatActive = "yes";
@@ -624,13 +633,14 @@ header('Expires: 0');
             //if no local data then destroytapid
             if(sessionStorage){
                 //do nothing
+                console.log("not calling destroy tapid");
             }else{
                 console.log("calling destroy tapid");
                 $.ajax({url:"flashphone/destroytapid.php?t="+tempMyID});
+                
             }
-            //$.ajax({url:"flashphone/destroytapid.php?t="+tempMyID});
             $.ajax({url:"removeTopics.php?t="+tempMyID});
-            return "Are you sure you want to leave?";
+            //return "Are you sure you want to leave?";
         });
 
 
@@ -709,6 +719,42 @@ header('Expires: 0');
 
     </div>
 
+        <div style="clear:both;"></div>
+
+    <div class="topics" ng-controller="TopicSubmitController" style="display:none;" id="myTopicsDisplay">
+
+    <ul>
+        <li id="imgs" class="row" style="background:none;">
+
+            <ul ng-model="myTopics" style="text-align:center;">
+                <li class="column">
+                  <a class="btn btn-primary btn-s topic-button" id="topic1button" onclick="confirmChat($(this).parent().parent().parent().children(':first-child').text(),$(this))">
+                    this is topic 1
+                  </a>
+                </li>
+                <li class="column">
+                  <a class="btn btn-primary btn-s topic-button" id="topic2button" onclick="confirmChat($(this).parent().parent().parent().children(':first-child').text(),$(this))">
+                    this is topic 2
+                  </a>
+                </li>
+                <li class="column">
+                  <a class="btn btn-primary btn-s topic-button" id="topic3button" onclick="confirmChat($(this).parent().parent().parent().children(':first-child').text(),$(this))">
+                    this is topic 3
+                  </a>
+                </li>
+            </ul>
+
+            <div style="clear:both;"></div>
+
+            <div class="number" id="myIdDisplay" style="visibility:hidden;">
+                My ID: 
+            </div>
+
+        </li>
+    </ul>
+
+</div>
+<div style="clear:both;"></div>
     <div>
         <ul id="hottopics" >
             <li class="row hottopic-row">
@@ -734,42 +780,6 @@ header('Expires: 0');
             </li>
         </ul>
     </div>
-
-    <div style="clear:both;"></div>
-
-    <div class="topics" ng-controller="TopicSubmitController" style="display:none;" id="myTopicsDisplay">
-
-    <ul>
-        <li id="imgs" class="row" style="background:#fff;border:2px solid #666;padding-bottom:0px;">
-
-            <div class="number" id="myIdDisplay">
-                My ID: 
-            </div>
-
-            <div style="clear:both;"></div>
-
-            <ul class="row_topic" ng-model="myTopics">
-                <li class="column">
-                  <a class="btn btn-primary btn-s topic-button" id="topic1button" onclick="confirmChat($(this).parent().parent().parent().children(':first-child').text(),$(this))">
-                    this is topic 1
-                  </a>
-                </li>
-                <li class="column">
-                  <a class="btn btn-primary btn-s topic-button" id="topic2button" onclick="confirmChat($(this).parent().parent().parent().children(':first-child').text(),$(this))">
-                    this is topic 2
-                  </a>
-                </li>
-                <li class="column">
-                  <a class="btn btn-primary btn-s topic-button" id="topic3button" onclick="confirmChat($(this).parent().parent().parent().children(':first-child').text(),$(this))">
-                    this is topic 3
-                  </a>
-                </li>
-            </ul>
-
-        </li>
-    </ul>
-
-</div>
 
 <div style="clear:both;"></div>
 
