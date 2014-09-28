@@ -57,7 +57,6 @@ header('Expires: 0');
           $locationProvider.html5Mode(true);
         });
 
-
         topicApp.controller('topicCtrl', function ($scope,$http,$location,$anchorScroll,$timeout){
 
             $scope.loadData = function () {
@@ -710,7 +709,7 @@ header('Expires: 0');
 <br>
 <br>
 
-<div>version 1.5</div>
+<div>version 1.6</div>
 
 <!--
 <input type="button" ng-click="releaseTapid('{{myPassword}}');" value="destroy tapid" />
@@ -742,7 +741,7 @@ header('Expires: 0');
     <div class="topics" ng-controller="TopicSubmitController" style="display:none;" id="myTopicsDisplay">
 
     <ul>
-        <li id="imgs" class="row">
+        <li class="imgs row">
 
             <div class="number" id="myIdDisplay" style="text-align:center;">
                 My ID: 
@@ -803,11 +802,11 @@ header('Expires: 0');
 
     <ul id="content" ng-model="numbers">
         <!--<li id="imgs" ng-repeat="whatever in numbers|filter:'8987770009' track by $index" class="row">-->
-        <li id="imgs" ng-repeat="whatever in numbers|filter:filterTapId track by $index" class="row">
+        <li ng-repeat="whatever in numbers|filter:filterTapId" class="imgs row">
             <div class="number" onclick="confirmCall();">{{whatever.tapid}}</div>
             <div style="clear:both;"></div>
 
-            <ul data-ng-show="whatever" class="row_topic" id="">
+            <ul data-ng-show="whatever" class="row_topic">
                 <li ng-repeat="topics in whatever.topics|filter:'!blank' track by $index" ng-controller="ScrollController" class="column">
                   <a class="scrollto ui-link btn btn-primary btn-s topic-button {{topics.chatstate}}" onclick="confirmChat('guest',$(this))">
                     {{topics.topic}} 
