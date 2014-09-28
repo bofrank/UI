@@ -226,7 +226,7 @@ header('Expires: 0');
                         $scope.myIdDisplay3 = $scope.myIdDisplay2.slice(0, 7) + "-" + $scope.myIdDisplay2.slice(7);
                         angular.element("#myIdDisplay").html("My ID: "+$scope.myIdDisplay3);
 
-                        angular.element("#myTopicsDisplay").attr("style","display:block;");
+                        angular.element("#myTopicsDisplay").attr("style","display:block;margin-bottom:90px;");
 
                         angular.element("#myTapidDisplay").html($scope.myTopics.myID);
 
@@ -255,7 +255,7 @@ header('Expires: 0');
                 angular.element("#phoneBox").attr("src","flashphone/index.php?c="+$scope.myCookie);
                 angular.element("#myIdDisplay").html("My ID: "+$scope.myTapId+" My Password:"+$scope.myCookie);
                 togglePad();
-                angular.element("#myTopicsDisplay").attr("style","display:block;");
+                angular.element("#myTopicsDisplay").attr("style","display:block;margin-bottom:90px;");
                 angular.element("#phoneBox").load(function(){
                   $scope.submitForm();
                 });
@@ -300,7 +300,7 @@ header('Expires: 0');
                     $scope.myIdDisplay3 = $scope.myIdDisplay2.slice(0, 7) + "-" + $scope.myIdDisplay2.slice(7);
                     angular.element("#myIdDisplay").html("My ID: "+$scope.myIdDisplay3);
 
-                    angular.element("#myTopicsDisplay").attr("style","display:block;");
+                    angular.element("#myTopicsDisplay").attr("style","display:block;margin-bottom:90px;");
 
                     angular.element("#myTapidDisplay").html($scope.myTopics.myID);
 
@@ -558,12 +558,14 @@ header('Expires: 0');
         var voiceActive = "no";
         function openPad(){
             //$("#pad").css("display","block");
-            $('#pad').insertBefore('#chat');
+            //$('#chat').insertAfter('#pad');
             $("#pad").css("height","400px");
+            
             //$("#pad").toggleClass("openPhone");
         }
         function togglePad(){
-            $('#pad').insertBefore('#chat');
+            $('#chat').insertAfter('#pad');
+            
             if($("#pad").css("height")=="0px"){
                 $("#pad").css("height","400px");
                 $("#pad").css("margin-left","auto");
@@ -572,13 +574,21 @@ header('Expires: 0');
                 //$("#pad").css("height","0px");
                 //$("#pad").css("margin-left","-900px");
             }
+            if(voiceActive=="no"){
+                voiceActive = "yes";
+                var newCookie = $("#TopicSubmitForm").scope().makeid();
+                $("#phoneBox").attr("src","flashphone/index.php?c="+newCookie);
+            }
+
         }
         function toggleChat(){
             $('#chat').insertBefore('#pad');
+            //$("#phoneBox").attr("src","flashphone/index.php?c="+$("#myPasswordDisplay").text());
             //$("#chatContainer").toggle();
         }
         function openChat(){
-            $('#chat').insertBefore('#pad');
+            //$('#chat').insertBefore('#pad');
+            //$("#phoneBox").attr("src","flashphone/index.php?c="+$("#myPasswordDisplay").text());
             $("#chatContainer").show();
         }
         function numberFormat(){
@@ -597,9 +607,17 @@ header('Expires: 0');
                 */
                 $("#buttonOpenPad").css("display","block");
                 openPad();
-                voiceActive = "yes";
-                var newCookie = $("#TopicSubmitForm").scope().makeid();
-                $("#phoneBox").attr("src","flashphone/index.php?c="+newCookie);
+                
+                if(sessionStorage.topic1){
+                    //do nothing
+                    
+                    //$("#phoneBox").attr("src","flashphone/index.php?c="+$("#myPasswordDisplay").text());
+                }else{
+                    voiceActive = "yes";
+                    var newCookie = $("#TopicSubmitForm").scope().makeid();
+                    $("#phoneBox").attr("src","flashphone/index.php?c="+newCookie);
+                }
+
             }
         }
         function confirmChat(chosenTapid,buttonObj){
@@ -631,7 +649,7 @@ header('Expires: 0');
         $(window).on('beforeunload', function(){
             var tempMyID = $("#myTapidDisplay").text();
             //if no local data then destroytapid
-            if(sessionStorage){
+            if(sessionStorage.topic1){
                 //do nothing
                 console.log("not calling destroy tapid");
             }else{
@@ -692,7 +710,7 @@ header('Expires: 0');
 <br>
 <br>
 
-<div>version 1.4</div>
+<div>version 1.5</div>
 
 <!--
 <input type="button" ng-click="releaseTapid('{{myPassword}}');" value="destroy tapid" />
@@ -724,7 +742,11 @@ header('Expires: 0');
     <div class="topics" ng-controller="TopicSubmitController" style="display:none;" id="myTopicsDisplay">
 
     <ul>
-        <li id="imgs" class="row" style="background:none;">
+        <li id="imgs" class="row">
+
+            <div class="number" id="myIdDisplay" style="text-align:center;">
+                My ID: 
+            </div>
 
             <ul ng-model="myTopics" style="text-align:center;">
                 <li class="column">
@@ -743,12 +765,6 @@ header('Expires: 0');
                   </a>
                 </li>
             </ul>
-
-            <div style="clear:both;"></div>
-
-            <div class="number" id="myIdDisplay" style="visibility:hidden;">
-                My ID: 
-            </div>
 
         </li>
     </ul>
