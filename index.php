@@ -63,7 +63,7 @@ header('Expires: 0');
             $http({method: 'GET', url: 'getTopics.php'}).success(function(data) {
                 $scope.numbers = data;
                  //$scope.$apply();
-                $scope.loadDataHotList();
+                 $scope.loadDataHotList();
               });
             };
 
@@ -76,6 +76,8 @@ header('Expires: 0');
                 numberFormat();
               });
             };
+
+
 /*
             window.onbeforeunload = function (e) {
                 $scope.tempMyID = angular.element('#phoneBox')[0].contentWindow.red5phone_getConfig().tapid;
@@ -236,7 +238,7 @@ header('Expires: 0');
                         $("#phoneBox").attr("src","flashphone/index.php?c="+sessionStorage.mycookie);
                         //setInterval(function(){$scope.checkTopics()},10000);
                         togglePad();
-
+                        //openPad();
                     });
                 }
             }
@@ -287,12 +289,13 @@ header('Expires: 0');
                     angular.element(".starter-template").html("<span class='message-create'>Thanks! Your topics have been created below.</span>");
                     $scope.loadData();
                     
-                    angular.element("#topic1button").html($scope.myTopics.topic1);
-                    angular.element("#topic2button").html($scope.myTopics.topic2);
-                    angular.element("#topic3button").html($scope.myTopics.topic3);
                     sessionStorage.topic1=$scope.myTopics.topic1;
                     sessionStorage.topic2=$scope.myTopics.topic2;
                     sessionStorage.topic3=$scope.myTopics.topic3;
+
+                    angular.element("#topic1button").html($scope.myTopics.topic1);
+                    angular.element("#topic2button").html($scope.myTopics.topic2);
+                    angular.element("#topic3button").html($scope.myTopics.topic3);
 
                     $scope.myIdDisplay = $scope.myTopics.myID;
                     $scope.myIdDisplay2 = $scope.myIdDisplay.slice(0, 3) + "-" + $scope.myIdDisplay.slice(3);
@@ -550,6 +553,10 @@ header('Expires: 0');
                 $("#search_result_2").text($results[1]);
 
             }
+
+            $("#topic1").keydown(function() {
+              $("#submit").css("display","block");
+            });
                         
         });
         
@@ -573,12 +580,16 @@ header('Expires: 0');
                 //$("#pad").css("height","0px");
                 //$("#pad").css("margin-left","-900px");
             }
-            if(voiceActive=="no"){
+            /*
+            if(sessionStorage.topic1){
+                //do nothing
+            }else if(voiceActive=="no"){
                 voiceActive = "yes";
-                var newCookie = $("#TopicSubmitForm").scope().makeid();
+                //var newCookie = $("#TopicSubmitForm").scope().makeid();
+                var newCookie = makeIDonClick();
                 $("#phoneBox").attr("src","flashphone/index.php?c="+newCookie);
             }
-
+*/
         }
         function toggleChat(){
             $('#chat').insertBefore('#pad');
@@ -643,6 +654,17 @@ header('Expires: 0');
             }
         }
 
+        function makeIDonClick()
+            {
+                var text2 = "";
+                var possible2 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+                for( var m=0; m < 23; m++ )
+                    text2 += possible2.charAt(Math.floor(Math.random() * possible2.length));
+
+                return text2;
+            }
+
         //runs when browser is refreshed and closed
         
         $(window).on('beforeunload', function(){
@@ -654,7 +676,6 @@ header('Expires: 0');
             }else{
                 console.log("calling destroy tapid");
                 $.ajax({url:"flashphone/destroytapid.php?t="+tempMyID});
-                
             }
             $.ajax({url:"removeTopics.php?t="+tempMyID});
             //return "Are you sure you want to leave?";
@@ -705,21 +726,12 @@ header('Expires: 0');
       </div>
     </div>
 
-    <!--<div class="container" id="home">-->
-<br>
-<br>
-
-<div>version 1.6</div>
-
-<!--
-<input type="button" ng-click="releaseTapid('{{myPassword}}');" value="destroy tapid" />
--->
       <div class="starter-template">
         <div class="topic-input-container">
 
             <form id="TopicSubmitForm" class="form-inline" ng-submit="callCreateTapid(myTopics)" ng-controller="TopicSubmitController">
                 <div class="form-group">
-                    <input id="topic1" type="text" data-ng-model="myTopics.topic1" name="form.topic1" class="form-control topic-input" maxlength="16" />
+                    <input id="topic1" type="text" data-ng-model="myTopics.topic1" name="form.topic1" class="form-control topic-input" maxlength="16" autofocus />
                 </div>
                 <div class="form-group">
                     <input id="topic2" type="text" data-ng-model="myTopics.topic2" name="form.topic2" class="form-control topic-input" maxlength="16" />
@@ -728,7 +740,7 @@ header('Expires: 0');
                     <input id="topic3" type="text" data-ng-model="myTopics.topic3" name="form.topic3" class="form-control topic-input" maxlength="16" />
                 </div>
                 <div class="form-group">
-                  <input type="submit" id="submit" value="GO" class="btn btn-primary btn-s btn-submit" ng-click="submit" />
+                  <input type="submit" id="submit" value="GO" class="btn btn-primary btn-s btn-submit" style="display:none;" ng-click="submit" />
                 </div>
             </form>
 
