@@ -628,7 +628,7 @@ header('Expires: 0');
                 }
                 */
                 $("#buttonOpenPad").css("display","block");
-                openPad();
+                togglePad();
                 
                 if(sessionStorage.topic1){
                     //do nothing
@@ -636,8 +636,14 @@ header('Expires: 0');
                     //$("#phoneBox").attr("src","flashphone/index.php?c="+$("#myPasswordDisplay").text());
                 }else{
                     voiceActive = "yes";
-                    var newCookie = $("#TopicSubmitForm").scope().makeid();
+                    //get cookie
+                    var newCookie = makeIDonClick();
+                    //load phone
                     $("#phoneBox").attr("src","flashphone/index.php?c="+newCookie);
+
+                    //$scope.myTopics.myID = angular.element('#phoneBox')[0].contentWindow.red5phone_getConfig().tapid;
+                    //sessionStorage.tapid=$scope.myTopics.myID;
+
                 }
 
             }
