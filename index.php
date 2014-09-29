@@ -655,6 +655,32 @@ header('Expires: 0');
             var q=confirm("Do you want to chat about "+chosenTopic+"?");
             if (q == true) {
                 //$(buttonObj).css("background-image","linear-gradient(#5a5c66, #cc0c38 60%, #cc0c38)").css("border","solid 1px #5a5c66");
+                $(buttonObj).addClass("chatting");
+                $("#callchat").css("display","block");
+                $("#buttonOpenChat").css("display","block");
+                /*
+                if(voiceActive=="no"){
+                    $("#buttonOpenPad").css("display","none");
+                }
+                */
+                //$("#pad").css("height","0px");
+                //$("#pad").css("margin-left","-900px");
+
+                $("#chatBox").attr("src","index_chat.php?tapid="+chosenTapid+"&topic="+chosenTopic);
+                openChat();
+                chatActive = "yes";
+                //$http({method: 'GET', url: 'stateUpdate.php?topic='+chosenTopic+'&state=chatting'});
+                $.ajax({url:"stateUpdate.php?topic="+chosenTopic+'&state=chatting'});
+            }
+        }
+
+        function requestChat(chosenTapid,buttonObj){
+            var chosenTopic = $.trim($(buttonObj).text());
+            $("#myChosenTopicDisplay").text(chosenTopic);
+            console.log("chosenTopic ="+chosenTopic);
+            var q=confirm("Do you want to chat about "+chosenTopic+"?");
+            if (q == true) {
+                //$(buttonObj).css("background-image","linear-gradient(#5a5c66, #cc0c38 60%, #cc0c38)").css("border","solid 1px #5a5c66");
                 $(buttonObj).addClass("pending");
                 $("#callchat").css("display","block");
                 $("#buttonOpenChat").css("display","block");
@@ -669,6 +695,8 @@ header('Expires: 0');
                 $("#chatBox").attr("src","index_chat.php?tapid="+chosenTapid+"&topic="+chosenTopic);
                 openChat();
                 chatActive = "yes";
+                //$http({method: 'GET', url: 'stateUpdate.php?topic='+chosenTopic+'&state=pending'});
+                $.ajax({url:"stateUpdate.php?topic="+chosenTopic+'&state=pending'});
             }
         }
 
@@ -687,6 +715,7 @@ header('Expires: 0');
         
         $(window).on('beforeunload', function(){
             var tempMyID = $("#myTapidDisplay").text();
+            $.ajax({url:"removeTopics.php?t="+tempMyID});
             //if no local data then destroytapid
             if(sessionStorage.topic1){
                 //do nothing
@@ -695,7 +724,7 @@ header('Expires: 0');
                 console.log("calling destroy tapid");
                 $.ajax({url:"flashphone/destroytapid.php?t="+tempMyID});
             }
-            $.ajax({url:"removeTopics.php?t="+tempMyID});
+            
             //return "Are you sure you want to leave?";
         });
 
@@ -838,7 +867,7 @@ header('Expires: 0');
 
             <ul data-ng-show="whatever" class="row_topic">
                 <li ng-repeat="topics in whatever.topics|filter:'!blank' track by $index" ng-controller="ScrollController" class="column">
-                  <a class="scrollto ui-link btn btn-primary btn-s topic-button {{topics.chatstate}}" onclick="confirmChat('guest',$(this))">
+                  <a class="scrollto ui-link btn btn-primary btn-s topic-button {{topics.chatstate}}" onclick="requestChat('guest',$(this))">
                     {{topics.topic}} 
                   </a>
                 </li>
