@@ -41,7 +41,8 @@ $DB = new DB($config);
 
 $tapid = $_GET["tapid"];
 $topic = $_GET["topic"];
-$handle = $tapid.":".$topic;
+$tempStr = substr($tapid, 7);
+$handle = $tempStr." : ".$topic;
 
 //$DB->Query("UPDATE topicb.topics SET chatstate='chatting' WHERE topic='$topic'");
 
@@ -53,17 +54,19 @@ $user_colour = array_rand($colours);
 
 <script language="javascript" type="text/javascript">  
 /*
-window.onbeforeunload = function (e) {
+$(window).on('beforeunload', function(){
     
     //$http({method: 'GET', url: 'removeTopic.php?topic=<?php echo trim($topic);?>'});
-    $.ajax({url:"removeTopic.php?topic=<?php echo trim($topic);?>"});
+    //$.ajax({url:"removeTopic.php?topic=<?php echo trim($topic);?>"});
+    $.ajax({url:"stateUpdate.php?topic=<?php echo trim($topic);?>&state=available'})";
 
 };
 */
+/*
 $(window).on('beforeunload', function(){
 	$.ajax({url:"removeTopic.php?topic=<?php echo trim($topic);?>"});
 });
-
+*/
 $(document).ready(function(){
 	//create a new WebSocket object.
 	//alert("chosen topic is "+parent.$("#myChosenTopicDisplay").text());
@@ -71,7 +74,7 @@ $(document).ready(function(){
 	websocket = new WebSocket(wsUri); 
 	
 	websocket.onopen = function(ev) { // connection is open 
-		$('#message_box').append("<div class=\"system_msg\">Connected!</div>"); //notify user
+		$('#message_box').append("<div class=\"system_msg\"><?php echo trim($tapid);?></div>"); //notify user
 	}
 
 	$('#send-btn').click(function(){ //use clicks message send button	
@@ -127,11 +130,12 @@ $(document).ready(function(){
 
 			}
 		}
+		/*
 		if(type == 'system')
 		{
-			$('#message_box').append("<div class=\"system_msg\">"+umsg+"</div>");
+			$('#message_box').append("<div class=\"system_msg\">this is a sys msg"+umsg+"</div>");
 		}
-		
+		*/
 		$('#message').val(''); //reset text
 		$(document).scrollTop($(document).height());
 		$(".user_name:not(:contains('<?php echo trim($topic);?>'))").parent().hide();

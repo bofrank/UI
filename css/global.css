@@ -170,6 +170,14 @@ section{
     */
 }
 
+.icon-none{
+    display:none;
+}
+
+.icon-pending{
+    display:block;
+}
+
 #content {
     /*height: 409px;*/
     width: 100%;overflow: hidden;position: relative;margin-top:1px;

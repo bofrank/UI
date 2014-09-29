@@ -337,31 +337,16 @@ header('Expires: 0');
                     $scope.dataMyTopics = data2;
                     for(var h=1;h<4;h++){
                         $("#topic"+h+"button").attr("class","btn btn-primary btn-s topic-button ui-link "+$scope.dataMyTopics[h-1].chatstate);
-                        /*
+                   
                         if($scope.dataMyTopics[h-1].chatstate=="pending"){
+                            //show pending icon
+                            //angular.element("#topic"+h+"icon").attr("class","icon-pending");
 
-                            if(h==1){
-                                $scope.chatTopic = $scope.myTopics.topic1;
-                            }else if(h==2){
-                                $scope.chatTopic = $scope.myTopics.topic2;
-                            }else if(h==3){
-                                $scope.chatTopic = $scope.myTopics.topic3;
-                            }
-
-                            //open chat
-                            $("#callchat").css("display","block");
-                            $("#buttonOpenChat").css("display","block");
-                            if(voiceActive=="no"){
-                                $("#buttonOpenPad").css("display","none");
-                            }
-                            $("#pad").css("height","0px");
-                            $("#pad").css("margin-left","-900px");
-                            $("#chatBox").attr("src","index_chat.php?tapid="+$scope.myTopics.myID+"&topic="+$scope.chatTopic);
-                            openChat();
-                            chatActive = "yes";
-                            $http({method: 'GET', url: 'stateUpdate.php?topic='+$scope.chatTopic+'&state=chatting'});
+                            angular.element("#topic"+h+"icon").attr("style","width:16px;height:16px;visibility:visible;margin-left:-15px;margin-top:-28px;");
+                        }else{
+                            angular.element("#topic"+h+"icon").attr("style","width:16px;height:16px;visibility:hidden;margin-left:-15px;margin-top:-28px;");
                         }
-                        */
+                    
                     }
                 });
             }
@@ -716,12 +701,16 @@ header('Expires: 0');
         $(window).on('beforeunload', function(){
             var tempMyID = $("#myTapidDisplay").text();
             $.ajax({url:"removeTopics.php?t="+tempMyID});
+            var tempTopic = $("#myChosenTopicDisplay").text();
+            $.ajax({url:"stateUpdate.php?topic="+tempTopic+"&state=available"});
+
+            
+
             //if no local data then destroytapid
             if(sessionStorage.topic1){
                 //do nothing
-                console.log("not calling destroy tapid");
             }else{
-                console.log("calling destroy tapid");
+                
                 $.ajax({url:"flashphone/destroytapid.php?t="+tempMyID});
             }
             
@@ -811,16 +800,19 @@ header('Expires: 0');
                   <a class="btn btn-primary btn-s topic-button" id="topic1button" onclick="confirmChat($(this).parent().parent().parent().children(':first-child').text(),$(this))">
                     this is topic 1
                   </a>
+                  <img id="topic1icon" src="images/pending.png" style="width:16px;height:16px;visibility:hidden;margin-left:-15px;margin-top:-28px;" />
                 </li>
                 <li class="column">
                   <a class="btn btn-primary btn-s topic-button" id="topic2button" onclick="confirmChat($(this).parent().parent().parent().children(':first-child').text(),$(this))">
                     this is topic 2
                   </a>
+                  <img id="topic2icon" src="images/pending.png" style="width:16px;height:16px;visibility:hidden;margin-top:-28px;" />
                 </li>
                 <li class="column">
                   <a class="btn btn-primary btn-s topic-button" id="topic3button" onclick="confirmChat($(this).parent().parent().parent().children(':first-child').text(),$(this))">
                     this is topic 3
                   </a>
+                  <img id="topic3icon" src="images/pending.png" style="width:16px;height:16px;visibility:hidden;margin-top:-28px;" />
                 </li>
             </ul>
 

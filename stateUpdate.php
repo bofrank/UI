@@ -12,8 +12,8 @@ $config['table'] = 'topicb';
 $DB = new DB($config);
 
 $topic = $_GET["topic"];
-$state = $_GET["state"];
+$chatstate = $_GET["state"];
 
-$DB->Query("UPDATE topics SET state = '$state' WHERE topic = '$topic'");
+$DB->Query("UPDATE topics SET chatstate='$chatstate' WHERE topic='$topic'");
 
 ?>
