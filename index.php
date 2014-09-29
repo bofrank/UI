@@ -294,8 +294,20 @@ header('Expires: 0');
                     sessionStorage.topic3=$scope.myTopics.topic3;
 
                     angular.element("#topic1button").html($scope.myTopics.topic1);
-                    angular.element("#topic2button").html($scope.myTopics.topic2);
-                    angular.element("#topic3button").html($scope.myTopics.topic3);
+
+                    if(sessionStorage.topic2=="undefined"){
+                        sessionStorage.topic2="blank";
+                        angular.element("#topic2button").attr("style","display:none;");
+                    }else{
+                        angular.element("#topic2button").html($scope.myTopics.topic2);
+                    }
+
+                    if(sessionStorage.topic3=="undefined"){
+                        sessionStorage.topic3="blank";
+                        angular.element("#topic3button").attr("style","display:none;");
+                    }else{
+                        angular.element("#topic3button").html($scope.myTopics.topic3);
+                    }
 
                     $scope.myIdDisplay = $scope.myTopics.myID;
                     $scope.myIdDisplay2 = $scope.myIdDisplay.slice(0, 3) + "-" + $scope.myIdDisplay.slice(3);
