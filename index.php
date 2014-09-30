@@ -645,40 +645,48 @@ header('Expires: 0');
 
             }
         }
+
         function confirmChat(chosenTapid,buttonObj){
             var chosenTopic = $.trim($(buttonObj).text());
             $("#myChosenTopicDisplay").text(chosenTopic);
             console.log("chosenTopic ="+chosenTopic);
             var q=confirm("Do you want to chat about "+chosenTopic+"?");
             if (q == true) {
-                //$(buttonObj).css("background-image","linear-gradient(#5a5c66, #cc0c38 60%, #cc0c38)").css("border","solid 1px #5a5c66");
                 $(buttonObj).addClass("chatting");
                 $("#callchat").css("display","block");
                 $("#buttonOpenChat").css("display","block");
-                /*
-                if(voiceActive=="no"){
-                    $("#buttonOpenPad").css("display","none");
-                }
-                */
-                //$("#pad").css("height","0px");
-                //$("#pad").css("margin-left","-900px");
-
                 $("#chatBox").attr("src","index_chat.php?tapid="+chosenTapid+"&topic="+chosenTopic);
                 openChat();
                 chatActive = "yes";
-                //$http({method: 'GET', url: 'stateUpdate.php?topic='+chosenTopic+'&state=chatting'});
                 $.ajax({url:"stateUpdate.php?topic="+chosenTopic+'&state=chatting'});
             }
         }
 
-        function requestChat(chosenTapid,buttonObj){
+/*
+        function confirmChat(chosenTapid,buttonObj){
             var chosenTopic = $.trim($(buttonObj).text());
             $("#myChosenTopicDisplay").text(chosenTopic);
             console.log("chosenTopic ="+chosenTopic);
             var q=confirm("Do you want to chat about "+chosenTopic+"?");
             if (q == true) {
+                $(buttonObj).addClass("chatting");
+                $("#callchat").css("display","block");
+                $("#buttonOpenChat").css("display","block");
+                $("#chatBox").attr("src","index_chat.php?tapid="+chosenTapid+"&topic="+chosenTopic);
+                openChat();
+                chatActive = "yes";
+                $.ajax({url:"stateUpdate.php?topic="+chosenTopic+'&state=chatting'});
+            }
+        }
+*/
+        function requestChat(chosenTapid,chosenTopic){
+            //var chosenTopic = $.trim($(buttonObj).text());
+            $("#myChosenTopicDisplay").text(chosenTopic);
+            console.log("chosenTopic ="+chosenTopic);
+            var q=confirm("Do you want to chat about "+chosenTopic+"?");
+            if (q == true) {
                 //$(buttonObj).css("background-image","linear-gradient(#5a5c66, #cc0c38 60%, #cc0c38)").css("border","solid 1px #5a5c66");
-                $(buttonObj).addClass("pending");
+                //$(buttonObj).addClass("pending");
                 $("#callchat").css("display","block");
                 $("#buttonOpenChat").css("display","block");
                 /*
@@ -873,7 +881,7 @@ header('Expires: 0');
 
             <ul data-ng-show="whatever" class="row_topic">
                 <li ng-repeat="topics in whatever.topics|filter:'!blank' track by $index" ng-controller="ScrollController" class="column">
-                  <a class="scrollto ui-link btn btn-primary btn-s topic-button {{topics.chatstate}}" onclick="requestChat('guest',$(this))">
+                  <a class="scrollto ui-link btn btn-primary btn-s topic-button {{topics.chatstate}}" onclick="confirmCall($(this).parent().parent().parent().children(':first-child').text());">
                     {{topics.topic}} 
                   </a>
                 </li>
