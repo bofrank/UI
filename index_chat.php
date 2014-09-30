@@ -41,9 +41,10 @@ $DB = new DB($config);
 
 $tapid = $_GET["tapid"];
 $topic = $_GET["topic"];
-$tempStr = substr($tapid, 7);
-$handle = $tempStr." : ".$topic;
-
+//$tempStr = substr($tapid, 7);
+//$handle = $tempStr." : ".$topic;
+$tempStr = str_replace("-", "", $topic);
+$handle = $tapid."<span style='display:none;'>".$tempStr."</span>";
 //$DB->Query("UPDATE topicb.topics SET chatstate='chatting' WHERE topic='$topic'");
 
 $colours = array('007AFF','FF7000','FF7000','15E25F','CFC700','CFC700','CF1100','CF00BE','F00');
@@ -138,7 +139,8 @@ $(document).ready(function(){
 		*/
 		$('#message').val(''); //reset text
 		$(document).scrollTop($(document).height());
-		$(".user_name:not(:contains('<?php echo trim($topic);?>'))").parent().hide();
+		$(".user_name:not(:contains('<?php echo trim($tempStr);?>'))").parent().hide();
+		//$(".user_name:not(:contains('<?php echo trim($tempStr);?>')):not(:contains('<?php echo trim($tapid);?>'))").parent().hide();
 	};
 	
 	websocket.onerror	= function(ev){$('#message_box').append("<div class=\"system_error\">Error Occurred - "+ev.data+"</div>");}; 

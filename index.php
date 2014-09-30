@@ -325,6 +325,8 @@ header('Expires: 0');
                     sessionStorage.mycookie=$scope.myCookie;
 
                     //angular.element("#chatBox").attr("src","index_chat.php?tapid="+$scope.myTopics.myID);
+                    $("#chatBox").attr("src","index_chat.php?tapid="+$scope.myTopics.myID+"&topic="+$scope.myTopics.myID);
+                    openChat();
 
                     setInterval(function(){$scope.checkTopics()},10000);
 
@@ -567,7 +569,7 @@ header('Expires: 0');
             //$("#pad").toggleClass("openPhone");
         }
         function togglePad(){
-            $('#chat').insertAfter('#pad');
+            //$('#chat').insertAfter('#pad');
             
             if($("#pad").css("height")=="0px"){
                 $("#pad").css("height","400px");
@@ -589,7 +591,7 @@ header('Expires: 0');
 */
         }
         function toggleChat(){
-            $('#chat').insertBefore('#pad');
+            //$('#chat').insertBefore('#pad');
             //$("#phoneBox").attr("src","flashphone/index.php?c="+$("#myPasswordDisplay").text());
             //$("#chatContainer").toggle();
         }
@@ -603,7 +605,7 @@ header('Expires: 0');
                 return text.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
             });
         }
-        function confirmCall(){
+        function confirmCall(id2call){
             var r=confirm("Do you want to call about these topics?");
             if (r == true) {
                 $("#callchat").css("display","block");
@@ -625,7 +627,17 @@ header('Expires: 0');
                     var newCookie = makeIDonClick();
                     //load phone
                     $("#phoneBox").attr("src","flashphone/index.php?c="+newCookie);
-
+                    //put load function here
+                    $("#phoneBox").load(function(){
+                      //confirmChat(chosenTapid,buttonObj);
+                      var $f = $("#phoneBox");
+                        var chosenTapid2 = $f[0].contentWindow.red5phone_getConfig().tapid;
+                        $("#chatBox").attr("src","index_chat.php?tapid="+chosenTapid2+"&topic="+id2call);
+                        openChat();
+                        chatActive = "yes";
+                        //$http({method: 'GET', url: 'stateUpdate.php?topic='+chosenTopic+'&state=pending'});
+                        $.ajax({url:"stateUpdate.php?topic="+chosenTopic+'&state=pending'});
+                    });
                     //$scope.myTopics.myID = angular.element('#phoneBox')[0].contentWindow.red5phone_getConfig().tapid;
                     //sessionStorage.tapid=$scope.myTopics.myID;
 
@@ -695,6 +707,8 @@ header('Expires: 0');
 
                 return text2;
             }
+
+
 
         //runs when browser is refreshed and closed
         
@@ -854,7 +868,7 @@ header('Expires: 0');
     <ul id="content" ng-model="numbers">
         <!--<li id="imgs" ng-repeat="whatever in numbers|filter:'8987770009' track by $index" class="row">-->
         <li ng-repeat="whatever in numbers|filter:filterTapId" class="imgs row">
-            <div class="number" onclick="confirmCall();">{{whatever.tapid}}</div>
+            <div class="number" onclick="confirmCall($(this).text());">{{whatever.tapid}}</div>
             <div style="clear:both;"></div>
 
             <ul data-ng-show="whatever" class="row_topic">
@@ -888,10 +902,6 @@ header('Expires: 0');
 
     </section> 
 
-    <section id="pad" style="margin:10px auto;text-align:center;margin-top:10px;width:246px;height:0px;">
-        <iframe id="phoneBox" src="" scrolling="no" width="246" height="400" border="0" style="width:246px;height:400px;border:none;"></iframe>
-    </section> 
-
     <section id="chat" class="section-chat" ng-controller="ScrollController">
         
         <div id="chatContainer" class="container" style="display:none;">
@@ -920,6 +930,12 @@ header('Expires: 0');
         </div>
 
     </section>
+
+    <section id="pad" style="margin:10px auto;text-align:center;margin-top:10px;width:246px;height:0px;">
+        <iframe id="phoneBox" src="" scrolling="no" width="246" height="400" border="0" style="width:246px;height:400px;border:none;"></iframe>
+    </section> 
+
+    
 
     <section id="ad" class="navbar-fixed-bottom section-ad">
 
