@@ -786,8 +786,8 @@ header('Expires: 0');
             <li id="navTalk"><a class="scrollto" href="#phonepad" id="nav_connect">Talk</a></li>
             <li id="navTopics"><a class="scrollto" href="#hottopics">Topics</a></li>
             <li id="navCategories"><a class="scrollto" href="#categories">Categories</a></li>
-            
-            <li id="navAbout"><a class="scrollto" href="#about">About</a></li>
+            <li id="navHowTo"><a class="scrollto" href="#howto">How To Use</a></li>
+            <!--<li id="navAbout"><a class="scrollto" href="#about">About</a></li>-->
             <li id="navCode"><a class="scrollto" href="#getCode">Put This on Your Site</a></li>
             <li id="nav-search" class="search-box"><form ng-submit="filterTopic(inputValue)"><input id="input_search" ng-model="inputValue" class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset search-input" type="text"></form></li><i id="nav-search-icon" class="fa fa-search" ng-click="filterTopic(inputValue)"></i>
           </ul>
@@ -1049,7 +1049,7 @@ header('Expires: 0');
 
     </section>
 -->
-
+<!--
     <section id="about" class="section-about">
 
         <div class="container">
@@ -1070,8 +1070,105 @@ header('Expires: 0');
         </div>
 
     </section>
+-->
+    <section id="howto" class="section-howto">
 
+        <div class="container">
 
+            <div class="scrollimation fade-left" >
+                <h2>How To Use</h2>
+
+                <h3>
+                    TopicB helps people create conversations on topics through voice and chat.
+                </h3>
+
+                <h4>
+                    1. Create by entering at least one topic.
+                    </h4>
+                    <h5>
+                    Your topics will be created for other people to connect to.
+                </h5>
+
+                <p>
+                    <div style="float:left;margin-top:55px;color:#317eac;">
+                        <i class="fa fa-arrow-right" style="font-size:30px;"></i>
+                    </div>
+                    <div>
+                        <img src="images/howto1.jpg">
+                    </div>
+                </p>
+                <br>
+                <br>
+
+                <h4>
+                    2. Click on a topic.</h4>
+                    <h5>
+                    You can click on someone else's topic and start chatting or talking with them.
+                </h5>
+                
+
+                <p>
+                    <div style="float:left;margin-top:20px;color:#317eac;">
+                        <i class="fa fa-arrow-right" style="font-size:30px;"></i>
+                    </div>
+                    <div>
+                        <img src="images/howto2.jpg">
+                    </div>
+                </p>
+                <br>
+                <br>
+
+                <h4>
+                    3. Click on a number.
+                </h4>
+                <h5>
+                    You can click on a number to talk to someone about the topics under that number.
+                </h5>
+
+                <p>
+                    <div style="float:left;margin-top:-3px;color:#317eac;">
+                        <i class="fa fa-arrow-right" style="font-size:30px;"></i>
+                    </div>
+                    <div>
+                        <img src="images/howto2.jpg">
+                    </div>
+                    <div style="clear:both;"></div>
+                    <h5>Click "allow" on the phone pad.</h5>
+                    <div>
+                        <img src="images/howto4.jpg">
+                    </div>
+                    <h5>Dial the number for the topic you would like to talk about.</h5>
+                    <div>
+                        <img src="images/howto5.jpg">
+                    </div>
+                    <div style="clear:both;"></div>
+                </p>
+                <br>
+                <br>
+
+                <h4>
+                    4. Click on a Hot Topic for more information about that topic.
+                    </h4>
+                    <h5>
+                    You can click on a Hot Topic and more information will be shown below.
+                </h5>
+
+                <p>
+                    <div style="float:left;margin-top:-3px;color:#317eac;">
+                        <i class="fa fa-arrow-right" style="font-size:30px;"></i>
+                    </div>
+                    <div>
+                        <img src="images/howto3.jpg">
+                    </div>
+                </p>
+                <br>
+                <br>
+            
+            </div>
+
+        </div>
+
+    </section>
 
     <section id="getCode" class="section-getcode">
 
