@@ -18,13 +18,14 @@ section{
 
 .btn-submit{
     cursor:pointer;text-align:center;font-size:20px;width:100%;
-    background-image:linear-gradient(#fff, #d9edee);color:#666666;
-    height:40px;line-height:20px;border:solid 1px #fff;
+    background-image:linear-gradient(#e36400, #f88402);color:#fff;
+    height:40px;line-height:20px;border:solid 2px #fff;
+    font-family:"Titillium Web",sans-serif;
 }
 .btn-submit:hover{
     cursor:pointer;text-align:center;font-size:20px;width:100%;
-    background-image:linear-gradient(#fff, #e1f0f1);color:#555;
-    height:40px;line-height:20px;border:solid 1px #fff;
+    background-image:linear-gradient(#fa7c00, #ff8b00);color:#fff;
+    height:40px;line-height:20px;border:solid 2px #fff;
 }
 
 /* used for communicator key pad begin */

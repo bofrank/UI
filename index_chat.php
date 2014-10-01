@@ -5,6 +5,7 @@
 <!--<link href="css/global.css" rel="stylesheet">-->
 <link href="css/bootstrap.css" rel="stylesheet">
 <link href="css/global.css" rel="stylesheet">
+<link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200' rel='stylesheet' type='text/css'>
 <style type="text/css">
 <!--
 body{
@@ -161,7 +162,7 @@ $(document).ready(function(){
 <div style="margin-top:10px;">
 <input type="hidden" name="name" id="name" placeholder="Your Name" maxlength="10" style="width:20%" value="<?php echo $handle ?>"  />
 <input type="text" name="message" id="message" placeholder="Message" maxlength="80" style="width:60%" class="form-control message-input ng-pristine" />
-<button id="send-btn" class="btn btn-primary btn-s btn-submit" style="width:70px;height:38px;margin-top:-5px">Send</button>
+<button id="send-btn" class="btn btn-primary btn-s btn-submit" style="width:70px;margin-top:-5px">GO!</button>
 </div>
 
 
