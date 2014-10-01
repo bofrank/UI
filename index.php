@@ -239,6 +239,9 @@ header('Expires: 0');
                         //setInterval(function(){$scope.checkTopics()},10000);
                         togglePad();
                         //openPad();
+                        $("#chatBox").attr("src","index_chat.php?tapid="+sessionStorage.tapid+"&topic="+sessionStorage.tapid);
+                        openChat();
+                        toggleChat();
                     });
                 }
             }
@@ -327,6 +330,7 @@ header('Expires: 0');
                     //angular.element("#chatBox").attr("src","index_chat.php?tapid="+$scope.myTopics.myID);
                     $("#chatBox").attr("src","index_chat.php?tapid="+$scope.myTopics.myID+"&topic="+$scope.myTopics.myID);
                     openChat();
+                    toggleChat();
 
                     setInterval(function(){$scope.checkTopics()},10000);
 
@@ -569,7 +573,7 @@ header('Expires: 0');
             //$("#pad").toggleClass("openPhone");
         }
         function togglePad(){
-            //$('#chat').insertAfter('#pad');
+            $('#chat').insertAfter('#pad');
             
             if($("#pad").css("height")=="0px"){
                 $("#pad").css("height","400px");
@@ -591,7 +595,7 @@ header('Expires: 0');
 */
         }
         function toggleChat(){
-            //$('#chat').insertBefore('#pad');
+            $('#chat').insertBefore('#pad');
             //$("#phoneBox").attr("src","flashphone/index.php?c="+$("#myPasswordDisplay").text());
             //$("#chatContainer").toggle();
         }
@@ -1152,7 +1156,7 @@ header('Expires: 0');
                 </h5>
 
                 <p>
-                    <div style="float:left;margin-top:-3px;color:#317eac;">
+                    <div style="float:left;margin-top:18px;color:#317eac;">
                         <i class="fa fa-arrow-right" style="font-size:30px;"></i>
                     </div>
                     <div>
@@ -1460,7 +1464,7 @@ This Privacy Notice was last modified September 30th, 2014
 
 
 
-    <div style="visibility:hidden;">
+    <div>
     <div id="myTapidDisplay"></div>
     <div id="myPasswordDisplay"></div>
     <div id="myChosenTopicDisplay"></div>
