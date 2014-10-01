@@ -1095,7 +1095,19 @@ header('Expires: 0');
 
     </section>
 
-    <div>
+<br>
+<br>
+<div style="text-align:center;">
+<a href="http://54.68.58.129/privacy.html" style="color:#fff;" target="_self">Privacy and Terms of Service</a> 
+<br>
+&copy;copyright 2014 TopicB
+</div>
+<br>
+<br>
+
+
+
+    <div style="visibility:hidden;">
     <div id="myTapidDisplay"></div>
     <div id="myPasswordDisplay"></div>
     <div id="myChosenTopicDisplay"></div>
