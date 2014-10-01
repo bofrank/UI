@@ -605,9 +605,22 @@ header('Expires: 0');
                 return text.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
             });
         }
-        function confirmCall(id2call){
+        function confirmCall(id2call,buttonObj,topicinit){
+            //$(this).parent().parent().children().eq(0).text().trim(); is the first topic
+            //if ($(buttonObj).hasClass("available")){
             var r=confirm("Do you want to call about these topics?");
             if (r == true) {
+                //mark tapid and topics as chatting so that noone else can connect ensuring one 2 one
+                //$(buttonObj).addClass("chatting");
+
+                var t1 = $(buttonObj).parent().parent().children().eq(0).text().trim();
+                var t2 = $(buttonObj).parent().parent().children().eq(1).text().trim();
+                var t3 = $(buttonObj).parent().parent().children().eq(2).text().trim();
+
+                $.ajax({url:"stateUpdate.php?topic="+t1+'&state=chatting'});
+                $.ajax({url:"stateUpdate.php?topic="+t2+'&state=chatting'});
+                $.ajax({url:"stateUpdate.php?topic="+t3+'&state=chatting'});
+
                 $("#callchat").css("display","block");
                 /*
                 if(chatActive=="no"){
@@ -632,11 +645,12 @@ header('Expires: 0');
                       //confirmChat(chosenTapid,buttonObj);
                       var $f = $("#phoneBox");
                         var chosenTapid2 = $f[0].contentWindow.red5phone_getConfig().tapid;
-                        $("#chatBox").attr("src","index_chat.php?tapid="+chosenTapid2+"&topic="+id2call);
+                        $("#chatBox").attr("src","index_chat.php?tapid="+chosenTapid2+"&topic="+id2call+"&topicinit="+topicinit);
                         openChat();
                         chatActive = "yes";
                         //$http({method: 'GET', url: 'stateUpdate.php?topic='+chosenTopic+'&state=pending'});
-                        $.ajax({url:"stateUpdate.php?topic="+chosenTopic+'&state=pending'});
+                        //$.ajax({url:"stateUpdate.php?topic="+chosenTopic+'&state=pending'});
+
                     });
                     //$scope.myTopics.myID = angular.element('#phoneBox')[0].contentWindow.red5phone_getConfig().tapid;
                     //sessionStorage.tapid=$scope.myTopics.myID;
@@ -644,21 +658,18 @@ header('Expires: 0');
                 }
 
             }
+
+            /*
+        }else{
+            alert("connection is busy");
+        }*/
         }
 
-        function confirmChat(chosenTapid,buttonObj){
-            var chosenTopic = $.trim($(buttonObj).text());
-            $("#myChosenTopicDisplay").text(chosenTopic);
-            console.log("chosenTopic ="+chosenTopic);
-            var q=confirm("Do you want to chat about "+chosenTopic+"?");
-            if (q == true) {
-                $(buttonObj).addClass("chatting");
-                $("#callchat").css("display","block");
-                $("#buttonOpenChat").css("display","block");
-                $("#chatBox").attr("src","index_chat.php?tapid="+chosenTapid+"&topic="+chosenTopic);
-                openChat();
-                chatActive = "yes";
-                $.ajax({url:"stateUpdate.php?topic="+chosenTopic+'&state=chatting'});
+        function confirmChat(chosenTapid,buttonObj,topicinit){
+            if ($(buttonObj).hasClass("available")){
+                confirmCall(chosenTapid,buttonObj,topicinit);
+            }else{
+                alert("chat is busy");
             }
         }
 
@@ -876,12 +887,12 @@ header('Expires: 0');
     <ul id="content" ng-model="numbers">
         <!--<li id="imgs" ng-repeat="whatever in numbers|filter:'8987770009' track by $index" class="row">-->
         <li ng-repeat="whatever in numbers|filter:filterTapId" class="imgs row">
-            <div class="number" onclick="confirmCall($(this).text());">{{whatever.tapid}}</div>
+            <div class="number" onclick="confirmCall($(this).text(),$(this),'notopic')">{{whatever.tapid}}</div>
             <div style="clear:both;"></div>
 
             <ul data-ng-show="whatever" class="row_topic">
                 <li ng-repeat="topics in whatever.topics|filter:'!blank' track by $index" ng-controller="ScrollController" class="column">
-                  <a class="scrollto ui-link btn btn-primary btn-s topic-button {{topics.chatstate}}" onclick="confirmCall($(this).parent().parent().parent().children(':first-child').text());">
+                  <a class="scrollto ui-link btn btn-primary btn-s topic-button {{topics.chatstate}}" onclick="confirmChat($(this).parent().parent().parent().children(':first-child').text(),$(this),'test')">
                     {{topics.topic}} 
                   </a>
                 </li>

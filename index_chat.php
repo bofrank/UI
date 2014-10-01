@@ -41,11 +41,19 @@ $DB = new DB($config);
 
 $tapid = $_GET["tapid"];
 $topic = $_GET["topic"];
+$topicinit = $_GET["topicinit"];
 //$tempStr = substr($tapid, 7);
 //$handle = $tempStr." : ".$topic;
+
+if($topicinit=="notopic"){
+	$topic="block";
+}
+
 $tempStr = str_replace("-", "", $topic);
-$handle = $tapid."<span style='display:none;'>".$tempStr."</span>";
+$handle = $tapid."<span style='display:none;'>".$tempStr." : ".$topicinit."</span>";
 //$DB->Query("UPDATE topicb.topics SET chatstate='chatting' WHERE topic='$topic'");
+
+
 
 $colours = array('007AFF','FF7000','FF7000','15E25F','CFC700','CFC700','CF1100','CF00BE','F00');
 $user_colour = array_rand($colours);
