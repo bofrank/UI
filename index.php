@@ -60,7 +60,7 @@ header('Expires: 0');
         topicApp.controller('topicCtrl', function ($scope,$http,$location,$anchorScroll,$timeout){
 
             $scope.loadData = function () {
-            $http({method: 'GET', url: 'getTopics.php'}).success(function(data) {
+            $http({method: 'GET', url: 'getTopics.php', params: { 'topicb': new Date().getTime() }}).success(function(data) {
                 $scope.numbers = data;
                  //$scope.$apply();
                  $scope.loadDataHotList();
@@ -71,7 +71,7 @@ header('Expires: 0');
             setInterval(function(){$scope.loadData();},5000);
 
             $scope.loadDataHotList = function () {
-            $http({method: 'GET', url: 'getHotTopics.php'}).success(function(data) {
+            $http({method: 'GET', url: 'getHotTopics.php', params: { 'topicb': new Date().getTime() }}).success(function(data) {
                 $scope.hotlist = data;
                 numberFormat();
               });
@@ -149,7 +149,7 @@ header('Expires: 0');
             $scope.scrollRight=function(topicRow){
 
                 var temp = $scope.numbers[topicRow].topics.pop();
-                console.log("temp="+temp);
+                //console.log("temp="+temp);
                 $scope.numbers[topicRow].topics.unshift(temp);
 
             }
@@ -160,7 +160,7 @@ header('Expires: 0');
 
             $scope.filterTopic=function($mySearchWord){
                 //alert("hello");
-                console.log("$mySearchWord="+$mySearchWord);
+                //console.log("$mySearchWord="+$mySearchWord);
                 $scope.myTopic = $mySearchWord;
                 
                 angular.element("#search_result_1,#search_result_2").parent().show();
@@ -169,32 +169,32 @@ header('Expires: 0');
 
                 // call $anchorScroll()
                 $anchorScroll();
-                console.log("start chat for "+$mySearchWord);
+                //console.log("start chat for "+$mySearchWord);
                 
                 angular.element("#gsc-i-id1").val($mySearchWord);
                 angular.element(".gsc-search-button").trigger( "click" );
                 
-                console.log("search for "+$mySearchWord);
+                //console.log("search for "+$mySearchWord);
 
                 $timeout(function() {
                     angular.element(".gsc-cursor-box").css("display","none");
                     angular.element(".gsc-search-box,#resInfo-0,.gsc-above-wrapper-area-container,.gcsc-branding,.gsc-above-wrapper-area,.gs-image,.gsc-thumbnail-inside,.gsc-url-top").css("display","none");
 
-                    console.log("hiding gs stuff");
+                    //console.log("hiding gs stuff");
 
                     $scope.results=[];
-                    console.log("constructed array");
+                    //console.log("constructed array");
 
                     angular.element(".gs-snippet").each(function(index){
                         $scope.results.push($(this).text().replace(/"/g, ''));
                     });
-                    console.log("pushed results");
+                    //console.log("pushed results");
 
                     $timeout(function() {
-                        console.log('update with timeout fired');
+                        //console.log('update with timeout fired');
                         angular.element("#search_result_1").text($scope.results[0]);
                         angular.element("#search_result_2").text($scope.results[1]);
-                        console.log("displayed results");
+                        //console.log("displayed results");
                     }, 2000);
 
                 }, 2000);
@@ -279,13 +279,13 @@ header('Expires: 0');
 
             $scope.submitForm = function(){
 
-                console.log("my id before submitting form = "+$scope.myTapId);
+                //console.log("my id before submitting form = "+$scope.myTapId);
                 //$scope.myTopics.myID = setTapID();
                 $scope.myTopics.myID = angular.element('#phoneBox')[0].contentWindow.red5phone_getConfig().tapid;
                 sessionStorage.tapid=$scope.myTopics.myID;
-                console.log("session storage tapid = "+sessionStorage.tapid);
+                //console.log("session storage tapid = "+sessionStorage.tapid);
                 //$scope.myTopics.myID = $('#phoneBox')[0].contentWindow.red5phone_getConfig().tapid;
-                console.log("my id when submitting form = "+$scope.myTopics.myID);
+                //console.log("my id when submitting form = "+$scope.myTopics.myID);
 
                 $http.post('submitTopics.php', JSON.stringify($scope.myTopics)).success(function(){
                     //console.log("success");
@@ -379,12 +379,12 @@ header('Expires: 0');
                     $location.hash('hottopics');
 
                     $anchorScroll();
-                    console.log("start chat for "+myChat);
+                    //console.log("start chat for "+myChat);
                     
                     angular.element("#gsc-i-id1").val(myChat);
                     angular.element(".gsc-search-button").trigger( "click" );
                     
-                    console.log("search for "+myChat);
+                    //console.log("search for "+myChat);
 
                     
 
@@ -392,21 +392,21 @@ header('Expires: 0');
                         angular.element(".gsc-cursor-box").css("display","none");
                         angular.element(".gsc-search-box,#resInfo-0,.gsc-above-wrapper-area-container,.gcsc-branding,.gsc-above-wrapper-area,.gs-image,.gsc-thumbnail-inside,.gsc-url-top").css("display","none");
 
-                        console.log("hiding gs stuff");
+                        //console.log("hiding gs stuff");
 
                         $scope.results=[];
-                        console.log("constructed array");
+                        //console.log("constructed array");
 
                         angular.element(".gs-snippet").each(function(index){
                             $scope.results.push($(this).text().replace(/"/g, ''));
                         });
-                        console.log("pushed results");
+                        //console.log("pushed results");
 
                         $timeout(function() {
-                            console.log('update with timeout fired');
+                            //console.log('update with timeout fired');
                             angular.element("#search_result_1").text($scope.results[0]);
                             angular.element("#search_result_2").text($scope.results[1]);
-                            console.log("displayed results");
+                            //console.log("displayed results");
                         }, 2000);
 
 
@@ -671,6 +671,9 @@ header('Expires: 0');
 
         function confirmChat(chosenTapid,buttonObj,topicinit){
             if ($(buttonObj).hasClass("available")){
+                //store topic somewhere so that on close that topic can be set to available
+                $("#myChosenTopicDisplay").text(topicinit);
+
                 confirmCall(chosenTapid,buttonObj,topicinit);
             }else{
                 alert("chat is busy");
@@ -697,7 +700,7 @@ header('Expires: 0');
         function requestChat(chosenTapid,chosenTopic){
             //var chosenTopic = $.trim($(buttonObj).text());
             $("#myChosenTopicDisplay").text(chosenTopic);
-            console.log("chosenTopic ="+chosenTopic);
+            //console.log("chosenTopic ="+chosenTopic);
             var q=confirm("Do you want to chat about "+chosenTopic+"?");
             if (q == true) {
                 //$(buttonObj).css("background-image","linear-gradient(#5a5c66, #cc0c38 60%, #cc0c38)").css("border","solid 1px #5a5c66");
@@ -738,8 +741,6 @@ header('Expires: 0');
             $.ajax({url:"removeTopics.php?t="+tempMyID});
             var tempTopic = $("#myChosenTopicDisplay").text();
             $.ajax({url:"stateUpdate.php?topic="+tempTopic+"&state=available"});
-
-            
 
             //if no local data then destroytapid
             if(sessionStorage.topic1){
@@ -1464,7 +1465,7 @@ This Privacy Notice was last modified September 30th, 2014
 
 
 
-    <div>
+    <div style="visibility:hidden;">
     <div id="myTapidDisplay"></div>
     <div id="myPasswordDisplay"></div>
     <div id="myChosenTopicDisplay"></div>
