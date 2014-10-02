@@ -77,21 +77,9 @@ header('Expires: 0');
               });
             };
 
-
-/*
-            window.onbeforeunload = function (e) {
-                $scope.tempMyID = angular.element('#phoneBox')[0].contentWindow.red5phone_getConfig().tapid;
-                $http({method: 'GET', url: 'flashphone/destroytapid.php?t='+$scope.tempMyID});
-                $http({method: 'GET', url: 'removeTopics.php?t='+$scope.tempMyID});
-            };
-*/
-            
-
             $scope.hotlist = $scope.numbers;
             $scope.topic_distance=0;
             $scope.tempWidth=0;
-
-            
 
             $scope.scrollImages = function() {
                 $scope.tempWidth = parseInt($("#imgs2 li div a").first().css("width"),10);
@@ -121,7 +109,6 @@ header('Expires: 0');
             }
 
             $scope.topicShift = function($myEvent){  
-                //console.log("shifting");
                 var temp = $scope.hotlist.shift();
                 $scope.hotlist.push(temp);
             }
@@ -149,7 +136,6 @@ header('Expires: 0');
             $scope.scrollRight=function(topicRow){
 
                 var temp = $scope.numbers[topicRow].topics.pop();
-                //console.log("temp="+temp);
                 $scope.numbers[topicRow].topics.unshift(temp);
 
             }
@@ -159,8 +145,7 @@ header('Expires: 0');
             $scope.widget = {inputValue: 'whatever'};
 
             $scope.filterTopic=function($mySearchWord){
-                //alert("hello");
-                //console.log("$mySearchWord="+$mySearchWord);
+
                 $scope.myTopic = $mySearchWord;
                 
                 angular.element("#search_result_1,#search_result_2").parent().show();
@@ -169,32 +154,25 @@ header('Expires: 0');
 
                 // call $anchorScroll()
                 $anchorScroll();
-                //console.log("start chat for "+$mySearchWord);
                 
                 angular.element("#gsc-i-id1").val($mySearchWord);
                 angular.element(".gsc-search-button").trigger( "click" );
-                
-                //console.log("search for "+$mySearchWord);
 
                 $timeout(function() {
                     angular.element(".gsc-cursor-box").css("display","none");
                     angular.element(".gsc-search-box,#resInfo-0,.gsc-above-wrapper-area-container,.gcsc-branding,.gsc-above-wrapper-area,.gs-image,.gsc-thumbnail-inside,.gsc-url-top").css("display","none");
 
-                    //console.log("hiding gs stuff");
-
                     $scope.results=[];
-                    //console.log("constructed array");
 
                     angular.element(".gs-snippet").each(function(index){
                         $scope.results.push($(this).text().replace(/"/g, ''));
                     });
-                    //console.log("pushed results");
 
                     $timeout(function() {
-                        //console.log('update with timeout fired');
+
                         angular.element("#search_result_1").text($scope.results[0]);
                         angular.element("#search_result_2").text($scope.results[1]);
-                        //console.log("displayed results");
+
                     }, 2000);
 
                 }, 2000);
@@ -214,7 +192,7 @@ header('Expires: 0');
                     $scope.myTopics.myID = sessionStorage.tapid;
 
                     $http.post('submitTopics.php', $scope.myTopics).success(function(){
-                        //console.log("success");
+
                         angular.element(".starter-template").html("<span class='message-create'>Your topics have been recreated below.</span>");
                         $scope.loadData();
                         
@@ -222,7 +200,6 @@ header('Expires: 0');
                         angular.element("#topic2button").html(sessionStorage.topic2);
                         angular.element("#topic3button").html(sessionStorage.topic3);
 
-                        //$scope.myIdDisplay = $scope.myTopics.myID;
                         $scope.myIdDisplay2 = sessionStorage.tapid.slice(0, 3) + "-" + sessionStorage.tapid.slice(3);
                         $scope.myIdDisplay3 = $scope.myIdDisplay2.slice(0, 7) + "-" + $scope.myIdDisplay2.slice(7);
                         angular.element("#myIdDisplay").html("My ID: "+$scope.myIdDisplay3);
@@ -236,7 +213,7 @@ header('Expires: 0');
                         angular.element("#callchat").attr("style","display:block;").attr("style","background:none;");
 
                         $("#phoneBox").attr("src","flashphone/index.php?c="+sessionStorage.mycookie);
-                        //setInterval(function(){$scope.checkTopics()},10000);
+
                         togglePad();
                         //openPad();
                         $("#chatBox").attr("src","index_chat.php?tapid="+sessionStorage.tapid+"&topic="+sessionStorage.tapid);
@@ -279,13 +256,8 @@ header('Expires: 0');
 
             $scope.submitForm = function(){
 
-                //console.log("my id before submitting form = "+$scope.myTapId);
-                //$scope.myTopics.myID = setTapID();
                 $scope.myTopics.myID = angular.element('#phoneBox')[0].contentWindow.red5phone_getConfig().tapid;
                 sessionStorage.tapid=$scope.myTopics.myID;
-                //console.log("session storage tapid = "+sessionStorage.tapid);
-                //$scope.myTopics.myID = $('#phoneBox')[0].contentWindow.red5phone_getConfig().tapid;
-                //console.log("my id when submitting form = "+$scope.myTopics.myID);
 
                 $http.post('submitTopics.php', JSON.stringify($scope.myTopics)).success(function(){
                     //console.log("success");
@@ -327,7 +299,6 @@ header('Expires: 0');
 
                     sessionStorage.mycookie=$scope.myCookie;
 
-                    //angular.element("#chatBox").attr("src","index_chat.php?tapid="+$scope.myTopics.myID);
                     $("#chatBox").attr("src","index_chat.php?tapid="+$scope.myTopics.myID+"&topic="+$scope.myTopics.myID);
                     openChat();
                     toggleChat();
@@ -383,30 +354,22 @@ header('Expires: 0');
                     
                     angular.element("#gsc-i-id1").val(myChat);
                     angular.element(".gsc-search-button").trigger( "click" );
-                    
-                    //console.log("search for "+myChat);
-
-                    
 
                     $timeout(function() {
                         angular.element(".gsc-cursor-box").css("display","none");
                         angular.element(".gsc-search-box,#resInfo-0,.gsc-above-wrapper-area-container,.gcsc-branding,.gsc-above-wrapper-area,.gs-image,.gsc-thumbnail-inside,.gsc-url-top").css("display","none");
 
-                        //console.log("hiding gs stuff");
-
                         $scope.results=[];
-                        //console.log("constructed array");
 
                         angular.element(".gs-snippet").each(function(index){
                             $scope.results.push($(this).text().replace(/"/g, ''));
                         });
-                        //console.log("pushed results");
 
                         $timeout(function() {
-                            //console.log('update with timeout fired');
+
                             angular.element("#search_result_1").text($scope.results[0]);
                             angular.element("#search_result_2").text($scope.results[1]);
-                            //console.log("displayed results");
+
                         }, 2000);
 
 
@@ -523,16 +486,11 @@ header('Expires: 0');
             $("#myTapidDisplay").text(sessionStorage.tapid);
             $("#myPasswordDisplay").text(sessionStorage.mycookie);
             
-           
-            //setInterval(function(){nextImage()},2000);
             $(".ui-loader ").css("display","none");
             $('#input_search').watermark('Search');
             $('#topic1').watermark('Enter Your Topic (required)');
             $('#topic2').watermark('Enter Another Topic');
             $('#topic3').watermark('Enter Another Topic');
-            //$("#chatBox").attr("src", "index_chat.php?tapid="+$("#myTapidDisplay").html());
-            //setTimeout(function(){searchMe("phad thai")}, 3000);
-            //$(".gsc-control-cse").css("display","none");
 
             function searchMe(keyword){
 
@@ -566,42 +524,20 @@ header('Expires: 0');
         var chatActive = "no";
         var voiceActive = "no";
         function openPad(){
-            //$("#pad").css("display","block");
-            //$('#chat').insertAfter('#pad');
             $("#pad").css("height","400px");
-            
-            //$("#pad").toggleClass("openPhone");
         }
         function togglePad(){
             $('#chat').insertAfter('#pad');
-            
             if($("#pad").css("height")=="0px"){
                 $("#pad").css("height","400px");
                 $("#pad").css("margin-left","auto");
                 $("#pad").css("margin-right","auto");
-            }else{
-                //$("#pad").css("height","0px");
-                //$("#pad").css("margin-left","-900px");
             }
-            /*
-            if(sessionStorage.topic1){
-                //do nothing
-            }else if(voiceActive=="no"){
-                voiceActive = "yes";
-                //var newCookie = $("#TopicSubmitForm").scope().makeid();
-                var newCookie = makeIDonClick();
-                $("#phoneBox").attr("src","flashphone/index.php?c="+newCookie);
-            }
-*/
         }
         function toggleChat(){
             $('#chat').insertBefore('#pad');
-            //$("#phoneBox").attr("src","flashphone/index.php?c="+$("#myPasswordDisplay").text());
-            //$("#chatContainer").toggle();
         }
         function openChat(){
-            //$('#chat').insertBefore('#pad');
-            //$("#phoneBox").attr("src","flashphone/index.php?c="+$("#myPasswordDisplay").text());
             $("#chatContainer").show();
         }
         function numberFormat(){
@@ -626,18 +562,11 @@ header('Expires: 0');
                 $.ajax({url:"stateUpdate.php?topic="+t3+'&state=chatting'});
 
                 $("#callchat").css("display","block");
-                /*
-                if(chatActive=="no"){
-                    $("#buttonOpenChat").css("display","none");
-                }
-                */
                 $("#buttonOpenPad").css("display","block");
                 togglePad();
                 
                 if(sessionStorage.topic1){
                     //do nothing
-                    
-                    //$("#phoneBox").attr("src","flashphone/index.php?c="+$("#myPasswordDisplay").text());
                 }else{
                     voiceActive = "yes";
                     //get cookie
@@ -656,17 +585,14 @@ header('Expires: 0');
                         //$.ajax({url:"stateUpdate.php?topic="+chosenTopic+'&state=pending'});
 
                     });
-                    //$scope.myTopics.myID = angular.element('#phoneBox')[0].contentWindow.red5phone_getConfig().tapid;
-                    //sessionStorage.tapid=$scope.myTopics.myID;
-
                 }
-
             }
 
             /*
         }else{
             alert("connection is busy");
         }*/
+
         }
 
         function confirmChat(chosenTapid,buttonObj,topicinit){
@@ -703,18 +629,9 @@ header('Expires: 0');
             //console.log("chosenTopic ="+chosenTopic);
             var q=confirm("Do you want to chat about "+chosenTopic+"?");
             if (q == true) {
-                //$(buttonObj).css("background-image","linear-gradient(#5a5c66, #cc0c38 60%, #cc0c38)").css("border","solid 1px #5a5c66");
                 //$(buttonObj).addClass("pending");
                 $("#callchat").css("display","block");
                 $("#buttonOpenChat").css("display","block");
-                /*
-                if(voiceActive=="no"){
-                    $("#buttonOpenPad").css("display","none");
-                }
-                */
-                //$("#pad").css("height","0px");
-                //$("#pad").css("margin-left","-900px");
-
                 $("#chatBox").attr("src","index_chat.php?tapid="+chosenTapid+"&topic="+chosenTopic);
                 openChat();
                 chatActive = "yes";
@@ -735,7 +652,6 @@ header('Expires: 0');
             }
 
         //runs when browser is refreshed and closed
-        
         $(window).on('beforeunload', function(){
             var tempMyID = $("#myTapidDisplay").text();
             $.ajax({url:"removeTopics.php?t="+tempMyID});
@@ -888,7 +804,6 @@ header('Expires: 0');
 <div id="contentTopics" class="topics">
 
     <ul id="content" ng-model="numbers">
-        <!--<li id="imgs" ng-repeat="whatever in numbers|filter:'8987770009' track by $index" class="row">-->
         <li ng-repeat="whatever in numbers|filter:filterTapId" class="imgs row">
             <div class="number" onclick="confirmCall($(this).text(),$(this),'notopic')">{{whatever.tapid}}</div>
             <div style="clear:both;"></div>
@@ -945,8 +860,6 @@ header('Expires: 0');
 
                 </div>
 
-                <!--<iframe id="chatBox" src="" onload="this.contentWindow.document.documentElement.scrollTop=100" scrolling="no"></iframe>-->
-
                 <iframe id="chatBox" src=""></iframe>
 
         </div>
@@ -983,49 +896,6 @@ header('Expires: 0');
                             food
                         </a>
                     </div>
-                    <!--
-                    <div class="category-container" ng-controller="ScrollController">
-                        <a class="scrollto ui-link btn btn-primary btn-s category-button" ng-click="chatStart('sports')">
-                            sports
-                        </a>
-                    </div>
-                    <div class="category-container" ng-controller="ScrollController">
-                        <a class="scrollto ui-link btn btn-primary btn-s category-button" ng-click="chatStart('news')">
-                            news
-                        </a>
-                    </div>
-                    <div class="category-container" ng-controller="ScrollController">
-                        <a class="scrollto ui-link btn btn-primary btn-s category-button" ng-click="chatStart('weather')">
-                            weather
-                        </a>
-                    </div>
-                    <div class="category-container" ng-controller="ScrollController">
-                        <a class="scrollto ui-link btn btn-primary btn-s category-button" ng-click="chatStart('cars')">
-                            cars
-                        </a>
-                    </div>
-                    <div class="category-container" ng-controller="ScrollController">
-                        <a class="scrollto ui-link btn btn-primary btn-s category-button" ng-click="chatStart('law')">
-                            law
-                        </a>
-                    </div>
-                    <div class="category-container" ng-controller="ScrollController">
-                        <a class="scrollto ui-link btn btn-primary btn-s category-button" ng-click="chatStart('travel')">
-                            travel
-                        </a>
-                    </div>
-                    <div class="category-container" ng-controller="ScrollController">
-                        <a class="scrollto ui-link btn btn-primary btn-s category-button" ng-click="chatStart('pets')">
-                            pets
-                        </a>
-                    </div>
-                    <div class="category-container" ng-controller="ScrollController">
-                        <a class="scrollto ui-link btn btn-primary btn-s category-button" ng-click="chatStart('friends')">
-                            friends
-                        </a>
-                    </div>
--->
-
                 </h3>
             
             </div>
@@ -1034,46 +904,6 @@ header('Expires: 0');
 
     </section>
 
-<!--
-    <section id="communicator" style="background:#ffffff;padding:50px;margin-top:100px;height:400px;">
-
-        <div class="container">
-
-            <div class="scrollimation fade-left" >
-                <h2>Get the App</h2>
-
-                <h3>
-                    This section will link to the Communicator.
-                </h3>
-            
-            </div>
-
-        </div>
-
-    </section>
--->
-<!--
-    <section id="about" class="section-about">
-
-        <div class="container">
-
-            <div class="scrollimation fade-left" >
-                <h2>About</h2>
-
-                <h3>
-                    TopicB helps people create conversations on topics through voice and chat.
-                </h3>
-
-                <p>
-                    <a class="scrollto" href="#home">Enter a topic above</a> that you would like to talk about or choose from the available topics listed. You can immediately chat with someone right now on the topic that you have chosen!
-                </p>
-            
-            </div>
-
-        </div>
-
-    </section>
--->
     <section id="howto" class="section-howto">
 
         <div class="container">
