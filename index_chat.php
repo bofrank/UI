@@ -40,8 +40,8 @@ $config['table'] = 'topicb';
 
 $DB = new DB($config);
 
-$tapid = $_GET["tapid"];
-$topic = $_GET["topic"];
+$chatter = $_GET["chatter"];
+$chatee = $_GET["chatee"];
 $topicinit = $_GET["topicinit"];
 //$tempStr = substr($tapid, 7);
 //$handle = $tempStr." : ".$topic;
@@ -50,8 +50,7 @@ if($topicinit=="notopic"){
 	$topic="block";
 }
 
-$tempStr = str_replace("-", "", $topic);
-$handle = $tapid."<span style='display:none;'>".$tempStr." : ".$topicinit."</span>";
+$handle = $chatter." : ".$chatee." : ".$topicinit;
 //$DB->Query("UPDATE topicb.topics SET chatstate='chatting' WHERE topic='$topic'");
 
 
@@ -84,7 +83,7 @@ $(document).ready(function(){
 	websocket = new WebSocket(wsUri); 
 	
 	websocket.onopen = function(ev) { // connection is open 
-		$('#message_box').append("<div class=\"system_msg\"><?php echo trim($tapid);?></div>"); //notify user
+		$('#message_box').append("<div class=\"system_msg\"><?php echo trim($chatter);?></div>"); //notify user
 	}
 
 	$('#send-btn').click(function(){ //use clicks message send button	
@@ -128,8 +127,6 @@ $(document).ready(function(){
 		var uname = msg.name; //user name
 		var ucolor = msg.color; //color
 
-		
-
 		if(type == 'usermsg')
 		{
 			$('#message_box').append("<div class=\"message-box\"><span class=\"user_name\" style=\"color:#fff\">"+uname+"</span> <span style=\"color:#fff;\">:</span> <span class=\"user_message\">"+umsg+"</span></div>");
@@ -137,7 +134,6 @@ $(document).ready(function(){
 				parent.$("#topic1button").removeClass("chatting").removeClass("pending");
 				parent.$("#topic2button").removeClass("chatting").removeClass("pending");
 				parent.$("#topic3button").removeClass("chatting").removeClass("pending");
-
 			}
 		}
 		/*
@@ -148,10 +144,15 @@ $(document).ready(function(){
 		*/
 		$('#message').val(''); //reset text
 		$(document).scrollTop($(document).height());
-		$(".user_name:not(:contains('<?php echo trim($tempStr);?>'))").parent().hide();
+		$(".user_name:not(:contains('<?php echo trim($chatter);?>')):not(:contains('<?php echo trim($chatee);?>')):not(:contains('<?php echo trim($topicinit);?>'))").parent().hide();
 		//$(".user_name:not(:contains('<?php echo trim($tempStr);?>')):not(:contains('<?php echo trim($tapid);?>'))").parent().hide();
 	};
 	
+/*
+	websocket.onerror	= function(ev){$('#message_box').append("<div class=\"system_error\">Error Occurred - "+ev.data+"</div>");}; 
+	websocket.onclose 	= function(ev){$('#message_box').append("<div class=\"system_msg\">Connection Closed</div>");}; 
+*/
+
 	websocket.onerror	= function(ev){$('#message_box').append("<div class=\"system_error\">Error Occurred - "+ev.data+"</div>");}; 
 	websocket.onclose 	= function(ev){$('#message_box').append("<div class=\"system_msg\">Connection Closed</div>");}; 
 

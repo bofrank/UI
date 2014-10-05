@@ -216,7 +216,7 @@ header('Expires: 0');
 
                         togglePad();
                         //openPad();
-                        $("#chatBox").attr("src","index_chat.php?tapid="+sessionStorage.tapid+"&topic="+sessionStorage.tapid);
+                        $("#chatBox").attr("src","index_chat.php?chatter="+sessionStorage.tapid+"&chatee="+sessionStorage.tapid+"&topicinit=test");
                         openChat();
                         toggleChat();
                     });
@@ -299,7 +299,7 @@ header('Expires: 0');
 
                     sessionStorage.mycookie=$scope.myCookie;
 
-                    $("#chatBox").attr("src","index_chat.php?tapid="+$scope.myTopics.myID+"&topic="+$scope.myTopics.myID);
+                    $("#chatBox").attr("src","index_chat.php?chatter="+$scope.myTopics.myID+"&chatee="+$scope.myTopics.myID+"&topicinit="+$scope.myTopics.myID);
                     openChat();
                     toggleChat();
 
@@ -595,15 +595,91 @@ header('Expires: 0');
 
         }
 
-        function confirmChat(chosenTapid,buttonObj,topicinit){
+        function confirmChat(myTapid,buttonObj){
             if ($(buttonObj).hasClass("available")){
                 //store topic somewhere so that on close that topic can be set to available
+                var topicinit = $.trim($(buttonObj).text());
+                var targetTapid = $(buttonObj).parent().parent().parent().children(":eq(0)").text();
+                targetTapid = targetTapid.replace(/-/g, "");
+
                 $("#myChosenTopicDisplay").text(topicinit);
 
-                confirmCall(chosenTapid,buttonObj,topicinit);
+                var r=confirm("Do you want to chat about these topics?");
+                if (r == true) {
+                    //mark tapid and topics as chatting so that noone else can connect ensuring one 2 one
+                    //$(buttonObj).addClass("chatting");
+
+                    $.ajax({url:"stateUpdate.php?topic="+topicinit+'&state=chatting'});
+
+                    $("#callchat").css("display","block");
+                    $("#buttonOpenPad").css("display","block");
+                    togglePad();
+                    
+                    if(sessionStorage.topic1){
+                        //do nothing
+                    }else{
+                        voiceActive = "yes";
+                        //get cookie
+                        var newCookie = makeIDonClick();
+                        //load phone
+                        $("#phoneBox").attr("src","flashphone/index.php?c="+newCookie);
+                        //put load function here
+                        $("#phoneBox").load(function(){
+                          //confirmChat(chosenTapid,buttonObj);
+                          var $f = $("#phoneBox");
+                            var chosenTapid2 = $f[0].contentWindow.red5phone_getConfig().tapid;
+                            $("#chatBox").attr("src","index_chat.php?chatter="+chosenTapid2+"&chatee="+targetTapid+"&topicinit="+topicinit);
+                            openChat();
+                            chatActive = "yes";
+                            //$http({method: 'GET', url: 'stateUpdate.php?topic='+chosenTopic+'&state=pending'});
+                            //$.ajax({url:"stateUpdate.php?topic="+chosenTopic+'&state=pending'});
+
+                        });
+                    }
+                }
+
             }else{
                 alert("chat is busy");
             }
+
+ 
+                
+
+
+
+        }
+
+        function startChat(myTapid,buttonObj){
+  
+                //store topic somewhere so that on close that topic can be set to available
+                var topicinit = $.trim($(buttonObj).text());
+                var targetTapid = $(buttonObj).parent().parent().parent().children(":eq(0)").text();
+                targetTapid = targetTapid.replace(/-/g, "");
+
+                $("#myChosenTopicDisplay").text(topicinit);
+
+                var r=confirm("Do you want to chat about these topics?");
+                if (r == true) {
+                    //mark tapid and topics as chatting so that noone else can connect ensuring one 2 one
+                    //$(buttonObj).addClass("chatting");
+
+                    $.ajax({url:"stateUpdate.php?topic="+topicinit+'&state=chatting'});
+                    
+
+                    voiceActive = "yes";
+                    //get cookie
+                    
+                      //confirmChat(chosenTapid,buttonObj);
+                      var $f = $("#phoneBox");
+                        var chosenTapid2 = $f[0].contentWindow.red5phone_getConfig().tapid;
+                        $("#chatBox").attr("src","index_chat.php?chatter="+chosenTapid2+"&chatee="+targetTapid+"&topicinit="+topicinit);
+                        openChat();
+                        chatActive = "yes";
+                        //$http({method: 'GET', url: 'stateUpdate.php?topic='+chosenTopic+'&state=pending'});
+                        //$.ajax({url:"stateUpdate.php?topic="+chosenTopic+'&state=pending'});
+
+                }
+
         }
 
 /*
@@ -632,7 +708,7 @@ header('Expires: 0');
                 //$(buttonObj).addClass("pending");
                 $("#callchat").css("display","block");
                 $("#buttonOpenChat").css("display","block");
-                $("#chatBox").attr("src","index_chat.php?tapid="+chosenTapid+"&topic="+chosenTopic);
+                $("#chatBox").attr("src","index_chat.php?chatter="+chosenTapid+"&chatee="+chosenTopic);
                 openChat();
                 chatActive = "yes";
                 //$http({method: 'GET', url: 'stateUpdate.php?topic='+chosenTopic+'&state=pending'});
@@ -749,19 +825,19 @@ header('Expires: 0');
 
             <ul ng-model="myTopics" style="text-align:center;">
                 <li class="column">
-                  <a class="btn btn-primary btn-s topic-button" id="topic1button" onclick="confirmChat($(this).parent().parent().parent().children(':first-child').text(),$(this))">
+                  <a class="btn btn-primary btn-s topic-button" id="topic1button" onclick="startChat($(this).parent().parent().parent().children(':first-child').text(),$(this))">
                     this is topic 1
                   </a>
                   <img id="topic1icon" src="images/pending.png" style="width:16px;height:16px;visibility:hidden;margin-left:-15px;margin-top:-28px;" />
                 </li>
                 <li class="column">
-                  <a class="btn btn-primary btn-s topic-button" id="topic2button" onclick="confirmChat($(this).parent().parent().parent().children(':first-child').text(),$(this))">
+                  <a class="btn btn-primary btn-s topic-button" id="topic2button" onclick="startChat($(this).parent().parent().parent().children(':first-child').text(),$(this))">
                     this is topic 2
                   </a>
                   <img id="topic2icon" src="images/pending.png" style="width:16px;height:16px;visibility:hidden;margin-top:-28px;" />
                 </li>
                 <li class="column">
-                  <a class="btn btn-primary btn-s topic-button" id="topic3button" onclick="confirmChat($(this).parent().parent().parent().children(':first-child').text(),$(this))">
+                  <a class="btn btn-primary btn-s topic-button" id="topic3button" onclick="startChat($(this).parent().parent().parent().children(':first-child').text(),$(this))">
                     this is topic 3
                   </a>
                   <img id="topic3icon" src="images/pending.png" style="width:16px;height:16px;visibility:hidden;margin-top:-28px;" />
@@ -810,7 +886,7 @@ header('Expires: 0');
 
             <ul data-ng-show="whatever" class="row_topic">
                 <li ng-repeat="topics in whatever.topics|filter:'!blank' track by $index" ng-controller="ScrollController" class="column">
-                  <a class="scrollto ui-link btn btn-primary btn-s topic-button {{topics.chatstate}}" onclick="confirmChat($(this).parent().parent().parent().children(':first-child').text(),$(this),'test')">
+                  <a class="scrollto ui-link btn btn-primary btn-s topic-button {{topics.chatstate}}" onclick="confirmChat($(this).parent().parent().parent().children(':first-child').text(),$(this),$(this))">
                     {{topics.topic}} 
                   </a>
                 </li>
@@ -1295,7 +1371,7 @@ This Privacy Notice was last modified September 30th, 2014
 
 
 
-    <div style="visibility:hidden;">
+    <div>
     <div id="myTapidDisplay"></div>
     <div id="myPasswordDisplay"></div>
     <div id="myChosenTopicDisplay"></div>
