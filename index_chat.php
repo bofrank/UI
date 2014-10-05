@@ -26,7 +26,7 @@ body{
 -->
 </style>
 </head>
-<body>	
+<body style="background:#000;">	
 <?php 
 
 include("mysqli.class.php"); 
@@ -144,7 +144,8 @@ $(document).ready(function(){
 		*/
 		$('#message').val(''); //reset text
 		$(document).scrollTop($(document).height());
-		$(".user_name:not(:contains('<?php echo trim($chatter);?>')):not(:contains('<?php echo trim($chatee);?>')):not(:contains('<?php echo trim($topicinit);?>'))").parent().hide();
+		$(".user_name:not(:contains('<?php echo trim($chatter);?>')):not(:contains('<?php echo trim($chatee);?>'))").parent().hide();
+		$(".user_name:not(:contains('<?php echo trim($topicinit);?>'))").parent().hide();
 		//$(".user_name:not(:contains('<?php echo trim($tempStr);?>')):not(:contains('<?php echo trim($tapid);?>'))").parent().hide();
 	};
 	

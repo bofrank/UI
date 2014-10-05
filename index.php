@@ -299,7 +299,7 @@ header('Expires: 0');
 
                     sessionStorage.mycookie=$scope.myCookie;
 
-                    $("#chatBox").attr("src","index_chat.php?chatter="+$scope.myTopics.myID+"&chatee="+$scope.myTopics.myID+"&topicinit="+$scope.myTopics.myID);
+                    $("#chatBox").attr("src","index_chat.php?chatter="+$scope.myTopics.myID+"&chatee="+$scope.myTopics.myID+"&topicinit=notopic");
                     openChat();
                     toggleChat();
 
@@ -609,7 +609,7 @@ header('Expires: 0');
                     //mark tapid and topics as chatting so that noone else can connect ensuring one 2 one
                     //$(buttonObj).addClass("chatting");
 
-                    $.ajax({url:"stateUpdate.php?topic="+topicinit+'&state=chatting'});
+                    $.ajax({url:"stateUpdate.php?topic="+topicinit+'&state=pending'});
 
                     $("#callchat").css("display","block");
                     $("#buttonOpenPad").css("display","block");
