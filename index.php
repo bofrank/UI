@@ -662,6 +662,17 @@ header('Expires: 0');
                 if (r == true) {
                     //mark tapid and topics as chatting so that noone else can connect ensuring one 2 one
                     //$(buttonObj).addClass("chatting");
+                    
+                    //reset topics on starting chat
+                    if(sessionStorage.topic1!=topicinit){
+                        $.ajax({url:"stateUpdate.php?topic="+sessionStorage.topic1+'&state=available'});
+                    }
+                    if(sessionStorage.topic2!=topicinit){
+                        $.ajax({url:"stateUpdate.php?topic="+sessionStorage.topic2+'&state=available'});
+                    }
+                    if(sessionStorage.topic3!=topicinit){
+                        $.ajax({url:"stateUpdate.php?topic="+sessionStorage.topic3+'&state=available'});
+                    }
 
                     $.ajax({url:"stateUpdate.php?topic="+topicinit+'&state=chatting'});
                     
