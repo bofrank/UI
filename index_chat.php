@@ -26,7 +26,7 @@ body{
 -->
 </style>
 </head>
-<body style="background:#000;">	
+<body>	
 <?php 
 
 include("mysqli.class.php"); 

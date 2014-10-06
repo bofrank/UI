@@ -216,14 +216,35 @@ header('Expires: 0');
 
                         togglePad();
                         //openPad();
-                        $("#chatBox").attr("src","index_chat.php?chatter="+sessionStorage.tapid+"&chatee="+sessionStorage.tapid+"&topicinit=test");
+                        $("#chatBox").attr("src","index_chat.php?chatter="+sessionStorage.tapid+"&chatee="+sessionStorage.tapid+"&topicinit=notopic");
                         openChat();
                         toggleChat();
+
+                        setInterval(function(){$scope.checkTopics()},10000);
                     });
                 }
             }
 
             $scope.submitFormOnRefresh();
+
+            $scope.checkTopics = function(){
+                $http({method: 'GET', url: 'getMyTopics.php?t='+sessionStorage.tapid}).success(function(data2) {
+                    $scope.dataMyTopics = data2;
+                    for(var h=1;h<4;h++){
+                        $("#topic"+h+"button").attr("class","btn btn-primary btn-s topic-button ui-link "+$scope.dataMyTopics[h-1].chatstate);
+                   
+                        if($scope.dataMyTopics[h-1].chatstate=="pending"){
+                            //show pending icon
+                            //angular.element("#topic"+h+"icon").attr("class","icon-pending");
+
+                            angular.element("#topic"+h+"icon").attr("style","width:16px;height:16px;visibility:visible;margin-left:-15px;margin-top:-28px;");
+                        }else{
+                            angular.element("#topic"+h+"icon").attr("style","width:16px;height:16px;visibility:hidden;margin-left:-15px;margin-top:-28px;");
+                        }
+                    
+                    }
+                });
+            }
 
         });
 
@@ -630,6 +651,7 @@ header('Expires: 0');
                             var chosenTapid2 = $f[0].contentWindow.red5phone_getConfig().tapid;
                             $("#chatBox").attr("src","index_chat.php?chatter="+chosenTapid2+"&chatee="+targetTapid+"&topicinit="+topicinit);
                             openChat();
+                            toggleChat();
                             chatActive = "yes";
                             //$http({method: 'GET', url: 'stateUpdate.php?topic='+chosenTopic+'&state=pending'});
                             //$.ajax({url:"stateUpdate.php?topic="+chosenTopic+'&state=pending'});
