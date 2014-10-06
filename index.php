@@ -63,7 +63,7 @@ header('Expires: 0');
             $http({method: 'GET', url: 'getTopics.php', params: { 'topicb': new Date().getTime() }}).success(function(data) {
                 $scope.numbers = data;
                  //$scope.$apply();
-                 $scope.loadDataHotList();
+                $scope.loadDataHotList();
               });
             };
 
@@ -228,7 +228,8 @@ header('Expires: 0');
             $scope.submitFormOnRefresh();
 
             $scope.checkTopics = function(){
-                $http({method: 'GET', url: 'getMyTopics.php?t='+sessionStorage.tapid}).success(function(data2) {
+                $http({method: 'GET', url: 'getMyTopics.php?t='+sessionStorage.tapid, params: { 'topicb': new Date().getTime() }}).success(function(data2) {
+
                     $scope.dataMyTopics = data2;
                     for(var h=1;h<4;h++){
                         $("#topic"+h+"button").attr("class","btn btn-primary btn-s topic-button ui-link "+$scope.dataMyTopics[h-1].chatstate);
@@ -762,17 +763,22 @@ header('Expires: 0');
 
         //runs when browser is refreshed and closed
         $(window).on('beforeunload', function(){
+            
+            var nocache = new Date().getTime();
+
             var tempMyID = $("#myTapidDisplay").text();
-            $.ajax({url:"removeTopics.php?t="+tempMyID});
+            $.ajax({url:"removeTopics.php?t="+tempMyID+"&cache="+nocache});
             var tempTopic = $("#myChosenTopicDisplay").text();
-            $.ajax({url:"stateUpdate.php?topic="+tempTopic+"&state=available"});
+            $.ajax({url:"stateUpdate.php?topic="+tempTopic+"&state=available&cache="+nocache});
+
+            
 
             //if no local data then destroytapid
             if(sessionStorage.topic1){
                 //do nothing
             }else{
                 
-                $.ajax({url:"flashphone/destroytapid.php?t="+tempMyID});
+                $.ajax({url:"flashphone/destroytapid.php?t="+tempMyID+"&cache="+nocache});
             }
             
             //return "Are you sure you want to leave?";
@@ -914,7 +920,8 @@ header('Expires: 0');
 
     <ul id="content" ng-model="numbers">
         <li ng-repeat="whatever in numbers|filter:filterTapId" class="imgs row">
-            <div class="number" onclick="confirmCall($(this).text(),$(this),'notopic')">{{whatever.tapid}}</div>
+            <!--<div class="number" onclick="confirmCall($(this).text(),$(this),'notopic')">{{whatever.tapid}}</div>-->
+            <div class="number" onclick="alert('Please choose a topic.')">{{whatever.tapid}}</div>
             <div style="clear:both;"></div>
 
             <ul data-ng-show="whatever" class="row_topic">

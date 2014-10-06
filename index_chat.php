@@ -50,10 +50,8 @@ if($topicinit=="notopic"){
 	$topic="block";
 }
 
-$handle = $chatter." : ".$chatee." : ".$topicinit;
+$handle = $chatter.":".$chatee." : ".$topicinit;
 //$DB->Query("UPDATE topicb.topics SET chatstate='chatting' WHERE topic='$topic'");
-
-
 
 $colours = array('007AFF','FF7000','FF7000','15E25F','CFC700','CFC700','CF1100','CF00BE','F00');
 $user_colour = array_rand($colours);
@@ -83,7 +81,7 @@ $(document).ready(function(){
 	websocket = new WebSocket(wsUri); 
 	
 	websocket.onopen = function(ev) { // connection is open 
-		$('#message_box').append("<div class=\"system_msg\"><?php echo trim($chatter);?></div>"); //notify user
+		$('#message_box').append("<div class=\"system_msg\">My Id : <?php echo trim($chatter);?> chatting about <?php echo trim($topicinit);?>.</div>"); //notify user
 	}
 
 	$('#send-btn').click(function(){ //use clicks message send button	
@@ -129,12 +127,18 @@ $(document).ready(function(){
 
 		if(type == 'usermsg')
 		{
-			$('#message_box').append("<div class=\"message-box\"><span class=\"user_name\" style=\"color:#fff\">"+uname+"</span> <span style=\"color:#fff;\">:</span> <span class=\"user_message\">"+umsg+"</span></div>");
+			if(uname.substring(0, 10)=='<?php echo trim($chatter);?>'){
+				$('#message_box').append("<div class=\"message-box\" style='margin-left:20px;'><span class=\"user_name\" style=\"color:#fff\">My ID: <span style='display:none;'>"+uname+"</span></span> <span class=\"user_message\">"+umsg+"</span></div>");
+			}else{
+				$('#message_box').append("<div class=\"message-box\" style='margin-right:20px;'><span class=\"user_name\" style=\"color:#fff\"><span style='display:none;'>"+uname+"</span></span> <span class=\"user_message\">"+umsg+"</span></div>");
+			}
+			/*
 			if(umsg==null){
 				parent.$("#topic1button").removeClass("chatting").removeClass("pending");
 				parent.$("#topic2button").removeClass("chatting").removeClass("pending");
 				parent.$("#topic3button").removeClass("chatting").removeClass("pending");
-			}
+			}*/
+
 		}
 		/*
 		if(type == 'system')
