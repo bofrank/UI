@@ -239,6 +239,8 @@ header('Expires: 0');
                             //angular.element("#topic"+h+"icon").attr("class","icon-pending");
 
                             angular.element("#topic"+h+"icon").attr("style","width:16px;height:16px;visibility:visible;margin-left:-15px;margin-top:-28px;");
+                            var $cb = $("#chatBox");
+                            $cb[0].contentWindow.$("#message_box .system_msg").text("Someone wants to chat about "+$("#topic"+h+"button").text()+" Click the topic above to start chatting.");
                         }else{
                             angular.element("#topic"+h+"icon").attr("style","width:16px;height:16px;visibility:hidden;margin-left:-15px;margin-top:-28px;");
                         }
@@ -332,7 +334,7 @@ header('Expires: 0');
             };
 
             $scope.checkTopics = function(){
-                $http({method: 'GET', url: 'getMyTopics.php?t='+$scope.myTopics.myID}).success(function(data2) {
+                $http({method: 'GET', url: 'getMyTopics.php?t='+$scope.myTopics.myID, params: { 'topicb': new Date().getTime() }}).success(function(data2) {
                     $scope.dataMyTopics = data2;
                     for(var h=1;h<4;h++){
                         $("#topic"+h+"button").attr("class","btn btn-primary btn-s topic-button ui-link "+$scope.dataMyTopics[h-1].chatstate);
@@ -342,6 +344,8 @@ header('Expires: 0');
                             //angular.element("#topic"+h+"icon").attr("class","icon-pending");
 
                             angular.element("#topic"+h+"icon").attr("style","width:16px;height:16px;visibility:visible;margin-left:-15px;margin-top:-28px;");
+                            var $cb2 = $("#chatBox");
+                            $cb2[0].contentWindow.$("#message_box .system_msg").text("Someone wants to chat about "+$("#topic"+h+"button").text()+" Click the topic above to start chatting.");
                         }else{
                             angular.element("#topic"+h+"icon").attr("style","width:16px;height:16px;visibility:hidden;margin-left:-15px;margin-top:-28px;");
                         }
@@ -638,8 +642,15 @@ header('Expires: 0');
                     togglePad();
                     
                     if(sessionStorage.topic1){
-                        //do nothing
+                        console.log("session storage is true");
+                        var $z = $("#phoneBox");
+                        var chosenTapid3 = $z[0].contentWindow.red5phone_getConfig().tapid;
+                        $("#chatBox").attr("src","index_chat.php?chatter="+chosenTapid3+"&chatee="+targetTapid+"&topicinit="+topicinit);
+                        openChat();
+                        toggleChat();
+                        chatActive = "yes";
                     }else{
+                        console.log("session storage is false");
                         voiceActive = "yes";
                         //get cookie
                         var newCookie = makeIDonClick();
