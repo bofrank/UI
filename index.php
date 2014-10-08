@@ -255,15 +255,19 @@ header('Expires: 0');
 
             $scope.callCreateTapid = function(){
                 
-                $scope.myCookie = $scope.makeid();
+                var $is_topic=angular.element("#topic1").val();
 
-                angular.element("#phoneBox").attr("src","flashphone/index.php?c="+$scope.myCookie);
-                angular.element("#myIdDisplay").html("My ID: "+$scope.myTapId+" My Password:"+$scope.myCookie);
-                togglePad();
-                angular.element("#myTopicsDisplay").attr("style","display:block;margin-bottom:90px;");
-                angular.element("#phoneBox").load(function(){
-                  $scope.submitForm();
-                });
+                if($is_topic){
+                    $scope.myCookie = $scope.makeid();
+
+                    angular.element("#phoneBox").attr("src","flashphone/index.php?c="+$scope.myCookie);
+                    angular.element("#myIdDisplay").html("My ID: "+$scope.myTapId+" My Password:"+$scope.myCookie);
+                    togglePad();
+                    angular.element("#myTopicsDisplay").attr("style","display:block;margin-bottom:90px;");
+                    angular.element("#phoneBox").load(function(){
+                      $scope.submitForm();
+                    });
+                }
                     
             };
 
