@@ -35,7 +35,7 @@ header('Expires: 0');
     <script src="js/bootstrap.min.js"></script>
     <link href="pp/prettiffy.css" rel="stylesheet">
     <script src="pp/prettify.js"></script>
-    <script src="js/touchSwipe.js"></script>
+    <!--<script src="js/touchSwipe.js"></script>-->
     <script src="js/jquery.scrollto.js"></script>
     <script src="js/modernizr.min.js"></script>
     <script src="js/waypoints.min.js"></script>
@@ -48,8 +48,8 @@ header('Expires: 0');
     <!--<link href="css/animate.css" rel="stylesheet">-->
     
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/idangerous.swiper.css">
-    <script defer src="js/idangerous.swiper.js"></script>
+    <!--<link rel="stylesheet" href="css/idangerous.swiper.css">-->
+    <!--<script defer src="js/idangerous.swiper.js"></script>-->
     
     <script>
 
@@ -427,7 +427,7 @@ header('Expires: 0');
             $scope.prop2 = "Second";
             $scope.both = sharedProperties.getProperty() + $scope.prop2;
         }   
-
+/*
         $(".row_topic").each(function(){
             // Bind the swipeHandler callback function to the swipe event on div.box
             $(this).on("swipe",swipeHandler);
@@ -438,8 +438,10 @@ header('Expires: 0');
                 $.event.special.swipe.start;
             };
         });
-    </script>
-    <script id='code_1'>
+*/
+
+
+    /*
         var IMG_WIDTH = 180;
         var currentImg = 0;
         var maxImages = 10;
@@ -452,7 +454,7 @@ header('Expires: 0');
             swipeStatus: swipeStatus,
             allowPageScroll: "vertical",
             threshold: 75
-        };
+        };*/
 /*
         $("ul.row_topic").each(function () {
             //imgs = $("#imgs");
@@ -467,6 +469,7 @@ header('Expires: 0');
      * cancel : we animate back to where we were
      * end : we animate to the next image
      */
+     /*
         function swipeStatus(event, phase, direction, distance) {
             //If we are moving before swipe, and we are going L or R in X mode, or U or D in Y mode then drag.
             if (phase == "move" && (direction == "left" || direction == "right")) {
@@ -499,7 +502,7 @@ header('Expires: 0');
             scrollImages(IMG_WIDTH * currentImg, speed);
             
         }
-
+*/
         /**
          * Manually update the position of the imgs on drag
          */
