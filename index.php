@@ -11,12 +11,12 @@ header('Expires: 0');
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
+    <!--<link rel="icon" href="../../favicon.ico">-->
 
     <title>TopicB</title>
     
     <script src="js/swfobject.js"></script>
-    <link href="css/flexslider.css" rel="stylesheet">
+    <!--<link href="css/flexslider.css" rel="stylesheet">-->
     <link href="css/starter-template.css" rel="stylesheet">
     <script src="js/ie10-viewport-bug-workaround.js"></script>
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -832,7 +832,7 @@ header('Expires: 0');
         </div>
         <div class="collapse navbar-collapse navbar-right">
           <ul class="nav navbar-nav">
-            <li id="navTalk"><a class="scrollto" href="#phonepad" id="nav_connect">Talk</a></li>
+            <!--<li id="navTalk"><a class="scrollto" href="#phonepad" id="nav_connect">Talk</a></li>-->
             <li id="navTopics"><a class="scrollto" href="#hottopics">Topics</a></li>
             <li id="navCategories"><a class="scrollto" href="#categories">Categories</a></li>
             <li id="navHowTo"><a class="scrollto" href="#howto">How To Use</a></li>
@@ -844,7 +844,7 @@ header('Expires: 0');
       </div>
     </div>
 
-      <div class="starter-template">
+      <div id="home" class="starter-template">
         <div class="topic-input-container">
 
             <form id="TopicSubmitForm" class="form-inline" ng-submit="callCreateTapid(myTopics)" ng-controller="TopicSubmitController">
@@ -882,19 +882,19 @@ header('Expires: 0');
                   <a class="btn btn-primary btn-s topic-button" id="topic1button" onclick="startChat($(this).parent().parent().parent().children(':first-child').text(),$(this))">
                     this is topic 1
                   </a>
-                  <img id="topic1icon" src="images/pending.png" style="width:16px;height:16px;visibility:hidden;margin-left:-15px;margin-top:-28px;" />
+                  <img id="topic1icon" src="images/pending.png" style="width:16px;height:16px;visibility:hidden;margin-left:-15px;margin-top:-28px;" alt="pending" />
                 </li>
                 <li class="column">
                   <a class="btn btn-primary btn-s topic-button" id="topic2button" onclick="startChat($(this).parent().parent().parent().children(':first-child').text(),$(this))">
                     this is topic 2
                   </a>
-                  <img id="topic2icon" src="images/pending.png" style="width:16px;height:16px;visibility:hidden;margin-top:-28px;" />
+                  <img id="topic2icon" src="images/pending.png" style="width:16px;height:16px;visibility:hidden;margin-top:-28px;" alt="pending" />
                 </li>
                 <li class="column">
                   <a class="btn btn-primary btn-s topic-button" id="topic3button" onclick="startChat($(this).parent().parent().parent().children(':first-child').text(),$(this))">
                     this is topic 3
                   </a>
-                  <img id="topic3icon" src="images/pending.png" style="width:16px;height:16px;visibility:hidden;margin-top:-28px;" />
+                  <img id="topic3icon" src="images/pending.png" style="width:16px;height:16px;visibility:hidden;margin-top:-28px;" alt="pending" />
                 </li>
             </ul>
 
@@ -1007,7 +1007,7 @@ header('Expires: 0');
 
         <div class="container">
 
-            <img src="images/ad.jpg" class="ad-img" />
+            <img src="images/ad.jpg" class="ad-img" alt="ad" />
 
         </div>
 
@@ -1016,18 +1016,18 @@ header('Expires: 0');
 
     <section id="categories" class="section-categories">
 
-        <div class="container" class="scrollimation fade-left">
+        <div class="container">
 
-            <div >
+            <div class="scrollimation fade-left">
                 <h2>Categories</h2>
 
-                <h3 class="categories-container">
+                <div class="categories-container">
                     <div class="category-container" ng-controller="ScrollController">
                         <a class="scrollto ui-link btn btn-primary btn-s category-button" ng-click="chatStart('food')">
                             food
                         </a>
                     </div>
-                </h3>
+                </div>
             
             </div>
 
@@ -1053,14 +1053,14 @@ header('Expires: 0');
                     Your topics will be created for other people to connect to.
                 </h5>
 
-                <p>
+               
                     <div style="float:left;margin-top:55px;color:#317eac;">
                         <i class="fa fa-arrow-right" style="font-size:30px;"></i>
                     </div>
                     <div>
-                        <img src="images/howto1.jpg">
+                        <img src="images/howto1.jpg" alt="enter a topic" />
                     </div>
-                </p>
+                
                 <br>
                 <br>
 
@@ -1071,14 +1071,14 @@ header('Expires: 0');
                 </h5>
                 
 
-                <p>
+             
                     <div style="float:left;margin-top:20px;color:#317eac;">
                         <i class="fa fa-arrow-right" style="font-size:30px;"></i>
                     </div>
                     <div>
-                        <img src="images/howto2.jpg">
+                        <img src="images/howto2.jpg" alt="click on a topic" />
                     </div>
-                </p>
+               
                 <br>
                 <br>
 
@@ -1089,24 +1089,24 @@ header('Expires: 0');
                     You can click on a number to talk to someone about the topics under that number.
                 </h5>
 
-                <p>
+             
                     <div style="float:left;margin-top:-3px;color:#317eac;">
                         <i class="fa fa-arrow-right" style="font-size:30px;"></i>
                     </div>
                     <div>
-                        <img src="images/howto2.jpg">
+                        <img src="images/howto2.jpg" alt="click on a number" />
                     </div>
                     <div style="clear:both;"></div>
                     <h5>Click "allow" on the phone pad.</h5>
                     <div>
-                        <img src="images/howto4.jpg">
+                        <img src="images/howto4.jpg" alt="click allow">
                     </div>
                     <h5>Dial the number for the topic you would like to talk about.</h5>
                     <div>
-                        <img src="images/howto5.jpg">
+                        <img src="images/howto5.jpg" alt="enter the number" />
                     </div>
                     <div style="clear:both;"></div>
-                </p>
+            
                 <br>
                 <br>
 
@@ -1117,14 +1117,14 @@ header('Expires: 0');
                     You can click on a Hot Topic and more information will be shown below.
                 </h5>
 
-                <p>
+             
                     <div style="float:left;margin-top:18px;color:#317eac;">
                         <i class="fa fa-arrow-right" style="font-size:30px;"></i>
                     </div>
                     <div>
-                        <img src="images/howto3.jpg">
+                        <img src="images/howto3.jpg" alt="click on hot topic" />
                     </div>
-                </p>
+                
                 <br>
                 <br>
             
@@ -1168,7 +1168,7 @@ header('Expires: 0');
                 </h2>
 
                 <p>
-                    This is an agreement between TopicB, INC. a Washington corporation ("TopicB"), the owner and operator of www.TopicB.com (the "TopicB Site"), the TopicB software &amp; Services, and you ("you" or "You"), a user of the Service. BY USING THE SERVICE, YOU ACKNOWLEDGE AND AGREE TO THESE TERMS OF SERVICE, AND TOPICB'S PRIVACY POLICY, WHICH CAN BE FOUND AT <a href="http://www.topicb.com/index.php#privacy">http://www.TopicB.com/privacy.html</a>, AND WHICH ARE INCORPORATED HEREIN BY REFERENCE. If you choose to not agree with any of these terms, you may not use the Service. 
+                    This is an agreement between TopicB, INC. a Washington corporation ("TopicB"), the owner and operator of www.TopicB.com (the "TopicB Site"), the TopicB software &amp; Services, and you ("you" or "You"), a user of the Service. BY USING THE SERVICE, YOU ACKNOWLEDGE AND AGREE TO THESE TERMS OF SERVICE, AND TOPICB'S PRIVACY POLICY, WHICH CAN BE FOUND AT <a class="scrollto" href="#privacypolicy">http://www.TopicB.com/#privacypolicy</a>, AND WHICH ARE INCORPORATED HEREIN BY REFERENCE. If you choose to not agree with any of these terms, you may not use the Service. 
                 </p>
 
                 <h2>
@@ -1274,9 +1274,8 @@ The Service is controlled and offered by TopicB from its facilities in the Unite
                     You agree that: (i) the TopicB Service shall be deemed solely based in Washington; (ii) the TopicB Service shall be deemed a passive server that does not give rise to personal jurisdiction over TopicB, either specific or general, in jurisdictions other than Washington; and (iii) that you agree to subject to the jurisdiction of Washington in the event of any legal dispute. These Terms of Service shall be governed by the internal substantive laws of the State of Washington, without respect to its conflict of laws principles. Any claim or dispute between you and TopicB that arises in whole or in part from the TopicB Service shall be decided exclusively by a court of competent jurisdiction located in King County, Washington. These Terms of Service, together with the Privacy Policy at http://www.TopicB.com/legal/#Privacy and any other legal notices published by TopicB, including, but not limited to an end user license agreement, shall constitute the entire agreement between you and TopicB concerning the TopicB Service. If any provision of these Terms of Service is deemed invalid by a court of competent jurisdiction, the invalidity of such provision shall not affect the validity of the remaining provisions of these Terms of Service, which shall remain in full force and effect. No waiver of any term of this these Terms of Service shall be deemed a further or continuing waiver of such term or any other term, and TopicB's failure to assert any right or provision under these Terms of Service shall not constitute a waiver of such right or provision. TopicB reserves the right to amend or modify these Terms of Service at any time, and it is your responsibility to review these Terms of Service for any changes. If you do not agree to the revised Terms, your only recourse is to discontinue the use of the TopicB Service. Your continued use of the TopicB Service following any amendment of these Terms of Service will signify your assent to and acceptance of its revised terms. YOU AND TOPICB AGREE THAT ANY CAUSE OF ACTION ARISING OUT OF OR RELATED TO THE TOPICB SERVICE MUST COMMENCE WITHIN ONE (1) YEAR AFTER THE CAUSE OF ACTION ACCRUES. OTHERWISE, SUCH CAUSE OF ACTION IS PERMANENTLY BARRED. 
                 </p>
 
-                <a name="privacy"></a>
-                <br>
-                <br>
+                <div id="privacypolicy"></div>
+                
                 <br>
                 <h2>
                     Privacy Notice

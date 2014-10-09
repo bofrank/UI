@@ -68,7 +68,7 @@ echo "strPassWord = '".$array['password']."';\n";
 	<div class="buttons">
 			<div class="container btn-reload" onClick="window.location = '.'">
 
-		    <a class="ui-link btn btn-primary btn-s btn-main">Reload</a>
+		    <a class="ui-link btn btn-primary btn-s btn-main">Reload App</a>
 
 			</div>
 			<div style="clear:both;"></div>
