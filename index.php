@@ -35,7 +35,6 @@ header('Expires: 0');
     <script src="js/bootstrap.min.js"></script>
     <link href="pp/prettiffy.css" rel="stylesheet">
     <script src="pp/prettify.js"></script>
-    <!--<script src="js/touchSwipe.js"></script>-->
     <script src="js/jquery.scrollto.js"></script>
     <script src="js/modernizr.min.js"></script>
     <script src="js/waypoints.min.js"></script>
@@ -48,8 +47,6 @@ header('Expires: 0');
     <!--<link href="css/animate.css" rel="stylesheet">-->
     
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-    <!--<link rel="stylesheet" href="css/idangerous.swiper.css">-->
-    <!--<script defer src="js/idangerous.swiper.js"></script>-->
     
     <script>
 
@@ -360,8 +357,6 @@ header('Expires: 0');
 
         });
 
-        
-
 
         topicApp.controller('QueryCntl', function ($scope,$location,sharedProperties){
             $scope.target = $location.search()['topic'];
@@ -427,94 +422,7 @@ header('Expires: 0');
             $scope.prop2 = "Second";
             $scope.both = sharedProperties.getProperty() + $scope.prop2;
         }   
-/*
-        $(".row_topic").each(function(){
-            // Bind the swipeHandler callback function to the swipe event on div.box
-            $(this).on("swipe",swipeHandler);
 
-            // Callback function references the event target and adds the 'swipe' class to it
-            function swipeHandler(event){
-                //$( event.target ).addClass( "swipe" );
-                $.event.special.swipe.start;
-            };
-        });
-*/
-
-
-    /*
-        var IMG_WIDTH = 180;
-        var currentImg = 0;
-        var maxImages = 10;
-        var speed = 500;
-
-        var imgs;
-
-        var swipeOptions = {
-            triggerOnTouchEnd: true,
-            swipeStatus: swipeStatus,
-            allowPageScroll: "vertical",
-            threshold: 75
-        };*/
-/*
-        $("ul.row_topic").each(function () {
-            //imgs = $("#imgs");
-            //imgs = $(this);
-            $(this).swipe(swipeOptions);
-        });
-*/
-
-    /**
-     * Catch each phase of the swipe.
-     * move : we drag the div
-     * cancel : we animate back to where we were
-     * end : we animate to the next image
-     */
-     /*
-        function swipeStatus(event, phase, direction, distance) {
-            //If we are moving before swipe, and we are going L or R in X mode, or U or D in Y mode then drag.
-            if (phase == "move" && (direction == "left" || direction == "right")) {
-                var duration = 0;
-
-                if (direction == "left") {
-                    scrollImages((IMG_WIDTH * currentImg) + distance, duration);
-                } else if (direction == "right") {
-                    scrollImages((IMG_WIDTH * currentImg) - distance, duration);
-                }
-
-            } else if (phase == "cancel") {
-                scrollImages(IMG_WIDTH * currentImg, speed);
-            } else if (phase == "end") {
-                if (direction == "right") {
-                    previousImage();
-                } else if (direction == "left") {
-                    nextImage();
-                }
-            }
-        }
-
-        function previousImage() {
-            currentImg = Math.max(currentImg - 1, 0);
-            scrollImages(IMG_WIDTH * currentImg, speed);
-        }
-
-        function nextImage() {
-            currentImg = Math.min(currentImg + 1, maxImages - 1);
-            scrollImages(IMG_WIDTH * currentImg, speed);
-            
-        }
-*/
-        /**
-         * Manually update the position of the imgs on drag
-         */
-         /*
-        function scrollImages(distance, duration) {
-            imgs.css("transition-duration", (duration / 1000).toFixed(1) + "s");
-
-            //inverse the number we set in the css
-            var value = (distance < 0 ? "" : "-") + Math.abs(distance).toString();
-            imgs.css("transform", "translate(" + value + "px,0)");
-        }
-*/
         $( document ).ready(function() {
             $("#myTapidDisplay").text(sessionStorage.tapid);
             $("#myPasswordDisplay").text(sessionStorage.mycookie);
@@ -683,11 +591,6 @@ header('Expires: 0');
                 alert("chat is busy");
             }
 
- 
-                
-
-
-
         }
 
         function startChat(myTapid,buttonObj){
@@ -734,23 +637,6 @@ header('Expires: 0');
 
         }
 
-/*
-        function confirmChat(chosenTapid,buttonObj){
-            var chosenTopic = $.trim($(buttonObj).text());
-            $("#myChosenTopicDisplay").text(chosenTopic);
-            console.log("chosenTopic ="+chosenTopic);
-            var q=confirm("Do you want to chat about "+chosenTopic+"?");
-            if (q == true) {
-                $(buttonObj).addClass("chatting");
-                $("#callchat").css("display","block");
-                $("#buttonOpenChat").css("display","block");
-                $("#chatBox").attr("src","index_chat.php?tapid="+chosenTapid+"&topic="+chosenTopic);
-                openChat();
-                chatActive = "yes";
-                $.ajax({url:"stateUpdate.php?topic="+chosenTopic+'&state=chatting'});
-            }
-        }
-*/
         function requestChat(chosenTapid,chosenTopic){
             //var chosenTopic = $.trim($(buttonObj).text());
             $("#myChosenTopicDisplay").text(chosenTopic);
