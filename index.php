@@ -1146,7 +1146,7 @@ header('Expires: 0');
                 </h3>
                 <div>
                     <pre><code>
-                        &lt;iframe width=&quot;320&quot; height=&quot;540&quot; src=&quot;http://54.68.58.129&quot; style=&quot;width:320px;height:540px;border:none;&quot;&gt;&lt;/iframe&gt;
+                        &lt;iframe width=&quot;320&quot; height=&quot;540&quot; src=&quot;http://topicb.com&quot; style=&quot;width:320px;height:540px;border:none;&quot;&gt;&lt;/iframe&gt;
                     </code></pre>
                 </div>
             
@@ -1419,14 +1419,14 @@ This Privacy Notice was last modified September 30th, 2014
 <br>
 <div style="text-align:center;">
 <div onclick="$('#privacy').toggle();" style="color:#fff;cursor:pointer;">Privacy and Terms of Service</div>
-&copy;copyright 2014 TopicB
+&copy;copyright 2014 TopicB <a href="mailto:&#105;&#110;&#102;&#111;&#064;&#116;&#111;&#112;&#105;&#099;&#098;&#046;&#099;&#111;&#109;" style="color:#fff;">&#105;&#110;&#102;&#111;&#064;&#116;&#111;&#112;&#105;&#099;&#098;&#046;&#099;&#111;&#109;</a>
 </div>
 <br>
 <br>
 
 
 
-    <div>
+    <div style="visibility:hidden;">
     <div id="myTapidDisplay"></div>
     <div id="myPasswordDisplay"></div>
     <div id="myChosenTopicDisplay"></div>
