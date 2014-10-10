@@ -102,7 +102,7 @@ echo "strPassWord = '".$array['password']."';\n";
         topicApp.controller('topicCtrl', function ($scope,$http,$location,$anchorScroll,$timeout){
 
             $scope.loadData = function () {
-            $http({method: 'GET', url: 'getTopics.php', params: { 'topicb': new Date().getTime() }}).success(function(data) {
+            $http({method: 'GET', url: '../getTopics.php', params: { 'topicb': new Date().getTime() }}).success(function(data) {
                 $scope.numbers = data;
                  //$scope.$apply();
                 $scope.loadDataHotList();
@@ -113,7 +113,7 @@ echo "strPassWord = '".$array['password']."';\n";
             setInterval(function(){$scope.loadData();},5000);
 
             $scope.loadDataHotList = function () {
-            $http({method: 'GET', url: 'getHotTopics.php', params: { 'topicb': new Date().getTime() }}).success(function(data) {
+            $http({method: 'GET', url: '../getHotTopics.php', params: { 'topicb': new Date().getTime() }}).success(function(data) {
                 $scope.hotlist = data;
                 numberFormat();
               });
@@ -233,7 +233,7 @@ echo "strPassWord = '".$array['password']."';\n";
 
                     $scope.myTopics.myID = sessionStorage.tapid;
 
-                    $http.post('submitTopics.php', $scope.myTopics).success(function(){
+                    $http.post('../submitTopics.php', $scope.myTopics).success(function(){
 
                         angular.element(".starter-template").html("<span class='message-create'>Your topics have been recreated below.</span>");
                         $scope.loadData();
@@ -254,11 +254,11 @@ echo "strPassWord = '".$array['password']."';\n";
 
                         angular.element("#callchat").attr("style","display:block;").attr("style","background:none;");
 
-                        $("#phoneBox").attr("src","flashphone/index.php?c="+sessionStorage.mycookie);
+                        $("#phoneBox").attr("src","../flashphone/index.php?c="+sessionStorage.mycookie);
 
                         togglePad();
                         //openPad();
-                        $("#chatBox").attr("src","index_chat.php?chatter="+sessionStorage.tapid+"&chatee="+sessionStorage.tapid+"&topicinit=notopic");
+                        $("#chatBox").attr("src","../index_chat.php?chatter="+sessionStorage.tapid+"&chatee="+sessionStorage.tapid+"&topicinit=notopic");
                         openChat();
                         toggleChat();
 
@@ -270,7 +270,7 @@ echo "strPassWord = '".$array['password']."';\n";
             $scope.submitFormOnRefresh();
 
             $scope.checkTopics = function(){
-                $http({method: 'GET', url: 'getMyTopics.php?t='+sessionStorage.tapid, params: { 'topicb': new Date().getTime() }}).success(function(data2) {
+                $http({method: 'GET', url: '../getMyTopics.php?t='+sessionStorage.tapid, params: { 'topicb': new Date().getTime() }}).success(function(data2) {
 
                     $scope.dataMyTopics = data2;
                     for(var h=1;h<4;h++){
@@ -302,7 +302,7 @@ echo "strPassWord = '".$array['password']."';\n";
                 if($is_topic){
                     $scope.myCookie = $scope.makeid();
 
-                    angular.element("#phoneBox").attr("src","flashphone/index.php?c="+$scope.myCookie);
+                    angular.element("#phoneBox").attr("src","../flashphone/index.php?c="+$scope.myCookie);
                     angular.element("#myIdDisplay").html("My ID: "+$scope.myTapId+" My Password:"+$scope.myCookie);
                     togglePad();
                     angular.element("#myTopicsDisplay").attr("style","display:block;margin-bottom:90px;");
@@ -329,7 +329,7 @@ echo "strPassWord = '".$array['password']."';\n";
                 $scope.myTopics.myID = angular.element('#phoneBox')[0].contentWindow.red5phone_getConfig().tapid;
                 sessionStorage.tapid=$scope.myTopics.myID;
 
-                $http.post('submitTopics.php', JSON.stringify($scope.myTopics)).success(function(){
+                $http.post('../submitTopics.php', JSON.stringify($scope.myTopics)).success(function(){
                     //console.log("success");
                     angular.element(".starter-template").html("<span class='message-create'>Thanks! Your topics have been created below.</span>");
                     $scope.loadData();
@@ -369,7 +369,7 @@ echo "strPassWord = '".$array['password']."';\n";
 
                     sessionStorage.mycookie=$scope.myCookie;
 
-                    $("#chatBox").attr("src","index_chat.php?chatter="+$scope.myTopics.myID+"&chatee="+$scope.myTopics.myID+"&topicinit=notopic");
+                    $("#chatBox").attr("src","../index_chat.php?chatter="+$scope.myTopics.myID+"&chatee="+$scope.myTopics.myID+"&topicinit=notopic");
                     openChat();
                     toggleChat();
 
@@ -380,7 +380,7 @@ echo "strPassWord = '".$array['password']."';\n";
             };
 
             $scope.checkTopics = function(){
-                $http({method: 'GET', url: 'getMyTopics.php?t='+$scope.myTopics.myID, params: { 'topicb': new Date().getTime() }}).success(function(data2) {
+                $http({method: 'GET', url: '../getMyTopics.php?t='+$scope.myTopics.myID, params: { 'topicb': new Date().getTime() }}).success(function(data2) {
                     $scope.dataMyTopics = data2;
                     for(var h=1;h<4;h++){
                         $("#topic"+h+"button").attr("class","btn btn-primary btn-s topic-button ui-link "+$scope.dataMyTopics[h-1].chatstate);
@@ -543,9 +543,9 @@ echo "strPassWord = '".$array['password']."';\n";
                 var t2 = $(buttonObj).parent().parent().children().eq(1).text().trim();
                 var t3 = $(buttonObj).parent().parent().children().eq(2).text().trim();
 
-                $.ajax({url:"stateUpdate.php?topic="+t1+'&state=chatting'});
-                $.ajax({url:"stateUpdate.php?topic="+t2+'&state=chatting'});
-                $.ajax({url:"stateUpdate.php?topic="+t3+'&state=chatting'});
+                $.ajax({url:"../stateUpdate.php?topic="+t1+'&state=chatting'});
+                $.ajax({url:"../stateUpdate.php?topic="+t2+'&state=chatting'});
+                $.ajax({url:"../stateUpdate.php?topic="+t3+'&state=chatting'});
 
                 $("#callchat").css("display","block");
                 $("#buttonOpenPad").css("display","block");
@@ -558,13 +558,13 @@ echo "strPassWord = '".$array['password']."';\n";
                     //get cookie
                     var newCookie = makeIDonClick();
                     //load phone
-                    $("#phoneBox").attr("src","flashphone/index.php?c="+newCookie);
+                    $("#phoneBox").attr("src","../flashphone/index.php?c="+newCookie);
                     //put load function here
                     $("#phoneBox").load(function(){
                       //confirmChat(chosenTapid,buttonObj);
                       var $f = $("#phoneBox");
                         var chosenTapid2 = $f[0].contentWindow.red5phone_getConfig().tapid;
-                        $("#chatBox").attr("src","index_chat.php?tapid="+chosenTapid2+"&topic="+id2call+"&topicinit="+topicinit);
+                        $("#chatBox").attr("src","../index_chat.php?tapid="+chosenTapid2+"&topic="+id2call+"&topicinit="+topicinit);
                         openChat();
                         chatActive = "yes";
                         //$http({method: 'GET', url: 'stateUpdate.php?topic='+chosenTopic+'&state=pending'});
@@ -595,7 +595,7 @@ echo "strPassWord = '".$array['password']."';\n";
                     //mark tapid and topics as chatting so that noone else can connect ensuring one 2 one
                     //$(buttonObj).addClass("chatting");
 
-                    $.ajax({url:"stateUpdate.php?topic="+topicinit+'&state=pending'});
+                    $.ajax({url:"../stateUpdate.php?topic="+topicinit+'&state=pending'});
 
                     $("#callchat").css("display","block");
                     $("#buttonOpenPad").css("display","block");
@@ -605,7 +605,7 @@ echo "strPassWord = '".$array['password']."';\n";
                         console.log("session storage is true");
                         var $z = $("#phoneBox");
                         var chosenTapid3 = $z[0].contentWindow.red5phone_getConfig().tapid;
-                        $("#chatBox").attr("src","index_chat.php?chatter="+chosenTapid3+"&chatee="+targetTapid+"&topicinit="+topicinit);
+                        $("#chatBox").attr("src","../index_chat.php?chatter="+chosenTapid3+"&chatee="+targetTapid+"&topicinit="+topicinit);
                         openChat();
                         toggleChat();
                         chatActive = "yes";
@@ -615,13 +615,13 @@ echo "strPassWord = '".$array['password']."';\n";
                         //get cookie
                         var newCookie = makeIDonClick();
                         //load phone
-                        $("#phoneBox").attr("src","flashphone/index.php?c="+newCookie);
+                        $("#phoneBox").attr("src","../flashphone/index.php?c="+newCookie);
                         //put load function here
                         $("#phoneBox").load(function(){
                           //confirmChat(chosenTapid,buttonObj);
                           var $f = $("#phoneBox");
                             var chosenTapid2 = $f[0].contentWindow.red5phone_getConfig().tapid;
-                            $("#chatBox").attr("src","index_chat.php?chatter="+chosenTapid2+"&chatee="+targetTapid+"&topicinit="+topicinit);
+                            $("#chatBox").attr("src","../index_chat.php?chatter="+chosenTapid2+"&chatee="+targetTapid+"&topicinit="+topicinit);
                             openChat();
                             toggleChat();
                             chatActive = "yes";
@@ -654,16 +654,16 @@ echo "strPassWord = '".$array['password']."';\n";
                     
                     //reset topics on starting chat
                     if(sessionStorage.topic1!=topicinit){
-                        $.ajax({url:"stateUpdate.php?topic="+sessionStorage.topic1+'&state=available'});
+                        $.ajax({url:"../stateUpdate.php?topic="+sessionStorage.topic1+'&state=available'});
                     }
                     if(sessionStorage.topic2!=topicinit){
-                        $.ajax({url:"stateUpdate.php?topic="+sessionStorage.topic2+'&state=available'});
+                        $.ajax({url:"../stateUpdate.php?topic="+sessionStorage.topic2+'&state=available'});
                     }
                     if(sessionStorage.topic3!=topicinit){
-                        $.ajax({url:"stateUpdate.php?topic="+sessionStorage.topic3+'&state=available'});
+                        $.ajax({url:"../stateUpdate.php?topic="+sessionStorage.topic3+'&state=available'});
                     }
 
-                    $.ajax({url:"stateUpdate.php?topic="+topicinit+'&state=chatting'});
+                    $.ajax({url:"../stateUpdate.php?topic="+topicinit+'&state=chatting'});
                     
 
                     voiceActive = "yes";
@@ -672,7 +672,7 @@ echo "strPassWord = '".$array['password']."';\n";
                       //confirmChat(chosenTapid,buttonObj);
                       var $f = $("#phoneBox");
                         var chosenTapid2 = $f[0].contentWindow.red5phone_getConfig().tapid;
-                        $("#chatBox").attr("src","index_chat.php?chatter="+chosenTapid2+"&chatee="+targetTapid+"&topicinit="+topicinit);
+                        $("#chatBox").attr("src","../index_chat.php?chatter="+chosenTapid2+"&chatee="+targetTapid+"&topicinit="+topicinit);
                         openChat();
                         chatActive = "yes";
                         //$http({method: 'GET', url: 'stateUpdate.php?topic='+chosenTopic+'&state=pending'});
@@ -691,11 +691,11 @@ echo "strPassWord = '".$array['password']."';\n";
                 //$(buttonObj).addClass("pending");
                 $("#callchat").css("display","block");
                 $("#buttonOpenChat").css("display","block");
-                $("#chatBox").attr("src","index_chat.php?chatter="+chosenTapid+"&chatee="+chosenTopic);
+                $("#chatBox").attr("src","../index_chat.php?chatter="+chosenTapid+"&chatee="+chosenTopic);
                 openChat();
                 chatActive = "yes";
                 //$http({method: 'GET', url: 'stateUpdate.php?topic='+chosenTopic+'&state=pending'});
-                $.ajax({url:"stateUpdate.php?topic="+chosenTopic+'&state=pending'});
+                $.ajax({url:"../stateUpdate.php?topic="+chosenTopic+'&state=pending'});
             }
         }
 
@@ -716,9 +716,9 @@ echo "strPassWord = '".$array['password']."';\n";
             var nocache = new Date().getTime();
 
             var tempMyID = $("#myTapidDisplay").text();
-            $.ajax({url:"removeTopics.php?t="+tempMyID+"&cache="+nocache});
+            $.ajax({url:"../removeTopics.php?t="+tempMyID+"&cache="+nocache});
             var tempTopic = $("#myChosenTopicDisplay").text();
-            $.ajax({url:"stateUpdate.php?topic="+tempTopic+"&state=available&cache="+nocache});
+            $.ajax({url:"../stateUpdate.php?topic="+tempTopic+"&state=available&cache="+nocache});
 
             
 
@@ -727,7 +727,7 @@ echo "strPassWord = '".$array['password']."';\n";
                 //do nothing
             }else{
                 
-                $.ajax({url:"flashphone/destroytapid.php?t="+tempMyID+"&cache="+nocache});
+                $.ajax({url:"../flashphone/destroytapid.php?t="+tempMyID+"&cache="+nocache});
             }
             
             //return "Are you sure you want to leave?";
@@ -761,7 +761,7 @@ echo "strPassWord = '".$array['password']."';\n";
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-            <div class="logo-container">
+            <div class="container-logo">
                 <a class="navbar-brand scrollto" href="#home"><img src="images/logo.gif" alt="TopicB" /></a>
             </div>
         </div>
@@ -980,9 +980,10 @@ echo "strPassWord = '".$array['password']."';\n";
                     <div style="float:left;margin-top:55px;color:#317eac;">
                         <i class="fa fa-arrow-right" style="font-size:30px;"></i>
                     </div>
-                    <div>
-                        <img src="images/howto1.jpg" alt="enter a topic" />
+                    <div style="float:left;">
+                        <img src="images/howto1.jpg" alt="enter a topic" style="width:100%;max-width:561px;" />
                     </div>
+                    <div style="clear:both;"></div>
                 
                 <br>
                 <br>
@@ -999,7 +1000,7 @@ echo "strPassWord = '".$array['password']."';\n";
                         <i class="fa fa-arrow-right" style="font-size:30px;"></i>
                     </div>
                     <div>
-                        <img src="images/howto2.jpg" alt="click on a topic" />
+                        <img src="images/howto2.jpg" alt="click on a topic" style="width:100%;max-width:458px;" />
                     </div>
                
                 <br>
@@ -1017,16 +1018,16 @@ echo "strPassWord = '".$array['password']."';\n";
                         <i class="fa fa-arrow-right" style="font-size:30px;"></i>
                     </div>
                     <div>
-                        <img src="images/howto2.jpg" alt="click on a number" />
+                        <img src="images/howto2.jpg" alt="click on a number" style="width:100%;max-width:458px;" />
                     </div>
                     <div style="clear:both;"></div>
                     <h5>Click "allow" on the phone pad.</h5>
                     <div>
-                        <img src="images/howto4.jpg" alt="click allow">
+                        <img src="images/howto4.jpg" alt="click allow" style="width:100%;max-width:191px;">
                     </div>
                     <h5>Dial the number for the topic you would like to talk about.</h5>
                     <div>
-                        <img src="images/howto5.jpg" alt="enter the number" />
+                        <img src="images/howto5.jpg" alt="enter the number" style="width:100%;max-width:191px;" />
                     </div>
                     <div style="clear:both;"></div>
             
@@ -1045,7 +1046,7 @@ echo "strPassWord = '".$array['password']."';\n";
                         <i class="fa fa-arrow-right" style="font-size:30px;"></i>
                     </div>
                     <div>
-                        <img src="images/howto3.jpg" alt="click on hot topic" />
+                        <img src="images/howto3.jpg" alt="click on hot topic" style="width:100%;max-width:371px;" />
                     </div>
                 
                 <br>
