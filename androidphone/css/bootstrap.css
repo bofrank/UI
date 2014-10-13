@@ -6193,15 +6193,15 @@ button.close {
   color: #2fa4e7;
 }
 .navbar-inverse {
-  background-image: -webkit-linear-gradient(140deg, #d9edee, #fff);
-  background-image: -o-linear-gradient(140deg, #d9edee, #fff);
-  background-image: linear-gradient(140deg, #d9edee, #fff);
+  background-image: -webkit-linear-gradient(140deg, #fff, #d9edee);
+  background-image: -o-linear-gradient(140deg, #fff, #d9edee);
+  background-image: linear-gradient(140deg, #fff, #d9edee);
   background-repeat: no-repeat;
   /*
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff04519b', endColorstr='#ff033769', GradientType=0);
   filter: none;
   */
-  background: linear-gradient(140deg, #d9edee, #fff);
+  background: linear-gradient(140deg, #fff, #d9edee);
   border-bottom: 1px solid #022241;
 }
 .navbar-inverse .badge {

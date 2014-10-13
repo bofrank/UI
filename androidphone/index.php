@@ -69,6 +69,7 @@ socket_close( $socket );
 
 echo "strTapId = '".$array['tapid']."';\n";
 echo "strPassWord = '".$array['password']."';\n";
+
 ?>
 
 		function login()
@@ -260,7 +261,7 @@ echo "strPassWord = '".$array['password']."';\n";
                         //openPad();
                         $("#chatBox").attr("src","../index_chat.php?chatter="+sessionStorage.tapid+"&chatee="+sessionStorage.tapid+"&topicinit=notopic");
                         openChat();
-                        toggleChat();
+                        //toggleChat();
 
                         setInterval(function(){$scope.checkTopics()},10000);
                     });
@@ -300,7 +301,8 @@ echo "strPassWord = '".$array['password']."';\n";
                 var $is_topic=angular.element("#topic1").val();
 
                 if($is_topic){
-                    $scope.myCookie = $scope.makeid();
+                    //$scope.myCookie = $scope.makeid();
+                    $scope.myCookie = strTapId;
 
                     angular.element("#phoneBox").attr("src","../flashphone/index.php?c="+$scope.myCookie);
                     angular.element("#myIdDisplay").html("My ID: "+$scope.myTapId+" My Password:"+$scope.myCookie);
@@ -371,7 +373,7 @@ echo "strPassWord = '".$array['password']."';\n";
 
                     $("#chatBox").attr("src","../index_chat.php?chatter="+$scope.myTopics.myID+"&chatee="+$scope.myTopics.myID+"&topicinit=notopic");
                     openChat();
-                    toggleChat();
+                    //toggleChat();
 
                     setInterval(function(){$scope.checkTopics()},10000);
 
@@ -598,37 +600,37 @@ echo "strPassWord = '".$array['password']."';\n";
                     $.ajax({url:"../stateUpdate.php?topic="+topicinit+'&state=pending'});
 
                     $("#callchat").css("display","block");
-                    $("#buttonOpenPad").css("display","block");
-                    togglePad();
+                    //$("#buttonOpenPad").css("display","block");
+                    //togglePad();
                     
                     if(sessionStorage.topic1){
                         console.log("session storage is true");
-                        var $z = $("#phoneBox");
-                        var chosenTapid3 = $z[0].contentWindow.red5phone_getConfig().tapid;
-                        $("#chatBox").attr("src","../index_chat.php?chatter="+chosenTapid3+"&chatee="+targetTapid+"&topicinit="+topicinit);
+                        //var $z = $("#phoneBox");
+                        //var chosenTapid3 = $z[0].contentWindow.red5phone_getConfig().tapid;
+                        $("#chatBox").attr("src","../index_chat.php?chatter="+strTapId+"&chatee="+targetTapid+"&topicinit="+topicinit);
                         openChat();
-                        toggleChat();
+                        //toggleChat();
                         chatActive = "yes";
                     }else{
                         console.log("session storage is false");
                         voiceActive = "yes";
                         //get cookie
-                        var newCookie = makeIDonClick();
+                        //var newCookie = makeIDonClick();
                         //load phone
-                        $("#phoneBox").attr("src","../flashphone/index.php?c="+newCookie);
+                        //$("#phoneBox").attr("src","../flashphone/index.php?c="+newCookie);
                         //put load function here
-                        $("#phoneBox").load(function(){
+                        //$("#phoneBox").load(function(){
                           //confirmChat(chosenTapid,buttonObj);
-                          var $f = $("#phoneBox");
-                            var chosenTapid2 = $f[0].contentWindow.red5phone_getConfig().tapid;
-                            $("#chatBox").attr("src","../index_chat.php?chatter="+chosenTapid2+"&chatee="+targetTapid+"&topicinit="+topicinit);
+                          //var $f = $("#phoneBox");
+                            //var chosenTapid2 = $f[0].contentWindow.red5phone_getConfig().tapid;
+                            $("#chatBox").attr("src","../index_chat.php?chatter="+strTapId+"&chatee="+targetTapid+"&topicinit="+topicinit);
                             openChat();
-                            toggleChat();
+                            //toggleChat();
                             chatActive = "yes";
                             //$http({method: 'GET', url: 'stateUpdate.php?topic='+chosenTopic+'&state=pending'});
                             //$.ajax({url:"stateUpdate.php?topic="+chosenTopic+'&state=pending'});
 
-                        });
+                        //});
                     }
                 }
 
@@ -887,10 +889,10 @@ echo "strPassWord = '".$array['password']."';\n";
 
 </div>
 
-    <section id="callchat" style="background:none;margin:10px auto;text-align:center;display:none;">
+    <section id="callchat" style="background:none;margin:10px auto;text-align:center;">
 
         <div style="width:100%;">
-            <div id="buttonOpenPad" class="container" onClick="togglePad();" style="text-align:center;width:50%;height:50px;float:left;margin-top:20px;">
+            <div id="buttonOpenPad" class="container" onClick="login();call();" style="text-align:center;width:50%;height:50px;float:left;margin-top:20px;">
 
                 <a class="ui-link btn btn-primary btn-s btn-connect">TopicB Phone</a>
 
@@ -1349,7 +1351,7 @@ This Privacy Notice was last modified September 30th, 2014
 
 
 
-    <div style="visibility:hidden;">
+    <div>
     <div id="myTapidDisplay"></div>
     <div id="myPasswordDisplay"></div>
     <div id="myChosenTopicDisplay"></div>
@@ -1365,12 +1367,13 @@ This Privacy Notice was last modified September 30th, 2014
 	</div>
 
 	<div class="buttons">
-			<div class="container btn-reload" onClick="window.location = '.'">
+        <!--
+		<div class="container btn-reload" onClick="window.location = '.'">
 
 		    <a class="ui-link btn btn-primary btn-s btn-main">Reload App</a>
 
-			</div>
-			<div style="clear:both;"></div>
+		</div>
+		<div style="clear:both;"></div>
 	    <div class="container btn-container" onClick="login();">
 
 	        <a class="ui-link btn btn-primary btn-s btn-main">Login</a>
@@ -1387,6 +1390,7 @@ This Privacy Notice was last modified September 30th, 2014
 	        <a class="ui-link btn btn-primary btn-s btn-main">Show Dialpad</a>
 
 	    </div>
+        -->
 	    <div class="container btn-container" onClick="call();">
 
 	        <a class="ui-link btn btn-primary btn-s btn-main">Call</a>
