@@ -27,6 +27,8 @@ header('Expires: 0');
     <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200' rel='stylesheet' type='text/css'>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.js"></script>
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css" />
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.1/angular.min.js"></script>
     <!--<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular-animate.min.js"></script>-->
     <script src="js/ui-utils-0.1.1/ui-utils.js"></script>
@@ -289,9 +291,10 @@ header('Expires: 0');
                     angular.element(".starter-template").html("<span class='message-create'>Thanks! Your topics have been created below.</span>");
                     $scope.loadData();
                     
-                    sessionStorage.topic1=$scope.myTopics.topic1;
-                    sessionStorage.topic2=$scope.myTopics.topic2;
-                    sessionStorage.topic3=$scope.myTopics.topic3;
+                        sessionStorage.topic1=$scope.myTopics.topic1;
+                        sessionStorage.topic2=$scope.myTopics.topic2;
+                        sessionStorage.topic3=$scope.myTopics.topic3;
+                    
 
                     angular.element("#topic1button").html($scope.myTopics.topic1);
 
@@ -459,6 +462,68 @@ header('Expires: 0');
             $("#topic1").keydown(function() {
               $("#submit").css("display","block");
             });
+
+            $("#dialog").dialog({autoOpen:false});
+
+            //get topic from url
+            var urlTopic = getUrlParameter('topic');
+            var urlImage = getUrlParameter('image');
+
+            function getUrlParameter(sParam)
+            {
+                var sPageURL = window.location.search.substring(1);
+                var sURLVariables = sPageURL.split('&');
+                for (var i = 0; i < sURLVariables.length; i++) 
+                {
+                    var sParameterName = sURLVariables[i].split('=');
+                    if (sParameterName[0] == sParam) 
+                    {
+                        return sParameterName[1];
+                    }
+                }
+            }
+
+            if(urlTopic){
+                $("#submit").css("display","block");
+                if(sessionStorage.refTopic1==undefined){
+                    sessionStorage.refTopic1=urlTopic;
+                    $("#topic1").val(sessionStorage.refTopic1);
+                }else if(sessionStorage.refTopic2==undefined){
+                    sessionStorage.refTopic2=urlTopic;
+                    $("#topic1").val(sessionStorage.refTopic1);
+                    $("#topic2").val(sessionStorage.refTopic2);
+                }else if(sessionStorage.refTopic3==undefined){
+                    sessionStorage.refTopic3=urlTopic;
+                    $("#topic1").val(sessionStorage.refTopic1);
+                    $("#topic2").val(sessionStorage.refTopic2);
+                    $("#topic3").val(sessionStorage.refTopic3);
+                }
+                
+            }
+
+            if(urlImage){
+                if(sessionStorage.refImage1==undefined){
+                    sessionStorage.refImage1=urlImage;
+                    $("#image1").css("height","100px");
+                    $("#image1").attr("src",sessionStorage.refImage1);
+                }else if(sessionStorage.refImage2==undefined){
+                    sessionStorage.refImage2=urlImage;
+                    $("#image1").css("height","100px");
+                    $("#image2").css("height","100px");
+                    $("#image1").attr("src",sessionStorage.refImage1);
+                    $("#image2").attr("src",sessionStorage.refImage2);
+                }else if(sessionStorage.refImage3==undefined){
+                    sessionStorage.refImage3=urlImage;
+                    $("#image1").css("height","100px");
+                    $("#image2").css("height","100px");
+                    $("#image3").css("height","100px");
+                    $("#image1").attr("src",sessionStorage.refImage1);
+                    $("#image2").attr("src",sessionStorage.refImage2);
+                    $("#image3").attr("src",sessionStorage.refImage3);
+                }
+                $("#topic1,#topic2,#topic3").hide();
+                $("#submit").css("display","block");
+            }
                         
         });
         
@@ -533,6 +598,21 @@ header('Expires: 0');
         }else{
             alert("connection is busy");
         }*/
+
+        }
+
+        function openDialog(myTapid,id2call,buttonObj){
+
+            var t1 = $(buttonObj).parent().parent().children().eq(0).text().trim();
+            var t2 = $(buttonObj).parent().parent().children().eq(1).text().trim();
+            var t3 = $(buttonObj).parent().parent().children().eq(2).text().trim();
+            $("#dialog").dialog("open");
+
+        }
+
+        function callTapId(id2call,buttonObj,topicinit){
+
+            alert("Please choose a topic.");
 
         }
 
@@ -746,10 +826,19 @@ header('Expires: 0');
                 <div class="form-group">
                     <input id="topic3" type="text" data-ng-model="myTopics.topic3" name="form.topic3" class="form-control topic-input" maxlength="16" />
                 </div>
+
+                <div>
+                    <img id="image1" src="" style="height:0px;margin:10px;" />
+                    <img id="image2" src="" style="height:0px;margin:10px;" />
+                    <img id="image3" src="" style="height:0px;margin:10px;" />
+                </div>
+
                 <div class="form-group">
                   <input type="submit" id="submit" value="GO" class="btn btn-primary btn-s btn-submit" style="display:none;" ng-click="submit" />
                 </div>
             </form>
+
+            
 
       </div>
 
@@ -824,8 +913,8 @@ header('Expires: 0');
 
     <ul id="content" ng-model="numbers">
         <li ng-repeat="whatever in numbers|filter:filterTapId" class="imgs row">
-            <!--<div class="number" onclick="confirmCall($(this).text(),$(this),'notopic')">{{whatever.tapid}}</div>-->
-            <div class="number" onclick="alert('Please choose a topic.')">{{whatever.tapid}}</div>
+            <div class="number" onclick="callTapId($(this).text(),$(this),'notopic')">{{whatever.tapid}}</div>
+            <!--<div class="number" onclick="alert('Please choose a topic.')">{{whatever.tapid}}</div>-->
             <div style="clear:both;"></div>
 
             <ul data-ng-show="whatever" class="row_topic">
@@ -1312,7 +1401,7 @@ This Privacy Notice was last modified September 30th, 2014
 <br>
 <br>
 
-
+<div id="dialog" title="Dialog Title">Please choose a topic.</div>
 
     <div style="visibility:hidden;">
     <div id="myTapidDisplay"></div>

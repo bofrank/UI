@@ -892,7 +892,7 @@ echo "strPassWord = '".$array['password']."';\n";
     <section id="callchat" style="background:none;margin:10px auto;text-align:center;">
 
         <div style="width:100%;">
-            <div id="buttonOpenPad" class="container" onClick="login();call();" style="text-align:center;width:50%;height:50px;float:left;margin-top:20px;">
+            <div id="buttonOpenPad" class="container" onClick="login();showdialpad();" style="text-align:center;width:50%;height:50px;float:left;margin-top:20px;">
 
                 <a class="ui-link btn btn-primary btn-s btn-connect">TopicB Phone</a>
 
@@ -1367,7 +1367,7 @@ This Privacy Notice was last modified September 30th, 2014
 	</div>
 
 	<div class="buttons">
-        <!--
+        
 		<div class="container btn-reload" onClick="window.location = '.'">
 
 		    <a class="ui-link btn btn-primary btn-s btn-main">Reload App</a>
@@ -1390,7 +1390,7 @@ This Privacy Notice was last modified September 30th, 2014
 	        <a class="ui-link btn btn-primary btn-s btn-main">Show Dialpad</a>
 
 	    </div>
-        -->
+        
 	    <div class="container btn-container" onClick="call();">
 
 	        <a class="ui-link btn btn-primary btn-s btn-main">Call</a>

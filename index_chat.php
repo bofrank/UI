@@ -158,8 +158,14 @@ $(document).ready(function(){
 	websocket.onclose 	= function(ev){$('#message_box').append("<div class=\"system_msg\">Connection Closed</div>");}; 
 */
 
-	websocket.onerror	= function(ev){$('#message_box').append("<div class=\"system_error\">Error Occurred - "+ev.data+"</div>");}; 
-	websocket.onclose 	= function(ev){$('#message_box').append("<div class=\"system_msg\">Connection Closed</div>");}; 
+	websocket.onerror	= function(ev){
+		//$('#message_box').append("<div class=\"system_error\">Oops "+ev.data+"</div>");
+		//$('#message_box').append("<div class=\"system_error\">Oops "+ev.data+"</div>");
+	}; 
+	websocket.onclose = function(ev){
+		$('#message_box').append("<div class=\"system_msg\">Sorry, Chat is unavailable at the moment.</div>");
+		$.ajax({url:"http://www.bofrank.com/chat_down.php"});
+	};
 
 });
 </script>

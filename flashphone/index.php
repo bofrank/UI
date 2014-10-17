@@ -45,6 +45,15 @@ else
 	$cookie = 1;
 }
 
+if( isset($_GET["callee"]) )
+{
+	echo "callee = '".$_GET['callee']."';\n";
+}
+else
+{
+	echo "var callee = '';\n";
+}
+
 $socket = socket_create( AF_INET, SOCK_STREAM, SOL_TCP );
 socket_connect( $socket, "172.31.27.57", 8010 );
 
@@ -63,7 +72,7 @@ echo "strPassWord = '".$array['password']."';\n";
 
 		function red5phone_getConfig()
 		{
-			var callee = '';
+			//var callee = '';
 		
 			return {
 				callee: callee,

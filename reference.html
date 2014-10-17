@@ -1,0 +1,149 @@
+<html>
+<head>
+	<title>TopicB Reference</title>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200' rel='stylesheet' type='text/css'>
+
+	<script>
+		function sendImage(imageObj)
+		{
+			//alert("info="+$(":nth-child(1)", imageObj).attr("src"));
+			window.open("index.php?image="+$(":nth-child(1)", imageObj).attr("src"),"_mytopics");
+		}
+	</script>
+
+	<style>
+		body{
+			font-family:"Titillium Web",sans-serif;
+		}
+		a{
+			text-decoration: none;
+		}
+		img{
+			margin:20px 5px 0px 5px;height:150px;cursor:pointer;
+		}
+		.container{
+			float:left;
+		}
+		.icon{
+			width:32px;
+			height:32px;
+			margin:3px 0px;
+		}
+	</style>
+</head>
+<body>
+
+	<h1>Case 1 for online shopping and other sites:</h1>
+	<hr>
+	These images are example results from search using social network icons.
+	<br>
+	
+	<div class="container">
+		<img src="images/demo/demo_01.jpg" />
+		<br>
+		<a href="index.php?topic=gas" target="_mytopics">
+			<img class="icon" src="images/demo/icon_topicb.jpg" />
+		</a>
+		<a href="https://www.facebook.com/search/more/?q=gas" target="_blank">
+			<img class="icon" src="images/demo/icon_facebook.jpg" />
+		</a>
+		<a href="http://www.pinterest.com/search/pins/?q=gas" target="_blank">
+			<img class="icon" src="images/demo/icon_pinterest.jpg" />
+		</a>
+		<a href="https://twitter.com/search?q=gas" target="_blank">
+			<img class="icon" src="images/demo/icon_twitter.jpg" />
+		</a>
+	</div>
+
+	<div class="container">
+		<img src="images/demo/demo_02.jpg" />
+		<br>
+		<a href="index.php?topic=tesla" target="_mytopics">
+			<img class="icon" src="images/demo/icon_topicb.jpg" />
+		</a>
+		<a href="https://www.facebook.com/search/more/?q=tesla" target="_blank">
+			<img class="icon" src="images/demo/icon_facebook.jpg" />
+		</a>
+		<a href="http://www.pinterest.com/search/pins/?q=tesla" target="_blank">
+			<img class="icon" src="images/demo/icon_pinterest.jpg" />
+		</a>
+		<a href="https://twitter.com/search?q=tesla" target="_blank">
+			<img class="icon" src="images/demo/icon_twitter.jpg" />
+		</a>
+	</div>
+
+	<div class="container">
+		<img src="images/demo/demo_03.jpg" />
+		<br>
+		<a href="index.php?topic=starbucks" target="_mytopics">
+			<img class="icon" src="images/demo/icon_topicb.jpg" />
+		</a>
+		<a href="https://www.facebook.com/search/more/?q=starbucks" target="_blank">
+			<img class="icon" src="images/demo/icon_facebook.jpg" />
+		</a>
+		<a href="http://www.pinterest.com/search/pins/?q=starbucks" target="_blank">
+			<img class="icon" src="images/demo/icon_pinterest.jpg" />
+		</a>
+		<a href="https://twitter.com/search?q=starbucks" target="_blank">
+			<img class="icon" src="images/demo/icon_twitter.jpg" />
+		</a>
+	</div>
+
+	<div class="container">
+		<img src="images/demo/demo_04.jpg" />
+		<br>
+		<a href="index.php?topic=bus" target="_mytopics">
+			<img class="icon" src="images/demo/icon_topicb.jpg" />
+		</a>
+		<a href="https://www.facebook.com/search/more/?q=bus" target="_blank">
+			<img class="icon" src="images/demo/icon_facebook.jpg" />
+		</a>
+		<a href="http://www.pinterest.com/search/pins/?q=bus" target="_blank">
+			<img class="icon" src="images/demo/icon_pinterest.jpg" />
+		</a>
+		<a href="https://twitter.com/search?q=bus" target="_blank">
+			<img class="icon" src="images/demo/icon_twitter.jpg" />
+		</a>
+	</div>
+
+	<div class="container">
+		<img src="images/demo/demo_05.jpg" />
+		<br>
+		<a href="index.php?topic=iphone" target="_mytopics">
+			<img class="icon" src="images/demo/icon_topicb.jpg" />
+		</a>
+		<a href="https://www.facebook.com/search/more/?q=iphone" target="_blank">
+			<img class="icon" src="images/demo/icon_facebook.jpg" />
+		</a>
+		<a href="http://www.pinterest.com/search/pins/?q=iphone" target="_blank">
+			<img class="icon" src="images/demo/icon_pinterest.jpg" />
+		</a>
+		<a href="https://twitter.com/search?q=iphone6" target="_blank">
+			<img class="icon" src="images/demo/icon_twitter.jpg" />
+		</a>
+	</div>
+	
+	<div style="clear:both;"></div>
+	<hr>
+	These images are results from search in a stock photo site just using image tagging.
+	<br>
+	<a href="index.php?topic=gas" target="_mytopics"><img src="images/demo/demo_01.jpg" /></a>
+	<a href="index.php?topic=tesla" target="_mytopics"><img src="images/demo/demo_02.jpg" /></a>
+	<a href="index.php?topic=starbucks" target="_mytopics"><img src="images/demo/demo_03.jpg" /></a>
+	<a href="index.php?topic=bus" target="_mytopics"><img src="images/demo/demo_04.jpg" /></a>
+	<a href="index.php?topic=iphone6" target="_mytopics"><img src="images/demo/demo_05.jpg" /></a>
+	<div style="clear:both;"></div>
+	<hr>
+
+	<h1>Case 2 for Photo Sites:</h1>
+	These images are sending the actual images to TopicB for topic creation.
+	<br>
+	<a onclick="sendImage($(this));"><img src="http://topicb.com/images/demo/demo_01.jpg" /></a>
+	<a onclick="sendImage($(this));"><img src="http://topicb.com/images/demo/demo_02.jpg" /></a>
+	<a onclick="sendImage($(this));"><img src="http://topicb.com/images/demo/demo_03.jpg" /></a>
+	<a onclick="sendImage($(this));"><img src="http://topicb.com/images/demo/demo_04.jpg" /></a>
+	<a onclick="sendImage($(this));"><img src="http://topicb.com/images/demo/demo_05.jpg" /></a>
+
+</body>
+</html>
