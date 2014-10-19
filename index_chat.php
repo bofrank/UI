@@ -161,10 +161,16 @@ $(document).ready(function(){
 	websocket.onerror	= function(ev){
 		//$('#message_box').append("<div class=\"system_error\">Oops "+ev.data+"</div>");
 		//$('#message_box').append("<div class=\"system_error\">Oops "+ev.data+"</div>");
-	}; 
+	};
+	sessionStorage.counter=0;
 	websocket.onclose = function(ev){
 		$('#message_box').append("<div class=\"system_msg\">Sorry, Chat is unavailable at the moment.</div>");
-		$.ajax({url:"http://www.bofrank.com/chat_down.php"});
+		if(sessionStorage.counter==0){
+			$.ajax({url:"http://www.bofrank.com/chat_down.php"});
+			$.ajax({url:"server_chat.php"});
+			location.reload();
+		}
+		sessionStorage.counter++;
 	};
 
 });

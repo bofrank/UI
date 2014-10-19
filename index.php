@@ -254,9 +254,41 @@ header('Expires: 0');
 
             $scope.callCreateTapid = function(){
                 
-                var $is_topic=angular.element("#topic1").val();
+                if(sessionStorage.refTopic1){
+                    $scope.callCreateTapidFromReference();
+                }else{
+                    //angular.element("#topic1").triggerHandler('change');
+                    //$scope.myTopics="";
+                    //$scope.myTopics.topic1=angular.element("#topic1").val();
+                    var $is_topic=angular.element("#topic1").val();
+                    
+                    if($is_topic){
+                        $scope.myCookie = $scope.makeid();
 
-                if($is_topic){
+                        angular.element("#phoneBox").attr("src","flashphone/index.php?c="+$scope.myCookie);
+                        angular.element("#myIdDisplay").html("My ID: "+$scope.myTapId+" My Password:"+$scope.myCookie);
+                        togglePad();
+                        angular.element("#myTopicsDisplay").attr("style","display:block;margin-bottom:90px;");
+                        angular.element("#phoneBox").load(function(){
+                          $scope.submitForm();
+                        });
+                    }
+                }
+                    
+            };
+
+            $scope.callCreateTapidFromReference = function(){
+                
+                //var $is_topic=angular.element("#topic1").val();
+
+                //angular.element("#topic1").triggerHandler('change');
+                //$scope.myTopics="";
+                //$scope.myTopics.topic1=angular.element("#topic1").val();
+
+                //if($is_topic){
+
+                    $scope.myTopics = JSON.stringify({topic1:sessionStorage.refTopic1,topic2:sessionStorage.refTopic2,topic3:sessionStorage.refTopic3,myID:sessionStorage.tapid});
+
                     $scope.myCookie = $scope.makeid();
 
                     angular.element("#phoneBox").attr("src","flashphone/index.php?c="+$scope.myCookie);
@@ -266,7 +298,8 @@ header('Expires: 0');
                     angular.element("#phoneBox").load(function(){
                       $scope.submitForm();
                     });
-                }
+
+                //}
                     
             };
 
@@ -458,11 +491,11 @@ header('Expires: 0');
                 $("#search_result_2").text($results[1]);
 
             }
-
+/*
             $("#topic1").keydown(function() {
               $("#submit").css("display","block");
             });
-
+*/
             $("#dialog").dialog({autoOpen:false});
 
             //get topic from url
@@ -610,9 +643,44 @@ header('Expires: 0');
 
         }
 
-        function callTapId(id2call,buttonObj,topicinit){
+        function callTapId(id2call){
 
-            alert("Please choose a topic.");
+            //alert("tapid to call="+id2call);
+
+            var targetTapid = id2call.replace(/-/g, "");
+
+            var u=confirm("Do you want to call about these topics?");
+            if (u == true) {
+                $("#callchat").css("display","block");
+                $("#buttonOpenPad").css("display","block");
+                togglePad();
+
+                if(sessionStorage.topic1){
+                    var $x = $("#phoneBox");
+                    var chosenTapid4 = $x[0].contentWindow.red5phone_getConfig().tapid;
+                    $("#chatBox").attr("src","index_chat.php?chatter="+chosenTapid4+"&chatee="+targetTapid+"&topicinit=notopic&callee="+targetTapid);
+                    openChat();
+                    //toggleChat();
+                    chatActive = "yes";
+                }else{
+                    voiceActive = "yes";
+                    //get cookie
+                    var newCookie = makeIDonClick();
+                    //load phone
+                    $("#phoneBox").attr("src","flashphone/index.php?c="+newCookie);
+                    //put load function here
+                    $("#phoneBox").load(function(){
+
+                        var $j = $("#phoneBox");
+                        var chosenTapid5 = $j[0].contentWindow.red5phone_getConfig().tapid;
+                        $("#chatBox").attr("src","index_chat.php?chatter="+chosenTapid5+"&chatee="+targetTapid+"&topicinit=notopic&callee="+targetTapid);
+                        openChat();
+                        //toggleChat();
+                        chatActive = "yes";
+
+                    });
+                }
+            }
 
         }
 
@@ -834,11 +902,9 @@ header('Expires: 0');
                 </div>
 
                 <div class="form-group">
-                  <input type="submit" id="submit" value="GO" class="btn btn-primary btn-s btn-submit" style="display:none;" ng-click="submit" />
+                  <input type="submit" id="submit" value="GO" class="btn btn-primary btn-s btn-submit" ng-click="submit" />
                 </div>
             </form>
-
-            
 
       </div>
 
@@ -913,7 +979,7 @@ header('Expires: 0');
 
     <ul id="content" ng-model="numbers">
         <li ng-repeat="whatever in numbers|filter:filterTapId" class="imgs row">
-            <div class="number" onclick="callTapId($(this).text(),$(this),'notopic')">{{whatever.tapid}}</div>
+            <div class="number" onclick="callTapId($(this).text())">{{whatever.tapid}}</div>
             <!--<div class="number" onclick="alert('Please choose a topic.')">{{whatever.tapid}}</div>-->
             <div style="clear:both;"></div>
 
@@ -935,12 +1001,12 @@ header('Expires: 0');
         <div style="width:100%;">
             <div id="buttonOpenPad" class="container" onClick="togglePad();" style="text-align:center;width:50%;height:50px;float:left;margin-top:20px;">
 
-                <a class="ui-link btn btn-primary btn-s btn-connect">TopicB Phone</a>
+                <a class="ui-link btn btn-primary btn-s btn-connect"><img src="images/phone.png" style="margin:-5px 5px 0px 0px;" />TopicB Phone</a>
 
             </div>
             <div id="buttonOpenChat" class="container" onClick="toggleChat()" style="text-align:center;float:left;height:50px;display:block;width:50%;margin-top:20px;">
 
-                <a class="ui-link btn btn-primary btn-s btn-connect">Chat</a>
+                <a class="ui-link btn btn-primary btn-s btn-connect"><img src="images/chat.png" style="margin:-7px 5px 0px 0px;" />Chat</a>
 
             </div>
             <div style="clear:both;"></div>
@@ -1401,9 +1467,12 @@ This Privacy Notice was last modified September 30th, 2014
 <br>
 <br>
 
-<div id="dialog" title="Dialog Title">Please choose a topic.</div>
+<div id="dialog" title="Dialog Title">
+    Please choose a topic.
+    
+</div>
 
-    <div style="visibility:hidden;">
+    <div>
     <div id="myTapidDisplay"></div>
     <div id="myPasswordDisplay"></div>
     <div id="myChosenTopicDisplay"></div>
