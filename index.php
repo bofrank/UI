@@ -658,22 +658,26 @@ header('Expires: 0');
                 if(sessionStorage.topic1){
                     var $x = $("#phoneBox");
                     var chosenTapid4 = $x[0].contentWindow.red5phone_getConfig().tapid;
-                    $("#chatBox").attr("src","index_chat.php?chatter="+chosenTapid4+"&chatee="+targetTapid+"&topicinit=notopic&callee="+targetTapid);
+                    $("#chatBox").attr("src","index_chat.php?chatter="+chosenTapid4+"&chatee="+targetTapid+"&topicinit=notopic");
                     openChat();
                     //toggleChat();
                     chatActive = "yes";
+
+                    
+                    $("#phoneBox").attr("src","flashphone/index.php?c="+sessionStorage.mycookie+"&callee="+targetTapid);
+
                 }else{
                     voiceActive = "yes";
                     //get cookie
                     var newCookie = makeIDonClick();
                     //load phone
-                    $("#phoneBox").attr("src","flashphone/index.php?c="+newCookie);
+                    $("#phoneBox").attr("src","flashphone/index.php?c="+newCookie+"&callee="+targetTapid);
                     //put load function here
                     $("#phoneBox").load(function(){
 
                         var $j = $("#phoneBox");
                         var chosenTapid5 = $j[0].contentWindow.red5phone_getConfig().tapid;
-                        $("#chatBox").attr("src","index_chat.php?chatter="+chosenTapid5+"&chatee="+targetTapid+"&topicinit=notopic&callee="+targetTapid);
+                        $("#chatBox").attr("src","index_chat.php?chatter="+chosenTapid5+"&chatee="+targetTapid+"&topicinit=notopic");
                         openChat();
                         //toggleChat();
                         chatActive = "yes";
