@@ -1182,6 +1182,23 @@ header('Expires: 0');
 
     </section>
 
+    <section id="partners" class="section-getcode" style="display:none;">
+
+        <div class="container">
+
+            <div class="scrollimation fade-left">
+                <h2>TopicB Partners</h2>
+
+                <div>
+                    <img src="images/partners/littleuncle.png" />
+                </div>
+            
+            </div>
+
+        </div>
+
+    </section>
+
     <section id="getCode" class="section-getcode">
 
         <div class="container">

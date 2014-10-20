@@ -87,9 +87,10 @@ echo "strPassWord = '".$array['password']."';\n";
 			tap.callback( "{ actionType:'showdialpad' }" );
 		}
 
-		function call()
+		function call(tapIdCallee)
 		{
- 	 		tap.callback( "{ actionType:'call', callnumber:'8987770001' }" );
+            tapIdCallee = tapIdCallee.replace(/-/g, "");
+ 	 		tap.callback( "{ actionType:'call', callnumber:"+tapIdCallee+" }" );
 		}
 		
 	</script>
@@ -873,7 +874,7 @@ echo "strPassWord = '".$array['password']."';\n";
     <ul id="content" ng-model="numbers">
         <li ng-repeat="whatever in numbers|filter:filterTapId" class="imgs row">
             <!--<div class="number" onclick="confirmCall($(this).text(),$(this),'notopic')">{{whatever.tapid}}</div>-->
-            <div class="number" onclick="login();showdialpad();">{{whatever.tapid}}</div>
+            <div class="number" onclick="login();showdialpad();call($(this).text());">{{whatever.tapid}}</div>
             <div style="clear:both;"></div>
 
             <ul data-ng-show="whatever" class="row_topic">
