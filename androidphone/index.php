@@ -873,7 +873,7 @@ echo "strPassWord = '".$array['password']."';\n";
     <ul id="content" ng-model="numbers">
         <li ng-repeat="whatever in numbers|filter:filterTapId" class="imgs row">
             <!--<div class="number" onclick="confirmCall($(this).text(),$(this),'notopic')">{{whatever.tapid}}</div>-->
-            <div class="number" onclick="alert('Please choose a topic.')">{{whatever.tapid}}</div>
+            <div class="number" onclick="login();showdialpad();">{{whatever.tapid}}</div>
             <div style="clear:both;"></div>
 
             <ul data-ng-show="whatever" class="row_topic">
