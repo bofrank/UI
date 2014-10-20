@@ -287,16 +287,30 @@ header('Expires: 0');
 
                 //if($is_topic){
 
-                    $scope.myTopics = JSON.stringify({topic1:sessionStorage.refTopic1,topic2:sessionStorage.refTopic2,topic3:sessionStorage.refTopic3,myID:sessionStorage.tapid});
+                    $scope.myTopics = {};
 
+                    $scope.myTopics.topic1=sessionStorage.refTopic1;
+                    $scope.myTopics.topic2=sessionStorage.refTopic2;
+                    $scope.myTopics.topic3=sessionStorage.refTopic3;
+
+                    $scope.myTopics.myID="0001112222";
+
+                    //$scope.myTopics = JSON.stringify({topic1:sessionStorage.refTopic1,topic2:sessionStorage.refTopic2,topic3:sessionStorage.refTopic3,myID:"0001112222"});
+                    
+                    console.log("scope.myTopics.myID="+$scope.myTopics.myID);
+                    
                     $scope.myCookie = $scope.makeid();
 
                     angular.element("#phoneBox").attr("src","flashphone/index.php?c="+$scope.myCookie);
-                    angular.element("#myIdDisplay").html("My ID: "+$scope.myTapId+" My Password:"+$scope.myCookie);
-                    togglePad();
-                    angular.element("#myTopicsDisplay").attr("style","display:block;margin-bottom:90px;");
+                    
                     angular.element("#phoneBox").load(function(){
-                      $scope.submitForm();
+                        
+                        togglePad();
+                        angular.element("#myTopicsDisplay").attr("style","display:block;margin-bottom:90px;");
+                        var $newBox = $("#phoneBox");
+                        $scope.myTopics.myID = $newBox[0].contentWindow.red5phone_getConfig().tapid;
+                        angular.element("#myIdDisplay").html("My ID: "+$scope.myTopics.myID+" My Password:"+$scope.myCookie);
+                        $scope.submitForm();
                     });
 
                 //}
@@ -315,8 +329,9 @@ header('Expires: 0');
             }
 
             $scope.submitForm = function(){
-
+                console.log("submitForm called");
                 $scope.myTopics.myID = angular.element('#phoneBox')[0].contentWindow.red5phone_getConfig().tapid;
+                console.log("scope.myTopics.myID="+$scope.myTopics.myID);
                 sessionStorage.tapid=$scope.myTopics.myID;
 
                 $http.post('submitTopics.php', JSON.stringify($scope.myTopics)).success(function(){
