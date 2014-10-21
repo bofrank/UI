@@ -32,6 +32,7 @@ header('Expires: 0');
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.1/angular.min.js"></script>
     <!--<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular-animate.min.js"></script>-->
     <script src="js/ui-utils-0.1.1/ui-utils.js"></script>
+    <!--<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular-sanitize.js"></script>-->
     <script src="js/app.js"></script>
     <link href="css/bootstrap.css" rel="stylesheet">
     <script src="js/bootstrap.min.js"></script>
@@ -56,7 +57,7 @@ header('Expires: 0');
           $locationProvider.html5Mode(true);
         });
 
-        topicApp.controller('topicCtrl', function ($scope,$http,$location,$anchorScroll,$timeout){
+        topicApp.controller('topicCtrl', function ($scope,$http,$location,$anchorScroll,$timeout,$sce){
 
             $scope.loadData = function () {
             $http({method: 'GET', url: 'getTopics.php', params: { 'topicb': new Date().getTime() }}).success(function(data) {
@@ -73,6 +74,7 @@ header('Expires: 0');
             $http({method: 'GET', url: 'getHotTopics.php', params: { 'topicb': new Date().getTime() }}).success(function(data) {
                 $scope.hotlist = data;
                 numberFormat();
+                showImages();
               });
             };
 
@@ -552,16 +554,19 @@ header('Expires: 0');
             if(urlImage){
                 if(sessionStorage.refImage1==undefined){
                     sessionStorage.refImage1=urlImage;
+                    sessionStorage.refTopic1=urlImage;
                     $("#image1").css("height","100px");
                     $("#image1").attr("src",sessionStorage.refImage1);
                 }else if(sessionStorage.refImage2==undefined){
                     sessionStorage.refImage2=urlImage;
+                    sessionStorage.refTopic2=urlImage;
                     $("#image1").css("height","100px");
                     $("#image2").css("height","100px");
                     $("#image1").attr("src",sessionStorage.refImage1);
                     $("#image2").attr("src",sessionStorage.refImage2);
                 }else if(sessionStorage.refImage3==undefined){
                     sessionStorage.refImage3=urlImage;
+                    sessionStorage.refTopic3=urlImage;
                     $("#image1").css("height","100px");
                     $("#image2").css("height","100px");
                     $("#image3").css("height","100px");
@@ -598,6 +603,32 @@ header('Expires: 0');
             $('.number').text(function(i, text) {
                 return text.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
             });
+        }
+        /*
+        function showImages(){
+            $('.topic-button').text(function(i, html) {
+                var tempText = $.trim(html);
+                tempText=tempText.substring(0,4);
+                console.log("html="+tempText.substring(0,4));
+                if(tempText=="http"){
+                    //console.log("text="+$.trim(text));
+                    return "<img src='"+html+"' />";
+                }
+            });
+        }*/
+        function showImages(){
+            $('.topic-button').each(function(index) {
+                //console.log( index + ": " + $( this ).text() );
+                var thisHTML=$(this).html();
+                var tempText = $.trim(thisHTML);
+                var tempText2 = tempText;
+                tempText=tempText.substring(0,4);
+                console.log("html="+tempText.substring(0,4));
+                if(tempText=="http"){
+                    //console.log("text="+$.trim(text));
+                    $(this).html("<img src='"+tempText2+"' />");
+                }
+            }); 
         }
         function confirmCall(id2call,buttonObj,topicinit){
             //$(this).parent().parent().children().eq(0).text().trim(); is the first topic
@@ -978,7 +1009,7 @@ header('Expires: 0');
               <ul class="row_hot" id="imgs2" style="background:none;">
                 <li ng-repeat="whatever2 in hotlist|filter:'!blank'|limitTo:10 track by $index">
 
-                  <div class="hottopic-container" ng-controller="ScrollController" >
+                  <div class="hottopic-container" ng-controller="ScrollController">
                     <a class="scrollto ui-link btn btn-primary btn-s hottopic-button" ng-click="chatStart(whatever2.topic)">
                         {{whatever2.topic}}
                     </a>
@@ -1004,8 +1035,8 @@ header('Expires: 0');
 
             <ul data-ng-show="whatever" class="row_topic">
                 <li ng-repeat="topics in whatever.topics|filter:'!blank' track by $index" ng-controller="ScrollController" class="column">
-                  <a class="scrollto ui-link btn btn-primary btn-s topic-button {{topics.chatstate}}" onclick="confirmChat($(this).parent().parent().parent().children(':first-child').text(),$(this),$(this))">
-                    {{topics.topic}} 
+                  <a class="scrollto ui-link btn btn-primary btn-s topic-button {{topics.chatstate}}" onclick="confirmChat($(this).parent().parent().parent().children(':first-child').text(),$(this),$(this))" >
+                    {{topics.topic}}
                   </a>
                 </li>
             </ul>
