@@ -299,7 +299,7 @@ header('Expires: 0');
 
                     //$scope.myTopics = JSON.stringify({topic1:sessionStorage.refTopic1,topic2:sessionStorage.refTopic2,topic3:sessionStorage.refTopic3,myID:"0001112222"});
                     
-                    console.log("scope.myTopics.myID="+$scope.myTopics.myID);
+                    //console.log("scope.myTopics.myID="+$scope.myTopics.myID);
                     
                     $scope.myCookie = $scope.makeid();
 
@@ -331,9 +331,9 @@ header('Expires: 0');
             }
 
             $scope.submitForm = function(){
-                console.log("submitForm called");
+                //console.log("submitForm called");
                 $scope.myTopics.myID = angular.element('#phoneBox')[0].contentWindow.red5phone_getConfig().tapid;
-                console.log("scope.myTopics.myID="+$scope.myTopics.myID);
+                //console.log("scope.myTopics.myID="+$scope.myTopics.myID);
                 sessionStorage.tapid=$scope.myTopics.myID;
 
                 $http.post('submitTopics.php', JSON.stringify($scope.myTopics)).success(function(){
@@ -623,10 +623,12 @@ header('Expires: 0');
                 var tempText = $.trim(thisHTML);
                 var tempText2 = tempText;
                 tempText=tempText.substring(0,4);
-                console.log("html="+tempText.substring(0,4));
+                //console.log("html="+tempText.substring(0,4));
                 if(tempText=="http"){
                     //console.log("text="+$.trim(text));
-                    $(this).html("<img src='"+tempText2+"' />");
+                    $(this).html("<img src='"+tempText2+"' style='height:50px;width:100%;' />");
+                    $(this).css("padding","2px").css("height","56px");
+                    $("#myIdDisplay").parent().css("height","86px");
                 }
             }); 
         }
@@ -755,7 +757,7 @@ header('Expires: 0');
                     togglePad();
                     
                     if(sessionStorage.topic1){
-                        console.log("session storage is true");
+                        //console.log("session storage is true");
                         var $z = $("#phoneBox");
                         var chosenTapid3 = $z[0].contentWindow.red5phone_getConfig().tapid;
                         $("#chatBox").attr("src","index_chat.php?chatter="+chosenTapid3+"&chatee="+targetTapid+"&topicinit="+topicinit);
@@ -763,7 +765,7 @@ header('Expires: 0');
                         toggleChat();
                         chatActive = "yes";
                     }else{
-                        console.log("session storage is false");
+                        //console.log("session storage is false");
                         voiceActive = "yes";
                         //get cookie
                         var newCookie = makeIDonClick();
