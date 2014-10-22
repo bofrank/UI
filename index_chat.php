@@ -42,7 +42,12 @@ $DB = new DB($config);
 
 $chatter = $_GET["chatter"];
 $chatee = $_GET["chatee"];
-$topicinit = $_GET["topicinit"];
+if (($_GET["topicinit"]=="")||($_GET["topicinit"]==null)||($_GET["topicinit"]==null)) {
+    $topicinit = "image";
+}else{
+	$topicinit = $_GET["topicinit"];
+}
+
 //$tempStr = substr($tapid, 7);
 //$handle = $tempStr." : ".$topic;
 

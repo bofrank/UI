@@ -60,22 +60,28 @@ header('Expires: 0');
         topicApp.controller('topicCtrl', function ($scope,$http,$location,$anchorScroll,$timeout,$sce){
 
             $scope.loadData = function () {
+            
+            //showImages();
             $http({method: 'GET', url: 'getTopics.php', params: { 'topicb': new Date().getTime() }}).success(function(data) {
-                $scope.numbers = data;
-                 //$scope.$apply();
-                $scope.loadDataHotList();
-              });
+                    //hideImages();
+                    $scope.numbers = data;
+                    //hideImages();
+                    $scope.loadDataHotList();
+                });
             };
 
             $scope.loadData();
             setInterval(function(){$scope.loadData();},5000);
+            //setInterval(function(){showImages();},6000);
+
 
             $scope.loadDataHotList = function () {
             $http({method: 'GET', url: 'getHotTopics.php', params: { 'topicb': new Date().getTime() }}).success(function(data) {
-                $scope.hotlist = data;
-                numberFormat();
-                showImages();
-              });
+                    $scope.hotlist = data;
+                    //numberFormat();
+                    showHotImages();
+                    showImages();
+                });
             };
 
             $scope.hotlist = $scope.numbers;
@@ -94,6 +100,7 @@ header('Expires: 0');
                         $("#imgs2").css("transition-duration", "0s");
                         $("#imgs2").css("transform", "translate(0px,0)");
                         $scope.$apply();
+                        //showHotImages();
                     }
                 );
                 
@@ -577,9 +584,15 @@ header('Expires: 0');
                 $("#topic1,#topic2,#topic3").hide();
                 $("#submit").css("display","block");
             }
+
+            
                         
         });
-        
+
+        function hideImages(){
+            $('.topic-button').hide();
+        }
+
         var chatActive = "no";
         var voiceActive = "no";
         function openPad(){
@@ -604,34 +617,30 @@ header('Expires: 0');
                 return text.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
             });
         }
-        /*
-        function showImages(){
-            $('.topic-button').text(function(i, html) {
-                var tempText = $.trim(html);
-                tempText=tempText.substring(0,4);
-                console.log("html="+tempText.substring(0,4));
-                if(tempText=="http"){
-                    //console.log("text="+$.trim(text));
-                    return "<img src='"+html+"' />";
-                }
-            });
-        }*/
         function showImages(){
             $('.topic-button').each(function(index) {
-                //console.log( index + ": " + $( this ).text() );
-                var thisHTML=$(this).html();
-                var tempText = $.trim(thisHTML);
-                var tempText2 = tempText;
-                tempText=tempText.substring(0,4);
-                //console.log("html="+tempText.substring(0,4));
-                if(tempText=="http"){
-                    //console.log("text="+$.trim(text));
-                    $(this).html("<img src='"+tempText2+"' style='height:50px;width:100%;' />");
+                var tempText = $.trim($(this).text());
+                if(tempText.substring(0,4)=="http"){
+                    $(this).html("<img src='"+tempText+"' style='height:50px;width:100%;' />");
                     $(this).css("padding","2px").css("height","56px");
                     $("#myIdDisplay").parent().css("height","86px");
+                    $(this).parent().parent().parent().css("height","86px");
+                    //$(this).css("visibility","visible");
+                    $(this).show();
+                }
+            });
+        }
+        function showHotImages(){
+            $('.hottopic-button').each(function(index) {
+                var tempText = $.trim($(this).text());
+                if(tempText.substring(0,4)=="http"){
+                    $(this).html("<img src='"+tempText+"' style='height:50px;width:100%;' />");
+                    $(this).css("padding","2px").css("height","56px");
+                    $(".hottopic-button").parent().parent().parent().parent().css("height","86px");
                 }
             }); 
         }
+
         function confirmCall(id2call,buttonObj,topicinit){
             //$(this).parent().parent().children().eq(0).text().trim(); is the first topic
             //if ($(buttonObj).hasClass("available")){
