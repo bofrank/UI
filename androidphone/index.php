@@ -53,7 +53,24 @@ header('Expires: 0');
 		
 <?php
 
-$cookie = 10;
+//$cookie = 10;
+$cookie = createCookie();
+
+function createCookie(){
+
+    $text = "";
+    $possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    $possibleLength = strlen($possible);
+    
+
+    for($i=0;$i<23;$i++){
+        $possibleRand = rand(0,$possibleLength);
+        $text = $text.$possible{$possibleRand};
+    }
+    return $text;
+
+}
+
 
 $socket = socket_create( AF_INET, SOCK_STREAM, SOL_TCP );
 socket_connect( $socket, "172.31.27.57", 8010 );
@@ -69,6 +86,7 @@ socket_close( $socket );
 
 echo "strTapId = '".$array['tapid']."';\n";
 echo "strPassWord = '".$array['password']."';\n";
+echo "var newCookie = '".$cookie."';\n";
 
 ?>
 
@@ -252,7 +270,7 @@ echo "strPassWord = '".$array['password']."';\n";
 
                         angular.element("#myTapidDisplay").html($scope.myTopics.myID);
 
-                        angular.element("#myPasswordDisplay").html("my cookie is "+sessionStorage.mycookie);
+                        //angular.element("#myPasswordDisplay").html("my cookie is "+sessionStorage.mycookie);
 
                         angular.element("#callchat").attr("style","display:block;").attr("style","background:none;");
 
@@ -303,33 +321,23 @@ echo "strPassWord = '".$array['password']."';\n";
 
                 if($is_topic){
                     //$scope.myCookie = $scope.makeid();
-                    $scope.myCookie = strTapId;
+                    $scope.myCookie = newCookie;
 
-                    angular.element("#phoneBox").attr("src","../flashphone/index.php?c="+$scope.myCookie);
-                    angular.element("#myIdDisplay").html("My ID: "+$scope.myTapId+" My Password:"+$scope.myCookie);
-                    togglePad();
+                    //angular.element("#phoneBox").attr("src","../flashphone/index.php?c="+$scope.myCookie);
+                    angular.element("#myIdDisplay").html("My ID: "+strTapId+" My Password:"+newCookie);
+                    //togglePad();
                     angular.element("#myTopicsDisplay").attr("style","display:block;margin-bottom:90px;");
-                    angular.element("#phoneBox").load(function(){
+                    //angular.element("#phoneBox").load(function(){
                       $scope.submitForm();
-                    });
+                    //});
                 }
                     
             };
 
-            $scope.makeid = function()
-            {
-                var text = "";
-                var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-                for( var i=0; i < 23; i++ )
-                    text += possible.charAt(Math.floor(Math.random() * possible.length));
-
-                return text;
-            }
-
             $scope.submitForm = function(){
 
-                $scope.myTopics.myID = angular.element('#phoneBox')[0].contentWindow.red5phone_getConfig().tapid;
+                //$scope.myTopics.myID = angular.element('#phoneBox')[0].contentWindow.red5phone_getConfig().tapid;
+                $scope.myTopics.myID = strTapId;
                 sessionStorage.tapid=$scope.myTopics.myID;
 
                 $http.post('../submitTopics.php', JSON.stringify($scope.myTopics)).success(function(){
@@ -366,11 +374,11 @@ echo "strPassWord = '".$array['password']."';\n";
 
                     angular.element("#myTapidDisplay").html($scope.myTopics.myID);
 
-                    angular.element("#myPasswordDisplay").html("my cookie is "+$scope.myCookie);
+                    //angular.element("#myPasswordDisplay").html("my cookie is "+$scope.myCookie);
 
                     angular.element("#callchat").attr("style","display:block;").attr("style","background:none;");
 
-                    sessionStorage.mycookie=$scope.myCookie;
+                    sessionStorage.mycookie=newCookie;
 
                     $("#chatBox").attr("src","../index_chat.php?chatter="+$scope.myTopics.myID+"&chatee="+$scope.myTopics.myID+"&topicinit=notopic");
                     openChat();
@@ -473,7 +481,7 @@ echo "strPassWord = '".$array['password']."';\n";
 
         $( document ).ready(function() {
             $("#myTapidDisplay").text(sessionStorage.tapid);
-            $("#myPasswordDisplay").text(sessionStorage.mycookie);
+            //$("#myPasswordDisplay").text(sessionStorage.mycookie);
             
             $(".ui-loader ").css("display","none");
             $('#input_search').watermark('Search');
@@ -1353,8 +1361,9 @@ This Privacy Notice was last modified September 30th, 2014
 
 
     <div>
+    <div>version 2</div>
     <div id="myTapidDisplay"></div>
-    <div id="myPasswordDisplay"></div>
+    <div id="myPasswordDisplay"><?php echo $cookie; ?></div>
     <div id="myChosenTopicDisplay"></div>
 </div>
 <br>
