@@ -515,9 +515,39 @@ echo "var newCookie = '".$cookie."';\n";
             $("#topic1").keydown(function() {
               $("#submit").css("display","block");
             });
-                        
+
+            if(sessionStorage.tapid){
+                $("#sessionStorageTapIdDisplay").html(sessionStorage.tapid);
+            }else{
+                $("#sessionStorageTapIdDisplay").html("no tapid in session storage");
+            }
+            if(sessionStorage.topic1){
+                $("#sessionStorageTopicDisplay").html(sessionStorage.topic1);
+            }else{
+                $("#sessionStorageTopicDisplay").html("no topic in session storage");
+            }
+            if(sessionStorage.mycookie){
+                $("#sessionStorageCookieDisplay").html(sessionStorage.mycookie);
+            }else{
+                $("#sessionStorageCookieDisplay").html("no cookie in session storage");
+            }
+                      
         });
+
+        //setInterval(function(){tcUpdate();},3000);
+
+        function tcInit(){
+            $.ajax({url:"../tc_init.php?tapid="+<?php echo $array['tapid'] ?>+"&time="+(Date.now()/1000)});
+        }
+
+        tcInit();
         
+        function tcUpdate(){
+            $.ajax({url:"../tc_update.php?tapid="+<?php echo $array['tapid'] ?>+"&time="+(Date.now()/1000)});
+        }
+
+        setInterval(function(){tcUpdate();},4000);
+
         var chatActive = "no";
         var voiceActive = "no";
         function openPad(){
@@ -737,13 +767,26 @@ echo "var newCookie = '".$cookie."';\n";
             if(sessionStorage.topic1){
                 //do nothing
             }else{
-                
-                $.ajax({url:"../flashphone/destroytapid.php?t="+tempMyID+"&cache="+nocache});
+                $.ajax({url:"../flashphone/destroytapid.php?t="+<?php echo $array['tapid'] ?>+"&cache="+nocache});
             }
             
             //return "Are you sure you want to leave?";
         });
 
+        function closeWebPage(){
+            var nocache = new Date().getTime();
+            $.ajax({url:"../removeTopics.php?t="+<?php echo $array['tapid'] ?>+"&cache="+nocache});
+            var tempTopic = $("#myChosenTopicDisplay").text();
+            $.ajax({url:"../stateUpdate.php?topic="+tempTopic+"&state=available&cache="+nocache});
+            $.ajax({url:"../flashphone/destroytapid.php?t="+<?php echo $array['tapid'] ?>+"&cache="+nocache});
+        }
+
+        document.addEventListener("pause", onPause, false);
+
+        function onPause() {
+            alert("pausing");
+            closeWebPage();
+        }
 
         (function() {
             var cx = '014075365742795005565:u_j5gof9ikc';
@@ -1362,9 +1405,14 @@ This Privacy Notice was last modified September 30th, 2014
 
     <div>
     <div>version 2</div>
-    <div id="myTapidDisplay"></div>
+    <div id="myTapidDisplay"><?php echo $array['tapid'] ?></div>
     <div id="myPasswordDisplay"><?php echo $cookie; ?></div>
     <div id="myChosenTopicDisplay"></div>
+    <div id="sessionStorageTapIdDisplay"></div>
+    <div id="sessionStorageTopicDisplay"></div>
+    <div id="sessionStorageCookieDisplay"></div>
+    <div id="cookieStatus"></div>
+    <div id="timeDiff"></div>
 </div>
 <br>
 
