@@ -205,9 +205,16 @@ header('Expires: 0');
                         $scope.loadData();
                         
                         angular.element("#topic1button").html(sessionStorage.topic1);
-                        angular.element("#topic2button").html(sessionStorage.topic2);
-                        angular.element("#topic3button").html(sessionStorage.topic3);
-
+                        if(sessionStorage.topic2=="blank"){
+                            angular.element("#topic2button").hide();
+                        }else{
+                            angular.element("#topic2button").html(sessionStorage.topic2);
+                        }
+                        if(sessionStorage.topic3=="blank"){
+                            angular.element("#topic3button").hide();
+                        }else{
+                            angular.element("#topic3button").html(sessionStorage.topic3);
+                        }
                         $scope.myIdDisplay2 = sessionStorage.tapid.slice(0, 3) + "-" + sessionStorage.tapid.slice(3);
                         $scope.myIdDisplay3 = $scope.myIdDisplay2.slice(0, 7) + "-" + $scope.myIdDisplay2.slice(7);
                         angular.element("#myIdDisplay").html("My ID: "+$scope.myIdDisplay3);
@@ -562,24 +569,18 @@ header('Expires: 0');
                 if(sessionStorage.refImage1==undefined){
                     sessionStorage.refImage1=urlImage;
                     sessionStorage.refTopic1=urlImage;
-                    $("#image1").css("height","100px");
-                    $("#image1").attr("src",sessionStorage.refImage1);
+                    $("#image1").css("height","100px").attr("src",sessionStorage.refImage1);
                 }else if(sessionStorage.refImage2==undefined){
                     sessionStorage.refImage2=urlImage;
                     sessionStorage.refTopic2=urlImage;
-                    $("#image1").css("height","100px");
-                    $("#image2").css("height","100px");
-                    $("#image1").attr("src",sessionStorage.refImage1);
-                    $("#image2").attr("src",sessionStorage.refImage2);
+                    $("#image1").css("height","100px").attr("src",sessionStorage.refImage1);
+                    $("#image2").css("height","100px").attr("src",sessionStorage.refImage2);
                 }else if(sessionStorage.refImage3==undefined){
                     sessionStorage.refImage3=urlImage;
                     sessionStorage.refTopic3=urlImage;
-                    $("#image1").css("height","100px");
-                    $("#image2").css("height","100px");
-                    $("#image3").css("height","100px");
-                    $("#image1").attr("src",sessionStorage.refImage1);
-                    $("#image2").attr("src",sessionStorage.refImage2);
-                    $("#image3").attr("src",sessionStorage.refImage3);
+                    $("#image1").css("height","100px").attr("src",sessionStorage.refImage1);
+                    $("#image2").css("height","100px").attr("src",sessionStorage.refImage2);
+                    $("#image3").css("height","100px").attr("src",sessionStorage.refImage3);
                 }
                 $("#topic1,#topic2,#topic3").hide();
                 $("#submit").css("display","block");
@@ -933,7 +934,7 @@ header('Expires: 0');
             <!--<li id="navTalk"><a class="scrollto" href="#phonepad" id="nav_connect">Talk</a></li>-->
             <li id="navTopics"><a class="scrollto" href="#hottopics">Topics</a></li>
             <li id="navCategories"><a class="scrollto" href="#categories">Categories</a></li>
-            <li id="navHowTo"><a class="scrollto" href="#howto">How To Use</a></li>
+            <li id="navHowTo"><a class="scrollto" href="#howto" onclick="$('#howto').css('display','block')">How To Use</a></li>
             <!--<li id="navAbout"><a class="scrollto" href="#about">About</a></li>-->
             <li id="navCode"><a class="scrollto" href="#getCode">Put This on Your Site</a></li>
             <li id="nav-search" class="search-box"><form ng-submit="filterTopic(inputValue)"><input id="input_search" ng-model="inputValue" class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset search-input" type="text"></form></li><i id="nav-search-icon" class="fa fa-search" ng-click="filterTopic(inputValue)"></i>
@@ -1140,7 +1141,7 @@ header('Expires: 0');
 
     </section>
 
-    <section id="howto" class="section-howto">
+    <section id="howto" class="section-howto" style="display:none;">
 
         <div class="container">
 
