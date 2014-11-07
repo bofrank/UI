@@ -99,10 +99,10 @@ echo "var newCookie = '".$cookie."';\n";
 			//alert("showdialpad called");
 			location.href = "showdialpad://1";
 			tapIdCallee = tapIdCallee.replace(/-/g, "");
-			//var r=confirm("Do you want to call "+tapIdCallee+"?");
-      //if (r == true) {
+			var r=confirm("Do you want to call "+tapIdCallee+"?");
+      if (r == true) {
 				call(tapIdCallee);
-			//}
+			}
 		}
 
 		function call(tapIdCallee)
