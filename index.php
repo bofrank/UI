@@ -362,14 +362,14 @@ header('Expires: 0');
 
                     angular.element("#topic1button").html($scope.myTopics.topic1);
 
-                    if(sessionStorage.topic2=="undefined"){
+                    if((sessionStorage.topic2=="undefined")||(sessionStorage.topic2=="")){
                         sessionStorage.topic2="blank";
                         angular.element("#topic2button").attr("style","display:none;");
                     }else{
                         angular.element("#topic2button").html($scope.myTopics.topic2);
                     }
 
-                    if(sessionStorage.topic3=="undefined"){
+                    if((sessionStorage.topic3=="undefined")||(sessionStorage.topic3=="")){
                         sessionStorage.topic3="blank";
                         angular.element("#topic3button").attr("style","display:none;");
                     }else{
@@ -589,6 +589,20 @@ header('Expires: 0');
             
                         
         });
+
+        //run tc_destroy to remove topics when webpage loses internet connectivity 
+/*
+        function tcInit(){
+            $.ajax({url:"tc_init.php?tapid="+<?php echo $array['tapid'] ?>+"&time="+(Date.now()/1000)});
+        }
+
+        tcInit();
+        
+        function tcUpdate(){
+            $.ajax({url:"tc_update.php?tapid="+<?php echo $array['tapid'] ?>+"&time="+(Date.now()/1000)});
+        }
+*/
+        //setInterval(function(){tcUpdate();},4000);
 
         function hideImages(){
             $('.topic-button').hide();
