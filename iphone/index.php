@@ -638,15 +638,15 @@ echo "var newCookie = '".$cookie."';\n";
                 if (r == true) {
                     //mark tapid and topics as chatting so that noone else can connect ensuring one 2 one
                     //$(buttonObj).addClass("chatting");
-
+                    //alert("step 1");
                     $.ajax({url:"../stateUpdate.php?topic="+topicinit+'&state=pending'});
-
+                    //alert("step 2");
                     $("#callchat").css("display","block");
                     //$("#buttonOpenPad").css("display","block");
-                    //togglePad();
-                    
+                        //togglePad
+                    //alert("step 3");                    
                     if(sessionStorage.topic1){
-                        console.log("session storage is true");
+                        //alert("session storage is true");
                         //var $z = $("#phoneBox");
                         //var chosenTapid3 = $z[0].contentWindow.red5phone_getConfig().tapid;
                         $("#chatBox").attr("src","../index_chat.php?chatter="+strTapId+"&chatee="+targetTapid+"&topicinit="+topicinit);
@@ -654,7 +654,7 @@ echo "var newCookie = '".$cookie."';\n";
                         //toggleChat();
                         chatActive = "yes";
                     }else{
-                        console.log("session storage is false");
+                        //alert("session storage is false");
                         voiceActive = "yes";
                         //get cookie
                         //var newCookie = makeIDonClick();
@@ -697,6 +697,7 @@ echo "var newCookie = '".$cookie."';\n";
                     //$(buttonObj).addClass("chatting");
                     
                     //reset topics on starting chat
+                    /*
                     if(sessionStorage.topic1!=topicinit){
                         $.ajax({url:"../stateUpdate.php?topic="+sessionStorage.topic1+'&state=available'});
                     }
@@ -706,6 +707,7 @@ echo "var newCookie = '".$cookie."';\n";
                     if(sessionStorage.topic3!=topicinit){
                         $.ajax({url:"../stateUpdate.php?topic="+sessionStorage.topic3+'&state=available'});
                     }
+                    */
 
                     $.ajax({url:"../stateUpdate.php?topic="+topicinit+'&state=chatting'});
                     
@@ -714,9 +716,9 @@ echo "var newCookie = '".$cookie."';\n";
                     //get cookie
                     
                       //confirmChat(chosenTapid,buttonObj);
-                      var $f = $("#phoneBox");
-                        var chosenTapid2 = $f[0].contentWindow.red5phone_getConfig().tapid;
-                        $("#chatBox").attr("src","../index_chat.php?chatter="+chosenTapid2+"&chatee="+targetTapid+"&topicinit="+topicinit);
+                      //var $f = $("#phoneBox");
+                        //var chosenTapid2 = $f[0].contentWindow.red5phone_getConfig().tapid;
+                        $("#chatBox").attr("src","../index_chat.php?chatter="+strTapId+"&chatee="+targetTapid+"&topicinit="+topicinit);
                         openChat();
                         chatActive = "yes";
                         //$http({method: 'GET', url: 'stateUpdate.php?topic='+chosenTopic+'&state=pending'});
@@ -1406,7 +1408,7 @@ This Privacy Notice was last modified September 30th, 2014
 
 
     <div>
-    <div>version 7</div>
+    <div>version 8</div>
     <div id="myTapidDisplay"><?php echo $array['tapid'] ?></div>
     <div id="myPasswordDisplay"><?php echo $cookie; ?></div>
     <div id="myChosenTopicDisplay"></div>
