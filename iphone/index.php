@@ -538,6 +538,7 @@ echo "var newCookie = '".$cookie."';\n";
         });
 
         //setInterval(function(){tcUpdate();},3000);
+        //run tc_destroy to remove topics when app closes
 
         function tcInit(){
             $.ajax({url:"../tc_init.php?tapid="+strTapId+"&time="+(Date.now()/1000)});
