@@ -694,6 +694,7 @@ echo "var newCookie = '".$cookie."';\n";
                     //$(buttonObj).addClass("chatting");
                     
                     //reset topics on starting chat
+                    /*
                     if(sessionStorage.topic1!=topicinit){
                         $.ajax({url:"../stateUpdate.php?topic="+sessionStorage.topic1+'&state=available'});
                     }
@@ -702,7 +703,7 @@ echo "var newCookie = '".$cookie."';\n";
                     }
                     if(sessionStorage.topic3!=topicinit){
                         $.ajax({url:"../stateUpdate.php?topic="+sessionStorage.topic3+'&state=available'});
-                    }
+                    }*/
 
                     $.ajax({url:"../stateUpdate.php?topic="+topicinit+'&state=chatting'});
                     
@@ -711,9 +712,9 @@ echo "var newCookie = '".$cookie."';\n";
                     //get cookie
                     
                       //confirmChat(chosenTapid,buttonObj);
-                      var $f = $("#phoneBox");
-                        var chosenTapid2 = $f[0].contentWindow.red5phone_getConfig().tapid;
-                        $("#chatBox").attr("src","../index_chat.php?chatter="+chosenTapid2+"&chatee="+targetTapid+"&topicinit="+topicinit);
+                      //var $f = $("#phoneBox");
+                        //var chosenTapid2 = $f[0].contentWindow.red5phone_getConfig().tapid;
+                        $("#chatBox").attr("src","../index_chat.php?chatter="+strTapId+"&chatee="+targetTapid+"&topicinit="+topicinit);
                         openChat();
                         chatActive = "yes";
                         //$http({method: 'GET', url: 'stateUpdate.php?topic='+chosenTopic+'&state=pending'});
@@ -1404,7 +1405,7 @@ This Privacy Notice was last modified September 30th, 2014
 
 
     <div>
-    <div>version 2</div>
+    <div>version 3</div>
     <div id="myTapidDisplay"><?php echo $array['tapid'] ?></div>
     <div id="myPasswordDisplay"><?php echo $cookie; ?></div>
     <div id="myChosenTopicDisplay"></div>

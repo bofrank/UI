@@ -540,13 +540,13 @@ echo "var newCookie = '".$cookie."';\n";
         //setInterval(function(){tcUpdate();},3000);
 
         function tcInit(){
-            $.ajax({url:"../tc_init.php?tapid="+<?php echo $array['tapid'] ?>+"&time="+(Date.now()/1000)});
+            $.ajax({url:"../tc_init.php?tapid="+strTapId+"&time="+(Date.now()/1000)});
         }
 
         tcInit();
         
         function tcUpdate(){
-            $.ajax({url:"../tc_update.php?tapid="+<?php echo $array['tapid'] ?>+"&time="+(Date.now()/1000)});
+            $.ajax({url:"../tc_update.php?tapid="+strTapId+"&time="+(Date.now()/1000)});
         }
 
         setInterval(function(){tcUpdate();},4000);
