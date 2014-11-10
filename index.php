@@ -396,6 +396,9 @@ header('Expires: 0');
                     toggleChat();
 
                     setInterval(function(){$scope.checkTopics()},10000);
+                    tcInit($scope.myTopics.myID);
+                    setInterval(function(){tcUpdate($scope.myTopics.myID);},4000);
+
 
                 });
 
@@ -591,17 +594,17 @@ header('Expires: 0');
         });
 
         //run tc_destroy to remove topics when webpage loses internet connectivity 
-/*
-        function tcInit(){
-            $.ajax({url:"tc_init.php?tapid="+<?php echo $array['tapid'] ?>+"&time="+(Date.now()/1000)});
+
+        function tcInit(mynewID){
+            $.ajax({url:"tc_init.php?tapid="+mynewID+"&time="+(Date.now()/1000)});
         }
 
-        tcInit();
+        //tcInit();
         
-        function tcUpdate(){
-            $.ajax({url:"tc_update.php?tapid="+<?php echo $array['tapid'] ?>+"&time="+(Date.now()/1000)});
+        function tcUpdate(mynewID){
+            $.ajax({url:"tc_update.php?tapid="+mynewID+"&time="+(Date.now()/1000)});
         }
-*/
+
         //setInterval(function(){tcUpdate();},4000);
 
         function hideImages(){
