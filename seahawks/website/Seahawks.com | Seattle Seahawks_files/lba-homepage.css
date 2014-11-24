@@ -1,0 +1,460 @@
+@charset "UTF-8";
+/* CSS Document */
+
+#lba-homepage-headlines {  }
+
+#lba-homepage-headlines, #lba-homepage-headlines.module .mod-wrp-1  { background-color: #1A2635;  }
+
+#lba-homepage-headlines .mod-wrp-1 { margin-bottom: 10px; margin-right: 0px; color: #fff; overflow: hidden; border-bottom: none; padding-bottom: 0; padding-top: 8px; }
+
+#lba-homepage-headlines .bd li div h3 a { color: #91B7D9; font-weight: normal; font-size: 14px; }
+
+#lba-homepage-headlines .content-list .bd li { padding-top: 13px; padding-bottom:13px; }
+
+#lba-homepage-headlines .details span.date, #lba-homepage-headlines .ft a { color: #91B7D9; }
+
+#lba-homepage-headlines .details span.date, #lba-homepage-headlines .ft span span { display:none;  }
+
+#lba-homepage-headlines li { border-bottom: 1px solid #0E3D71 }
+
+#lba-homepage-headlines .mod-title, #lba-homepage-headlines .hd .title  { border: none; margin: 0px; margin-top: 10px;; }
+
+#lba-homepage-latest-tweet h2, #lba-homepage-headlines h2 { color: #91B7D9; font-family: arial; font-size: 14px; padding: 0px;font-weight: bold; font-size: 1.3em; line-height: 1.3em; margin-right: 0; }
+
+
+#lba-homepage-headlines .content-list .bd { height: 415px; overflow: hidden; }
+
+#lba-homepage-headlines .content-list .bd li { }
+
+#lba-homepage-headlines .bd ul li.content-type-video h3 { background: url(/assets/clubimages/lba-homepage-video-overlay-x-small.png); background-repeat: no-repeat; background-position: 0 0px; }
+
+#lba-homepage-headlines .bd ul li.content-type-video.loop-first h3 {  background: none; }
+
+#lba-homepage-headlines .bd ul li.content-type-video.loop-first h3 a { margin-left: 0px; }
+
+#lba-homepage-headlines .bd ul li.content-type-video h3 a { margin-left: 20px; }
+
+#lba-homepage-headlines .tmb-video-play, #lba-homepage-headlines.module .video-icon { top: 38px; }
+
+#lba-homepage-headlines .tmb-video-play, #lba-homepage-headlines.module .video-icon { background: url("/assets/clubimages/lba-homepage-video-overlay-small.png"); background-repeat: no-repeat; }
+
+#lba-homepage-headlines .content-list .ft { margin-bottom: 15px; }
+
+
+#element7 { height: 500px; background-color: #1A2635; overflow: hidden; margin-bottom: 10px; border: 1px solid #12365A; }
+
+
+#lba-homepage-main-cp .morelink-click:hover { text-decoration: underline; }
+
+#lba-homepage-main-cp .related-links a { color: #91B7D9; font-weight: normal; line-height: 1em; font-size: 13px; margin-right: 20px; }
+
+#lba-homepage-main-cp .related-links .loop-last a { border: none; padding-right: 0; margin-right: 0; }
+
+#lba-homepage-main-cp .related-links a:hover { text-decoration: underline }
+
+#lba-homepage-main-cp a:hover { text-decoration: none; }
+
+#lba-homepage-main-cp.centerpiece { border-right: 1px solid #12365A; }
+
+#lba-homepage-main-cp.centerpiece .chapter-list li .content h3 a { color: #fff; font-family: 'LeagueGothicRegular',sans-serif; font-weight: normal; font-size: 30px; line-height: 30px; }
+
+#lba-homepage-main-cp.centerpiece p a { font-weight: normal; }
+
+#lba-homepage-main-cp.centerpiece p a:hover { font-weight: normal; text-decoration: none; }
+
+#lba-homepage-main-cp.centerpiece h3 a:hover { color: #4DB848; text-decoration: underline; }
+
+
+#lba-homepage-main-cp.centerpiece .chapter-navigation { position: absolute; top: 10px; height: 40px; }
+
+#lba-homepage-main-cp.centerpiece .chapter-list li .content > div { margin-bottom: 0px; padding: 20px; position: relative; }
+
+#lba-homepage-main-cp.centerpiece .chapter-list li .content { background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzAwMjI0NCIgc3RvcC1vcGFjaXR5PSIwIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjIzJSIgc3RvcC1jb2xvcj0iIzFhMjYzNSIgc3RvcC1vcGFjaXR5PSIwLjk1Ii8+CiAgPC9saW5lYXJHcmFkaWVudD4KICA8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2dyYWQtdWNnZy1nZW5lcmF0ZWQpIiAvPgo8L3N2Zz4=);
+background: -moz-linear-gradient(top,  rgba(0,34,68,0) 0%, rgba(26,38,53,0.95) 23%);
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,34,68,0)), color-stop(23%,rgba(26,38,53,0.95)));
+background: -webkit-linear-gradient(top,  rgba(0,34,68,0) 0%,rgba(26,38,53,0.95) 23%);
+background: -o-linear-gradient(top,  rgba(0,34,68,0) 0%,rgba(26,38,53,0.95) 23%);
+background: -ms-linear-gradient(top,  rgba(0,34,68,0) 0%,rgba(26,38,53,0.95) 23%);
+background: linear-gradient(to bottom,  rgba(0,34,68,0) 0%,rgba(26,38,53,0.95) 23%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00002244', endColorstr='#f21a2635',GradientType=0 );
+
+ padding-top: 10px;
+font-size: 14px;
+
+}
+
+
+#lba-homepage-main-cp .content div { padding-bottom: 0px !important;  }
+
+#lba-homepage-main-cp .content { padding-bottom: 15px; margin-bottom: 0px;
+    width: 100%  }
+
+#lba-homepage-main-cp .icon a  {  }
+
+#lba-homepage-main-cp .icon a span {  }
+
+
+#lba-homepage-list-1 .mod-title  { border: none;  display: block; margin: 0 0 0 0; background-color: #a5acaf; padding: 10px;}
+
+#lba-homepage-list-1 .mod-wrp-1  { margin-right: 5px}
+
+#lba-homepage-list-1.module .mod-title h2 span { color: #fff; margin: 0;  }
+
+#lba-homepage-list-1.module .mod-title h2 {  padding: 0px; font-size: 16px; font-family: arial; font-weight: bold;}
+
+
+
+
+
+.module.lba-homepage-news-list ul li div.thumb, .module.lba-homepage-news-list ul li .thumb img, .module.lba-homepage-news-list .bd ul li .thumb a, .photo-gallery .bd ul li a.photo-size-thumb { width: 200px; height: 135px; }
+
+.module.lba-homepage-news-list .bd ul li{ padding: 20px 0 20px 0; }
+
+.module.lba-homepage-news-list .bd ul li.loop-first { padding-top: 0px; }
+
+.module.lba-homepage-news-list .content-list .content-list-variation-2 div.mod-wrp-1 { padding-top: 0px; }
+
+.module.lba-homepage-news-list .bd ul li h3 a { font-family: 'LeagueGothicRegular',sans-serif; font-size: 2.2em; font-weight: normal; color: #17599f; line-height: 1; display: block; margin-bottom: 5px; }
+
+.module.lba-homepage-news-list .bd ul li h3 { padding-top: 35px; }
+
+.module.lba-homepage-news-list .bd ul li .thumb a:hover { border-bottom: 0px; }
+
+.module.lba-homepage-news-list .bd ul li { border-bottom: 1px solid #dedede; }
+
+.content-list .content-list-variation-2 .bd p { color: #333333; font-size: 14px; line-height: 1.3;}
+
+.module.lba-homepage-news-list li { background-image: url(/assets/clubimages/lba-homepage-news.png); background-repeat: no-repeat; background-position: 210px 20px; }
+
+.module.lba-homepage-news-list li.loop-first { background-position: 210px 0px; }
+
+.module.lba-homepage-news-list li.content-type-club-article { background-image: url(/assets/clubimages/lba-homepage-news.png); }
+
+.module.lba-homepage-news-list li.content-type-photo-gallery { background-image: url(/assets/clubimages/lba-homepage-photos.png); }
+
+.module.lba-homepage-news-list li.content-type-video { background-image: url(/assets/clubimages/lba-homepage-video.png); }
+
+.module.lba-homepage-news-list li div.details { position: absolute; right: 0px; top: 25px;  }
+
+.module.lba-homepage-news-list li.loop-first div.details { top: 5px;  }
+
+.module.lba-homepage-news-list .content-list .bd li div .details .date .highlight, .module.lba-homepage-news-list li div.details { color: #91999e; }
+
+.module.lba-homepage-news-list .tmb-video-play, .module.lba-homepage-news-list .video-icon { background: url(/assets/clubimages/lba-homepage-video-overlay.png); width: 50px; height: 50px; background-repeat: no-repeat; top: 85px; left: 145px; }
+
+.module.lba-homepage-news-list .mod-wrp-1 { margin-bottom: 0; padding-bottom: 0; margin-top: 15px; }
+
+.module.lba-homepage-news-list .content-list .content-list-variation-2 .bd p { width: 415px; display: block; float: left; color: #6f6f6f }
+
+.module.lba-homepage-news-list-horizontal .mod-wrp-1 { background-color: #596368; padding: 10px 10px 20px 20px; margin: 0px 20px 0px 15px; }
+
+.module.lba-homepage-news-list-horizontal h2 { color: #fff; border: none; font-family: arial; font-size: 1.15em; font-weight: bold;}
+
+.module.lba-homepage-news-list-horizontal .mod-title { border: 0; margin: 0; padding: 0;}
+
+.module.lba-homepage-news-list-horizontal .content-list .content-list-variation-3 .bd li div h3 a { color: #dee9ec; font-weight: normal }
+
+.module.lba-homepage-news-list-horizontal .content-list-variation-3 .bd ul li .thumb a img,
+.module.lba-homepage-news-list-horizontal .content-list-variation-3 .bd ul li .thumb a,
+.module.lba-homepage-news-list-horizontal .content-list-variation-3 .bd ul li .thumb { width: 190px; height: 125px; }
+
+.module.lba-homepage-news-list-horizontal .content-list-variation-3 .bd ul li  { min-height: 138px; width: 188px; }
+
+
+.module.lba-homepage-news-list-horizontal .content-list-variation-3 h3  { width: 188px; }
+
+
+.module.lba-homepage-news-list-horizontal ul li { width: 188px; margin-right: 15px; }
+
+.module.lba-homepage-news-list-horizontal ul li .thumb a:hover { border-bottom: 0px; }
+
+.module.lba-homepage-news-list-horizontal ul li.loop-last { margin-right: 0; }
+
+.module.lba-homepage-news-list-horizontal .tmb-video-play { background: url(/assets/clubimages/lba-homepage-video-overlay.png); width: 50px; height: 50px; background-repeat: no-repeat; top: 75px; left: 135px; }
+
+
+.module.lba-homepage-news-list-horizontal .content-list-variation-3 .ft { position: absolute; right: 28px; top: 2px;  }
+
+.module.lba-homepage-news-list-horizontal .action-bar a { color: #dee9ec; text-transform: capitalize; font-size: 1.15em; font-weight: normal; }
+
+.module.lba-homepage-news-list-horizontal .action-bar a span span, .module.lba-homepage-news-list-horizontal .details { color: #dee9ec; display: none; }
+
+.game-status.strip.module {  margin: 0 10px 0px 0; }
+
+#lba-homepage-featured-row-next-game .mod-wrp-1 { margin-bottom: 0px; }
+
+#lba-next-game-matchup { background-image: url(/assets/clubimages/week-1-panthers.png); width: 620px; height: 174px; }
+
+#lba-next-game-nav { background-image: url(/assets/clubimages/lba-homepage-schedule-nav.png); width: 620px; height: 65px; }
+
+#lba-homepage-featured-row-next-game { margin-left: 15px; }
+
+#lba-homepage-featured-row-next-game #lba-next-game-matchup #next,
+#lba-homepage-featured-row-next-game #lba-next-game-matchup #opponent,
+#lba-homepage-featured-row-next-game #lba-next-game-matchup #location,
+#lba-homepage-featured-row-next-game #lba-next-game-matchup #details { clear: both; display: block; text-align: center; }
+
+#lba-homepage-featured-row-next-game #lba-next-game-matchup #next { font-family: 'LeagueGothicRegular',sans-serif; font-size: 45px; text-transform: uppercase; color: #122f59; padding-top: 26px }
+
+#lba-homepage-featured-row-next-game #lba-next-game-matchup #opponent { font-family: 'LeagueGothicRegular',sans-serif; font-size: 26px; color: #fff; padding-top: 32px; }
+
+#lba-homepage-featured-row-next-game #lba-next-game-matchup #location { font-size: 12px; color: #778186; text-align: center; padding-top: 15px; }
+
+#lba-homepage-featured-row-next-game #lba-next-game-matchup #details { font-size: 12px; color: #778186; text-align: center; padding-top: 20px; }
+
+#lba-homepage-featured-row-next-game #lba-next-game-matchup #time, #lba-homepage-featured-row-next-game #lba-next-game-matchup #tv { margin-right: 25px; }
+
+#lba-next-game-nav #left, #lba-next-game-nav #center, #lba-next-game-nav #right { position: absolute; }
+
+#lba-next-game-nav #center { font-family: 'LeagueGothicRegular',sans-serif; font-size: 26px; color: #fff; bottom: 24px; left: 258px; }
+
+#lba-next-game-nav #left, #lba-next-game-nav #right { padding-top: 15px; }
+
+#lba-next-game-nav #left { width: 240px; text-align: center; color: #fff; }
+
+#lba-next-game-nav #left #last, #lba-next-game-nav #left #date, #lba-next-game-nav #right #date, #lba-next-game-nav #right #opponent { clear: both; display: block; }
+
+#lba-next-game-nav #right { width: 240px; text-align: center; color: #fff; left: 375px; }
+
+#lba-next-game-nav #left #last, #lba-next-game-nav #right #date { font-weight: bold; text-transform: uppercase; }
+
+#lba-homepage-featured-row-pro-shop { margin-left: 10px;  border-top: 1px solid #dedede; height: 200px;border-bottom: 1px solid #dedede; margin-right: 20px;  }
+
+#lba-homepage-featured-row-pro-shop #left { margin-right: 15px; width: 406px; float: left; height: 174px; overflow: hidden;  }
+
+#lba-homepage-featured-row-pro-shop #right { float: left; margin-top: 8px;  }
+
+#lba-homepage-featured-row-pro-shop #right #info { float: left; display: block; width: 105px;  }
+
+#lba-homepage-featured-row-pro-shop #right #image { float: left; display: block;  }
+
+#lba-homepage-featured-row-pro-shop #right #proshop { font-family: 'LeagueGothicRegular',sans-serif; display: block; clear: both; font-size: 26px; color: #8f979f; line-height: 28px; margin-bottom: 10px;  }
+
+#lba-homepage-featured-row-pro-shop #right #price { font-family: 'LeagueGothicRegular',sans-serif; display: block; clear: both; font-size: 30px; color: #000; line-height: 1em; margin-bottom: 5px;  }
+
+#lba-homepage-featured-row-pro-shop #right #description { color: #8f979f; line-height: 1em; margin-bottom: 10px; display: block; clear: both;  }
+
+#lba-homepage-featured-row-pro-shop #right #button { border: 2px solid #88e93c; clear: both; display: block; background-color: #69bd28; color: #fff; font-family: 'LeagueGothicRegular',sans-serif; font-size: 20px; padding: 10px; text-align: center; text-transform: uppercase;   }
+
+#lba-homepage-featured-row-pro-shop #right a { font-weight: normal; }
+
+#lba-homepage-featured-row-pro-shop #right a:hover { text-decoration: none; }
+
+#lba-homepage-featured-row-pro-shop #right #button:hover { text-decoration: underline; }
+
+#lba-homepage-featured-row-pro-shop #right #button a { color: #fff; }
+
+
+
+#lba-homepage-right-featured-photos .thumb, #lba-homepage-right-featured-photos li a, #lba-homepage-right-featured-photos li img, #lba-homepage-right-featured-photos li { width: 300px; height: 200px; padding: 0px; margin: 0px; }
+
+#lba-homepage-right-featured-photos .mod-wrp-1 { padding-left: 0px; padding-top:0px; margin-bottom: 0px; width: 300px; overflow: hidden; }
+
+#lba-homepage-right-featured-photos .mod-wrp-1 a span:hover { text-decoration: underline; }
+
+/* #lba-homepage-right-featured-photos.module .mod-title, #lba-homepage-right-featured-photos.module .hd .title  { margin-left: -5px; position: absolute; z-index:100; border: none; background-image: url(/assets/clubimages/lba-homepage-gallery.png); background-repeat: no-repeat; display:block; height: 30px; width: 300px; top: 25px; }
+
+#lba-homepage-right-featured-photos h2 { display: none; } */
+
+#lba-homepage-right-featured-photos.module .mod-title h2 { color: #3473b1; text-align: center; width: 100%; background-image: url(/assets/clubimages/lba-homepage-poll.png); background-repeat: no-repeat; }
+
+#lba-homepage-right-featured-photos.module .mod-title h2 span { color: #3473b1; text-align: center; width: 230px; background-color: #fff; margin: auto;}
+
+#lba-homepage-right-featured-photos.module .mod-title { border: none;  display: block; margin-left: 0px; margin-top: 5px; margin-bottom: 10px; }
+
+#lba-homepage-right-featured-photos .ft { margin-top: -60px; position: text-align: center; position: absolute; width: 240px; margin-left: 25px; height: 40px; text-align: center;  background-color: #69BD28; border: 2px solid #88E93C; display: none; }
+
+#lba-homepage-right-featured-photos .ft a { float: left; clear: both; text-align: center; display: block; width: 100%; color: #fff; font-family: 'LeagueGothicRegular',sans-serif; font-weight: normal; font-size: 20px; padding-top: 12px; }
+
+#lba-homepage-right-featured-photos .ft a span span { display: none; }
+
+#lba-homepage-right-featured-photos h3 { display: block; position: absolute; bottom: 10px; width: 80%; height: 25px;; text-align: center;  background-color: #69BD28; border: 2px solid #88E93C; left: 18px; padding: 10px; line-height: 1.4em; }
+
+#lba-homepage-right-featured-photos { border-bottom: 1px solid #DEDEDE; width: 300px; overflow: hidden; margin-bottom: 20px; }
+
+
+#lba-homepage-right-featured-photos h3 a { float: left; clear: both; text-align: center; display: block; width: 100%; color: #fff; font-family: 'LeagueGothicRegular',sans-serif; font-weight: normal; font-size: 20px; margin-top: 5px;}
+
+.ad-right { border-bottom: 1px solid #DEDEDE; width: 300px; overflow: hidden; margin-bottom: 10px; }
+
+
+
+
+
+
+.module.lba-homepage-right-featured-editorial .content-list-variation-3 .bd ul li .thumb a img,
+.module.lba-homepage-right-featured-editorial .content-list-variation-3 .bd ul li .thumb a,
+.module.lba-homepage-right-featured-editorial .content-list-variation-3 .bd ul li .thumb, .module.lba-homepage-right-featured-editorial .content-list-variation-3 .bd ul li  { width: 300px; height: 120px; padding: 0px; margin: 0 0 20px 0; }
+
+.module.lba-homepage-right-featured-editorial .mod-wrp-1 { padding: 0; margin-bottom: 20px; }
+
+.module.lba-homepage-right-featured-editorial { margin-bottom: 15px; }
+
+.module.lba-homepage-right-featured-editorial .content-list-variation-3 .bd ul li { min-height: 190px; }
+
+.module.lba-homepage-right-featured-editorial .content-list-variation-3 h3 { display: none; }
+
+.module.lba-homepage-right-featured-editorial .content-list-variation-3 p { width: 280px; clear: both; margin: auto; color: #777777; font-size: 14px;}
+
+.module.lba-homepage-right-featured-editorial .content-list-variation-3 .ft { margin-top: 0px; background-color: #69BD28; border: 2px solid #88E93C; display: block; width: 200px; margin-left: 50px; height: 30px; }
+
+.module.lba-homepage-right-featured-editorial .content-list-variation-3 .ft a { color: #fff; font-family: 'LeagueGothicRegular',sans-serif; font-weight: normal; font-size: 18px;}
+
+.module.lba-homepage-right-featured-editorial .content-list-variation-3 .ft .action-bar .content-more { float: left; text-align: center; clear: both; width: 100%; margin-top: 6px; }
+
+.module.lba-homepage-right-featured-editorial .content-list-variation-3  { border-bottom: 1px solid #DEDEDE; width: 300px; overflow: hidden; }
+
+.module.lba-homepage-right-featured-editorial .content-list-variation-3 span.link-carets { display: none; }
+
+.module.lba-homepage-right-featured-editorial .mod-title h2 { color: #3473b1; text-align: center; width: 100%; background-image: url(/assets/clubimages/lba-homepage-poll.png); background-repeat: no-repeat; }
+
+.module.lba-homepage-right-featured-editorial .mod-title h2 span { color: #3473b1; text-align: center; width: 140px; background-color: #fff; margin: auto;}
+
+.module.lba-homepage-right-featured-editorial .mod-title { border: none;  display: block; margin-left: 0px; margin-top:15px; margin-bottom: 10px; }
+
+
+.module.lba-homepage-right-featured-editorial .content-list-variation-3 .bd { overflow: hidden; width: 300px;}
+
+#lba-homepage-list-2 ul li:nth-child(-n+3) { display: none; }
+
+#lba-homepage-list-2 ul li:nth-child(-n+4) { padding-top: 0px;}
+
+#lba-homepage-list-2 ul li:nth-child(-n+4) { background-position: 210px 0px; }
+
+#lba-homepage-list-2 ul li:nth-child(-n+4) div.details { top: 3px; }
+
+
+
+
+#lba-homepage-list-3 ul li:nth-child(-n+7) { display: none; }
+
+#lba-homepage-list-3 ul li:nth-child(-n+8) { padding-top: 0px;}
+
+#lba-homepage-list-3 ul li:nth-child(-n+8) { background-position: 210px 0px; }
+
+#lba-homepage-list-3 ul li:nth-child(-n+8) div.details { top: 3px; }
+
+#lba-homepage-poll .poll-question { font-family: 'LeagueGothicRegular',sans-serif; font-weight: normal; font-size: 25px; line-height: 1em; color: #818a8f;  }
+
+#lba-homepage-poll .polls .mod-title h2 { color: #3473b1; text-align: center; width: 100%; background-image: url(/assets/clubimages/lba-homepage-poll.png); background-repeat: no-repeat; }
+
+#lba-homepage-poll .polls .mod-title h2 span { color: #3473b1; text-align: center; width: 120px; background-color: #fff; margin: auto;}
+
+#lba-homepage-poll .polls .mod-title { border: none;  display: block; }
+
+#lba-homepage-poll .polls .bd .poll-questions .submit #polls-submit { background-image: none; no-repeat scroll 0 -650px rgba(0, 0, 0, 0); color: #FFFFFF; text-transform: capitalize; width: 80%; background-color: #69BD28; border: 2px solid #88E93C;  height: 35px; margin: auto; margin-top: 10px; }
+
+#lba-homepage-poll .polls .bd .poll-questions .submit #polls-submit span { display: block; text-indent: 0px; font-family: 'LeagueGothicRegular',sans-serif; font-size: 18px; font-weight: normal; text-transform: uppercase; }
+
+#lba-homepage-poll { border-bottom: 1px solid #DEDEDE; width: 300px; }
+
+#lba-homepage-poll .submit #polls-submit:hover { text-decoration: underline; }
+
+
+
+.lba-homepage-right-cp .title h2 { color: #3473b1; text-align: center; width: 100%; background-image: url(/assets/clubimages/lba-homepage-poll.png); background-repeat: no-repeat; background-position: 0 10px; }
+
+.lba-homepage-right-cp .title h2 span { color: #3473b1; text-align: center; width: 140px; background-color: #fff; margin: auto; display: block;}
+
+.lba-homepage-right-cp .mod-title, .lba-homepage-right-cp .hd .title  { border: none;  display: block; margin: 0 0 15px 0; }
+
+.lba-homepage-right-cp .chapter-list li .content { background-color: #002244; width: 250px; }
+
+.lba-homepage-right-cp.module .chapter-list li .content a { color: #fff; text-transform: uppercase; }
+
+.lba-homepage-right-cp.module .chapter-list li .content a:hover { font-weight: bold; }
+
+.lba-homepage-right-cp .chapter-list li .content .summary { display: none; }
+
+
+.lba-homepage-right-cp .chapter-navigation { top: 70px; height: 30px; }
+
+.lba-homepage-right-cp .icon a span { display: none; }
+
+.lba-homepage-right-cp .icon a  { width: 15px; }
+
+.lba-homepage-right-cp .content div { padding-bottom: 0px !important;  }
+
+.lba-homepage-right-cp { border-bottom: 1px solid #DEDEDE; width: 300px; padding-bottom: 20px; padding-top: 10px; }
+
+#lba-homepage-footer-content { font-family: 'LeagueGothicRegular',sans-serif; font-weight: normal; font-size: 40px; line-height: 1em; color: #cecece; margin-left: 15px; padding-top: 30px; padding-bottom: 30px; }
+
+#lba-homepage-footer-content a { font-family: 'LeagueGothicRegular',sans-serif; font-weight: normal; font-size: 40px; line-height: 1em; color: #cecece; }
+
+#lba-homepage-footer-content a:hover { color: #69be28; }
+
+#lba-homepage-footer-content ul { display: block; width: 100%; text-align: center; }
+
+#lba-homepage-footer-content li { display: inline; list-style-type: none; padding-right: 50px; }
+
+
+
+
+.lba-homepage-featured-row-right-links { margin-left: 10px;  border-top: 1px solid #dedede; height: 200px;border-bottom: 1px solid #dedede; margin-right: 20px;  }
+
+.lba-homepage-featured-row-right-links #left { margin-right: 15px; width: 406px; float: left; height: 174px; overflow: hidden;  }
+
+.lba-homepage-featured-row-right-links #right { float: left; margin-top: 8px; width: 205px;  }
+
+.lba-homepage-featured-row-right-links #right #info { float: left; display: block; width: 100%;  }
+
+.lba-homepage-featured-row-right-links #right #tc-headline { font-family: 'LeagueGothicRegular',sans-serif; display: block; clear: both; font-size: 30px; color: #000; line-height: 1em; margin-bottom: 5px;  }
+
+.lba-homepage-featured-row-right-links #right #description { color: #8f979f; line-height: 1em; margin-bottom: 10px; display: block; clear: both;  }
+
+.lba-homepage-featured-row-right-links #right #button { border: 2px solid #88e93c; clear: both; display: block; background-color: #69bd28; color: #fff; font-family: 'LeagueGothicRegular',sans-serif; font-size: 20px; padding: 10px; text-align: center; text-transform: uppercase; width: 80%; margin: auto; margin-top: 10px;  }
+
+.lba-homepage-featured-row-right-links #right a { font-weight: normal; }
+
+.lba-homepage-featured-row-right-links #right a:hover { text-decoration: none; }
+
+.lba-homepage-featured-row-right-links #right #button:hover { text-decoration: underline; }
+
+.lba-homepage-featured-row-right-links #right ul {  }
+
+.lba-homepage-featured-row-right-links #right ul li { margin-left: 16px; list-style-image:url("/assets/clubimages/lba-homepage-bullett.png");; margin-bottom: 0px; font-size: 14px; }
+
+.lba-homepage-featured-row-right-links #right ul li a { color: #17599f; }
+
+.lba-homepage-featured-row-right-links #right ul li a:hover { text-decoration: underline }
+
+
+
+
+.lba-homepage-right-custom-module .mod-title h2 { color: #3473b1; text-align: center; width: 100%; background-image: url(/assets/clubimages/lba-homepage-poll.png); background-repeat: no-repeat; line-height: 1em; }
+
+.lba-homepage-right-custom-module.module .mod-wrp-5 { width: 300px; overflow: hidden; }
+
+.lba-homepage-right-custom-module.module .mod-wrp-5 p { font-size: 14px; color: #6F6F6F; line-height: 1.3em; }
+
+.lba-homepage-right-custom-module.module .mod-wrp-5 .mod-title { color: #3473b1; text-align: center; border: none; display: block; padding-left: 0; padding-right: 0; margin-bottom: 0px}
+
+.lba-homepage-right-custom-module .mod-title h2 span { color: #3473b1; text-align: center; width: 160px; background-color: #fff; margin: auto;}
+
+.lba-homepage-right-custom-module { width: 300px; overflow: hidden; }
+
+.lba-homepage-right-custom-module  #info ul { margin-left: 25px; }
+
+.lba-homepage-right-custom-module  #info ul li { margin-left: 16px; list-style-image:url("/assets/clubimages/lba-homepage-bullett.png"); margin-bottom: 0px; font-size: 14px; }
+
+.lba-homepage-right-custom-module #info ul li a { color: #17599f; }
+
+.lba-homepage-right-custom-module #info ul li a:hover { text-decoration: underline }
+
+.lba-homepage-right-custom-module #info a { font-weight: normal; }
+
+.lba-homepage-right-custom-module #info a:hover { text-decoration: none; }
+
+.lba-homepage-right-custom-module #info #button:hover { text-decoration: underline; }
+
+.lba-homepage-right-custom-module #info #tc-headline { font-family: 'LeagueGothicRegular',sans-serif; display: block; clear: both; font-size: 30px; color: #000; line-height: 1em; margin-bottom: 5px;  }
+
+.lba-homepage-right-custom-module #info #description { color: #8f979f; line-height: 1em; margin-bottom: 10px; display: block; clear: both;  }
+
+.lba-homepage-right-custom-module #info #button { border: 2px solid #88e93c; clear: both; display: block; background-color: #69bd28; color: #fff; font-family: 'LeagueGothicRegular',sans-serif; font-size: 20px; padding: 10px; text-align: center; text-transform: uppercase; width: 80%; margin: auto; margin-top: 10px;  }
+
+.lba-homepage-right-custom-module { border-bottom: 1px solid #dedede; margin-bottom: 20px; padding-bottom: 10px; }
+
+
+
+

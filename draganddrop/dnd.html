@@ -1,0 +1,60 @@
+<html>
+	<head>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
+		<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+		<script>
+			$(function(){
+		    $("img").draggable({
+	        revert : function(event, ui) {
+	            // on older version of jQuery use "draggable"
+	            // $(this).data("draggable")
+	            // on 2.x versions of jQuery use "ui-draggable"
+	            // $(this).data("ui-draggable")
+	            $(this).data("uiDraggable").originalPosition = {
+	                top : 0,
+	                left : 0
+	            };
+	            $("#imgurl").text($(this).attr("src"));
+	            // return boolean
+	            return !event;
+	            // that evaluate like this:
+	            // return event !== false ? false : true;
+	        },
+	        helper:"clone"
+    		});
+    		$("#droppable").droppable({
+		      drop: function(event,ui){
+		        $(this).css("border","2px solid #f00");
+		      }
+		    });
+		  });
+		</script>
+		<style>
+			body{
+				font-family:"Titillium Web",sans-serif;
+			}
+			a{
+				text-decoration: none;
+			}
+			img{
+				margin:20px 5px 0px 5px;height:150px;cursor:pointer;
+			}
+		</style>
+	</head>
+	<body>
+		<hr>
+			<img src="http://topicb.com/images/demo/demo_01.jpg" />
+			<img src="http://topicb.com/images/demo/demo_02.jpg" />
+			<img src="http://topicb.com/images/demo/demo_03.jpg" />
+			<img src="http://topicb.com/images/demo/demo_04.jpg" />
+			<img src="http://topicb.com/images/demo/demo_05.jpg" />
+			<div style="clear:both;"></div>
+		<hr>
+		<div id="droppable" style="width:500px;height:200px;border:2px solid #000;">
+		  <div id="imgurl">Drop here</div>
+
+		</div>
+	</body>
+</html>

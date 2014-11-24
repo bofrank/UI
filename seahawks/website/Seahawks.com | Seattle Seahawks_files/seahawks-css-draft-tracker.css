@@ -1,0 +1,22 @@
+.tracker.module.draft-view .title { 
+    border: medium none; 
+    display: block; 
+    margin-bottom: 10px; 
+    margin-left: 0; 
+    margin-top: 5px; 
+} 
+.tracker.module.draft-view .title h2 { 
+    background: url("/assets/clubimages/lba-homepage-poll.png") 0 center no-repeat; 
+    background-repeat: no-repeat; 
+    color: #3473B1; 
+    text-align: center; 
+    width: 100%; 
+} 
+.tracker.module.draft-view .title h2 span { 
+    background-color: #FFFFFF; 
+    color: #3473B1; 
+    display: block; 
+    margin: auto; 
+    text-align: center; 
+    width: 186px; 
+}

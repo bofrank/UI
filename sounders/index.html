@@ -1,0 +1,100 @@
+<html>
+<head>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
+	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+	<script src="../js/jquery.watermark.js"></script>
+	<script>
+		function gothere(){
+			window.open("http://topicb.com/index.php?topic="+$("#mysearch").val());
+		}
+		$( document ).ready(function() {
+			$('#mysearch').watermark('TopicB Search');
+		});
+		$(document).keypress(function(e) {
+    	if(e.which == 13) {
+      	  gothere();
+    	}
+		});
+		$(function() {
+    var availableTags = [
+"RaShaun",
+"Avril",
+"Bailey",
+"Baldwin",
+"Bennett",
+"Bradford",
+"Britt",
+"Burley",
+"Carpenter",
+"Chancellor",
+"Coyle",
+"Dobbs",
+"Gilliam",
+"Gresham",
+"Hauschka",
+"Helfet",
+"Hill",
+"Irvin",
+"Jackson",
+"Jeanpierre",
+"Johnson",
+"Kearse",
+"Lane",
+"Lewis",
+"Lockette",
+"Lynch",
+"Maxwell",
+"McDaniel",
+"Michael",
+"Moeaki",
+"Morgan",
+"Norwood",
+"Okung",
+"PierreLouis",
+"Richardson",
+"Robertson",
+"Ryan",
+"Schofield",
+"Shead",
+"Sherman",
+"Simon",
+"Smith",
+"Sweezy",
+"Thomas",
+"Tukuafu",
+"Turbin",
+"Unger",
+"Wagner",
+"Walters",
+"Williams",
+"Willson",
+"Wilson",
+"Wright"
+    ];
+    $( "#mysearch" ).autocomplete({
+      source: availableTags
+    });
+  });
+	</script>
+	<style>
+		#ui-id-1{
+			font-size:10px;
+		}
+	</style>
+</head>
+<body>
+	<img src="images/image1.png" />
+	<div style="margin-top:-764px;margin-left:925px;width:300px;border:1px solid #ff0000;">
+		<img src="images/icon_topicb.jpg" style="margin-bottom:-9px;cursor:pointer;" onclick="gothere();" />
+		<input id="mysearch" type="text" style="width:120px;" />
+	</div>
+	<div style="width:300px;height:100px;position:relative;top:50px;left:980px;">
+  <div style="width:270px;margin-left:auto;margin-right:auto;padding-left:15px;padding-right:15px;background:#333;">
+
+          <iframe style="border:none;height:290px;margin-top:10px;overflow:hidden;width:103%;" src="../index_chat.php?chatter=0000000000&amp;chatee=1111111111&amp;topicinit=sports" id="chatBox"></iframe>
+
+        </div>
+</div>
+</body>
+</html>
