@@ -1,19 +1,45 @@
 <!DOCTYPE html SYSTEM "about:legacy-compat">
-<html class=" js no-touch rgba cssgradients csstransitions" style="" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:nflcs="http://clubs.nfl.com" xmlns="http://www.w3.org/1999/xhtml" xmlns:pas="http://www.nfl.com/2009/pluckApplicationServer"><head><script src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/event" type="text/javascript"></script><script src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/v3.js" async="async" type="text/javascript"></script><script src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/teamscode.js" async="async" type="text/javascript"></script><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Seahawks.com | Seattle Seahawks</title><!--ls:begin[stylesheet]-->
+<html class=" js no-touch rgba cssgradients csstransitions" style="" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:nflcs="http://clubs.nfl.com" xmlns="http://www.w3.org/1999/xhtml" xmlns:pas="http://www.nfl.com/2009/pluckApplicationServer"><head><script src="SeahawkscomSeattleSeahawks_files/event" type="text/javascript"></script><script src="SeahawkscomSeattleSeahawks_files/v3.js" async="async" type="text/javascript"></script><script src="SeahawkscomSeattleSeahawks_files/teamscode.js" async="async" type="text/javascript"></script><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Seahawks.com | Seattle Seahawks</title><!--ls:begin[stylesheet]-->
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
   <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
-<script src="../js/jquery.watermark.js"></script>
+<script src="../../js/jquery.watermark.js"></script>
 <script>
-function gothere(){
-      window.open("http://topicb.com/index.php?image="+$("#mysearch").val());
+    function gothere(){
+      window.open("http://topicb.com/index.php?image="+$("#mysearch").val(),"_mytopics");
+    }
+    function gotheretext(mytopic){
+      window.open("http://topicb.com/index.php?topic="+mytopic,"_mytopics");
     }
     $(document).ready(function() {
-      $('#mysearch').watermark('TopicB Search');
+      $('#mysearch').watermark('Drag image or text here to chat');
+      //$("#mysearch").val("");
+      
+      var inputField = $("#mysearch");
+      var oldValue = inputField.text();
+      inputField.bind("drop", function() {
+          //when the drop happens the input value will not be updated yet
+          //use a timeout to allow the input value to change.
+          setTimeout($.proxy(function() {
+              if (this.value !== oldValue) {
+                  $(this).trigger('change');
+              }
+          }, this), 0);
+      });
+      $("#mysearch").bind("change", function() {
+        var tempText=this.value.substring(0, 4);
+        if((tempText=="http")&&((this.value != "")||(this.value != "Drag image or text here to chat"))){
+          oldValue = this.value;
+          gothere();
+          $("#mysearch").val("");
+        }
+      });
+
     });
+
     $(document).keypress(function(e) {
       if(e.which == 13) {
-          gothere();
+          gotheretext($("#mysearch").val());
       }
     });
     $(function() {
@@ -24,7 +50,6 @@ function gothere(){
 "Baldwin",
 "Bennett",
 "Bradford",
-"Britt",
 "Burley",
 "Carpenter",
 "Chancellor",
@@ -72,39 +97,57 @@ function gothere(){
 "Wilson",
 "Wright"
     ];
-    $( "#mysearch" ).autocomplete({
+    $("#mysearch").autocomplete({
       source: availableTags,
-      change: function( event, ui ) {
-        return gothere();
+      select: function( event, ui ) {
+        //alert("value="+ui.item.value);
+        if(ui.item==undefined){
+          gothere("http://topicb.com/seahawks/website/SeahawkscomSeattleSeahawks_files/141121-lem-playlist-660.jpg");
+        }else{
+          gotheretext(ui.item.value);
+        }
+      },
+      open: function( event, ui ) {
+        //update image
+        $("#ui-id-1").prepend("<li class='ui-menu-item'><img id='testtopic' src='http://topicb.com/seahawks/website/SeahawkscomSeattleSeahawks_files/141121-lem-playlist-660.jpg' style='width:125px;' /></li>");
+        $("#ui-id-12").after("<li class='ui-menu-item'><img id='testtopic' src='http://topicb.com/seahawks/website/SeahawkscomSeattleSeahawks_files/141120hawkville660.jpg' style='width:120px;' /></li>");
+
+        
       }
     });
     //$( "#mysearch" ).on( "autocompleteselect", function( event, ui ) {gothere();} );
   });
     
-      $(function(){
-        $("img").draggable({
-          revert : function(event, ui) {
+      $( document ).ready(function() {
+        $('a:not(.root-node-link):not(.summary a)').contents().unwrap();
+        $('#main-nav-ribbon').css("z-index","1");
+
+        //$("img").draggable({
+          //revert : function(event, ui) {
               // on older version of jQuery use "draggable"
               // $(this).data("draggable")
               // on 2.x versions of jQuery use "ui-draggable"
               // $(this).data("ui-draggable")
-              $(this).data("uiDraggable").originalPosition = {
+              /*$(this).data("uiDraggable").originalPosition = {
                   top : 0,
                   left : 0
-              };
-              $("#imgurl").text($(this).attr("src"));
+              };*/
+              //$("#imgurl").text($(this).attr("src"));
               // return boolean
-              return !event;
+              //return !event;
               // that evaluate like this:
               // return event !== false ? false : true;
-          },
-          helper:"clone"
-        });
+         // }
+          /*,
+          helper:"clone"*/
+        //});
+        /*
         $("#mysearch").droppable({
           drop: function(event,ui){
-            $(this).css("border","2px solid #f00");
+            alert("dropped");
           }
         });
+*/
       });
 </script>
 
@@ -423,7 +466,7 @@ function gothere(){
 }
 
 #c1379582447962{background-color: transparent; min-height: 0;}#c1379582447961{background-color: transparent; min-height: 0;}#c1388658085460{background-color: transparent; min-height: 0;}#c1388658085459{background-color: transparent; min-height: 0;}#c1388658085461{background-color: transparent; min-height: 0;}#c1399262175779{background-color: transparent; min-height: 0;}#c1399540868930{background-color: transparent; min-height: 0;}#c1399540868931{background-color: transparent; min-height: 0;}#c1407403249528{background-color: transparent; min-height: 0;}#c1379582447988{background-color: transparent; min-height: 0;}#c1379755250109{background-color: transparent; min-height: 0;}#c1379582447995{background-color: transparent; min-height: 0;}#c1379582448005{background-color: transparent; min-height: 0;}#c1379582448002{background-color: transparent; min-height: 0;}#c1379582448008{background-color: transparent; min-height: 0;}#c1379582447993{background-color: transparent; min-height: 0;}#c1412500865707{background-color: transparent; min-height: 0;}#c1380446452072{background-color: transparent; min-height: 0;}#c1379841650321{background-color: transparent; min-height: 0;}#c1380360050268{background-color: transparent; min-height: 0;}#c1380187255661{background-color: transparent; min-height: 0;}#c1380792054543{background-color: transparent; min-height: 0;}#c1379582447974{background-color: transparent; min-height: 0;}#c1379582447973{background-color: transparent; min-height: 0;}</style><!--ls:end[stylesheet]--><!--ls:begin[meta-keywords]--><meta name="keywords" content="Seattle Seahawks, Seahawks, Seahawks Schedule, Seahawks Tickets, Seahawks Jersey, Seahawks News, Seahawks Roster, Russell Wilson, Richard Sherman, Marshawn Lynch, Golden Tate, Earl Thomas, Kam Chancellor, Seattle Cheereleaders, Sea Gals "><!--ls:end[meta-keywords]--><!--ls:begin[meta-description]--><meta name="description" content="Seahawks.com - the official site of the National Football League's Seattle Seahawks. "><!--ls:end[meta-description]--><!--ls:begin[meta-vpath]--><meta name="vpath" content=""><!--ls:end[meta-vpath]--><meta name="og:title" content="Seahawks.com | Seattle Seahawks"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/cl_ga4.js" async="" type="text/javascript"></script><script src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/ga.js" async="" type="text/javascript"></script><script src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/gpt.js" type="text/javascript" async=""></script><script type="text/javascript">
+<script src="SeahawkscomSeattleSeahawks_files/cl_ga4.js" async="" type="text/javascript"></script><script src="SeahawkscomSeattleSeahawks_files/ga.js" async="" type="text/javascript"></script><script src="SeahawkscomSeattleSeahawks_files/gpt.js" type="text/javascript" async=""></script><script type="text/javascript">
     var nflcsAssetPath='http://prod.static.seahawks.clubs.nfl.com/';
     var nflcsImgAssetPath='http://prod.images.seahawks.clubs.nflcdn.com:80/image-web/NFL/CDA/data/deployed/prod/SEAHAWKS/';
     var nflcsAVAssetPath='http://prod.video.seahawks.clubs.nfl.com/';
@@ -447,11 +490,11 @@ function gothere(){
     if(!window.jsRand) window.jsRand = Math.floor(Math.random()*10000000);
     var isSplashPage = false;*/
 </script>
-<script type="text/javascript" src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/shims.js"></script>
-<script type="text/javascript" src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/nflcs-main.js"></script>
-<link type="text/css" href="Seahawks.com%20%7C%20Seattle%20Seahawks_files/nflcs-league.css" rel="stylesheet">
-<link type="text/css" href="Seahawks.com%20%7C%20Seattle%20Seahawks_files/nflcs-print.css" rel="stylesheet" media="print">
-<link type="text/css" href="Seahawks.com%20%7C%20Seattle%20Seahawks_files/club-main.css" rel="stylesheet">
+<script type="text/javascript" src="SeahawkscomSeattleSeahawks_files/shims.js"></script>
+<script type="text/javascript" src="SeahawkscomSeattleSeahawks_files/nflcs-main.js"></script>
+<link type="text/css" href="SeahawkscomSeattleSeahawks_files/nflcs-league.css" rel="stylesheet">
+<link type="text/css" href="SeahawkscomSeattleSeahawks_files/nflcs-print.css" rel="stylesheet" media="print">
+<link type="text/css" href="SeahawkscomSeattleSeahawks_files/club-main.css" rel="stylesheet">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@seahawks">
 
@@ -467,14 +510,14 @@ function gothere(){
 <link rel="alternate" type="application/rss+xml" title="Videos-Sea-Gals RSS Feed" href="http://www.seahawks.com/cda-web/rss-module.htm?tagName=Videos-Sea-Gals">
 <link rel="alternate" type="application/rss+xml" title="Photos RSS Feed" href="http://www.seahawks.com/cda-web/rss-module.htm?tagName=Photos">
 <link rel="alternate" type="application/rss+xml" title="Audio RSS Feed" href="http://www.seahawks.com/cda-web/rss-module.htm?tagName=Audio">
-<link type="text/css" href="Seahawks.com%20%7C%20Seattle%20Seahawks_files/lba-homepage.css" rel="stylesheet">
-        <link type="text/css" href="Seahawks.com%20%7C%20Seattle%20Seahawks_files/pencil-ad-padding.css" rel="stylesheet">
-        <link type="text/css" href="Seahawks.com%20%7C%20Seattle%20Seahawks_files/seahawks-css-draft-tracker.css" rel="stylesheet">
-        <script type="text/javascript" src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/custom-club.js"></script>
-        <script type="text/javascript" src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/thumbnail-swapper-seahawks.js"></script>
-        <link href="Seahawks.com%20%7C%20Seattle%20Seahawks_files/css.css" rel="stylesheet" type="text/css">
+<link type="text/css" href="SeahawkscomSeattleSeahawks_files/lba-homepage.css" rel="stylesheet">
+        <link type="text/css" href="SeahawkscomSeattleSeahawks_files/pencil-ad-padding.css" rel="stylesheet">
+        <link type="text/css" href="SeahawkscomSeattleSeahawks_files/seahawks-css-draft-tracker.css" rel="stylesheet">
+        <script type="text/javascript" src="SeahawkscomSeattleSeahawks_files/custom-club.js"></script>
+        <script type="text/javascript" src="SeahawkscomSeattleSeahawks_files/thumbnail-swapper-seahawks.js"></script>
+        <link href="SeahawkscomSeattleSeahawks_files/css.css" rel="stylesheet" type="text/css">
 <script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script>
-<!--ls:begin[head-injection]--><!--ls:end[head-injection]--><!--ls:begin[script]--><!--ls:end[script]--><script type="text/javascript" src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/checkplayer.js"></script><script type="text/javascript" src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/flensed.js"></script><script src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/jquery_004.js" data-requiremodule="http://prod.static.seahawks.clubs.nfl.com/nfl-assets/js/jquery.easing.1.3.js" data-requirecontext="_" charset="utf-8" type="text/javascript"></script><script src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/001-navigation-ribbon.js" data-requiremodule="http://prod.static.seahawks.clubs.nfl.com/nfl-assets/js/001-navigation-ribbon.js" data-requirecontext="_" charset="utf-8" type="text/javascript"></script><script src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/jquery_002.js" data-requiremodule="http://prod.static.seahawks.clubs.nfl.com/nfl-assets/js/jquery.form.min.js" data-requirecontext="_" charset="utf-8" type="text/javascript"></script><script src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/jquery_003.js" data-requiremodule="http://prod.static.seahawks.clubs.nfl.com/nfl-assets/js/jquery.cookie.min.js" data-requirecontext="_" charset="utf-8" type="text/javascript"></script><script src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/013-polls.js" data-requiremodule="http://prod.static.seahawks.clubs.nfl.com/nfl-assets/js/013-polls.js" data-requirecontext="_" charset="utf-8" type="text/javascript"></script><script src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/jquery.js" data-requiremodule="http://prod.static.seahawks.clubs.nfl.com/nfl-assets/js/jquery.slides.js" data-requirecontext="_" charset="utf-8" type="text/javascript"></script><script src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/041-centerpiece.js" data-requiremodule="http://prod.static.seahawks.clubs.nfl.com/nfl-assets/js/041-centerpiece.js" data-requirecontext="_" charset="utf-8" type="text/javascript"></script><script src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/detect-blocked-ads.js" data-requiremodule="http://prod.static.seahawks.clubs.nfl.com/nfl-assets/js/detect-blocked-ads.js" data-requirecontext="_" charset="utf-8" type="text/javascript"></script><script src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/jqModal.js" data-requiremodule="http://prod.static.seahawks.clubs.nfl.com/nfl-assets/js/jqModal.js" data-requirecontext="_" charset="utf-8" type="text/javascript"></script><script src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/geo-interstitial.js" data-requiremodule="http://prod.static.seahawks.clubs.nfl.com/nfl-assets/js/geo-interstitial.js" data-requirecontext="_" charset="utf-8" type="text/javascript"></script><script src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/handlebars.js" data-requiremodule="http://prod.static.seahawks.clubs.nfl.com/nfl-assets/js/handlebars.js" data-requirecontext="_" charset="utf-8" type="text/javascript"></script><script src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/game-status-strip.js" data-requiremodule="http://prod.static.seahawks.clubs.nfl.com/nfl-assets/js/game-status-strip.js" data-requirecontext="_" charset="utf-8" type="text/javascript"></script><script src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/pubads_impl_54.js" type="text/javascript" async=""></script><script type="text/javascript" src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/flensed.js"></script><script src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/osd.js" type="text/javascript"></script></head><body style="background:url(images/background.jpg);"><!--ls:begin[body]--><div class="gbl-wrp-1"><div class="gbl-wrp-2"><div class="gbl-wrp-3"><div class="gbl-wrp-4"><div class="gbl-wrp-5"><div id="element1"><div id="element2"><div class="iw_component" id="c1379582447962"><div xmlns:esi="http://www.edge-delivery.org/esi/1.0">
+<!--ls:begin[head-injection]--><!--ls:end[head-injection]--><!--ls:begin[script]--><!--ls:end[script]--><script type="text/javascript" src="SeahawkscomSeattleSeahawks_files/checkplayer.js"></script><script type="text/javascript" src="SeahawkscomSeattleSeahawks_files/flensed.js"></script><script src="SeahawkscomSeattleSeahawks_files/jquery_004.js" data-requiremodule="http://prod.static.seahawks.clubs.nfl.com/nfl-assets/js/jquery.easing.1.3.js" data-requirecontext="_" charset="utf-8" type="text/javascript"></script><script src="SeahawkscomSeattleSeahawks_files/001-navigation-ribbon.js" data-requiremodule="http://prod.static.seahawks.clubs.nfl.com/nfl-assets/js/001-navigation-ribbon.js" data-requirecontext="_" charset="utf-8" type="text/javascript"></script><script src="SeahawkscomSeattleSeahawks_files/jquery_002.js" data-requiremodule="http://prod.static.seahawks.clubs.nfl.com/nfl-assets/js/jquery.form.min.js" data-requirecontext="_" charset="utf-8" type="text/javascript"></script><script src="SeahawkscomSeattleSeahawks_files/jquery_003.js" data-requiremodule="http://prod.static.seahawks.clubs.nfl.com/nfl-assets/js/jquery.cookie.min.js" data-requirecontext="_" charset="utf-8" type="text/javascript"></script><script src="SeahawkscomSeattleSeahawks_files/013-polls.js" data-requiremodule="http://prod.static.seahawks.clubs.nfl.com/nfl-assets/js/013-polls.js" data-requirecontext="_" charset="utf-8" type="text/javascript"></script><script src="SeahawkscomSeattleSeahawks_files/jquery.js" data-requiremodule="http://prod.static.seahawks.clubs.nfl.com/nfl-assets/js/jquery.slides.js" data-requirecontext="_" charset="utf-8" type="text/javascript"></script><script src="SeahawkscomSeattleSeahawks_files/041-centerpiece.js" data-requiremodule="http://prod.static.seahawks.clubs.nfl.com/nfl-assets/js/041-centerpiece.js" data-requirecontext="_" charset="utf-8" type="text/javascript"></script><script src="SeahawkscomSeattleSeahawks_files/detect-blocked-ads.js" data-requiremodule="http://prod.static.seahawks.clubs.nfl.com/nfl-assets/js/detect-blocked-ads.js" data-requirecontext="_" charset="utf-8" type="text/javascript"></script><script src="SeahawkscomSeattleSeahawks_files/jqModal.js" data-requiremodule="http://prod.static.seahawks.clubs.nfl.com/nfl-assets/js/jqModal.js" data-requirecontext="_" charset="utf-8" type="text/javascript"></script><script src="SeahawkscomSeattleSeahawks_files/geo-interstitial.js" data-requiremodule="http://prod.static.seahawks.clubs.nfl.com/nfl-assets/js/geo-interstitial.js" data-requirecontext="_" charset="utf-8" type="text/javascript"></script><script src="SeahawkscomSeattleSeahawks_files/handlebars.js" data-requiremodule="http://prod.static.seahawks.clubs.nfl.com/nfl-assets/js/handlebars.js" data-requirecontext="_" charset="utf-8" type="text/javascript"></script><script src="SeahawkscomSeattleSeahawks_files/game-status-strip.js" data-requiremodule="http://prod.static.seahawks.clubs.nfl.com/nfl-assets/js/game-status-strip.js" data-requirecontext="_" charset="utf-8" type="text/javascript"></script><script src="SeahawkscomSeattleSeahawks_files/pubads_impl_54.js" type="text/javascript" async=""></script><script type="text/javascript" src="SeahawkscomSeattleSeahawks_files/flensed.js"></script><script src="SeahawkscomSeattleSeahawks_files/osd.js" type="text/javascript"></script></head><body style="background:url(images/background.jpg);"><!--ls:begin[body]--><div class="gbl-wrp-1"><div class="gbl-wrp-2"><div class="gbl-wrp-3"><div class="gbl-wrp-4"><div class="gbl-wrp-5"><div id="element1"><div id="element2"><div class="iw_component" id="c1379582447962"><div xmlns:esi="http://www.edge-delivery.org/esi/1.0">
 <input value="" type="hidden">
 <div class="ad-top" rev="">
   <img src="images/ad1.png" />
@@ -608,51 +651,16 @@ function gothere(){
 #mid-header-frag_c1388658085344{background-color: transparent; min-height:0;}#mid-header-frag_c1388658085345{background-color: transparent; min-height:0;}#mid-header-frag_c1388658085340{background-color: transparent; min-height:0;}#mid-header-frag_c1388658085346{background-color: transparent; min-height:0;}#mid-header-frag_c1388658085347{background-color: transparent; min-height:0;}</style><div id="mid-header-frag_element1"><div id="mid-header-frag_element2"><div class="iw_component" id="mid-header-frag_c1388658085344"><div xmlns:esi="http://www.edge-delivery.org/esi/1.0">
 <input value="" type="hidden">
 
-
-
-
-
-
-
-    
-        
-            
-                
-                
-                
+                        <div id="header-logo-link"><img src="images/logo.png" /></div>
                     
-                        <div id="header-logo-link"><a onclick='s_objectID="http://www.seahawks.com/_1";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/" title="Seattle Seahawks Homepage"><img src="images/logo.png" /></a></div>
-                    
-                
-            
-        
-    
-    
-
 </div>
 </div><div id="mid-header-frag_element3"><div id="mid-header-frag_element4"><div class="iw_component" id="mid-header-frag_c1388658085345"><div xmlns:esi="http://www.edge-delivery.org/esi/1.0">
 <input value="" type="hidden">
 
-
-
-
-
-
-
-    
-        
-            
-                
-                
-                
                     
                         <div style="vertical-align: middle;" id="hot-topics"><a onclick='s_objectID="http://www.pjtra.com/t/RUBKRUNITEBKRklGQ0BISEtERw_1";return this.s_oc?this.s_oc(e):true' href="http://www.pjtra.com/t/RUBKRUNITEBKRklGQ0BISEtERw">Watch Games Online</a> | <a onclick='s_objectID="http://www.seahawks.com/tickets/season-tickets/blue-pride.html?utm_source=SH&amp;utm_medium=ChipAd&amp;ut_1";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/tickets/season-tickets/blue-pride.html?utm_source=SH&amp;utm_medium=ChipAd&amp;utm_campaign=BluePride">Season Tickets</a> | <a onclick='s_objectID="http://www.seahawks.com/promotions/index.html_1";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/promotions/index.html">Contests &amp; Promotions</a> | <a onclick='s_objectID="http://www.seahawks.com/12th-Man/wallpapers.html_1";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/12th-Man/wallpapers.html">Wallpapers</a></div>
                     
                 
-            
-        
-    
-    
 
 </div>
 </div><div class="iw_component" id="mid-header-frag_c1388658085340"><div class="gbl-nfl-network">
@@ -662,27 +670,15 @@ function gothere(){
 </div>
 </div></div><div  style="width:835px;"><div class="iw_component" >
 
-
-
-
-
-
-
-    
-        
+ 
             
 <div style="width:180px;float:left;margin-left:20px;">
-  <img src="../images/icon_topicb.jpg" style="margin-bottom:-9px;cursor:pointer;" onclick="gothere();" />
-  <input id="mysearch" type="text" style="width:120px;" />
+  <img src="../images/icon_topicb.jpg" style="margin-bottom:-9px;cursor:pointer;" onclick="gotheretext($('#mysearch').val());" />
+  <input id="mysearch" type="text" style="width:130px;" />
 </div>
 <img src="images/sns.png" style="float:left;" />
 <div style="clear:both;"></div>
                     
-                
-            
-        
-    
-    
 
 
 </div><div class="iw_component" id="mid-header-frag_c1388658085347"><div xmlns:esi="http://www.edge-delivery.org/esi/1.0">
@@ -947,7 +943,7 @@ function gothere(){
         <ul style="display: block; overflow: hidden; position: relative; width: 1977px; height: 500px; left: -659px;" class="chapter-list">
             <li style="position: absolute; top: 0px; left: 659px; z-index: 0; height: 500px; display: none;" class=" loop-first  loop-odd  chapter-1">
                     <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5"><a onclick='s_objectID="http://www.seahawks.com/news/articles/article-roundup/Friday-Round-Up-Seahawks-vs-Arizona-Cardina_1";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/news/articles/article-roundup/Friday-Round-Up-Seahawks-vs-Arizona-Cardinals-Picks--Predictions/1e4920c8-4d12-41c3-b625-7be0c55db52c">
-                            <img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/141121-round-up-660.jpg" alt="Seahawks vs Arizona Cardinals Picks &amp; Predictions" class="mainimage-click">
+                            <img src="SeahawkscomSeattleSeahawks_files/141121-round-up-660.jpg" alt="Seahawks vs Arizona Cardinals Picks &amp; Predictions" class="mainimage-click">
                             <span class="playbutton-click article-icon"></span>
                         </a>
                         <div class="content">
@@ -959,7 +955,7 @@ function gothere(){
                         </div></div></div></div></div></li>
             <li style="position: absolute; top: 0px; left: 659px; z-index: 0; height: 500px;" class=" loop-even  chapter-2">
                     <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5"><a onclick='s_objectID="http://www.seahawks.com/12th-Man/tagboard/tgibf.html_1";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/12th-Man/tagboard/tgibf.html">
-                            <img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/141121tgibf660.jpg" alt="#TGIBF" class="mainimage-click">
+                            <img src="SeahawkscomSeattleSeahawks_files/141121tgibf660.jpg" alt="#TGIBF" class="mainimage-click">
                             <span class="playbutton-click article-icon"></span>
                         </a>
                         <div class="content">
@@ -971,7 +967,7 @@ function gothere(){
                         </div></div></div></div></div></li>
             <li style="position: absolute; top: 0px; left: 659px; z-index: 0; height: 500px; display: none;" class=" loop-odd  chapter-3">
                     <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5"><a onclick='s_objectID="http://www.seahawks.com/news/articles/article-1/Seahawks-vs-Arizona-Cardinals-Pregame-Playlist/34_1";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/news/articles/article-1/Seahawks-vs-Arizona-Cardinals-Pregame-Playlist/345847d7-0f79-4811-ac7f-ffda556863ac">
-                            <img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/141121-lem-playlist-660.jpg" alt="Seahawks vs Arizona Cardinals: Pregame Playlist" class="mainimage-click">
+                            <img src="SeahawkscomSeattleSeahawks_files/141121-lem-playlist-660.jpg" alt="Seahawks vs Arizona Cardinals: Pregame Playlist" class="mainimage-click">
                             <span class="playbutton-click article-icon"></span>
                         </a>
                         <div class="content">
@@ -983,7 +979,7 @@ function gothere(){
                         </div></div></div></div></div></li>
             <li style="position: absolute; top: 0px; left: 659px; z-index: 0; height: 500px; display: none;" class=" loop-even  chapter-4">
                     <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5"><a onclick='s_objectID="http://www.seahawks.com/news/articles/article-1/Thursday-in-Hawkville-The-story-behind-Marshawn-L_1";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/news/articles/article-1/Thursday-in-Hawkville-The-story-behind-Marshawn-Lynch%E2%80%99s-sideline-halftime/0a674405-f7c7-4aa6-99d0-b09b04c6bc21">
-                            <img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/141120hawkville660.jpg" alt="The story behind Marshawn Lynch’s sideline halftime" class="mainimage-click">
+                            <img src="SeahawkscomSeattleSeahawks_files/141120hawkville660.jpg" alt="The story behind Marshawn Lynch’s sideline halftime" class="mainimage-click">
                             <span class="playbutton-click article-icon"></span>
                         </a>
                         <div class="content">
@@ -999,7 +995,7 @@ ridiculous.”</span></a> <span class="more-link"><a onclick='s_objectID="http:/
                         </div></div></div></div></div></li>
             <li style="position: absolute; top: 0px; left: 659px; z-index: 0; height: 500px; display: none;" class=" loop-odd  chapter-5">
                     <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5"><a onclick='s_objectID="http://www.seahawks.com/promotions/2014/pemco/pemco-hawkdog.html_1";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/promotions/2014/pemco/pemco-hawkdog.html">
-                            <img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/131119wieners660.jpg" alt="2014 Wiener Dog Race for Rescue" class="mainimage-click">
+                            <img src="SeahawkscomSeattleSeahawks_files/131119wieners660.jpg" alt="2014 Wiener Dog Race for Rescue" class="mainimage-click">
                             <span class="playbutton-click article-icon"></span>
                         </a>
                         <div class="content">
@@ -1023,7 +1019,7 @@ game. See HawkDogs like Minnie who is a one-eyed Old Dog Haven dachshund
                         </div></div></div></div></div></li>
             <li style="position: absolute; top: 0px; left: 659px; z-index: 0; height: 500px; display: none;" class=" loop-even  chapter-6">
                     <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5"><a onclick='s_objectID="http://www.seahawks.com/news/articles/article-1/Russell-Wilson-on-the-run-has-caught-Cardinals%E2_1";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/news/articles/article-1/Russell-Wilson-on-the-run-has-caught-Cardinals%E2%80%99-attention/0dea002a-6731-42c7-b0d3-bf52a2380b17">
-                            <img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/141120wilson660.jpg" alt="Bruce Arians on Russell Wilson: ‘He’s very special, because he’s unique’" class="mainimage-click">
+                            <img src="SeahawkscomSeattleSeahawks_files/141120wilson660.jpg" alt="Bruce Arians on Russell Wilson: ‘He’s very special, because he’s unique’" class="mainimage-click">
                             <span class="playbutton-click article-icon"></span>
                         </a>
                         <div class="content">
@@ -1038,7 +1034,7 @@ different challenge because he’s different.</span></a> <span class="more-link"
                         </div></div></div></div></div></li>
             <li style="position: absolute; top: 0px; left: 659px; z-index: 0; height: 500px; display: none;" class=" loop-odd  loop-last  chapter-7">
                     <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5"><a onclick='s_objectID="http://www.seahawks.com/news/articles/article-1/Earl-Thomas-Guardian-Angel-Foundation-raises-more_1";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/news/articles/article-1/Earl-Thomas-Guardian-Angel-Foundation-raises-more-than-230000-with-Steaks--Seahawks-event/4998369d-a1d6-4865-9ef7-3273749d54f0">
-                            <img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/141120-et-steaks-660.jpg" alt="Earl Thomas' Guardian Angel Foundation Raises More Than $230,000" class="mainimage-click">
+                            <img src="SeahawkscomSeattleSeahawks_files/141120-et-steaks-660.jpg" alt="Earl Thomas' Guardian Angel Foundation Raises More Than $230,000" class="mainimage-click">
                             <span class="playbutton-click article-icon"></span>
                         </a>
                         <div class="content">
@@ -1480,7 +1476,7 @@ and families in need.</span></a> <span class="more-link"><a onclick='s_objectID=
         <div class="sponsor">
             <span class="label">Presented by</span>
             <a onclick='s_objectID="http://www.seahawks.com/schedule/game/2014/regular12_1";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/schedule/game/2014/regular12" target="_blank">
-                <img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/coke-subway_logo.png">
+                <img src="SeahawkscomSeattleSeahawks_files/coke-subway_logo.png">
                 </a>
         </div>
     
@@ -1582,7 +1578,7 @@ and families in need.</span></a> <span class="more-link"><a onclick='s_objectID=
                 <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5">
 				
 					<div class="thumb"><a onclick='s_objectID="http://www.seahawks.com/videos-photos/videos/NFL-Fantasy-Live-Top-10-RBs-for-Week-12/e9997b34-94e_1";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/videos-photos/videos/NFL-Fantasy-Live-Top-10-RBs-for-Week-12/e9997b34-94ed-4376-8ce8-e27739be246e" title="'NFL Fantasy Live': Top 10 RBs for Week 12">
-					<img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/0ap3000000431872_video_player_cp--nfl_medium_540_360.jpg" alt="'NFL Fantasy Live': Top 10 RBs for Week 12"><span></span>
+					<img src="SeahawkscomSeattleSeahawks_files/0ap3000000431872_video_player_cp--nfl_medium_540_360.jpg" alt="'NFL Fantasy Live': Top 10 RBs for Week 12"><span></span>
 					
                         
 						<span class="tmb-video-play"></span>
@@ -1638,7 +1634,7 @@ and families in need.</span></a> <span class="more-link"><a onclick='s_objectID=
                 <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5">
 				
 					<div class="thumb"><a onclick='s_objectID="http://www.seahawks.com/videos-photos/videos/Pete-Carroll-Week-12-Friday-Press-Conference/6754304_2";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/videos-photos/videos/Pete-Carroll-Week-12-Friday-Press-Conference/6754304f-4a0b-4bed-8072-2c973f9a2570" title="Pete Carroll Week 12 Friday Press Conference">
-					<img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/141121carroll800--nfl_medium_540_360.jpg" alt="Pete Carroll Week 12 Friday Press Conference"><span></span>
+					<img src="SeahawkscomSeattleSeahawks_files/141121carroll800--nfl_medium_540_360.jpg" alt="Pete Carroll Week 12 Friday Press Conference"><span></span>
 					
                         
 						<span class="tmb-video-play"></span>
@@ -1694,7 +1690,7 @@ and families in need.</span></a> <span class="more-link"><a onclick='s_objectID=
                 <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5">
 				
 					<div class="thumb"><a onclick='s_objectID="http://www.seahawks.com/videos-photos/videos/Playbook-Arizona-Cardinals-vs-Seattle-Seahawks/3a084_1";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/videos-photos/videos/Playbook-Arizona-Cardinals-vs-Seattle-Seahawks/3a0840db-a676-4614-92b6-c6d870e6e0df" title="'Playbook': Arizona Cardinals vs. Seattle Seahawks">
-					<img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/0ap3000000431961_video_player_cp--nfl_medium_540_360.jpg" alt="'Playbook': Arizona Cardinals vs. Seattle Seahawks"><span></span>
+					<img src="SeahawkscomSeattleSeahawks_files/0ap3000000431961_video_player_cp--nfl_medium_540_360.jpg" alt="'Playbook': Arizona Cardinals vs. Seattle Seahawks"><span></span>
 					
                         
 						<span class="tmb-video-play"></span>
@@ -1786,7 +1782,7 @@ and families in need.</span></a> <span class="more-link"><a onclick='s_objectID=
         <div class="custom-module">
             <div class="">
                 <div class="mod-wrp-1"><div class="mod-wrp-2"><div class="mod-wrp-3"><div class="mod-wrp-4"><div class="mod-wrp-5">
-                        <div id="left"><a onclick='s_objectID="http://www.seahawks.com/pro-shop/_1";return this.s_oc?this.s_oc(e):true' target="_blank" href="http://www.seahawks.com/pro-shop/"><img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/141112_Bellevue_MainFeature_420x170.png"></a></div>
+                        <div id="left"><a onclick='s_objectID="http://www.seahawks.com/pro-shop/_1";return this.s_oc?this.s_oc(e):true' target="_blank" href="http://www.seahawks.com/pro-shop/"><img src="SeahawkscomSeattleSeahawks_files/141112_Bellevue_MainFeature_420x170.png"></a></div>
 <div id="right">
 <div id="info"><span id="proshop"></span><span id="price"></span><span id="description">All new Pro Shop Locations open at Bellevue Square and Tacoma Mall</span><span id="button"><a onclick='s_objectID="http://www.seahawks.com/pro-shop/_2";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/pro-shop/">Store Info</a></span></div>
 </div>
@@ -1866,7 +1862,7 @@ and families in need.</span></a> <span class="more-link"><a onclick='s_objectID=
                 <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5">
 				
 					<div class="thumb"><a onclick='s_objectID="http://www.seahawks.com/videos-photos/videos/NFL-Fantasy-Live-Top-10-RBs-for-Week-12/e9997b34-94e_3";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/videos-photos/videos/NFL-Fantasy-Live-Top-10-RBs-for-Week-12/e9997b34-94ed-4376-8ce8-e27739be246e" title="'NFL Fantasy Live': Top 10 RBs for Week 12">
-					<img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/0ap3000000431872_video_player_cp--nfl_medium_540_360.jpg" alt="'NFL Fantasy Live': Top 10 RBs for Week 12"><span></span>
+					<img src="SeahawkscomSeattleSeahawks_files/0ap3000000431872_video_player_cp--nfl_medium_540_360.jpg" alt="'NFL Fantasy Live': Top 10 RBs for Week 12"><span></span>
 					
                         
 						<span class="tmb-video-play"></span>
@@ -1922,7 +1918,7 @@ and families in need.</span></a> <span class="more-link"><a onclick='s_objectID=
                 <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5">
 				
 					<div class="thumb"><a onclick='s_objectID="http://www.seahawks.com/videos-photos/videos/Pete-Carroll-Week-12-Friday-Press-Conference/6754304_4";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/videos-photos/videos/Pete-Carroll-Week-12-Friday-Press-Conference/6754304f-4a0b-4bed-8072-2c973f9a2570" title="Pete Carroll Week 12 Friday Press Conference">
-					<img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/141121carroll800--nfl_medium_540_360.jpg" alt="Pete Carroll Week 12 Friday Press Conference"><span></span>
+					<img src="SeahawkscomSeattleSeahawks_files/141121carroll800--nfl_medium_540_360.jpg" alt="Pete Carroll Week 12 Friday Press Conference"><span></span>
 					
                         
 						<span class="tmb-video-play"></span>
@@ -1978,7 +1974,7 @@ and families in need.</span></a> <span class="more-link"><a onclick='s_objectID=
                 <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5">
 				
 					<div class="thumb"><a onclick='s_objectID="http://www.seahawks.com/videos-photos/videos/Playbook-Arizona-Cardinals-vs-Seattle-Seahawks/3a084_3";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/videos-photos/videos/Playbook-Arizona-Cardinals-vs-Seattle-Seahawks/3a0840db-a676-4614-92b6-c6d870e6e0df" title="'Playbook': Arizona Cardinals vs. Seattle Seahawks">
-					<img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/0ap3000000431961_video_player_cp--nfl_medium_540_360.jpg" alt="'Playbook': Arizona Cardinals vs. Seattle Seahawks"><span></span>
+					<img src="SeahawkscomSeattleSeahawks_files/0ap3000000431961_video_player_cp--nfl_medium_540_360.jpg" alt="'Playbook': Arizona Cardinals vs. Seattle Seahawks"><span></span>
 					
                         
 						<span class="tmb-video-play"></span>
@@ -2034,7 +2030,7 @@ and families in need.</span></a> <span class="more-link"><a onclick='s_objectID=
                 <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5">
 				
 					<div class="thumb"><a onclick='s_objectID="http://www.seahawks.com/videos-photos/videos/Sound-FX-Best-sounds-of-Week-11/b37537c3-793b-4eef-8_1";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/videos-photos/videos/Sound-FX-Best-sounds-of-Week-11/b37537c3-793b-4eef-8a06-c92919df82c2" title="'Sound FX': Best sounds of Week 11">
-					<img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/0ap3000000431948_video_player_cp--nfl_medium_540_360.jpg" alt="'Sound FX': Best sounds of Week 11"><span></span>
+					<img src="SeahawkscomSeattleSeahawks_files/0ap3000000431948_video_player_cp--nfl_medium_540_360.jpg" alt="'Sound FX': Best sounds of Week 11"><span></span>
 					
                         
 						<span class="tmb-video-play"></span>
@@ -2090,7 +2086,7 @@ and families in need.</span></a> <span class="more-link"><a onclick='s_objectID=
                 <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5">
 				
 					<div class="thumb"><a onclick='s_objectID="http://www.seahawks.com/news/articles/article-1/Seahawks-vs-Arizona-Cardinals-Pregame-Playlist/34_6";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/news/articles/article-1/Seahawks-vs-Arizona-Cardinals-Pregame-Playlist/345847d7-0f79-4811-ac7f-ffda556863ac" title="Seahawks vs Arizona Cardinals: Pregame Playlist">
-					<img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/141121-lem-playlist-600.jpg" alt="Seahawks vs Arizona Cardinals: Pregame Playlist"><span></span>
+					<img src="SeahawkscomSeattleSeahawks_files/141121-lem-playlist-600.jpg" alt="Seahawks vs Arizona Cardinals: Pregame Playlist"><span></span>
 					
                         
                         
@@ -2138,7 +2134,7 @@ and families in need.</span></a> <span class="more-link"><a onclick='s_objectID=
                 <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5">
 				
 					<div class="thumb"><a onclick='s_objectID="http://www.seahawks.com/news/articles/article-roundup/Friday-Round-Up-Seahawks-vs-Arizona-Cardina_6";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/news/articles/article-roundup/Friday-Round-Up-Seahawks-vs-Arizona-Cardinals-Picks--Predictions/1e4920c8-4d12-41c3-b625-7be0c55db52c" title="Friday Round-Up: Seahawks vs Arizona Cardinals Picks &amp; Predictions">
-					<img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/141121-lynch-round-600.jpg" alt="Friday Round-Up: Seahawks vs Arizona Cardinals Picks &amp; Predictions"><span></span>
+					<img src="SeahawkscomSeattleSeahawks_files/141121-lynch-round-600.jpg" alt="Friday Round-Up: Seahawks vs Arizona Cardinals Picks &amp; Predictions"><span></span>
 					
                         
                         
@@ -2186,7 +2182,7 @@ and families in need.</span></a> <span class="more-link"><a onclick='s_objectID=
                 <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5">
 				
 					<div class="thumb"><a onclick='s_objectID="http://www.seahawks.com/news/articles/article-1/On-this-date-Ricky-Watters-doused-Arrowhead-losin_1";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/news/articles/article-1/On-this-date-Ricky-Watters-doused-Arrowhead-losing-streak/708d0de5-fd38-4508-bc57-65913547be73" title="On this date: Ricky Watters doused Arrowhead losing streak">
-					<img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/141121-otd-600.jpg" alt="On this date: Ricky Watters doused Arrowhead losing streak"><span></span>
+					<img src="SeahawkscomSeattleSeahawks_files/141121-otd-600.jpg" alt="On this date: Ricky Watters doused Arrowhead losing streak"><span></span>
 					
                         
                         
@@ -2317,7 +2313,7 @@ and families in need.</span></a> <span class="more-link"><a onclick='s_objectID=
                 <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5">
 				
 					<div class="thumb"><a onclick='s_objectID="http://www.seahawks.com/videos-photos/videos/Playbook-Arizona-Cardinals-vs-Seattle-Seahawks/3a084_5";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/videos-photos/videos/Playbook-Arizona-Cardinals-vs-Seattle-Seahawks/3a0840db-a676-4614-92b6-c6d870e6e0df" title="'Playbook': Arizona Cardinals vs. Seattle Seahawks">
-					<img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/0ap3000000431961_video_player_cp--nfl_medium_540_360.jpg" alt="'Playbook': Arizona Cardinals vs. Seattle Seahawks"><span></span>
+					<img src="SeahawkscomSeattleSeahawks_files/0ap3000000431961_video_player_cp--nfl_medium_540_360.jpg" alt="'Playbook': Arizona Cardinals vs. Seattle Seahawks"><span></span>
 					
                         
 						<span class="tmb-video-play"></span>
@@ -2363,7 +2359,7 @@ and families in need.</span></a> <span class="more-link"><a onclick='s_objectID=
                 <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5">
 				
 					<div class="thumb"><a onclick='s_objectID="http://www.seahawks.com/videos-photos/videos/Week-12-Seahawks-vs-Cardinals/8cbf14e4-8331-4b05-b2d_1";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/videos-photos/videos/Week-12-Seahawks-vs-Cardinals/8cbf14e4-8331-4b05-b2d9-32dd34a25685" title="Week 12: Seahawks vs Cardinals">
-					<img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/2013_Fitzgerald--nfl_medium_540_360.jpg" alt="Week 12: Seahawks vs Cardinals"><span></span>
+					<img src="SeahawkscomSeattleSeahawks_files/2013_Fitzgerald--nfl_medium_540_360.jpg" alt="Week 12: Seahawks vs Cardinals"><span></span>
 					
                         
 						<span class="tmb-video-play"></span>
@@ -2409,7 +2405,7 @@ and families in need.</span></a> <span class="more-link"><a onclick='s_objectID=
                 <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5">
 				
 					<div class="thumb"><a onclick='s_objectID="http://www.seahawks.com/videos-photos/videos/Preview-Arizona-Cardinals-vs-Seattle-Seahawks/acd3f8_1";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/videos-photos/videos/Preview-Arizona-Cardinals-vs-Seattle-Seahawks/acd3f8c7-1519-4a95-85d4-1ea9971c8555" title="Preview: Arizona Cardinals vs. Seattle Seahawks">
-					<img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/0ap3000000431418_video_player_cp--nfl_medium_540_360.jpg" alt="Preview: Arizona Cardinals vs. Seattle Seahawks"><span></span>
+					<img src="SeahawkscomSeattleSeahawks_files/0ap3000000431418_video_player_cp--nfl_medium_540_360.jpg" alt="Preview: Arizona Cardinals vs. Seattle Seahawks"><span></span>
 					
                         
 						<span class="tmb-video-play"></span>
@@ -2543,7 +2539,7 @@ and families in need.</span></a> <span class="more-link"><a onclick='s_objectID=
                 <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5">
 				
 					<div class="thumb"><a onclick='s_objectID="http://www.seahawks.com/videos-photos/videos/NFL-Fantasy-Live-Top-10-RBs-for-Week-12/e9997b34-94e_5";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/videos-photos/videos/NFL-Fantasy-Live-Top-10-RBs-for-Week-12/e9997b34-94ed-4376-8ce8-e27739be246e" title="'NFL Fantasy Live': Top 10 RBs for Week 12">
-					<img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/0ap3000000431872_video_player_cp--nfl_medium_540_360.jpg" alt="'NFL Fantasy Live': Top 10 RBs for Week 12"><span></span>
+					<img src="SeahawkscomSeattleSeahawks_files/0ap3000000431872_video_player_cp--nfl_medium_540_360.jpg" alt="'NFL Fantasy Live': Top 10 RBs for Week 12"><span></span>
 					
                         
 						<span class="tmb-video-play"></span>
@@ -2599,7 +2595,7 @@ and families in need.</span></a> <span class="more-link"><a onclick='s_objectID=
                 <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5">
 				
 					<div class="thumb"><a onclick='s_objectID="http://www.seahawks.com/videos-photos/videos/Pete-Carroll-Week-12-Friday-Press-Conference/6754304_6";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/videos-photos/videos/Pete-Carroll-Week-12-Friday-Press-Conference/6754304f-4a0b-4bed-8072-2c973f9a2570" title="Pete Carroll Week 12 Friday Press Conference">
-					<img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/141121carroll800--nfl_medium_540_360.jpg" alt="Pete Carroll Week 12 Friday Press Conference"><span></span>
+					<img src="SeahawkscomSeattleSeahawks_files/141121carroll800--nfl_medium_540_360.jpg" alt="Pete Carroll Week 12 Friday Press Conference"><span></span>
 					
                         
 						<span class="tmb-video-play"></span>
@@ -2655,7 +2651,7 @@ and families in need.</span></a> <span class="more-link"><a onclick='s_objectID=
                 <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5">
 				
 					<div class="thumb"><a onclick='s_objectID="http://www.seahawks.com/videos-photos/videos/Playbook-Arizona-Cardinals-vs-Seattle-Seahawks/3a084_7";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/videos-photos/videos/Playbook-Arizona-Cardinals-vs-Seattle-Seahawks/3a0840db-a676-4614-92b6-c6d870e6e0df" title="'Playbook': Arizona Cardinals vs. Seattle Seahawks">
-					<img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/0ap3000000431961_video_player_cp--nfl_medium_540_360.jpg" alt="'Playbook': Arizona Cardinals vs. Seattle Seahawks"><span></span>
+					<img src="SeahawkscomSeattleSeahawks_files/0ap3000000431961_video_player_cp--nfl_medium_540_360.jpg" alt="'Playbook': Arizona Cardinals vs. Seattle Seahawks"><span></span>
 					
                         
 						<span class="tmb-video-play"></span>
@@ -2711,7 +2707,7 @@ and families in need.</span></a> <span class="more-link"><a onclick='s_objectID=
                 <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5">
 				
 					<div class="thumb"><a onclick='s_objectID="http://www.seahawks.com/videos-photos/videos/Sound-FX-Best-sounds-of-Week-11/b37537c3-793b-4eef-8_3";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/videos-photos/videos/Sound-FX-Best-sounds-of-Week-11/b37537c3-793b-4eef-8a06-c92919df82c2" title="'Sound FX': Best sounds of Week 11">
-					<img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/0ap3000000431948_video_player_cp--nfl_medium_540_360.jpg" alt="'Sound FX': Best sounds of Week 11"><span></span>
+					<img src="SeahawkscomSeattleSeahawks_files/0ap3000000431948_video_player_cp--nfl_medium_540_360.jpg" alt="'Sound FX': Best sounds of Week 11"><span></span>
 					
                         
 						<span class="tmb-video-play"></span>
@@ -2767,7 +2763,7 @@ and families in need.</span></a> <span class="more-link"><a onclick='s_objectID=
                 <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5">
 				
 					<div class="thumb"><a onclick='s_objectID="http://www.seahawks.com/news/articles/article-1/Seahawks-vs-Arizona-Cardinals-Pregame-Playlist/34_8";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/news/articles/article-1/Seahawks-vs-Arizona-Cardinals-Pregame-Playlist/345847d7-0f79-4811-ac7f-ffda556863ac" title="Seahawks vs Arizona Cardinals: Pregame Playlist">
-					<img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/141121-lem-playlist-600.jpg" alt="Seahawks vs Arizona Cardinals: Pregame Playlist"><span></span>
+					<img src="SeahawkscomSeattleSeahawks_files/141121-lem-playlist-600.jpg" alt="Seahawks vs Arizona Cardinals: Pregame Playlist"><span></span>
 					
                         
                         
@@ -2815,7 +2811,7 @@ and families in need.</span></a> <span class="more-link"><a onclick='s_objectID=
                 <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5">
 				
 					<div class="thumb"><a onclick='s_objectID="http://www.seahawks.com/news/articles/article-roundup/Friday-Round-Up-Seahawks-vs-Arizona-Cardina_8";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/news/articles/article-roundup/Friday-Round-Up-Seahawks-vs-Arizona-Cardinals-Picks--Predictions/1e4920c8-4d12-41c3-b625-7be0c55db52c" title="Friday Round-Up: Seahawks vs Arizona Cardinals Picks &amp; Predictions">
-					<img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/141121-lynch-round-600.jpg" alt="Friday Round-Up: Seahawks vs Arizona Cardinals Picks &amp; Predictions"><span></span>
+					<img src="SeahawkscomSeattleSeahawks_files/141121-lynch-round-600.jpg" alt="Friday Round-Up: Seahawks vs Arizona Cardinals Picks &amp; Predictions"><span></span>
 					
                         
                         
@@ -2863,7 +2859,7 @@ and families in need.</span></a> <span class="more-link"><a onclick='s_objectID=
                 <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5">
 				
 					<div class="thumb"><a onclick='s_objectID="http://www.seahawks.com/news/articles/article-1/On-this-date-Ricky-Watters-doused-Arrowhead-losin_3";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/news/articles/article-1/On-this-date-Ricky-Watters-doused-Arrowhead-losing-streak/708d0de5-fd38-4508-bc57-65913547be73" title="On this date: Ricky Watters doused Arrowhead losing streak">
-					<img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/141121-otd-600.jpg" alt="On this date: Ricky Watters doused Arrowhead losing streak"><span></span>
+					<img src="SeahawkscomSeattleSeahawks_files/141121-otd-600.jpg" alt="On this date: Ricky Watters doused Arrowhead losing streak"><span></span>
 					
                         
                         
@@ -2911,7 +2907,7 @@ and families in need.</span></a> <span class="more-link"><a onclick='s_objectID=
                 <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5">
 				
 					<div class="thumb"><a onclick='s_objectID="http://www.seahawks.com/videos-photos/videos/Earl-Thomas-Steaks-and-Seahawks-Celebrity-Waiters/e1_2";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/videos-photos/videos/Earl-Thomas-Steaks-and-Seahawks-Celebrity-Waiters/e1aa087f-2bd9-46b7-a18e-5a1a68b3efa5" title="Earl Thomas' Steaks and Seahawks Celebrity Waiters">
-					<img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/141120-guardian-angel--nfl_medium_540_360.jpg" alt="Earl Thomas' Steaks and Seahawks Celebrity Waiters"><span></span>
+					<img src="SeahawkscomSeattleSeahawks_files/141120-guardian-angel--nfl_medium_540_360.jpg" alt="Earl Thomas' Steaks and Seahawks Celebrity Waiters"><span></span>
 					
                         
 						<span class="tmb-video-play"></span>
@@ -2969,7 +2965,7 @@ Angel Foundation. </p>
                 <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5">
 				
 					<div class="thumb"><a onclick='s_objectID="http://www.seahawks.com/news/articles/article-1/Earl-Thomas-Guardian-Angel-Foundation-raises-more_6";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/news/articles/article-1/Earl-Thomas-Guardian-Angel-Foundation-raises-more-than-230000-with-Steaks--Seahawks-event/4998369d-a1d6-4865-9ef7-3273749d54f0" title="Earl Thomas' Guardian Angel Foundation raises more than $230,000 with Steaks &amp; Seahawks event">
-					<img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/141120-et-steaks-600.jpg" alt="Earl Thomas' Guardian Angel Foundation raises more than $230,000 with Steaks &amp; Seahawks event"><span></span>
+					<img src="SeahawkscomSeattleSeahawks_files/141120-et-steaks-600.jpg" alt="Earl Thomas' Guardian Angel Foundation raises more than $230,000 with Steaks &amp; Seahawks event"><span></span>
 					
                         
                         
@@ -3019,7 +3015,7 @@ resources for youth and families in need.</p>
                 <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5">
 				
 					<div class="thumb"><a onclick='s_objectID="http://www.seahawks.com/videos-photos/photo-gallery/Photo-Gallery---Week-12-Thursday-Practice/39c_1";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/videos-photos/photo-gallery/Photo-Gallery---Week-12-Thursday-Practice/39c779e2-74a3-4f3c-8e8f-a311b9baabdc" title="Photo Gallery - Week 12 Thursday Practice">
-					<img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/tempRM8_9495-2--nfl_mezz_1280_1024.JPG" alt="Photo Gallery - Week 12 Thursday Practice"><span></span>
+					<img src="SeahawkscomSeattleSeahawks_files/tempRM8_9495-2--nfl_mezz_1280_1024.JPG" alt="Photo Gallery - Week 12 Thursday Practice"><span></span>
 					
                         
                         
@@ -3063,7 +3059,7 @@ Renton's Virginia Mason Athletic Center ahead of the team's Week 12 game
                 <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5">
 				
 					<div class="thumb"><a onclick='s_objectID="http://www.seahawks.com/news/articles/article-1/Thursday-in-Hawkville-The-story-behind-Marshawn-L_6";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/news/articles/article-1/Thursday-in-Hawkville-The-story-behind-Marshawn-Lynch%E2%80%99s-sideline-halftime/0a674405-f7c7-4aa6-99d0-b09b04c6bc21" title="Thursday in Hawkville: The story behind Marshawn Lynch’s sideline halftime">
-					<img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/141120hawkville600.jpg" alt="Thursday in Hawkville: The story behind Marshawn Lynch’s sideline halftime"><span></span>
+					<img src="SeahawkscomSeattleSeahawks_files/141120hawkville600.jpg" alt="Thursday in Hawkville: The story behind Marshawn Lynch’s sideline halftime"><span></span>
 					
                         
                         
@@ -3114,7 +3110,7 @@ otherwise I think is ridiculous.”</p>
                 <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5">
 				
 					<div class="thumb"><a onclick='s_objectID="http://www.seahawks.com/news/articles/article-1/Russell-Wilson-on-the-run-has-caught-Cardinals%E2_6";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/news/articles/article-1/Russell-Wilson-on-the-run-has-caught-Cardinals%E2%80%99-attention/0dea002a-6731-42c7-b0d3-bf52a2380b17" title="Russell Wilson on the run has caught Cardinals’ attention">
-					<img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/141120wilson600.jpg" alt="Russell Wilson on the run has caught Cardinals’ attention"><span></span>
+					<img src="SeahawkscomSeattleSeahawks_files/141120wilson600.jpg" alt="Russell Wilson on the run has caught Cardinals’ attention"><span></span>
 					
                         
                         
@@ -3164,7 +3160,7 @@ best quarterbacks in the NFL, but the Seahawks’ Russell Wilson presents a
                 <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5">
 				
 					<div class="thumb"><a onclick='s_objectID="http://www.seahawks.com/videos-photos/videos/Seahawks-Saturday-Night-Micd-Up-JR-Sweezy/0b01189b-d_2";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/videos-photos/videos/Seahawks-Saturday-Night-Micd-Up-JR-Sweezy/0b01189b-d633-4ac0-bedb-a6e4e6fd0b19" title="Seahawks Saturday Night Mic'd Up: J.R. Sweezy">
-					<img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/141120sweezy--nfl_medium_540_360.jpg" alt="Seahawks Saturday Night Mic'd Up: J.R. Sweezy"><span></span>
+					<img src="SeahawkscomSeattleSeahawks_files/141120sweezy--nfl_medium_540_360.jpg" alt="Seahawks Saturday Night Mic'd Up: J.R. Sweezy"><span></span>
 					
                         
 						<span class="tmb-video-play"></span>
@@ -3223,7 +3219,7 @@ Chiefs. Tune in to Q13 FOX on Saturday at 10:30pm PT for more sights and
                 <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5">
 				
 					<div class="thumb"><a onclick='s_objectID="http://www.seahawks.com/videos-photos/videos/Week-12-Seahawks-vs-Cardinals/8cbf14e4-8331-4b05-b2d_3";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/videos-photos/videos/Week-12-Seahawks-vs-Cardinals/8cbf14e4-8331-4b05-b2d9-32dd34a25685" title="Week 12: Seahawks vs Cardinals">
-					<img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/2013_Fitzgerald--nfl_medium_540_360.jpg" alt="Week 12: Seahawks vs Cardinals"><span></span>
+					<img src="SeahawkscomSeattleSeahawks_files/2013_Fitzgerald--nfl_medium_540_360.jpg" alt="Week 12: Seahawks vs Cardinals"><span></span>
 					
                         
 						<span class="tmb-video-play"></span>
@@ -3279,7 +3275,7 @@ Chiefs. Tune in to Q13 FOX on Saturday at 10:30pm PT for more sights and
                 <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5">
 				
 					<div class="thumb"><a onclick='s_objectID="http://www.seahawks.com/videos-photos/videos/Seahawks-Daily---Last-Time-They-Met/9548535c-0fa4-4b_1";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/videos-photos/videos/Seahawks-Daily---Last-Time-They-Met/9548535c-0fa4-4b1a-8ca9-43919ed7fbad" title="Seahawks Daily - Last Time They Met">
-					<img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/141120daily800--nfl_medium_540_360.jpg" alt="Seahawks Daily - Last Time They Met"><span></span>
+					<img src="SeahawkscomSeattleSeahawks_files/141120daily800--nfl_medium_540_360.jpg" alt="Seahawks Daily - Last Time They Met"><span></span>
 					
                         
 						<span class="tmb-video-play"></span>
@@ -3337,7 +3333,7 @@ the Seahawks their only home loss in the 2013 season which launched them
                 <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5">
 				
 					<div class="thumb"><a onclick='s_objectID="http://www.seahawks.com/videos-photos/videos/Around-the-NFL-Podcast-Arizona-Cardinals-vs-Seattle-_1";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/videos-photos/videos/Around-the-NFL-Podcast-Arizona-Cardinals-vs-Seattle-Seahawks-preview/4cd24b6d-374a-4932-a34c-c88945baa7c8" title="'Around the NFL' Podcast: Arizona Cardinals vs. Seattle Seahawks preview">
-					<img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/0ap3000000431549_video_player_cp--nfl_medium_540_360.jpg" alt="'Around the NFL' Podcast: Arizona Cardinals vs. Seattle Seahawks preview"><span></span>
+					<img src="SeahawkscomSeattleSeahawks_files/0ap3000000431549_video_player_cp--nfl_medium_540_360.jpg" alt="'Around the NFL' Podcast: Arizona Cardinals vs. Seattle Seahawks preview"><span></span>
 					
                         
 						<span class="tmb-video-play"></span>
@@ -3395,7 +3391,7 @@ the Seahawks their only home loss in the 2013 season which launched them
                 <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5">
 				
 					<div class="thumb"><a onclick='s_objectID="http://www.seahawks.com/videos-photos/videos/Dan-Quinn-Week-12-Press-Conference/2cf080d1-41a6-4fa_1";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/videos-photos/videos/Dan-Quinn-Week-12-Press-Conference/2cf080d1-41a6-4faa-a71f-552e1890e4f8" title="Dan Quinn Week 12 Press Conference">
-					<img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/141120-quinn--nfl_medium_540_360.jpg" alt="Dan Quinn Week 12 Press Conference"><span></span>
+					<img src="SeahawkscomSeattleSeahawks_files/141120-quinn--nfl_medium_540_360.jpg" alt="Dan Quinn Week 12 Press Conference"><span></span>
 					
                         
 						<span class="tmb-video-play"></span>
@@ -3451,7 +3447,7 @@ the Seahawks their only home loss in the 2013 season which launched them
                 <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5">
 				
 					<div class="thumb"><a onclick='s_objectID="http://www.seahawks.com/news/articles/article-1/Social-Simplified-How-Results-Affect-Social/e6ee1_1";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/news/articles/article-1/Social-Simplified-How-Results-Affect-Social/e6ee1869-6c15-4f5e-b6cc-4eee4c2c0c35" title="Social Simplified: How Results Affect Social">
-					<img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/141120social600.jpg" alt="Social Simplified: How Results Affect Social"><span></span>
+					<img src="SeahawkscomSeattleSeahawks_files/141120social600.jpg" alt="Social Simplified: How Results Affect Social"><span></span>
 					
                         
                         
@@ -3499,7 +3495,7 @@ the Seahawks their only home loss in the 2013 season which launched them
                 <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5">
 				
 					<div class="thumb"><a onclick='s_objectID="http://www.seahawks.com/videos-photos/videos/Preview-Arizona-Cardinals-vs-Seattle-Seahawks/acd3f8_3";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/videos-photos/videos/Preview-Arizona-Cardinals-vs-Seattle-Seahawks/acd3f8c7-1519-4a95-85d4-1ea9971c8555" title="Preview: Arizona Cardinals vs. Seattle Seahawks">
-					<img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/0ap3000000431418_video_player_cp--nfl_medium_540_360.jpg" alt="Preview: Arizona Cardinals vs. Seattle Seahawks"><span></span>
+					<img src="SeahawkscomSeattleSeahawks_files/0ap3000000431418_video_player_cp--nfl_medium_540_360.jpg" alt="Preview: Arizona Cardinals vs. Seattle Seahawks"><span></span>
 					
                         
 						<span class="tmb-video-play"></span>
@@ -3555,7 +3551,7 @@ the Seahawks their only home loss in the 2013 season which launched them
                 <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5">
 				
 					<div class="thumb"><a onclick='s_objectID="http://www.seahawks.com/news/press/article-1/Seahawks-Announce-Fan-Activities-for-November-23/0a5_1";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/news/press/article-1/Seahawks-Announce-Fan-Activities-for-November-23/0a5f27d9-7fd4-404f-9057-62282e1a5b55" title="Seahawks Announce Fan Activities for November 23">
-					<img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/140916-centurylink-600x405.jpg" alt="Seahawks Announce Fan Activities for November 23"><span></span>
+					<img src="SeahawkscomSeattleSeahawks_files/140916-centurylink-600x405.jpg" alt="Seahawks Announce Fan Activities for November 23"><span></span>
 					
                         
                         
@@ -3606,7 +3602,7 @@ presented by Subway and Coca-Cola.</p>
                 <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5">
 				
 					<div class="thumb"><a onclick='s_objectID="http://www.seahawks.com/videos-photos/videos/Russell-Wilson-Week-12-Press-Conference/8fd8c063-57d_1";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/videos-photos/videos/Russell-Wilson-Week-12-Press-Conference/8fd8c063-57d1-4d89-90b9-31c9e541c1e7" title="Russell Wilson Week 12 Press Conference">
-					<img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/141120wilson--nfl_medium_540_360.jpg" alt="Russell Wilson Week 12 Press Conference"><span></span>
+					<img src="SeahawkscomSeattleSeahawks_files/141120wilson--nfl_medium_540_360.jpg" alt="Russell Wilson Week 12 Press Conference"><span></span>
 					
                         
 						<span class="tmb-video-play"></span>
@@ -3664,7 +3660,7 @@ roster. </p>
                 <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5">
 				
 					<div class="thumb"><a onclick='s_objectID="http://www.seahawks.com/videos-photos/photo-gallery/Must-Frame-Photos-of-Week-11/c54cfad9-f3c6-4b_1";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/videos-photos/photo-gallery/Must-Frame-Photos-of-Week-11/c54cfad9-f3c6-4b4d-bbbf-9165d6983365" title="Must Frame Photos of Week 11">
-					<img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/tempRM8_8471-2--nfl_mezz_1280_1024.jpg" alt="Must Frame Photos of Week 11"><span></span>
+					<img src="SeahawkscomSeattleSeahawks_files/tempRM8_8471-2--nfl_mezz_1280_1024.jpg" alt="Must Frame Photos of Week 11"><span></span>
 					
                         
                         
@@ -3706,7 +3702,7 @@ roster. </p>
                 <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5">
 				
 					<div class="thumb"><a onclick='s_objectID="http://www.seahawks.com/news/articles/article-1/Thursday-Round-Up-Sherman-Bevell-Carroll-meet-wit_1";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/news/articles/article-1/Thursday-Round-Up-Sherman-Bevell-Carroll-meet-with-media-Lynch-talks-fans-missing-wallet/07f33b65-b851-42c3-9a61-f7aa5d4925b5" title="Thursday Round-Up: Sherman, Bevell, Carroll meet with media; Lynch talks fan's missing wallet">
-					<img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/141120-sherman-600.jpg" alt="Thursday Round-Up: Sherman, Bevell, Carroll meet with media; Lynch talks fan's missing wallet"><span></span>
+					<img src="SeahawkscomSeattleSeahawks_files/141120-sherman-600.jpg" alt="Thursday Round-Up: Sherman, Bevell, Carroll meet with media; Lynch talks fan's missing wallet"><span></span>
 					
                         
                         
@@ -3754,7 +3750,7 @@ roster. </p>
                 <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5">
 				
 					<div class="thumb"><a onclick='s_objectID="http://www.seahawks.com/news/articles/article-1/Jimmy-Staten-and-Nate-Isles-jugaron-60/7b43a71a-c_1";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/news/articles/article-1/Jimmy-Staten-and-Nate-Isles-jugaron-60/7b43a71a-ca9e-48b8-9084-1e396aae5bc4" title="Jimmy Staten and Nate Isles jugaron 60!">
-					<img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/141120play60600.jpg" alt="Jimmy Staten and Nate Isles jugaron 60!"><span></span>
+					<img src="SeahawkscomSeattleSeahawks_files/141120play60600.jpg" alt="Jimmy Staten and Nate Isles jugaron 60!"><span></span>
 					
                         
                         
@@ -3885,7 +3881,7 @@ through diet and at least 60 minutes of activity every day.</p>
             <div class="">
                 <div class="mod-wrp-1"><div class="mod-wrp-2"><div class="mod-wrp-3"><div class="mod-wrp-4"><div class="mod-wrp-5"><div class="mod-title"><h2><span>Field Seating</span></h2></div>
                                 
-                        <img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/sidelinehomepage.png">
+                        <img src="SeahawkscomSeattleSeahawks_files/sidelinehomepage.png">
 <p>The Sideline Experience is an exclusive opportunity to watch the game
  on the field 10 yards from the action! The sideline seats are the 
 newest premium seats at CenturyLink Field and we are excited to offer a 
@@ -3921,7 +3917,7 @@ limited number of field seats for all remaining 2014 home games.</p>
         <ul style="display: block; overflow: hidden; position: relative; width: 900px; height: 490px; left: -300px;" class="chapter-list">
             <li style="position: absolute; top: 0px; left: 300px; z-index: 0; height: 490px; display: none;" class=" loop-first  loop-odd  chapter-1">
                     <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5"><a onclick='s_objectID="http://www.seahawks.com/videos-photos/photo-gallery/Photo-Gallery---Sea-Gals-vs-Giants/f30affdb-b_1";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/videos-photos/photo-gallery/Photo-Gallery---Sea-Gals-vs-Giants/f30affdb-b007-4c01-a433-ab0ecd2088db">
-                            <img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/141112seagals320.jpg" alt="Photos vs Giants" class="mainimage-click">
+                            <img src="SeahawkscomSeattleSeahawks_files/141112seagals320.jpg" alt="Photos vs Giants" class="mainimage-click">
                             <span class="playbutton-click article-icon"></span>
                         </a>
                         <div class="content">
@@ -3933,7 +3929,7 @@ limited number of field seats for all remaining 2014 home games.</p>
                         </div></div></div></div></div></li>
             <li style="position: absolute; top: 0px; left: 300px; z-index: 0; height: 490px; display: none;" class=" loop-even  chapter-2">
                     <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5"><a onclick='s_objectID="http://www.seahawks.com/videos-photos/photo-gallery/Photo-Gallery---Sea-Gals-vs-Raiders/0a01867a-_1";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/videos-photos/photo-gallery/Photo-Gallery---Sea-Gals-vs-Raiders/0a01867a-15af-43b1-81e7-fb39e87f9b17">
-                            <img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/141105bianca320.jpg" alt="Photos vs Raiders" class="mainimage-click">
+                            <img src="SeahawkscomSeattleSeahawks_files/141105bianca320.jpg" alt="Photos vs Raiders" class="mainimage-click">
                             <span class="playbutton-click article-icon"></span>
                         </a>
                         <div class="content">
@@ -3945,7 +3941,7 @@ limited number of field seats for all remaining 2014 home games.</p>
                         </div></div></div></div></div></li>
             <li style="position: absolute; top: 0px; left: 300px; z-index: 0; height: 490px; display: none;" class=" loop-odd  chapter-3">
                     <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5"><a onclick='s_objectID="http://www.seahawks.com/videos-photos/videos/SGCalendar2015-Sneak-Peek/19387e09-f2f3-4bd7-b769-e9_1";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/videos-photos/videos/SGCalendar2015-Sneak-Peek/19387e09-f2f3-4bd7-b769-e9b05e02a6fb" class="modal-link" data-external-id="19387e09-f2f3-4bd7-b769-e9b05e02a6fb" data-media-type="video">
-                            <img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/140801zoe320.jpg" alt="Calendar Sneak Peek" class="mainimage-click">
+                            <img src="SeahawkscomSeattleSeahawks_files/140801zoe320.jpg" alt="Calendar Sneak Peek" class="mainimage-click">
                             <span class="playbutton-click video-icon"></span>
                         </a>
                         <div class="content">
@@ -3957,7 +3953,7 @@ limited number of field seats for all remaining 2014 home games.</p>
                         </div></div></div></div></div></li>
             <li style="position: absolute; top: 0px; left: 300px; z-index: 0; height: 490px; display: none;" class=" loop-even  chapter-4">
                     <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5"><a onclick='s_objectID="http://www.seahawks.com/videos-photos/photo-gallery/Photo-Gallery---Sea-Gals-vs-Cowboys/9db7df6e-_1";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/videos-photos/photo-gallery/Photo-Gallery---Sea-Gals-vs-Cowboys/9db7df6e-c94e-4b64-ba5b-df48e7b88e72">
-                            <img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/141015jessica.jpg" alt="Photos vs Cowboys" class="mainimage-click">
+                            <img src="SeahawkscomSeattleSeahawks_files/141015jessica.jpg" alt="Photos vs Cowboys" class="mainimage-click">
                             <span class="playbutton-click article-icon"></span>
                         </a>
                         <div class="content">
@@ -3969,7 +3965,7 @@ limited number of field seats for all remaining 2014 home games.</p>
                         </div></div></div></div></div></li>
             <li style="position: absolute; top: 0px; left: 300px; z-index: 0; height: 490px;" class=" loop-odd  loop-last  chapter-5">
                     <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5"><a onclick='s_objectID="http://www.seahawks.com/videos-photos/photo-gallery/Photo-Gallery---Sea-Gals-Pink/b69b8bbd-4f49-4_1";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/videos-photos/photo-gallery/Photo-Gallery---Sea-Gals-Pink/b69b8bbd-4f49-4247-95ea-945266ea262d">
-                            <img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/141008pink320.jpg" alt="Pink Photos" class="mainimage-click">
+                            <img src="SeahawkscomSeattleSeahawks_files/141008pink320.jpg" alt="Pink Photos" class="mainimage-click">
                             <span class="playbutton-click article-icon"></span>
                         </a>
                         <div class="content">
@@ -4088,7 +4084,7 @@ limited number of field seats for all remaining 2014 home games.</p>
                 <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5">
 				
 					<div class="thumb"><a onclick='s_objectID="http://www.seahawks.com/videos-photos/photo-gallery/Must-Frame-Photos-of-Week-11/c54cfad9-f3c6-4b_3";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/videos-photos/photo-gallery/Must-Frame-Photos-of-Week-11/c54cfad9-f3c6-4b4d-bbbf-9165d6983365" title="Must Frame Photos of Week 11">
-					<img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/tempRM8_8471-2--nfl_mezz_1280_1024.jpg" alt="Must Frame Photos of Week 11"><span></span>
+					<img src="SeahawkscomSeattleSeahawks_files/tempRM8_8471-2--nfl_mezz_1280_1024.jpg" alt="Must Frame Photos of Week 11"><span></span>
 					
                         
                         
@@ -4244,7 +4240,7 @@ limited number of field seats for all remaining 2014 home games.</p>
     </div>
 <div class="sponsorship-bottom">
                     <div class="ad-">
-            <img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/poll-cp-verizon.jpg"></div>
+            <img src="SeahawkscomSeattleSeahawks_files/poll-cp-verizon.jpg"></div>
     </div>
             </div></div></div></div></div></div>
     </div>
@@ -4268,7 +4264,7 @@ limited number of field seats for all remaining 2014 home games.</p>
         <ul style="display: block; overflow: hidden; position: relative; width: 900px; height: 480px; left: -300px;" class="chapter-list">
             <li style="position: absolute; top: 0px; left: 300px; z-index: 0; height: 480px; display: none;" class=" loop-first  loop-odd  chapter-1">
                     <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5"><a onclick='s_objectID="http://seahawks.com/hawkmail_1";return this.s_oc?this.s_oc(e):true' href="http://seahawks.com/hawkmail">
-                            <img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/2014-HawkmailPromo-300x480.jpg" alt="Hawk Mail Sweepstakes" class="mainimage-click">
+                            <img src="SeahawkscomSeattleSeahawks_files/2014-HawkmailPromo-300x480.jpg" alt="Hawk Mail Sweepstakes" class="mainimage-click">
                             <span class="playbutton-click article-icon"></span>
                         </a>
                         <div class="content">
@@ -4279,7 +4275,7 @@ limited number of field seats for all remaining 2014 home games.</p>
                         </div></div></div></div></div></li>
             <li style="position: absolute; top: 0px; left: 300px; z-index: 0; height: 480px; display: none;" class=" loop-even  chapter-2">
                     <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5"><a onclick='s_objectID="http://www.seahawks.com/pro-shop/_3";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/pro-shop/">
-                            <img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/141027_Alderwood_Right-Rail_300x480.jpg" alt="All New Location" class="mainimage-click">
+                            <img src="SeahawkscomSeattleSeahawks_files/141027_Alderwood_Right-Rail_300x480.jpg" alt="All New Location" class="mainimage-click">
                             <span class="playbutton-click article-icon"></span>
                         </a>
                         <div class="content">
@@ -4290,7 +4286,7 @@ limited number of field seats for all remaining 2014 home games.</p>
                         </div></div></div></div></div></li>
             <li style="position: absolute; top: 0px; left: 300px; z-index: 0; height: 480px; display: none;" class=" loop-odd  chapter-3">
                     <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5"><a onclick='s_objectID="http://www.seahawks.com/pro-shop/_5";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/pro-shop/">
-                            <img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/141027_SaluteItems_Right-Rail_300x480.jpg" alt="Salute To Service" class="mainimage-click">
+                            <img src="SeahawkscomSeattleSeahawks_files/141027_SaluteItems_Right-Rail_300x480.jpg" alt="Salute To Service" class="mainimage-click">
                             <span class="playbutton-click article-icon"></span>
                         </a>
                         <div class="content">
@@ -4301,7 +4297,7 @@ limited number of field seats for all remaining 2014 home games.</p>
                         </div></div></div></div></div></li>
             <li style="position: absolute; top: 0px; left: 300px; z-index: 0; height: 480px;" class=" loop-even  chapter-4">
                     <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5"><a onclick='s_objectID="http://auctions.seahawks.com/_1";return this.s_oc?this.s_oc(e):true' href="http://auctions.seahawks.com/">
-                            <img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/141027_Auction_WilsonJsy_Right-Rail_300x480.jpg" alt="Game Worn Jerseys" class="mainimage-click">
+                            <img src="SeahawkscomSeattleSeahawks_files/141027_Auction_WilsonJsy_Right-Rail_300x480.jpg" alt="Game Worn Jerseys" class="mainimage-click">
                             <span class="playbutton-click article-icon"></span>
                         </a>
                         <div class="content">
@@ -4312,7 +4308,7 @@ limited number of field seats for all remaining 2014 home games.</p>
                         </div></div></div></div></div></li>
             <li style="position: absolute; top: 0px; left: 300px; z-index: 0; height: 480px; display: none;" class=" loop-odd  loop-last  chapter-5">
                     <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5"><a onclick='s_objectID="http://auctions.seahawks.com/_3";return this.s_oc?this.s_oc(e):true' href="http://auctions.seahawks.com/">
-                            <img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/chancellor-auction-jersey.jpg" alt="Bid on Game Worn Jerseys" class="mainimage-click">
+                            <img src="SeahawkscomSeattleSeahawks_files/chancellor-auction-jersey.jpg" alt="Bid on Game Worn Jerseys" class="mainimage-click">
                             <span class="playbutton-click article-icon"></span>
                         </a>
                         <div class="content">
@@ -4378,7 +4374,7 @@ limited number of field seats for all remaining 2014 home games.</p>
             <li class="loop-first  loop-odd">
                     <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5"><div class="thumb">
                                 <a onclick='s_objectID="http://www.seahawks.com/ms/2014/legion-of-youth/index.html_1";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/ms/2014/legion-of-youth/index.html" title="Legion of Youth">
-                                    <img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/legion-footer.jpg" alt="Legion of Youth">
+                                    <img src="SeahawkscomSeattleSeahawks_files/legion-footer.jpg" alt="Legion of Youth">
                                     </a>
                             </div>
                         <h3>
@@ -4393,7 +4389,7 @@ limited number of field seats for all remaining 2014 home games.</p>
             <li class="loop-even">
                     <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5"><div class="thumb">
                                 <a onclick='s_objectID="http://www.seahawks.com/cheerleaders/calendar.html_1";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/cheerleaders/calendar.html" title="2015 Sea Gals Calendar">
-                                    <img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/140624calendar232.jpg" alt="2015 Sea Gals Calendar">
+                                    <img src="SeahawkscomSeattleSeahawks_files/140624calendar232.jpg" alt="2015 Sea Gals Calendar">
                                     </a>
                             </div>
                         <h3>
@@ -4408,7 +4404,7 @@ limited number of field seats for all remaining 2014 home games.</p>
             <li class="loop-odd">
                     <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5"><div class="thumb">
                                 <a onclick='s_objectID="http://www.seahawks.com/videos-photos/videos/Seahawks-Tackling/af5b80dd-7e39-4519-8b80-ad558292b1_1";return this.s_oc?this.s_oc(e):true' href="http://www.seahawks.com/videos-photos/videos/Seahawks-Tackling/af5b80dd-7e39-4519-8b80-ad558292b1a6" title="Learn to tackle the Seahawks way">
-                                    <img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/tackle.jpg" alt="Learn to tackle the Seahawks way">
+                                    <img src="SeahawkscomSeattleSeahawks_files/tackle.jpg" alt="Learn to tackle the Seahawks way">
                                     </a>
                             </div>
                         <h3>
@@ -4423,7 +4419,7 @@ limited number of field seats for all remaining 2014 home games.</p>
             <li class="loop-even  loop-last">
                     <div class="itm-wrp-1"><div class="itm-wrp-2"><div class="itm-wrp-3"><div class="itm-wrp-4"><div class="itm-wrp-5"><div class="thumb">
                                 <a onclick='s_objectID="http://seahawks.com/hawkmail_3";return this.s_oc?this.s_oc(e):true' href="http://seahawks.com/hawkmail" title="Hawk Mail Sweepstakes">
-                                    <img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/2014-HawkmailPromo-232x90.jpg" alt="Hawk Mail Sweepstakes">
+                                    <img src="SeahawkscomSeattleSeahawks_files/2014-HawkmailPromo-232x90.jpg" alt="Hawk Mail Sweepstakes">
                                     </a>
                             </div>
                         <h3>
@@ -4463,7 +4459,7 @@ limited number of field seats for all remaining 2014 home games.</p>
                        <!-- <script type="text/javascript">// <![CDATA[
   var path = (("https:" == document.location.protocol) ? "https://databroker.coremotives.com/databroker.js?version=2" : "http://cdn.coremotivesmarketing.com/databroker.js");
   document.write(unescape("%3Cscript src='" + path + "' type='text/javascript'%3E%3C/script%3E"));
-// ]]></script><script src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/databroker.js" type="text/javascript"></script><iframe style="visibility: hidden; display: none;" src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/container.html"></iframe>-->
+// ]]></script><script src="SeahawkscomSeattleSeahawks_files/databroker.js" type="text/javascript"></script><iframe style="visibility: hidden; display: none;" src="SeahawkscomSeattleSeahawks_files/container.html"></iframe>-->
 <div id="footer">
 <div class="link-columns">
 <div class="link-column">
@@ -4540,7 +4536,7 @@ limited number of field seats for all remaining 2014 home games.</p>
 </ul>
 </div>
 </div>
-<div class="footer-ads"><a onclick='s_objectID="http://www.centurylink.com/_1";return this.s_oc?this.s_oc(e):true' title="CenturyLink" href="http://www.centurylink.com/" target="_blank" style="margin-right: 15px !important;"> <img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/century-link-footer.png"> </a> <a onclick='s_objectID="http://www.virginiamason.org/_1";return this.s_oc?this.s_oc(e):true' title="Team Medicine" href="http://www.virginiamason.org/" target="_blank" mce_href="http://www.virginiamason.org" style="margin-right: 15px !important;"> <img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/vm-footer-71x40.png"> </a> <a onclick='s_objectID="http://www.budlight.com/_1";return this.s_oc?this.s_oc(e):true' title="Bud Light" href="http://www.budlight.com/" target="_blank" style="margin-right: 15px !important;"> <img src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/ad3.png"> </a> <a onclick='s_objectID="http://www.nike.com/_1";return this.s_oc?this.s_oc(e):true' href="http://www.nike.com/" target="_blank" style="margin-right: 15px !important;"> <img title="Nike" src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/nike-white.png"> </a> <a onclick='s_objectID="http://www.homestreet.com/index.aspx_1";return this.s_oc?this.s_oc(e):true' href="http://www.homestreet.com/index.aspx" target="_blank" style="margin-right: 15px !important;"> <img title="Homestree" src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/homestree-114x47.png"> </a> <a onclick='s_objectID="http://www.verizonwireless.com/_1";return this.s_oc?this.s_oc(e):true' href="http://www.verizonwireless.com/" target="_blank" style="margin-right: 15px !important;"> <img title="Verizon" src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/Verizon.png"> </a></div>
+<div class="footer-ads"><a onclick='s_objectID="http://www.centurylink.com/_1";return this.s_oc?this.s_oc(e):true' title="CenturyLink" href="http://www.centurylink.com/" target="_blank" style="margin-right: 15px !important;"> <img src="SeahawkscomSeattleSeahawks_files/century-link-footer.png"> </a> <a onclick='s_objectID="http://www.virginiamason.org/_1";return this.s_oc?this.s_oc(e):true' title="Team Medicine" href="http://www.virginiamason.org/" target="_blank" mce_href="http://www.virginiamason.org" style="margin-right: 15px !important;"> <img src="SeahawkscomSeattleSeahawks_files/vm-footer-71x40.png"> </a> <a onclick='s_objectID="http://www.budlight.com/_1";return this.s_oc?this.s_oc(e):true' title="Bud Light" href="http://www.budlight.com/" target="_blank" style="margin-right: 15px !important;"> <img src="SeahawkscomSeattleSeahawks_files/ad3.png"> </a> <a onclick='s_objectID="http://www.nike.com/_1";return this.s_oc?this.s_oc(e):true' href="http://www.nike.com/" target="_blank" style="margin-right: 15px !important;"> <img title="Nike" src="SeahawkscomSeattleSeahawks_files/nike-white.png"> </a> <a onclick='s_objectID="http://www.homestreet.com/index.aspx_1";return this.s_oc?this.s_oc(e):true' href="http://www.homestreet.com/index.aspx" target="_blank" style="margin-right: 15px !important;"> <img title="Homestree" src="SeahawkscomSeattleSeahawks_files/homestree-114x47.png"> </a> <a onclick='s_objectID="http://www.verizonwireless.com/_1";return this.s_oc?this.s_oc(e):true' href="http://www.verizonwireless.com/" target="_blank" style="margin-right: 15px !important;"> <img title="Verizon" src="SeahawkscomSeattleSeahawks_files/Verizon.png"> </a></div>
 <div class="copyrite" style="margin-top: 1px;">© Seattle Seahawks 2013. 
 All rights reserved. ® SEAHAWKS, SEAHAWKS LOGO, SPIRIT OF 12, WE ARE 12,
  BRING THE ON THE 12S, LEGION OF BOOM, 12 and 12S are trademarks of the 
@@ -4780,8 +4776,8 @@ s_analytics_hier1 = 'seahawks|' + pathArray[1];
 </div>
 
             <!-- SiteCatalyst code version: H.17. Copyright 1997-2008 Omniture, Inc. More info available at http://www.omniture.com -->
-<script language="JavaScript" type="text/javascript" src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/s_code.js"></script><div id="mboxScriptContainer" style="display:none;visibility:hidden;"></div><style>.mboxDefault{visibility:hidden;}</style>
-<script language="JavaScript" type="text/javascript" src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/nflcs-lib.js"></script>
+<script language="JavaScript" type="text/javascript" src="SeahawkscomSeattleSeahawks_files/s_code.js"></script><div id="mboxScriptContainer" style="display:none;visibility:hidden;"></div><style>.mboxDefault{visibility:hidden;}</style>
+<script language="JavaScript" type="text/javascript" src="SeahawkscomSeattleSeahawks_files/nflcs-lib.js"></script>
 <script language="JavaScript" type="text/javascript">
     /* sets reporting filters */
     s_analytics.linkInternalFilters='javascript:,seahawks.com';
@@ -5008,4 +5004,4 @@ s_analytics_hier1 = 'seahawks|' + pathArray[1];
         </div>
     </div><div id="adblock-notice">We noticed that you may have an Ad 
 Blocker turned on. Please be aware that our site is best experienced 
-with Ad Blockers turned off. <a onclick='s_objectID="javascript:void(0);_1";return this.s_oc?this.s_oc(e):true' href="javascript:void(0);" class="close">[X]</a> <div style="clear:both;"></div></div><!--<object data="Seahawks.com%20|%20Seattle%20Seahawks_files/flCookie.swf" class="flCookieHideSwf" name="flCookie_swf_1" id="flCookie_swf_1" type="application/x-shockwave-flash" height="1" width="1"><param value="always" name="allowScriptAccess"></object><script src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/chartbeat.js" type="text/javascript" language="javascript"></script><iframe src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/dest4.html" style="display: none; width: 0px; height: 0px;" id="destination_publishing_iframe_nfl_0"></iframe><img style="position: absolute; margin-top: -1px;" src="Seahawks.com%20%7C%20Seattle%20Seahawks_files/a.png"><iframe style="display: none; width: 0px; height: 0px;" name="google_osd_static_frame" id="google_osd_static_frame_5115033534699"></iframe>--></body></html>
+with Ad Blockers turned off. <a onclick='s_objectID="javascript:void(0);_1";return this.s_oc?this.s_oc(e):true' href="javascript:void(0);" class="close">[X]</a> <div style="clear:both;"></div></div><!--<object data="Seahawks.com%20|%20Seattle%20Seahawks_files/flCookie.swf" class="flCookieHideSwf" name="flCookie_swf_1" id="flCookie_swf_1" type="application/x-shockwave-flash" height="1" width="1"><param value="always" name="allowScriptAccess"></object><script src="SeahawkscomSeattleSeahawks_files/chartbeat.js" type="text/javascript" language="javascript"></script><iframe src="SeahawkscomSeattleSeahawks_files/dest4.html" style="display: none; width: 0px; height: 0px;" id="destination_publishing_iframe_nfl_0"></iframe><img style="position: absolute; margin-top: -1px;" src="SeahawkscomSeattleSeahawks_files/a.png"><iframe style="display: none; width: 0px; height: 0px;" name="google_osd_static_frame" id="google_osd_static_frame_5115033534699"></iframe>--></body></html>
