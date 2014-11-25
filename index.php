@@ -78,7 +78,7 @@ header('Expires: 0');
             $scope.loadDataHotList = function () {
             $http({method: 'GET', url: 'getHotTopics.php', params: { 'topicb': new Date().getTime() }}).success(function(data) {
                     $scope.hotlist = data;
-                    //numberFormat();
+                    numberFormat();
                     showHotImages();
                     showImages();
                 });

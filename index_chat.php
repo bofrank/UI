@@ -86,7 +86,7 @@ $(document).ready(function(){
 	websocket = new WebSocket(wsUri); 
 	
 	websocket.onopen = function(ev) { // connection is open 
-		$('#message_box').append("<div class=\"system_msg\">My Id : <?php echo trim($chatter);?> chatting about <?php echo trim($topicinit);?>.</div>"); //notify user
+		$('#message_box').append("<div class=\"system_msg\"><?php echo trim($topicinit);?> Chat<br>My Id : <?php echo trim($chatter);?> </div>"); //notify user
 	}
 
 	$('#send-btn').click(function(){ //use clicks message send button	
