@@ -47,6 +47,11 @@ if (($_GET["topicinit"]=="")||($_GET["topicinit"]==null)||($_GET["topicinit"]==n
 }else{
 	$topicinit = $_GET["topicinit"];
 }
+if (($_GET["NFID"]=="")||($_GET["NFID"]==null)||($_GET["NFID"]==null)) {
+  $NFID = $_GET["chatter"];
+}else{
+	$NFID = $_GET["NFID"];
+}
 
 //$tempStr = substr($tapid, 7);
 //$handle = $tempStr." : ".$topic;
@@ -86,7 +91,7 @@ $(document).ready(function(){
 	websocket = new WebSocket(wsUri); 
 	
 	websocket.onopen = function(ev) { // connection is open 
-		$('#message_box').append("<div class=\"system_msg\"><?php echo trim($topicinit);?> Chat<br>My Id : <?php echo trim($chatter);?> </div>"); //notify user
+		$('#message_box').append("<div class=\"system_msg\"><?php echo trim($topicinit);?> Chat<br>My ID : <?php echo $NFID;?> </div>"); //notify user
 	}
 
 	$('#send-btn').click(function(){ //use clicks message send button	
@@ -133,9 +138,9 @@ $(document).ready(function(){
 		if(type == 'usermsg')
 		{
 			if(uname.substring(0, 10)=='<?php echo trim($chatter);?>'){
-				$('#message_box').append("<div class=\"message-box\" style='margin-left:20px;'><span class=\"user_name\" style=\"color:#fff\">My ID: <span style='display:none;'>"+uname+"</span></span> <span class=\"user_message\">"+umsg+"</span></div>");
+				$('#message_box').append("<div class=\"message-box\" style='margin-left:20px;'><span class=\"user_name\" style=\"color:#fff\"><div style=\"color:#fff;font-size:10px;line-height:5px;\"><?php echo $NFID;?></div><span style='display:none;'>"+uname+"</span></span> <span class=\"user_message\">"+umsg+"</span></div>");
 			}else{
-				$('#message_box').append("<div class=\"message-box\" style='margin-right:20px;'><span class=\"user_name\" style=\"color:#fff\"><span style='display:none;'>"+uname+"</span></span> <span class=\"user_message\">"+umsg+"</span></div>");
+				$('#message_box').append("<div class=\"message-box\" style='margin-right:20px;'><span class=\"user_name\" style=\"color:#fff\"><div style=\"color:#fff;font-size:10px;line-height:5px;\"><?php echo $NFID;?></div><span style='display:none;'>"+uname+"</span></span> <span class=\"user_message\">"+umsg+"</span></div>");
 			}
 			/*
 			if(umsg==null){
