@@ -554,16 +554,16 @@ header('Expires: 0');
                 $("#submit").css("display","block");
                 if(sessionStorage.refTopic1==undefined){
                     sessionStorage.refTopic1=urlTopic;
-                    $("#topic1").val(sessionStorage.refTopic1);
+                    $("#topic1").val(decodeURIComponent(sessionStorage.refTopic1));
                 }else if(sessionStorage.refTopic2==undefined){
                     sessionStorage.refTopic2=urlTopic;
-                    $("#topic1").val(sessionStorage.refTopic1);
-                    $("#topic2").val(sessionStorage.refTopic2);
+                    $("#topic1").val(decodeURIComponent(sessionStorage.refTopic1));
+                    $("#topic2").val(decodeURIComponent(sessionStorage.refTopic2));
                 }else if(sessionStorage.refTopic3==undefined){
                     sessionStorage.refTopic3=urlTopic;
-                    $("#topic1").val(sessionStorage.refTopic1);
-                    $("#topic2").val(sessionStorage.refTopic2);
-                    $("#topic3").val(sessionStorage.refTopic3);
+                    $("#topic1").val(decodeURIComponent(sessionStorage.refTopic1));
+                    $("#topic2").val(decodeURIComponent(sessionStorage.refTopic2));
+                    $("#topic3").val(decodeURIComponent(sessionStorage.refTopic3));
                 }
                 
             }
