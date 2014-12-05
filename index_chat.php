@@ -42,12 +42,12 @@ $DB = new DB($config);
 
 $chatter = $_GET["chatter"];
 $chatee = $_GET["chatee"];
-if (($_GET["topicinit"]=="")||($_GET["topicinit"]==null)||($_GET["topicinit"]==null)) {
+if (($_GET["topicinit"]=="")||($_GET["topicinit"]==null)) {
     $topicinit = "image";
 }else{
 	$topicinit = $_GET["topicinit"];
 }
-if (($_GET["NFID"]=="")||($_GET["NFID"]==null)||($_GET["NFID"]==null)) {
+if (($_GET["NFID"]=="")||($_GET["NFID"]==null)) {
   $NFID = $_GET["chatter"];
 }else{
 	$NFID = $_GET["NFID"];
@@ -63,8 +63,9 @@ if($topicinit=="notopic"){
 $handle = $chatter.":".$chatee." : ".$topicinit;
 //$DB->Query("UPDATE topicb.topics SET chatstate='chatting' WHERE topic='$topic'");
 
-$colours = array('007AFF','FF7000','FF7000','15E25F','CFC700','CFC700','CF1100','CF00BE','F00');
-$user_colour = array_rand($colours);
+//$colours = array('007AFF','FF7000','FF7000','15E25F','CFC700','CFC700','CF1100','CF00BE','F00');
+//$user_colour = array_rand($colours);
+$user_colour = $NFID;
 ?>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
@@ -91,7 +92,7 @@ $(document).ready(function(){
 	websocket = new WebSocket(wsUri); 
 	
 	websocket.onopen = function(ev) { // connection is open 
-		$('#message_box').append("<div class=\"system_msg\"><?php echo trim($topicinit);?> Chat<br>My ID : <?php echo $NFID;?> </div>"); //notify user
+		$('#message_box').append("<div class=\"system_msg\"><?php echo trim($topicinit);?> Chat </div>"); //notify user
 	}
 
 	$('#send-btn').click(function(){ //use clicks message send button	
@@ -121,7 +122,7 @@ $(document).ready(function(){
 		var msg = {
 		message: mymessage,
 		name: myname,
-		color : '<?php echo $colours[$user_colour]; ?>'
+		color : '<?php echo $user_colour;?>'
 		};
 		//convert and send data to server
 		websocket.send(JSON.stringify(msg));
@@ -132,15 +133,32 @@ $(document).ready(function(){
 		var msg = JSON.parse(ev.data); //PHP sends Json data
 		var type = msg.type; //message type
 		var umsg = msg.message; //message text
-		var uname = msg.name; //user name
-		var ucolor = msg.color; //color
+		
 
 		if(type == 'usermsg')
 		{
-			if(uname.substring(0, 10)=='<?php echo trim($chatter);?>'){
-				$('#message_box').append("<div class=\"message-box\" style='margin-left:20px;'><span class=\"user_name\" style=\"color:#fff\"><div style=\"color:#fff;font-size:10px;line-height:5px;\"><?php echo $NFID;?></div><span style='display:none;'>"+uname+"</span></span> <span class=\"user_message\">"+umsg+"</span></div>");
+
+			var uname = msg.name; //user name
+
+			var ucolor = msg.color;
+
+			var displayID = "";
+			if(uname){
+				displayID = uname.substring(0, 10);
+			}
+
+			//add dashes to make id look like phone number
+			var tempNum="<?php echo $NFID;?>";
+			var numDispay1 = "";
+			if(ucolor){
+				var numDispay1 = ucolor.slice(0,3)+"-"+ucolor.slice(3,6)+"-"+ucolor.slice(6,15);
+			}
+			var numDispay2 = tempNum.slice(0,3)+"-"+tempNum.slice(3,6)+"-"+tempNum.slice(6,15);
+
+			if(displayID == '<?php echo $NFID;?>'){
+				$('#message_box').append("<div class=\"message-box\" style='margin-left:20px;'><span class=\"user_name\" style=\"color:#fff\"><div style=\"color:#fff;font-size:10px;line-height:5px;\">"+numDispay2+"</div><span style='display:none;'>"+uname+"</span></span> <span class=\"user_message\">"+umsg+"</span></div>");
 			}else{
-				$('#message_box').append("<div class=\"message-box\" style='margin-right:20px;'><span class=\"user_name\" style=\"color:#fff\"><div style=\"color:#fff;font-size:10px;line-height:5px;\"><?php echo $NFID;?></div><span style='display:none;'>"+uname+"</span></span> <span class=\"user_message\">"+umsg+"</span></div>");
+				$('#message_box').append("<div class=\"message-box\" style='margin-right:20px;'><span class=\"user_name\" style=\"color:#fff\"><div style=\"color:#fff;font-size:10px;line-height:5px;\">"+numDispay1+"</div><span style='display:none;'>"+uname+"</span></span> <span class=\"user_message\">"+umsg+"</span></div>");
 			}
 			/*
 			if(umsg==null){
@@ -189,7 +207,7 @@ $(document).ready(function(){
 <div id="message_box"></div>
 <div style="margin-top:10px;">
 <input type="hidden" name="name" id="name" placeholder="Your Name" maxlength="10" style="width:20%" value="<?php echo $handle ?>"  />
-<input type="text" name="message" id="message" placeholder="Message" maxlength="80" style="width:60%" class="form-control message-input ng-pristine" />
+<input type="text" name="message" id="message" placeholder="Message" maxlength="80" style="width:68%" class="form-control message-input ng-pristine" />
 <button id="send-btn" class="btn btn-primary btn-s btn-submit" style="width:70px;margin-top:-5px">GO!</button>
 </div>
 
