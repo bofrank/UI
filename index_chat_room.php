@@ -72,11 +72,6 @@ $user_colour = $NFID;
 
 <script language="javascript" type="text/javascript">  
 
-var numDispay1 = "";
-var numDispay2 = "";
-var ucolor = "";
-var chatteeNum = "";
-
 $(document).ready(function(){
 	//create a new WebSocket object.
 	//alert("chosen topic is "+parent.$("#myChosenTopicDisplay").text());
@@ -132,7 +127,7 @@ $(document).ready(function(){
 
 			var uname = msg.name; //user name
 
-			ucolor = msg.color;
+			var ucolor = msg.color;
 
 			var displayID = "";
 			if(uname){
@@ -141,20 +136,16 @@ $(document).ready(function(){
 
 			//add dashes to make id look like phone number
 			var tempNum="<?php echo $NFID;?>";
-
-			//create display for chattee
+			var numDispay1 = "";
 			if(ucolor){
-				numDispay1 = ucolor.slice(0,3)+"-"+ucolor.slice(3,6)+"-"+ucolor.slice(6,15);
+				var numDispay1 = ucolor.slice(0,3)+"-"+ucolor.slice(3,6)+"-"+ucolor.slice(6,15);
 			}
-			//create display for chatter
-			numDispay2 = tempNum.slice(0,3)+"-"+tempNum.slice(3,6)+"-"+tempNum.slice(6,15);
+			var numDispay2 = tempNum.slice(0,3)+"-"+tempNum.slice(3,6)+"-"+tempNum.slice(6,15);
 
 			if(displayID == '<?php echo $NFID;?>'){
-				$('#message_box').append("<div class=\"message-box\" style='margin-left:20px;'><span class=\"user_name\" style=\"color:#fff\"><div style=\"color:#fff;font-size:10px;line-height:5px;\">chatter:"+numDispay2+"</div><span style='display:none;'>"+uname+"</span></span> <span class=\"user_message\">"+umsg+"</span></div>");
+				$('#message_box').append("<div class=\"message-box\" style='margin-left:20px;'><span class=\"user_name\" style=\"color:#fff\"><div style=\"color:#fff;font-size:10px;line-height:5px;\">"+numDispay2+"</div><span style='display:none;'>"+uname+"</span></span> <span class=\"user_message\">"+umsg+"</span></div>");
 			}else{
-				$('#message_box').append("<div class=\"message-box\" style='margin-right:20px;'><span class=\"user_name\" style=\"color:#fff\"><div style=\"color:#fff;font-size:10px;line-height:5px;\">chattee:"+numDispay1+"</div><span style='display:none;'>"+uname+"</span></span> <span class=\"user_message\">"+umsg+"</span></div>");
-				//set var for chattee phone number
-				chatteeNum = numDispay1;
+				$('#message_box').append("<div class=\"message-box\" style='margin-right:20px;'><span class=\"user_name\" style=\"color:#fff\"><div style=\"color:#fff;font-size:10px;line-height:5px;\">"+numDispay1+"</div><span style='display:none;'>"+uname+"</span></span> <span class=\"user_message\">"+umsg+"</span></div>");
 			}
 			/*
 			if(umsg==null){
@@ -205,7 +196,7 @@ $(document).ready(function(){
 	<input type="hidden" name="name" id="name" placeholder="Your Name" maxlength="10" style="width:20%" value="<?php echo $handle ?>"  />
 	<input type="text" name="message" id="message" placeholder="Message" maxlength="80" style="width:68%" class="form-control message-input ng-pristine" />
 	<button id="send-btn" class="btn btn-primary btn-s btn-submit" style="width:70px;margin-top:-5px">GO!</button>
-	<div onclick="window.parent.voiceStart(chatteeNum);" style="cursor:pointer;">
+	<div onclick="window.parent.voiceStart('<?php echo $chatee ?>');">
 		call
 	</div>
 </div>
