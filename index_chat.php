@@ -6,6 +6,7 @@
 <link href="css/bootstrap.css" rel="stylesheet">
 <link href="css/global.css" rel="stylesheet">
 <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200' rel='stylesheet' type='text/css'>
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 <style type="text/css">
 <!--
 body{
@@ -23,6 +24,21 @@ body{
 }
 .system_msg{color: #ddd;font-style: italic;}
 .user_message{color: #fff;}
+.btn-call{
+  background-image: linear-gradient(#87FC70, #0BD318);
+  border: 2px solid #fff;
+  color: #fff;
+  cursor: pointer;
+  font-family: "Titillium Web",sans-serif;
+  font-size: 20px;
+  height: 40px;
+  line-height: 20px;
+  text-align: center;
+  width: 100%;
+}
+.btn-call:hover{
+  border: 2px solid #fff;
+}
 -->
 </style>
 </head>
@@ -150,9 +166,9 @@ $(document).ready(function(){
 			numDispay2 = tempNum.slice(0,3)+"-"+tempNum.slice(3,6)+"-"+tempNum.slice(6,15);
 
 			if(displayID == '<?php echo $NFID;?>'){
-				$('#message_box').append("<div class=\"message-box\" style='margin-left:20px;'><span class=\"user_name\" style=\"color:#fff\"><div style=\"color:#fff;font-size:10px;line-height:5px;\">chatter:"+numDispay2+"</div><span style='display:none;'>"+uname+"</span></span> <span class=\"user_message\">"+umsg+"</span></div>");
+				$('#message_box').append("<div class=\"message-box\" style='margin-left:20px;'><span class=\"user_name\" style=\"color:#fff\"><div style=\"color:#fff;display:none;font-size:10px;line-height:5px;\">chatter:"+numDispay2+"</div><span style='display:none;'>"+uname+"</span></span> <span class=\"user_message\">"+umsg+"</span></div>");
 			}else{
-				$('#message_box').append("<div class=\"message-box\" style='margin-right:20px;'><span class=\"user_name\" style=\"color:#fff\"><div style=\"color:#fff;font-size:10px;line-height:5px;\">chattee:"+numDispay1+"</div><span style='display:none;'>"+uname+"</span></span> <span class=\"user_message\">"+umsg+"</span></div>");
+				$('#message_box').append("<div class=\"message-box\" style='margin-right:20px;'><span class=\"user_name\" style=\"color:#fff\"><div style=\"color:#fff;display:none;font-size:10px;line-height:5px;\">chattee:"+numDispay1+"</div><span style='display:none;'>"+uname+"</span></span> <span class=\"user_message\">"+umsg+"</span></div>");
 				//set var for chattee phone number
 				chatteeNum = numDispay1;
 			}
@@ -204,10 +220,14 @@ $(document).ready(function(){
 <div style="margin-top:10px;">
 	<input type="hidden" name="name" id="name" placeholder="Your Name" maxlength="10" style="width:20%" value="<?php echo $handle ?>"  />
 	<input type="text" name="message" id="message" placeholder="Message" maxlength="80" style="width:68%" class="form-control message-input ng-pristine" />
-	<button id="send-btn" class="btn btn-primary btn-s btn-submit" style="width:70px;margin-top:-5px">GO!</button>
-	<div onclick="window.parent.voiceStart(chatteeNum);" style="cursor:pointer;">
-		call
-	</div>
+	<!--<button id="send-btn" class="btn btn-primary btn-s btn-submit" style="width:70px;margin-top:-5px">GO!</button>-->
+	<?php 
+		if($topicinit!="lobby"){
+			echo '<button style="width:70px;margin-top:-5px;" class="btn btn-primary btn-s btn-call" onclick="window.parent.voiceStart(chatteeNum);"><i style="font-size:28px;color:#fff;line-height:.8;" class="fa fa-phone"></i></button>';
+		}else{
+			//don't show the call button in the lobby
+		}
+	?>
 </div>
 
 
