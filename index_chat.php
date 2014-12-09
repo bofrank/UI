@@ -22,7 +22,7 @@ body{
 .chat_wrapper .panel input{
 	padding: 2px 2px 2px 5px;
 }
-.system_msg{color: #ddd;font-style: italic;}
+.system_msg{color: #ddd;font-style: italic;float:left;width:95%;}
 .user_message{color: #fff;}
 .btn-call{
   background-image: linear-gradient(#87FC70, #0BD318);
@@ -100,7 +100,7 @@ $(document).ready(function(){
 	websocket = new WebSocket(wsUri); 
 	
 	websocket.onopen = function(ev) { // connection is open 
-		$('#message_box').append("<div class=\"system_msg\"><?php echo trim($topicinit);?> Chat </div>"); //notify user
+		$('#message_box').append("<div class=\"system_msg\"><?php echo trim($topicinit);?> Chat </div><div style=\"float:left;cursor:pointer;\" onclick=\"window.parent.favSave('<?php echo trim($topicinit);?>');\"><i class=\"fa fa-thumbs-o-up\" style=\"color:#ddd;font-size:25px;margin-left:-10px;\"></i></div><div style=\"clear:both;\"></div>"); //notify user
 	}
 
 	$('#send-btn').click(function(){ //use clicks message send button	
@@ -110,6 +110,9 @@ $(document).ready(function(){
 	$('#message').keypress(function(event) {
         if (event.keyCode == 13) {
             sendMessageChat();
+        }else{
+        	$('#send-btn').show();
+					$('#iconCall').hide(); 
         }
     });
 
@@ -134,6 +137,10 @@ $(document).ready(function(){
 		};
 		//convert and send data to server
 		websocket.send(JSON.stringify(msg));
+
+		$('#send-btn').hide();
+		$('#iconCall').show();
+
 	}
 	
 	//#### Message received from server?
@@ -171,6 +178,9 @@ $(document).ready(function(){
 				$('#message_box').append("<div class=\"message-box\" style='margin-right:20px;'><span class=\"user_name\" style=\"color:#fff\"><div style=\"color:#fff;display:none;font-size:10px;line-height:5px;\">chattee:"+numDispay1+"</div><span style='display:none;'>"+uname+"</span></span> <span class=\"user_message\">"+umsg+"</span></div>");
 				//set var for chattee phone number
 				chatteeNum = numDispay1;
+				if(numDispay1){
+					$('#iconCall').show();
+				}
 			}
 			/*
 			if(umsg==null){
@@ -191,6 +201,7 @@ $(document).ready(function(){
 		$(".user_name:not(:contains('<?php echo trim($chatter);?>')):not(:contains('<?php echo trim($chatee);?>'))").parent().hide();
 		$(".user_name:not(:contains('<?php echo trim($topicinit);?>'))").parent().hide();
 		//$(".user_name:not(:contains('<?php echo trim($tempStr);?>')):not(:contains('<?php echo trim($tapid);?>'))").parent().hide();
+
 	};
 	
 /*
@@ -219,15 +230,10 @@ $(document).ready(function(){
 <div id="message_box"></div>
 <div style="margin-top:10px;">
 	<input type="hidden" name="name" id="name" placeholder="Your Name" maxlength="10" style="width:20%" value="<?php echo $handle ?>"  />
-	<input type="text" name="message" id="message" placeholder="Message" maxlength="80" style="width:68%" class="form-control message-input ng-pristine" />
-	<!--<button id="send-btn" class="btn btn-primary btn-s btn-submit" style="width:70px;margin-top:-5px">GO!</button>-->
-	<?php 
-		if($topicinit!="lobby"){
-			echo '<button style="width:70px;margin-top:-5px;" class="btn btn-primary btn-s btn-call" onclick="window.parent.voiceStart(chatteeNum);"><i style="font-size:28px;color:#fff;line-height:.8;" class="fa fa-phone"></i></button>';
-		}else{
-			//don't show the call button in the lobby
-		}
-	?>
+	<input type="text" name="message" id="message" placeholder="Message" maxlength="80" class="form-control message-input ng-pristine" style="width:68%;float:left;margin-left:10px;" />
+	<button id="send-btn" class="btn" style="width:70px;display:none;">Send</button>
+	<div style="float:left;display:none;" id="iconCall"><i style="font-size:40px;color:#fff;cursor:pointer;" class="fa fa-phone" onclick="window.parent.voiceStart(chatteeNum);"></i></div>
+		
 </div>
 
 
