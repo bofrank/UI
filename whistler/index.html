@@ -6,7 +6,7 @@
 	<script src="../js/jquery.watermark.js"></script>
 	<script>
 		function gothere(){
-			window.open("http://topicb.com/index.php?topic="+$("#mysearch").val());
+			window.open("http://topicb.com/demo/index.php?topic="+$("#mysearch").val());
 		}
 		$( document ).ready(function() {
 			$('#mysearch').watermark('TopicB Search');
@@ -18,61 +18,18 @@
 		});
 		$(function() {
     var availableTags = [
-"RaShaun",
-"Avril",
-"Bailey",
-"Baldwin",
-"Bennett",
-"Bradford",
-"Britt",
-"Burley",
-"Carpenter",
-"Chancellor",
-"Coyle",
-"Dobbs",
-"Gilliam",
-"Gresham",
-"Hauschka",
-"Helfet",
-"Hill",
-"Irvin",
-"Jackson",
-"Jeanpierre",
-"Johnson",
-"Kearse",
-"Lane",
-"Lewis",
-"Lockette",
-"Lynch",
-"Maxwell",
-"McDaniel",
-"Michael",
-"Moeaki",
-"Morgan",
-"Norwood",
-"Okung",
-"PierreLouis",
-"Richardson",
-"Robertson",
-"Ryan",
-"Schofield",
-"Shead",
-"Sherman",
-"Simon",
-"Smith",
-"Sweezy",
-"Thomas",
-"Tukuafu",
-"Turbin",
-"Unger",
-"Wagner",
-"Walters",
-"Williams",
-"Willson",
-"Wilson",
-"Wright"
+			"Heli-Skiing",
+			"Travel Agent",
+			"Snow Report",
+			"Lodging",
+			"Kids Snow School",
+			"Restaurants",
+			"Alpine Tour Bindings",
+			"fresh powder",
+			"best month for powder",
+			"powder skiis"
     ];
-    $( "#mysearch" ).autocomplete({
+    $("#mysearch").autocomplete({
       source: availableTags
     });
   });
