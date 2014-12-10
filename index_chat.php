@@ -116,6 +116,16 @@ $(document).ready(function(){
         }
     });
 
+	function voiceRequest(chatteeNum){
+		$('#message').val("incoming");
+		sendMessageChat();
+		window.parent.voiceStart(chatteeNum);
+	};
+
+	$("#iconCall").click(function() {
+  	voiceRequest(chatteeNum);
+	});
+
 	function sendMessageChat(){
 		var mymessage = $('#message').val(); //get message text
 		var myname = $('#name').val(); //get user name
@@ -173,13 +183,16 @@ $(document).ready(function(){
 			numDispay2 = tempNum.slice(0,3)+"-"+tempNum.slice(3,6)+"-"+tempNum.slice(6,15);
 
 			if(displayID == '<?php echo $NFID;?>'){
-				$('#message_box').append("<div class=\"message-box\" style='margin-left:20px;'><span class=\"user_name\" style=\"color:#fff\"><div style=\"color:#fff;display:none;font-size:10px;line-height:5px;\">chatter:"+numDispay2+"</div><span style='display:none;'>"+uname+"</span></span> <span class=\"user_message\">"+umsg+"</span></div>");
+				$('#message_box').append("<div class=\"message-box\" style='margin-left:20px;'><span class=\"user_name\" style=\"color:#fff\"><div style=\"color:#fff;display:block;font-size:10px;line-height:5px;\">me:"+numDispay2+"</div><span style='display:none;'>"+uname+"</span></span> <span class=\"user_message\">"+umsg+"</span></div>");
 			}else{
-				$('#message_box').append("<div class=\"message-box\" style='margin-right:20px;'><span class=\"user_name\" style=\"color:#fff\"><div style=\"color:#fff;display:none;font-size:10px;line-height:5px;\">chattee:"+numDispay1+"</div><span style='display:none;'>"+uname+"</span></span> <span class=\"user_message\">"+umsg+"</span></div>");
+				$('#message_box').append("<div class=\"message-box\" style='margin-right:20px;'><span class=\"user_name\" style=\"color:#fff\"><div style=\"color:#fff;display:block;font-size:10px;line-height:5px;\">id:"+numDispay1+"</div><span style='display:none;'>"+uname+"</span></span> <span class=\"user_message\">"+umsg+"</span></div>");
 				//set var for chattee phone number
 				chatteeNum = numDispay1;
 				if(numDispay1){
 					$('#iconCall').show();
+				}
+				if(umsg=="incoming"){
+					window.parent.voiceIncoming();
 				}
 			}
 			/*
@@ -225,6 +238,9 @@ $(document).ready(function(){
 	};
 
 });
+
+
+
 </script>
 
 <div id="message_box"></div>
@@ -232,7 +248,7 @@ $(document).ready(function(){
 	<input type="hidden" name="name" id="name" placeholder="Your Name" maxlength="10" style="width:20%" value="<?php echo $handle ?>"  />
 	<input type="text" name="message" id="message" placeholder="Message" maxlength="80" class="form-control message-input ng-pristine" style="width:68%;float:left;margin-left:10px;" />
 	<button id="send-btn" class="btn" style="width:70px;display:none;">Send</button>
-	<div style="float:left;display:none;" id="iconCall"><i style="font-size:40px;color:#fff;cursor:pointer;" class="fa fa-phone" onclick="window.parent.voiceStart(chatteeNum);"></i></div>
+	<div style="float:left;display:none;" id="iconCall"><i style="font-size:40px;color:#fff;cursor:pointer;" class="fa fa-phone"></i></div>
 		
 </div>
 
