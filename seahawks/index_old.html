@@ -6,14 +6,38 @@
 	<script src="../js/jquery.watermark.js"></script>
 	<script>
 		function gothere(){
-			window.open("http://topicb.com/index.php?image="+$("#mysearch").val());
+			//window.open("http://topicb.com/index.php?image="+$("#mysearch").val());
+			console.log("this is the gothere function");
+			window.open("http://topicb.com/demo/index.php?topic="+$("#mysearch").val());
 		}
 		$( document ).ready(function() {
 			$('#mysearch').watermark('TopicB Search');
+
+			var inputField = $("#mysearch");
+      var oldValue = inputField.text();
+      inputField.bind("drop", function() {
+          //when the drop happens the input value will not be updated yet
+          //use a timeout to allow the input value to change.
+          setTimeout($.proxy(function() {
+              if (this.value !== oldValue) {
+                  $(this).trigger('change');
+              }
+          }, this), 0);
+      });
+      $(document).on("change","#mysearch", function() {
+        console.log("this is the function bound to mysearch");
+        var tempText=this.value.substring(0, 4);
+        if((tempText=="http")&&((this.value != "")||(this.value != "Drag image or text here to chat"))){
+          oldValue = this.value;
+          gothere();
+          $("#mysearch").val("");
+        }
+      });
+
 		});
 		$(document).keypress(function(e) {
     	if(e.which == 13) {
-      	  gothere();
+      	gothere();
     	}
 		});
 		$(function() {
@@ -80,7 +104,7 @@
     });
     //$( "#mysearch" ).on( "autocompleteselect", function( event, ui ) {gothere();} );
   });
-		
+		/*
 			$(function(){
 		    $("img").draggable({
 	        revert : function(event, ui) {
@@ -106,6 +130,7 @@
 		      }
 		    });
 		  });
+*/
 
 	</script>
 	<style>

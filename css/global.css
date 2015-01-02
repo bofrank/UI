@@ -1,9 +1,5 @@
 body{
-    background: -webkit-linear-gradient(140deg, #359a99, #66cb9a, #359a99, #66cb9a, #359a99);
-    background: -o-linear-gradient(140deg, #359a99, #66cb9a, #359a99, #66cb9a, #359a99);
-    /*desktop firefox*/
-    background: -moz-linear-gradient(140deg, #359a99, #66cb9a, #359a99, #66cb9a, #359a99);
-    background: linear-gradient(140deg, #359a99, #66cb9a, #359a99, #66cb9a, #359a99);
+    background:#bbb;
 }
 
 ul{

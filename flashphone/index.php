@@ -15,7 +15,7 @@
 			allowFullscreen: "true",
 			allowScriptAccess: "always",
 			bgcolor: "",
-			wmode: "direct" // can cause issues with FP settings & webcam
+			wmode: "transparent" // can cause issues with FP settings & webcam
 		};
 		var attributes = {
 			id:"FlashPhone5"

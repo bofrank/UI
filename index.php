@@ -967,10 +967,10 @@ header('Expires: 0');
                 <div class="form-group">
                     <input id="topic1" type="text" data-ng-model="myTopics.topic1" name="form.topic1" class="form-control topic-input" maxlength="16" autofocus />
                 </div>
-                <div class="form-group">
+                <div class="form-group" style="display:none;">
                     <input id="topic2" type="text" data-ng-model="myTopics.topic2" name="form.topic2" class="form-control topic-input" maxlength="16" />
                 </div>
-                <div class="form-group">
+                <div class="form-group" style="display:none;">
                     <input id="topic3" type="text" data-ng-model="myTopics.topic3" name="form.topic3" class="form-control topic-input" maxlength="16" />
                 </div>
 

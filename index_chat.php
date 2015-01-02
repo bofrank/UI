@@ -62,6 +62,7 @@ if (($_GET["topicinit"]=="")||($_GET["topicinit"]==null)) {
     $topicinit = "image";
 }else{
 	$topicinit = $_GET["topicinit"];
+	//if(strpos($topicinit, 'http') === 0){$topicinit = '<img src="'.$topicinit.'" />';}
 }
 if (($_GET["NFID"]=="")||($_GET["NFID"]==null)) {
   $NFID = $_GET["chatter"];
@@ -100,7 +101,7 @@ $(document).ready(function(){
 	websocket = new WebSocket(wsUri); 
 	
 	websocket.onopen = function(ev) { // connection is open 
-		$('#message_box').append("<div class=\"system_msg\"><?php echo trim($topicinit);?> Chat </div><div style=\"float:left;cursor:pointer;\" onclick=\"window.parent.favSave('<?php echo trim($topicinit);?>');\"><i class=\"fa fa-thumbs-o-up\" style=\"color:#ddd;font-size:25px;margin-left:-10px;\"></i></div><div style=\"clear:both;\"></div>"); //notify user
+		$('#message_box').append("<div class=\"system_msg\"><?php echo trim($topicinit); ?> Chat </div><div style=\"float:left;cursor:pointer;\" onclick=\"window.parent.favSave('<?php echo trim($topicinit);?>');\" ><i class=\"fa fa-thumbs-o-up\" style=\"color:#ddd;font-size:25px;margin-left:-10px;\"></i></div><div style=\"clear:both;\"></div>"); //notify user
 	}
 
 	$('#send-btn').click(function(){ //use clicks message send button	
