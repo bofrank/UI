@@ -1,0 +1,279 @@
+<html>
+	<head>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
+		<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+		<script src="js/jquery.watermark.js"></script>
+		<script>
+			$(document).ready(function() {
+				$('#search-text').watermark('Search the Site');
+				$('#mysearch').watermark('TopicB Search');
+
+				var inputField = $("#mysearch");
+	      var oldValue = inputField.text();
+	      inputField.bind("drop", function() {
+	          //when the drop happens the input value will not be updated yet
+	          //use a timeout to allow the input value to change.
+	          setTimeout($.proxy(function() {
+	              if (this.value !== oldValue) {
+	                  $(this).trigger('change');
+	              }
+	          }, this), 0);
+	      });
+	      $(document).on("change","#mysearch", function() {
+	        console.log("this is the function bound to mysearch");
+	        var tempText=this.value.substring(0, 4);
+	        if((tempText=="http")&&((this.value != "")||(this.value != "Drag image or text here to chat"))){
+	          oldValue = this.value;
+	          gothereimg();
+	          $("#mysearch").val("");
+	        }
+	      });
+	      function gothereimg(){
+					window.open("http://topicb.com/demo/index.php?image="+$("#mysearch").val());
+    		}
+
+			});
+			function gothere(){
+				//window.open("http://topicb.com/index.php?image="+$("#mysearch").val());
+				window.open("http://topicb.com/demo/index.php?topic="+$("#mysearch").val());
+			}
+			$(document).keypress(function(e) {
+    	if(e.which == 13) {
+      	gothere();
+    	}
+    	
+		});
+		$(function() {
+    var availableTags = [
+"RaShaun",
+"Avril",
+"Bailey",
+"Baldwin",
+"Bennett",
+"Bradford",
+"Britt",
+"Burley",
+"Carpenter",
+"Chancellor",
+"Coyle",
+"Dobbs",
+"Gilliam",
+"Gresham",
+"Hauschka",
+"Helfet",
+"Hill",
+"Irvin",
+"Jackson",
+"Jeanpierre",
+"Johnson",
+"Kearse",
+"Lane",
+"Lewis",
+"Lockette",
+"Lynch",
+"Maxwell",
+"McDaniel",
+"Michael",
+"Moeaki",
+"Morgan",
+"Norwood",
+"Okung",
+"PierreLouis",
+"Richardson",
+"Robertson",
+"Ryan",
+"Schofield",
+"Shead",
+"Sherman",
+"Simon",
+"Smith",
+"Sweezy",
+"Thomas",
+"Tukuafu",
+"Turbin",
+"Unger",
+"Wagner",
+"Walters",
+"Williams",
+"Willson",
+"Wilson",
+"Wright"
+    ];
+    $( "#mysearch" ).autocomplete({
+      source: availableTags,
+      change: function( event, ui ) {
+      	return gothere();
+      }
+    });
+
+  });
+
+		</script>
+		<link href='http://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
+		<style>
+			body{
+				background:url("images/background.jpg") no-repeat scroll center top transparent;
+			}
+
+			.container{
+				margin: 0px auto;
+				width:980px;
+				border:1px solid #0d3566;"
+			}
+			#mysearch{
+				background: none repeat scroll 0 center rgba(0, 0, 0, 0);
+		    color: #333;
+		    font-weight: normal;
+		    padding: 0 0 0 8px;
+		    text-align: left;
+		    background-color:#fff;line-height:20px;
+			}
+			#search-text {
+		    background: none repeat scroll 0 center rgba(0, 0, 0, 0);
+		    color: #333;
+		    float: left;
+		    font-weight: normal;
+		    padding: 0 0 0 8px;
+		    text-align: left;
+		    width: 256px;
+			}
+			ul.root-menu-items {
+			    list-style: outside none none;
+			    padding: 0;
+			    position: relative;
+			    z-index: 25;
+			}
+			ul.root-menu-items li {
+				height:46px;
+			    display: block;
+			    float: left;
+			    overflow: hidden;
+			    padding: 0;
+			    position: relative;
+			    width: auto;
+			    margin-top: -25px;
+			}
+			ul.root-menu-items li a {
+			    background: none repeat scroll 0 0 #8a9397;
+			    color: #fff;
+			    font-family: Oswald,sans-serif;
+			    font-size: 16px;
+			    font-weight: 300;
+			    line-height: 44px;
+			    padding: 0 10px 0 10px;
+			    text-shadow: 0 -1px 0 #626e77;
+			    text-transform: uppercase;
+			    text-decoration: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="">
+				<div class="" style="float:left;">
+					<img src="images/ad1.jpg" />
+				</div>
+				<div class="" style="float:left;margin-left:10px;">
+					<img src="images/ad2.jpg" />
+				</div>
+				<div style="clear:both;"></div>
+			</div>
+			<div class="">
+				<div class="">
+					<img src="images/logo.png" style="float:left;" />
+				</div>
+				<div class="" style="float:left;border:solid 0px #fff;width:190px;height:20px;margin-top:31px;margin-left:30px;margin-right:-25px;">
+					<img src="images/icon_topicb.jpg" style="margin-bottom:-8px;cursor:pointer;" onclick="gothere();" />
+					<input id="mysearch" type="text" style="width:120px;height:24px;" />
+				</div>
+				<div class="" style="float:left;margin-top:27px;">
+					<img src="images/social.png" style="float:left;" />
+				</div>
+				<div class="" style="float:left;margin-top:30px;margin-left:10px;">
+					<form name="bing-search" method="get" action="http://search.seahawks.com/" style="line-height: 27px;">
+<div class="bing-search-wrp-1"><input name="q" id="search-text" autocomplete="off" style="background-color:#fff;line-height:20px;height:24px;"><input type="button" name="bing-go" style="background:url(images/search.png) no-repeat #fff;width:24px;height:24px;border:none;"></div>
+					</form>
+				</div>
+				<div class="" style="float:left;margin-top:26px;">
+					<img src="images/bing.png" style="float:left;" />
+				</div>
+				<div style="clear:both;"></div>
+			</div>
+			<div class="">
+				<div class="">
+
+			    <ul class="root-menu-items">
+            <li id="main-nav-news">
+                <a href="http://www.seahawks.com/news/index.html" title="News" target="" class="root-node-link" onclick="s_objectID=&quot;http://www.seahawks.com/news/index.html_1&quot;;return this.s_oc?this.s_oc(e):true">
+                    <span>News</span>
+                </a>
+            </li>
+            <li id="main-nav-team">
+                <a href="http://www.seahawks.com/team/roster.html" title="Team" target="" class="root-node-link" onclick="s_objectID=&quot;http://www.seahawks.com/team/roster.html_1&quot;;return this.s_oc?this.s_oc(e):true">
+                    <span>Team</span>
+                </a>
+            </li>
+            <li id="main-nav-videos--photos">
+                <a href="http://www.seahawks.com/videos-photos/index.html" title="Videos &amp; Photos" target="" class="root-node-link" onclick="s_objectID=&quot;http://www.seahawks.com/videos-photos/index.html_1&quot;;return this.s_oc?this.s_oc(e):true">
+                    <span>Videos &amp; Photos</span>
+                </a>
+            </li>
+            <li id="main-nav-schedule">
+                <a href="http://www.seahawks.com/schedule/season-schedule.html" title="Schedule" target="" class="root-node-link" onclick="s_objectID=&quot;http://www.seahawks.com/schedule/season-schedule.html_1&quot;;return this.s_oc?this.s_oc(e):true">
+                    <span>Schedule</span>
+                </a>
+            </li>
+            <li id="main-nav-gameday">
+                <a href="http://www.seahawks.com/gameday/index.html" title="Gameday" target="" class="root-node-link" onclick="s_objectID=&quot;http://www.seahawks.com/gameday/index.html_1&quot;;return this.s_oc?this.s_oc(e):true">
+                    <span>Gameday</span>
+                </a>
+            </li>
+            <li id="main-nav-watch-games">
+                <a href="http://www.pjatr.com/t/RUBKRUNIS0BKRklGQ0BISEtERw" title="Watch Games" target="_blank" class="root-node-link" onclick="s_objectID=&quot;http://www.pjatr.com/t/RUBKRUNIS0BKRklGQ0BISEtERw_1&quot;;return this.s_oc?this.s_oc(e):true">
+                    <span>Watch Games</span>
+                </a>
+            </li>
+            <li id="main-nav-spirit-of-12">
+                <a href="http://www.seahawks.com/12th-Man/spirit-of-12/index.html" title="Spirit Of 12" target="" class="root-node-link" onclick="s_objectID=&quot;http://www.seahawks.com/12th-Man/spirit-of-12/index.html_1&quot;;return this.s_oc?this.s_oc(e):true">
+                    <span>Spirit Of 12</span>
+                </a>
+            </li>
+            <li id="main-nav-tickets">
+                <a href="http://www.seahawks.com/tickets/index.html" title="Tickets" target="" class="root-node-link" onclick="s_objectID=&quot;http://www.seahawks.com/tickets/index.html_1&quot;;return this.s_oc?this.s_oc(e):true">
+                    <span>Tickets</span>
+                </a>
+            </li>
+            <li id="main-nav-sea-gals">
+                <a href="http://www.seahawks.com/cheerleaders/index.html" title="Sea Gals" target="" class="root-node-link" onclick="s_objectID=&quot;http://www.seahawks.com/cheerleaders/index.html_1&quot;;return this.s_oc?this.s_oc(e):true">
+                    <span>Sea Gals</span>
+                </a>
+            </li>
+            <li id="main-nav-youth">
+                <a href="http://www.seahawks.com/youth/index.html" title="Youth" target="" class="root-node-link" onclick="s_objectID=&quot;http://www.seahawks.com/youth/index.html_1&quot;;return this.s_oc?this.s_oc(e):true">
+                    <span>Youth</span>
+                </a>
+            </li>
+            <li id="main-nav-community">
+                <a href="http://www.seahawks.com/community/index.html" title="Community" target="" class="root-node-link" onclick="s_objectID=&quot;http://www.seahawks.com/community/index.html_1&quot;;return this.s_oc?this.s_oc(e):true">
+                    <span>Community</span>
+                </a>
+            </li>
+            <li id="main-nav-pro-shop">
+                <a href="http://proshop.seahawks.com/?source=bm-SEA-TopNav?utm_source=seahawkscom&amp;utm_medium=bm_referral&amp;utm_term=kw--no_keyword|cpn--no_coupon|offer--no_offer&amp;utm_content=L--NFL|t--Seattle_Seahawks|p--all_Seattle_Seahawks_players|pc--all_product_categories|ag--NoGender&amp;utm_campaign=dest--www_proshop_seahawks_com|creatv--TopNav|date--100214|geo--NoGeo" title="Pro Shop" target="_blank" class="root-node-link" onclick="s_objectID=&quot;http://proshop.seahawks.com/?source=bm-SEA-TopNav?utm_source=seahawkscom&amp;utm_medium=bm_referral&amp;u_1&quot;;return this.s_oc?this.s_oc(e):true">
+                    <span>Pro Shop</span>
+                </a>
+            </li>
+    </ul>
+
+				</div>
+			</div>
+			<div class="" style="cursor:pointer;">
+				<img src="images/content_1.png" />
+			</div>
+			<div class="">
+				<img src="images/content_2.png" style="cursor:pointer;" />
+			</div>
+		</div>
+	</body>
+</html>
