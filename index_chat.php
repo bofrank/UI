@@ -149,8 +149,8 @@ $(document).ready(function(){
 		//convert and send data to server
 		websocket.send(JSON.stringify(msg));
 
-		$('#send-btn').hide();
-		$('#iconCall').show();
+		//$('#send-btn').hide();
+		//$('#iconCall').show();
 
 	}
 	
@@ -184,13 +184,13 @@ $(document).ready(function(){
 			numDispay2 = tempNum.slice(0,3)+"-"+tempNum.slice(3,6)+"-"+tempNum.slice(6,15);
 
 			if(displayID == '<?php echo $NFID;?>'){
-				$('#message_box').append("<div class=\"message-box\" style='margin-left:20px;'><span class=\"user_name\" style=\"color:#fff\"><div style=\"color:#fff;display:block;font-size:10px;line-height:5px;\">me:"+numDispay2+"</div><span style='display:none;'>"+uname+"</span></span> <span class=\"user_message\">"+umsg+"</span></div>");
+				$('#message_box').append("<div class=\"message-box\" style='margin-left:20px;'><span class=\"user_name\" style=\"color:#fff\"><div style=\"color:#fff;display:none;font-size:10px;line-height:5px;\">me:"+numDispay2+"</div><span style='display:none;'>"+uname+"</span></span> <span class=\"user_message\">"+umsg+"</span></div>");
 			}else{
-				$('#message_box').append("<div class=\"message-box\" style='margin-right:20px;'><span class=\"user_name\" style=\"color:#fff\"><div style=\"color:#fff;display:block;font-size:10px;line-height:5px;\">id:"+numDispay1+"</div><span style='display:none;'>"+uname+"</span></span> <span class=\"user_message\">"+umsg+"</span></div>");
+				$('#message_box').append("<div class=\"message-box\" style='margin-right:20px;'><span class=\"user_name\" style=\"color:#fff\"><div style=\"color:#fff;display:none;font-size:10px;line-height:5px;\">id:"+numDispay1+"</div><span style='display:none;'>"+uname+"</span></span> <span class=\"user_message\">"+umsg+"</span></div>");
 				//set var for chattee phone number
 				chatteeNum = numDispay1;
 				if(numDispay1){
-					$('#iconCall').show();
+					//$('#iconCall').show();
 				}
 				if(umsg=="incoming"){
 					window.parent.voiceIncoming();
