@@ -6,11 +6,13 @@
 <link href="css/bootstrap.css" rel="stylesheet">
 <link href="css/global.css" rel="stylesheet">
 <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,700' rel='stylesheet' type='text/css'>
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 <style type="text/css">
 <!--
 body{
 	background:none;
+	font-family: "Roboto Slab",sans-serif;
 }
 .chat_wrapper .message_box {
 	background: none;
@@ -23,7 +25,7 @@ body{
 	padding: 2px 2px 2px 5px;
 }
 .system_msg{color: #ddd;font-style: italic;float:left;width:95%;}
-.user_message{color: #fff;}
+.user_message{color: #bfbebe;}
 .btn-call{
   background-image: linear-gradient(#87FC70, #0BD318);
   border: 2px solid #fff;
@@ -38,6 +40,12 @@ body{
 }
 .btn-call:hover{
   border: 2px solid #fff;
+}
+.form-control::-moz-placeholder{
+	 color: #bfbebe;
+}
+.form-control{
+	 color: #bfbebe;
 }
 -->
 </style>
@@ -101,7 +109,7 @@ $(document).ready(function(){
 	websocket = new WebSocket(wsUri); 
 	
 	websocket.onopen = function(ev) { // connection is open 
-		$('#message_box').append("<div class=\"system_msg\"><?php echo trim($topicinit); ?> Chat </div><div style=\"float:left;cursor:pointer;\" onclick=\"window.parent.favSave('<?php echo trim($topicinit);?>');\" ><i class=\"fa fa-thumbs-o-up\" style=\"color:#ddd;font-size:25px;margin-left:-10px;\"></i></div><div style=\"clear:both;\"></div>"); //notify user
+		$('#message_box').append("<div class=\"system_msg\"><?php echo trim($topicinit); ?> Chat </div><div style=\"clear:both;\"></div>"); //notify user
 	}
 
 	$('#send-btn').click(function(){ //use clicks message send button	
@@ -112,8 +120,8 @@ $(document).ready(function(){
         if (event.keyCode == 13) {
             sendMessageChat();
         }else{
-        	$('#send-btn').show();
-					$('#iconCall').hide(); 
+        	//$('#send-btn').show();
+					//$('#iconCall').hide(); 
         }
     });
 
@@ -128,7 +136,8 @@ $(document).ready(function(){
 	});
 
 	function sendMessageChat(){
-		var mymessage = $('#message').val(); //get message text
+		//var mymessage = $('#message').val(); //get message text
+		var mymessage = $('#alias').val() + ': ' + $('#message').val();
 		var myname = $('#name').val(); //get user name
 		
 		if(myname == ""){ //empty name?
@@ -184,9 +193,9 @@ $(document).ready(function(){
 			numDispay2 = tempNum.slice(0,3)+"-"+tempNum.slice(3,6)+"-"+tempNum.slice(6,15);
 
 			if(displayID == '<?php echo $NFID;?>'){
-				$('#message_box').append("<div class=\"message-box\" style='margin-left:20px;'><span class=\"user_name\" style=\"color:#fff\"><div style=\"color:#fff;display:none;font-size:10px;line-height:5px;\">me:"+numDispay2+"</div><span style='display:none;'>"+uname+"</span></span> <span class=\"user_message\">"+umsg+"</span></div>");
+				$('#message_box').append("<div class=\"message-box\" style='margin-left:20px;'><span class=\"user_name\" style=\"color:#bfbebe\"><div style=\"color:#bfbebe;display:none;font-size:10px;line-height:5px;\">me:"+numDispay2+"</div><span style='display:none;'>"+uname+"</span></span> <span class=\"user_message\">"+umsg+"</span></div>");
 			}else{
-				$('#message_box').append("<div class=\"message-box\" style='margin-right:20px;'><span class=\"user_name\" style=\"color:#fff\"><div style=\"color:#fff;display:none;font-size:10px;line-height:5px;\">id:"+numDispay1+"</div><span style='display:none;'>"+uname+"</span></span> <span class=\"user_message\">"+umsg+"</span></div>");
+				$('#message_box').append("<div class=\"message-box\" style='margin-right:20px;'><span class=\"user_name\" style=\"color:#bfbebe\"><div style=\"color:#bfbebe;display:none;font-size:10px;line-height:5px;\">id:"+numDispay1+"</div><span style='display:none;'>"+uname+"</span></span> <span class=\"user_message\">"+umsg+"</span></div>");
 				//set var for chattee phone number
 				chatteeNum = numDispay1;
 				if(numDispay1){
@@ -244,11 +253,13 @@ $(document).ready(function(){
 
 </script>
 
+Your Name: <input type="text" name="alias" id="alias" placeholder="Enter a name" maxlength="10" class="form-control" style="width:140px;color:#bfbebe;" value="" />
+
 <div id="message_box"></div>
 <div style="margin-top:10px;">
-	<input type="hidden" name="name" id="name" placeholder="Your Name" maxlength="10" style="width:20%" value="<?php echo $handle ?>"  />
-	<input type="text" name="message" id="message" placeholder="Message" maxlength="80" class="form-control message-input ng-pristine" style="width:68%;float:left;margin-left:10px;" />
-	<button id="send-btn" class="btn" style="width:70px;display:none;">Send</button>
+	<input type="hidden" name="name" id="name" placeholder="Your Name" maxlength="10" style="width:20%" value="<?php echo $handle ?>" />
+	<input type="text" name="message" id="message" placeholder="Start typing to chat ..." maxlength="80" class="form-control message-input ng-pristine" style="width:68%;float:left;background:#fff;" />
+	<button id="send-btn" class="btn" style="width:70px;background:#229eff;font-size:14px;color:#fff;">Send</button>
 	<div style="float:left;display:none;" id="iconCall"><i style="font-size:40px;color:#fff;cursor:pointer;" class="fa fa-phone"></i></div>
 		
 </div>
