@@ -16,7 +16,7 @@ $tapid = $_GET["tapid"];
 $score = $_GET["score"];
 $image = $_GET["image"];
 
-if($image = undefined){
+if($image == undefined){
 	$image = "http://topicb.com/images/blank.jpg";
 }
 
