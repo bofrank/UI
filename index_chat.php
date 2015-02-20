@@ -12,20 +12,25 @@
 <!--
 body{
 	background:none;
-	font-family: "Roboto Slab",sans-serif;
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	color:#9ea3ab;
+	font-size:15px;
 }
 .chat_wrapper .message_box {
 	background: none;
 	height: 150px;
 	overflow: auto;
 	padding: 10px;
-	border: 1px solid #999999;
+	border: 2px solid #9ea3ab;
+	color:#9ea3ab;
 }
 .chat_wrapper .panel input{
 	padding: 2px 2px 2px 5px;
+	border: 2px solid #9ea3ab;
+	color:#9ea3ab;
 }
 .system_msg{color: #ddd;font-style: italic;float:left;width:95%;}
-.user_message{color: #bfbebe;}
+.user_message{color: #000;}
 .btn-call{
   background-image: linear-gradient(#87FC70, #0BD318);
   border: 2px solid #fff;
@@ -42,10 +47,11 @@ body{
   border: 2px solid #fff;
 }
 .form-control::-moz-placeholder{
-	 color: #bfbebe;
+	 color: #9ea3ab;
+	 font-size:14px;
 }
 .form-control{
-	 color: #bfbebe;
+	 color: #9ea3ab;
 }
 -->
 </style>
@@ -109,7 +115,7 @@ $(document).ready(function(){
 	websocket = new WebSocket(wsUri); 
 	
 	websocket.onopen = function(ev) { // connection is open 
-		$('#message_box').append("<div class=\"system_msg\"><?php echo trim($topicinit); ?> Chat </div><div style=\"clear:both;\"></div>"); //notify user
+		//$('#message_box').append("<div class=\"system_msg\"><?php echo trim($topicinit); ?> Chat </div><div style=\"clear:both;\"></div>"); //notify user
 	}
 
 	$('#send-btn').click(function(){ //use clicks message send button	
@@ -252,15 +258,24 @@ $(document).ready(function(){
 
 
 </script>
-
-Your Name: <input type="text" name="alias" id="alias" placeholder="Enter a name" maxlength="10" class="form-control" style="width:140px;color:#bfbebe;" value="" />
+<div style="margin-bottom:5px;">
+	<div style="font-size:14px;margin-left:1px;">
+		<i class="fa fa-circle"></i>&nbsp;Chat With The Author (currently offline)
+		<br/>
+		<span style="color:#000;"><i class="fa fa-comment-o"></i>&nbsp;1,745 messages</span>
+	</div>
+</div>
+<span style="color:#000;">Your Name:</span> <input type="text" name="alias" id="alias" placeholder="Guest" maxlength="10" class="form-control" style="width:140px;color:#9ea3ab;border:solid 2px;padding:3px 4px;height:24px;font-size:14px;" value="Guest" />
 
 <div id="message_box"></div>
-<div style="margin-top:10px;">
-	<input type="hidden" name="name" id="name" placeholder="Your Name" maxlength="10" style="width:20%" value="<?php echo $handle ?>" />
-	<input type="text" name="message" id="message" placeholder="Start typing to chat ..." maxlength="80" class="form-control message-input ng-pristine" style="width:68%;float:left;background:#fff;" />
-	<button id="send-btn" class="btn" style="width:70px;background:#229eff;font-size:14px;color:#fff;">Send</button>
+<div style="margin-top:5px;">
+	<input type="hidden" name="name" id="name" placeholder="Your Name" maxlength="10" style="width:20%;" value="<?php echo $handle ?>" />
+	<input type="text" name="message" id="message" placeholder="Start typing to chat ..." maxlength="80" class="form-control message-input ng-pristine" style="width:68%;float:left;background:#fff;margin-right:10px;color:#000;border:solid 2px #9ea3ab;padding: 0px 6px;height:28px;font-size:14px;" />
+	<button id="send-btn" class="btn" style="width:70px;background:#229eff;font-size:14px;color:#fff;padding:3px;">Send</button>
 	<div style="float:left;display:none;" id="iconCall"><i style="font-size:40px;color:#fff;cursor:pointer;" class="fa fa-phone"></i></div>
+	<div>
+		<span style="font-size:12px;">chat will not be recorded and removed when leaving room</span>
+	</div>
 		
 </div>
 

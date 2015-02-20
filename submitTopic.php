@@ -15,6 +15,7 @@ $topic = $_GET["topic"];
 $tapid = $_GET["tapid"];
 $score = $_GET["score"];
 $image = $_GET["image"];
+$ip = $_GET["ip"];
 
 if($image == undefined){
 	$image = "http://topicb.com/images/blank.jpg";
@@ -39,7 +40,7 @@ for($i=0;$i<count($result);$i++){
 
 if($counter == 0){
 
-	$DB->Query("INSERT INTO topics (topic,tapid,score,image) VALUES('$topic','$tapid','$score','$image')");
+	$DB->Query("INSERT INTO topics (topic,tapid,score,image,ip) VALUES('$topic','$tapid','$score','$image','$ip')");
 	echo "topic created = ".$topic;
 
 }
