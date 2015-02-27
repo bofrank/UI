@@ -40,7 +40,24 @@ for($i=0;$i<count($result);$i++){
 
 if($counter == 0){
 
-	$DB->Query("INSERT INTO topics (topic,tapid,score,image,ip) VALUES('$topic','$tapid','$score','$image','$ip')");
+	$url = 'https://api.monkeylearn.com/api/v1/categorizer/cl_5icAVzKR/classify_text/';
+	$data = array('text' => $topic);
+
+	$options = array(
+    'http' => array(
+        'header'  => "Content-type: application/x-www-form-urlencoded\r\n".
+            "Authorization:token 825fe2c297e090d8c2b73a5adf0e17ee01a59b02\r\n",
+        'method'  => 'POST',
+        'content' => http_build_query($data),
+    ),
+	);
+	$context  = stream_context_create($options);
+	$result = file_get_contents($url, false, $context);
+	$json_output = json_decode(trim($result),TRUE);
+
+	$category = $json_output['result'][0]['label'];
+
+	$DB->Query("INSERT INTO topics (topic,tapid,category,score,image,ip) VALUES('$topic','$tapid','$category','$score','$image','$ip')");
 	echo "topic created = ".$topic;
 
 }

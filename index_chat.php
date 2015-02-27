@@ -163,6 +163,7 @@ $(document).ready(function(){
 		};
 		//convert and send data to server
 		websocket.send(JSON.stringify(msg));
+		//websocket.send("hello");
 
 		//$('#send-btn').hide();
 		//$('#iconCall').show();
@@ -246,9 +247,9 @@ $(document).ready(function(){
 	websocket.onclose = function(ev){
 		$('#message_box').append("<div class=\"system_msg\">Sorry, Chat is unavailable at the moment.</div>");
 		if(sessionStorage.counter==0){
-			$.ajax({url:"http://www.bofrank.com/chat_down.php"});
-			$.ajax({url:"server_chat.php"});
-			location.reload();
+			//$.ajax({url:"http://www.bofrank.com/chat_down.php"});
+			//$.ajax({url:"server_chat.php"});
+			//location.reload();
 		}
 		sessionStorage.counter++;
 	};
@@ -260,7 +261,8 @@ $(document).ready(function(){
 </script>
 <div style="margin-bottom:5px;">
 	<div style="font-size:14px;margin-left:1px;">
-		<i class="fa fa-circle"></i>&nbsp;Chat With The Author (currently offline)
+		<!--<i class="fa fa-circle"></i>&nbsp;Chat With The Author (currently offline)-->
+		Sorry, chat is unavailable at the moment.
 		<br/>
 		<span style="color:#000;"><i class="fa fa-comment-o"></i>&nbsp;1,745 messages</span>
 	</div>
