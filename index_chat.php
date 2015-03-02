@@ -143,7 +143,15 @@ $(document).ready(function(){
 
 	function sendMessageChat(){
 		//var mymessage = $('#message').val(); //get message text
-		var mymessage = $('#alias').val() + ': ' + $('#message').val();
+		//var mymessage = $('#alias').val() + ': ' + $('#message').val();
+
+		var mymessage = "";
+		if($('#alias').val()==""){
+			mymessage = 'Guest: ' + $('#message').val();
+		}else{
+			mymessage = $('#alias').val() + ': ' + $('#message').val();
+		}
+
 		var myname = $('#name').val(); //get user name
 		
 		if(myname == ""){ //empty name?
@@ -247,9 +255,9 @@ $(document).ready(function(){
 	websocket.onclose = function(ev){
 		$('#message_box').append("<div class=\"system_msg\">Sorry, Chat is unavailable at the moment.</div>");
 		if(sessionStorage.counter==0){
-			//$.ajax({url:"http://www.bofrank.com/chat_down.php"});
-			//$.ajax({url:"server_chat.php"});
-			//location.reload();
+			$.ajax({url:"http://www.bofrank.com/chat_down.php"});
+			$.ajax({url:"server_chat.php"});
+			location.reload();
 		}
 		sessionStorage.counter++;
 	};
@@ -261,13 +269,13 @@ $(document).ready(function(){
 </script>
 <div style="margin-bottom:5px;">
 	<div style="font-size:14px;margin-left:1px;">
-		<!--<i class="fa fa-circle"></i>&nbsp;Chat With The Author (currently offline)-->
-		Sorry, chat is unavailable at the moment.
+		<i class="fa fa-circle"></i>&nbsp;Chat With The Author (currently offline)
+		<!-- Sorry, chat is unavailable at the moment. -->
 		<br/>
 		<span style="color:#000;"><i class="fa fa-comment-o"></i>&nbsp;1,745 messages</span>
 	</div>
 </div>
-<span style="color:#000;">Your Name:</span> <input type="text" name="alias" id="alias" placeholder="Guest" maxlength="10" class="form-control" style="width:140px;color:#9ea3ab;border:solid 2px;padding:3px 4px;height:24px;font-size:14px;" value="Guest" />
+<span style="color:#000;">Your Name:</span> <input type="text" name="alias" id="alias" placeholder="Guest" maxlength="10" class="form-control" style="width:140px;color:#9ea3ab;border:solid 2px;padding:3px 4px;height:24px;font-size:14px;" value="" />
 
 <div id="message_box"></div>
 <div style="margin-top:5px;">
