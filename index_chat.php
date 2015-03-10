@@ -176,6 +176,9 @@ $(document).ready(function(){
 		//$('#send-btn').hide();
 		//$('#iconCall').show();
 
+		//change chat state to active
+		$.ajax({url:"updateChatState.php?state=active&topic=<?php echo $topicinit ?>&time="+(Date.now()/1000)});
+
 	}
 	
 	//#### Message received from server?
